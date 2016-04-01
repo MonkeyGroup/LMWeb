@@ -203,6 +203,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -214,6 +215,99 @@
     <Compile Include="Security\CurrentUser.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\about.css" />
+    <Content Include="Content\css\footer.css" />
+    <Content Include="Content\css\header.css" />
+    <Content Include="Content\css\index.css" />
+    <Content Include="Content\css\nav.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\tb.css" />
+    <Content Include="Content\css\tpqh.css" />
+    <Content Include="Content\images\11.jpg" />
+    <Content Include="Content\images\20130924152922_87930.jpg" />
+    <Content Include="Content\images\20131008095253_65406.jpg" />
+    <Content Include="Content\images\20131008095452_44568.jpg" />
+    <Content Include="Content\images\20131008095812_63264.jpg" />
+    <Content Include="Content\images\20131008100000_29028.jpg" />
+    <Content Include="Content\images\20131017095551_94466.jpg" />
+    <Content Include="Content\images\20140117110513_33614.jpg" />
+    <Content Include="Content\images\20160321143707.jpg" />
+    <Content Include="Content\images\2118b59.jpg" />
+    <Content Include="Content\images\22.jpg" />
+    <Content Include="Content\images\33.png" />
+    <Content Include="Content\images\44.jpg" />
+    <Content Include="Content\images\barbg01.png" />
+    <Content Include="Content\images\barbg02.png" />
+    <Content Include="Content\images\bg.jpg" />
+    <Content Include="Content\images\bg1.png" />
+    <Content Include="Content\images\bt.jpg" />
+    <Content Include="Content\images\btzbg.jpg" />
+    <Content Include="Content\images\bt_bg.jpg" />
+    <Content Include="Content\images\bt_hover.jpg" />
+    <Content Include="Content\images\bt_line.jpg" />
+    <Content Include="Content\images\cxwz.jpg" />
+    <Content Include="Content\images\dianzu2.jpg" />
+    <Content Include="Content\images\dinglong.jpg" />
+    <Content Include="Content\images\dot.png" />
+    <Content Include="Content\images\duofuduohua.jpg" />
+    <Content Include="Content\images\guanggao.gif" />
+    <Content Include="Content\images\guanghua.jpg" />
+    <Content Include="Content\images\guiding1.jpg" />
+    <Content Include="Content\images\hdtplistbg_03.gif" />
+    <Content Include="Content\images\huahong.jpg" />
+    <Content Include="Content\images\huaxing.jpg" />
+    <Content Include="Content\images\hyxx.png" />
+    <Content Include="Content\images\icon1.jpg" />
+    <Content Include="Content\images\icon2.jpg" />
+    <Content Include="Content\images\icon3.jpg" />
+    <Content Include="Content\images\icon4.jpg" />
+    <Content Include="Content\images\icon5.jpg" />
+    <Content Include="Content\images\img5.jpg" />
+    <Content Include="Content\images\jianghua.jpg" />
+    <Content Include="Content\images\jingdongfang.jpg" />
+    <Content Include="Content\images\jrwz_bg.jpg" />
+    <Content Include="Content\images\juhua.jpg" />
+    <Content Include="Content\images\kjtd.jpg" />
+    <Content Include="Content\images\kjtd_bg.jpg" />
+    <Content Include="Content\images\left_jiantou.jpg" />
+    <Content Include="Content\images\li.jpg" />
+    <Content Include="Content\images\lmdt.png" />
+    <Content Include="Content\images\logo.ico" />
+    <Content Include="Content\images\more.jpg" />
+    <Content Include="Content\images\more_hover.jpg" />
+    <Content Include="Content\images\nav01.gif" />
+    <Content Include="Content\images\nav02.jpg" />
+    <Content Include="Content\images\nav03.gif" />
+    <Content Include="Content\images\nav04.png" />
+    <Content Include="Content\images\navbg.jpg" />
+    <Content Include="Content\images\nav_ah.jpg" />
+    <Content Include="Content\images\nav_ah.png" />
+    <Content Include="Content\images\nav_yj.png" />
+    <Content Include="Content\images\news_icon.jpg" />
+    <Content Include="Content\images\noselectbg.jpg" />
+    <Content Include="Content\images\right_jiantou.jpg" />
+    <Content Include="Content\images\shengquan.jpg" />
+    <Content Include="Content\images\shu_line.jpg" />
+    <Content Include="Content\images\sousuo.jpg" />
+    <Content Include="Content\images\sousuo_bg.jpg" />
+    <Content Include="Content\images\subnav_hover.jpg" />
+    <Content Include="Content\images\syqy.png" />
+    <Content Include="Content\images\tianmahui.jpg" />
+    <Content Include="Content\images\traks_classes.jpg" />
+    <Content Include="Content\images\weizi.jpg" />
+    <Content Include="Content\images\xinpian1.jpg" />
+    <Content Include="Content\images\yqlj_bg.jpg" />
+    <Content Include="Content\images\yuanjing1.jpg" />
+    <Content Include="Content\images\zhaoshang.png" />
+    <Content Include="Content\images\zhongxin.jpg" />
+    <Content Include="Content\js\jquery-1.9.1.js" />
+    <Content Include="Content\js\listScroll.js" />
+    <Content Include="Content\js\logoRoll.js" />
+    <Content Include="Content\js\slide.js" />
+    <Content Include="Content\js\tab.js" />
+    <Content Include="Content\js\xtqh_js.js" />
+    <Content Include="Content\swf\movie.swf" />
+    <Content Include="Content\swf\movie2.swf" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -289,11 +383,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\css\" />
-    <Folder Include="Content\images\" />
-    <Folder Include="Content\js\" />
-    <Folder Include="Content\swf\" />
     <Folder Include="Services\" />
+    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -315,6 +406,12 @@
       <Project>{98ee4418-1307-4824-ae86-fb04dd3eaa92}</Project>
       <Name>LM.Utility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Header.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

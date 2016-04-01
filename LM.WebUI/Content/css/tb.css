@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* CSS Document */
+body{ padding:0 0 5px;margin:0 auto;font-family:Arial,"宋体";color:#303030;font-size:12px; }
+ul,li,ol,dl,dt,dd,p{padding:0;margin:0;list-style:none;}
+.datat{ overflow:hidden; width:454px; *+width:450px; _width:450px; height:33px; border:#dddddd solid 1px; background:url(../images/btzbg.jpg) top left repeat-x; float:left;}
+.datat ul{height:32px;}
+.datat ul li{height:30px; line-height:27px; float:left; margin-top:5px;}
+.datat ul li a{text-align:center; line-height:33px; margin-left:3px; font-family:"微软雅黑"; font-size:12px; color:#FFF; display:block; width:78px; height:27px; color:#0093d0;}
+.datat ul li a:hover{color:#FFF; background:url(../images/bt.jpg) left no-repeat; }
+.datat ul li.data_normaltab a{color:#FFF; background:url(../images/bt.jpg) left no-repeat; }
+.datan{ border:1px #dcdcdc solid; border-top:none; width:454px;  *+width:450px; _width:450px; height:241px; *+height:207px;}

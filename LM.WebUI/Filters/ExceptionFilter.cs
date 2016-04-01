@@ -43,7 +43,7 @@ namespace LM.WebUI.Filters
                         sbHeaders.Append(keyName + ":" + strings[0] + " ");
                 }
 
-                //LogHelper.WriteLog(sb.ToString());
+                LogHelper.WriteLogByIo(sb.ToString(), "D://");
 
                 filterContext.ExceptionHandled = true;
 

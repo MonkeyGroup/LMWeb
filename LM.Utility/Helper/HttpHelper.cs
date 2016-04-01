@@ -73,7 +73,7 @@ namespace LM.Utility.Helper
             }
             catch
             {
-                //LogHelper.WriteLog("同步失败\r\nUrl:" + url + "\r\nParam:" + param);
+                LogHelper.WriteLog("同步失败\r\nUrl:" + url + "\r\nParam:" + param);
             }
         }
     }
