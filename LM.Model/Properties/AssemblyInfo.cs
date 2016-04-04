@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("LM.Entity")]
+[assembly: AssemblyTitle("LM.Model")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("LM.Entity")]
+[assembly: AssemblyProduct("LM.Model")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("28a34c20-90b4-4e27-b48d-6d7e46805aeb")]
+[assembly: Guid("a2dae5c7-2983-44fa-b4e7-64b3ca31796c")]
 
 // 程序集的版本信息由下面四个值组成: 
 //

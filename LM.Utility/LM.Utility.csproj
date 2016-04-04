@@ -72,10 +72,19 @@
     <Compile Include="Helper\UriHelper.cs" />
     <Compile Include="Helper\ValidateCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\AppCache.cs" />
+    <Compile Include="Util\MyCache.cs">
+      <DependentUpon>ICache.cs</DependentUpon>
+    </Compile>
     <Compile Include="Util\ICache.cs" />
-    <Compile Include="Util\IMySession.cs" />
-    <Compile Include="Util\MySession.cs" />
+    <Compile Include="Util\ICookie.cs" />
+    <Compile Include="Util\ISession.cs" />
+    <Compile Include="Util\LinqExt.cs" />
+    <Compile Include="Util\MyCookie.cs">
+      <DependentUpon>ICookie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Util\MySession.cs">
+      <DependentUpon>ISession.cs</DependentUpon>
+    </Compile>
     <Compile Include="Util\StringExt.cs" />
   </ItemGroup>
   <ItemGroup />

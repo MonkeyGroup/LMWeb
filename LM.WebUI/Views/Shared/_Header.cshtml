@@ -1,4 +1,5 @@
 ﻿@{
+    Layout = null; /* 此句必须加，不然默认布局页为_Layout页，会造成死循环 */
     ViewBag.Title = "Header";
 }
 
@@ -22,10 +23,10 @@
 <div class="top">
     <div class="flash">
         <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="1004" height="181">
-            <param name="movie" value="swf/movie2.swf" />
+            <param name="movie" value="/Content/swf/movie2.swf" />
             <param name="quality" value="high" />
             <param name="wmode" value="opaque" />
-            <embed src="swf/movie2.swf" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="1004" height="181" />
+            <embed src="/Content/swf/movie2.swf" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="1004" height="181" />
         </object>
     </div>
 </div>
@@ -33,27 +34,27 @@
 <!--nav-->
 <div class="top1">
     <ul id="navmenu">
-        <li><a href="index.php/index/index.html">首页</a></li>
+        <li><a href="/Home/Index" title="首页">首页</a></li>
         <li>
-            <a href="#">关于联盟</a>
+            <a href="/Home/About" title="关于联盟">关于联盟</a>
         </li>
         <li>
-            <a href="index.php/index/show/tid/25.html">联盟动态</a>
+            <a href="/Trend/Index" title="联盟动态">联盟动态</a>
         </li>
         <li>
-            <a href="index.php/index/show/tid/1.html" title="协会动态">联盟成员</a>
+            <a href="/Member/Index" title="联盟成员">联盟成员</a>
         </li>
         <li>
-            <a href="index.php/index/show/tid/4.html" title="行业信息">专家委员会</a>
+            <a href="/Committee/Index" title="专家委员会">专家委员会</a>
         </li>
         <li>
-            <a href="index.php/index/show/tid/9.html" title="产品信息">产品展示</a>
+            <a href="/Product/Index" title="产品展示">产品展示</a>
         </li>
         <li>
-            <a href="index.php/index/contactUs.html" title="">联盟成果</a>
+            <a href="/Outcome/Index" title="联盟成果">联盟成果</a>
         </li>
         <li>
-            <a href="index.php/index/contactUs.html" title="">联系我们</a>
+            <a href="/Home/Contact" title="联系我们">联系我们</a>
         </li>
     </ul>
 </div>

@@ -1,6 +1,6 @@
 ﻿namespace LM.Utility.Util
 {
-    public interface IMySession
+    public interface ISession
     {
         /// <summary>
         /// 设置项

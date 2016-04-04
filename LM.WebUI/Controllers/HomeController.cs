@@ -1,31 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using LM.Service.UserService;
 
 namespace LM.WebUI.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-            ViewBag.Title = "首页";
-            return View();
+            using (UnitOfWork)
+            {
+                var userService = new UserService(UnitOfWork);
+                var sr = userService.GetUserList();
+
+                ViewBag.UserList = sr.Data;
+                return View();
+            }
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

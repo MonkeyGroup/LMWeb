@@ -32,8 +32,8 @@ namespace Dapper.Contrib.Extensions
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, string> TypeTableName = new ConcurrentDictionary<RuntimeTypeHandle, string>();
 
         private static readonly Dictionary<string, ISqlAdapter> AdapterDictionary = new Dictionary<string, ISqlAdapter>() {
-            		                                                                        {"mysqlconnection", new MySqlServerAdapter()} //,
-                                                                                            //{"sqlconnection", new SqlServerAdapter()},
+            		                                                                        {"mysqlconnection", new MySqlServerAdapter()},
+                                                                                            {"sqlconnection", new SqlServerAdapter()},
                                                                                             //{"npgsqlconnection", new PostgresAdapter()},
                                                                                             //{"sqliteconnection", new SQLiteAdapter()}
 																						};
@@ -721,5 +721,13 @@ public class MySqlServerAdapter : ISqlAdapter
         //int id = (int)r.First().id;
         //if (keyProperties.Any())
         //    keyProperties.First().SetValue(entityToInsert, id, null);
+    }
+}
+
+public class SqlServerAdapter : ISqlAdapter
+{
+    public string GetIdentity()
+    {
+        return "select @@Identity as Id";
     }
 }

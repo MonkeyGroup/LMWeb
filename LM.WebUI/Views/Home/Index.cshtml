@@ -1,6 +1,11 @@
 ﻿@using LM.Utility.Helper
+@using LM.Utility.Util
+@using LM.Model.Model
+@using WebGrease.Css.Extensions
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "首页";
+    var userList = ViewBag.UserList as List<UserModel>;
 }
 
 @section partialScriptCss{
@@ -323,3 +328,5 @@
 
 </div>
 <!--body2部分end-->
+
+

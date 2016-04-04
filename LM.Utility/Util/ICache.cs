@@ -4,34 +4,59 @@ namespace LM.Utility.Util
 {
     public interface ICache
     {
-        #region Add
+        #region Set
+        /// <summary>
+        ///  将缓存对象添加至服务器内存中
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cacheKey"></param>
+        /// <param name="cacheVal"></param>
+        void Set<T>(string cacheKey, T cacheVal);
 
         /// <summary>
-        /// 将对象添加到WebApp缓存中
+        ///  将缓存对象添加至服务器内存中
         /// </summary>
-        /// <param name="key">键</param>
-        /// <param name="value">值，对象实例</param>
-        /// <param name="expiredMinutes">默认30分钟过期</param>
-        void Add<T>(string key, T value, int expiredMinutes = 30);
+        /// <typeparam name="T">缓存对象类型</typeparam>
+        /// <param name="cacheKey">缓存名字</param>
+        /// <param name="cacheVal">缓存对象</param>
+        /// <param name="slidingExpiration">缓存有效期限</param>
+        void Set<T>(string cacheKey, T cacheVal, TimeSpan slidingExpiration);
 
+        /// <summary>
+        ///  将缓存对象添加至服务器内存中
+        /// </summary>
+        /// <typeparam name="T">缓存对象类型</typeparam>
+        /// <param name="cacheKey">缓存名字</param>
+        /// <param name="cacheVal">缓存对象</param>
+        /// <param name="absoluteExpiration"></param>
+        /// <param name="slidingExpiration">缓存有效期限</param>
+        void Set<T>(string cacheKey, T cacheVal, DateTime absoluteExpiration, TimeSpan slidingExpiration);
         #endregion
 
-        #region Delete
+        #region Remove
+
         /// <summary>
-        /// 从Web应用程序中移除缓存
+        /// 从Web服务器内存中移除缓存
         /// </summary>
-        /// <param name="key">缓存对象的键</param>
-        void Delete(string key);
+        /// <param name="cacheKey">缓存对象的键</param>
+        void Remove(string cacheKey);
+
+        /// <summary>
+        ///  清除Web服务器内存中的所有缓存
+        /// </summary>
+        void RemoveAll();
         #endregion
 
         #region Get
+
         /// <summary>
-        ///  从Web应用程序中取出某个缓存
+        ///  从Web服务器内存中取出某个缓存
         /// </summary>
         /// <typeparam name="T">此缓存对象</typeparam>
-        /// <param name="key">此缓存对象所对应的键位</param>
+        /// <param name="cacheKey">此缓存对象所对应的键位</param>
         /// <returns></returns>
-        T Get<T>(string key);
+        T Get<T>(string cacheKey);
+
         #endregion
     }
 }

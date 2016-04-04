@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using MySql.Data.MySqlClient;
 
@@ -9,65 +11,81 @@ namespace LM.Component.Data
     {
         public IDbConnection Connection { get; private set; }
 
-        private Stack<IDbTransaction> transactions;
+        private readonly Stack<IDbTransaction> _transactions;
 
-        public DefaultUnitOfWork(string connectionString)
+        public DefaultUnitOfWork(string connectionString, SqlType sqlType = SqlType.SqlServer)
         {
-            this.Connection = new MySqlConnection(connectionString);
-            this.transactions = new Stack<IDbTransaction>();
+            switch (sqlType)
+            {
+                case SqlType.MySql:
+                    Connection = new MySqlConnection(connectionString); break;
+                case SqlType.SqlServer:
+                    Connection = new SqlConnection(connectionString); break;
+                case SqlType.Oracle:
+                    throw new NotImplementedException("Oracle数据库的扩展方法未实现！");
+                default: throw new NotImplementedException("此数据库的扩展方法未实现！");
+            }
+            _transactions = new Stack<IDbTransaction>();
         }
 
         private void OpenConnection()
         {
-            if (this.Connection.State != ConnectionState.Open)
+            if (Connection.State != ConnectionState.Open)
             {
-                this.Connection.Open();
+                Connection.Open();
             }
         }
 
         private void CloseConnection()
         {
-            if (this.Connection.State != ConnectionState.Closed)
+            if (Connection.State != ConnectionState.Closed)
             {
-                this.Connection.Close();
+                Connection.Close();
             }
         }
 
         public void BeginTran()
         {
             OpenConnection();
-            this.transactions.Push(this.Connection.BeginTransaction());
+            _transactions.Push(Connection.BeginTransaction());
         }
 
         public void Commit()
         {
-            if (this.transactions.Any())
+            if (_transactions.Any())
             {
                 OpenConnection();
-                this.transactions.Pop().Commit();
+                _transactions.Pop().Commit();
                 CloseConnection();
             }
         }
 
         public void Rollback()
         {
-            if (this.transactions.Any())
+            if (_transactions.Any())
             {
                 OpenConnection();
-                this.transactions.Pop().Rollback();
+                _transactions.Pop().Rollback();
                 CloseConnection();
             }
         }
 
         public IDbTransaction GetLastTransaction()
         {
-            return this.transactions.LastOrDefault();
+            return _transactions.LastOrDefault();
         }
 
         public void Dispose()
         {
             CloseConnection();
-            this.Connection.Dispose();
+            Connection.Dispose();
         }
+    }
+
+    public enum SqlType
+    {
+        MySql = 1,
+        SqlServer = 2,
+        Oracle = 3
     }
 }

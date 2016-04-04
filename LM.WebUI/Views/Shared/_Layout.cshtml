@@ -12,12 +12,12 @@
     @Html.RenderCss("/Content/css/style.css")
     @Html.RenderCss("/Content/css/nav.css")
 
-    @Html.RenderScript("/Content/js/jquery-1.9.1.js");
-    @Html.RenderScript("/Content/js/logoRoll.js");
-    @Html.RenderScript("/Content/js/tab.js");
-    @Html.RenderScript("/Content/js/slide.js");
+    @Html.RenderScript("/Content/js/jquery-1.9.1.js")
+    @Html.RenderScript("/Content/js/logoRoll.js")
+    @Html.RenderScript("/Content/js/tab.js")
+    @Html.RenderScript("/Content/js/slide.js")
 
-    @RenderSection("partialScriptCss");
+    @RenderSection("partialScriptCss", false)
 
     @*@{
             // 加载一个在子页面的定义的“页面区域”，此区域可以做一些页面的处理
@@ -49,6 +49,6 @@
         }
     </footer>
 
-    @RenderSection("scripts", false)
+    @RenderSection("endScripts", false)
 </body>
 </html>

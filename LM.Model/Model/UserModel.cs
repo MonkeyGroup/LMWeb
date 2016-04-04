@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LM.Entity.Entity
+namespace LM.Model.Model
 {
-    public class UserInfo
+    public class UserModel
     {
         public long Id { get; set; }
 

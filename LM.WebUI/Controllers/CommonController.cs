@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace LM.WebUI.Controllers
 {
-    public class CommonController : Controller
+    public class CommonController : BaseController
     {
         /// <summary>
         ///  获取联盟页面的头部信息
@@ -14,7 +14,6 @@ namespace LM.WebUI.Controllers
         /// <returns></returns>
         public ActionResult Header()
         {
-            ViewBag.Title = "aaa";
             return View("_Header");
         }
 

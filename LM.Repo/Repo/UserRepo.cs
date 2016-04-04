@@ -7,11 +7,11 @@ using Dapper.Contrib.Extensions;
 using LM.Component.Data;
 using LM.Component.Data.Query;
 using LM.Component.Data.Repo;
-using LM.Entity.Entity;
+using LM.Model.Entity;
 
 namespace LM.Repo.Repo
 {
-    public class UserRepo : BaseRepository<UserInfo>
+    public class UserRepo : BaseRepository<User>
     {
         public UserRepo(IUnitOfWork uw)
             : base(uw)
