@@ -27,14 +27,7 @@ namespace LM.Utility.Util
 
         public static string Convert2String(this decimal? d, string defaultValue = "0")
         {
-            if (d.HasValue)
-            {
-                return d.Value.ToString("0.##");
-            }
-            else
-            {
-                return defaultValue;
-            }
+            return d.HasValue ? d.Value.ToString("0.##") : defaultValue;
         }
 
         public static string Convert2String(this decimal d)
@@ -44,15 +37,7 @@ namespace LM.Utility.Util
 
         public static decimal Convert2Decimal(this decimal? d)
         {
-            if (d.HasValue)
-            {
-
-                return d.Value;
-            }
-            else
-            {
-                return 0;
-            }
+            return d ?? 0;
         }
 
         public static int ToInt(this string str)
@@ -104,11 +89,7 @@ namespace LM.Utility.Util
         public static float? ToNullableFloat(this string str, float? defaultValue = null)
         {
             float res;
-            if (float.TryParse(str, out res))
-            {
-                return res;
-            }
-            return defaultValue;
+            return float.TryParse(str, out res) ? res : defaultValue;
         }
 
         public static float? ToNullableRoundFloat(this string str, float? defaultValue = null)
@@ -123,14 +104,7 @@ namespace LM.Utility.Util
 
         public static decimal ToCcur(this string str)
         {
-            if (string.IsNullOrEmpty(str))
-            {
-                return ToCcur("0", 4);
-            }
-            else
-            {
-                return ToCcur(str, 4);
-            }
+            return ToCcur(string.IsNullOrEmpty(str) ? "0" : str, 4);
         }
 
         public static decimal ToCcur(this string str, int count)
@@ -182,11 +156,7 @@ namespace LM.Utility.Util
 
         public static string Match(this string s, string pattern)
         {
-            if (s == null)
-            {
-                return string.Empty;
-            }
-            return Regex.Match(s, pattern).Value;
+            return s == null ? string.Empty : Regex.Match(s, pattern).Value;
         }
 
         public static string ToCamel(this string s)
@@ -224,8 +194,8 @@ namespace LM.Utility.Util
             }
             else
             {
-                string[] ss = s.Split(' ');
-                StringBuilder sb = new StringBuilder(ss[0]);
+                var ss = s.Split(' ');
+                var sb = new StringBuilder(ss[0]);
                 for (int i = 1; i <= wordLimit && i < ss.Length; i++)
                 {
                     if (sb.Length + ss[i].Length + 1 > lengthLimit)
@@ -240,8 +210,8 @@ namespace LM.Utility.Util
 
         public static string Md5String(this string oriString)
         {
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            string t2 = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(oriString)), 4, 8);
+            var md5 = new MD5CryptoServiceProvider();
+            var t2 = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(oriString)), 4, 8);
             t2 = t2.Replace("-", "");
             t2 = t2.ToLower();
             return t2;
@@ -314,7 +284,7 @@ namespace LM.Utility.Util
 
         public static List<long> ToLongList(string[] strArray)
         {
-            List<long> longArray = new List<long>();
+            var longArray = new List<long>();
             foreach (var item in strArray)
             {
                 long parse;
@@ -335,7 +305,7 @@ namespace LM.Utility.Util
 
     public class StringHelper
     {
-        private static Random rand = new Random();
+        private static readonly Random Rand = new Random();
 
         public static string ConvertCreateDate(DateTime date)
         {
@@ -359,8 +329,8 @@ namespace LM.Utility.Util
             }
             else if (date.Year == DateTime.Now.Year)
             {
-                int xmonth = DateTime.Now.Month - date.Month;
-                result = xmonth.ToString() + "个月前";
+                var xmonth = DateTime.Now.Month - date.Month;
+                result = xmonth + "个月前";
             }
             else
             {
@@ -376,9 +346,10 @@ namespace LM.Utility.Util
             {
                 return string.Empty;
             }
-            int l = inputString.Length;
+            var l = inputString.Length;
+
             #region 计算长度
-            int clen = 0;
+            var clen = 0;
             while (clen < length && clen < l)
             {
                 //每遇到一个中文，则将目标长度减一。
@@ -389,6 +360,7 @@ namespace LM.Utility.Util
                 clen++;
             }
             #endregion
+
             if (clen < l)
             {
                 return inputString.Substring(0, clen) + replaceContent;
@@ -398,12 +370,12 @@ namespace LM.Utility.Util
 
         public static string UrlEncode(string strCode)
         {
-            StringBuilder sb = new StringBuilder();
-            byte[] byStr = Encoding.UTF8.GetBytes(strCode); //默认是System.Text.Encoding.Default.GetBytes(str)  
-            Regex regKey = new Regex("^[A-Za-z0-9]+$");
-            for (int i = 0; i < byStr.Length; i++)
+            var sb = new StringBuilder();
+            var byStr = Encoding.UTF8.GetBytes(strCode); //默认是System.Text.Encoding.Default.GetBytes(str)  
+            var regKey = new Regex("^[A-Za-z0-9]+$");
+            foreach (var t in byStr)
             {
-                string strBy = Convert.ToChar(byStr[i]).ToString();
+                var strBy = Convert.ToChar(t).ToString();
                 if (regKey.IsMatch(strBy))
                 {
                     //是字母或者数字则不进行转换    
@@ -411,7 +383,7 @@ namespace LM.Utility.Util
                 }
                 else
                 {
-                    sb.Append(@"%" + Convert.ToString(byStr[i], 16));
+                    sb.Append(@"%" + Convert.ToString(t, 16));
                 }
             }
             return (sb.ToString());
@@ -419,7 +391,7 @@ namespace LM.Utility.Util
 
         public static string GetRandNum(int minValue = 10000, int maxValue = 99999)
         {
-            return rand.Next(minValue, maxValue).ToString();
+            return Rand.Next(minValue, maxValue).ToString();
         }
 
     }

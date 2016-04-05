@@ -16,11 +16,7 @@ namespace LM.Utility.Helper
         /// <returns></returns>
         public static string GetConfigString(string key, string defaultValue = "")
         {
-            var o = ConfigurationManager.AppSettings[key];
-            if (o == null)
-            {
-                o = defaultValue;
-            }
+            var o = ConfigurationManager.AppSettings[key] ?? defaultValue;
             return o;
         }
 
@@ -31,18 +27,16 @@ namespace LM.Utility.Helper
         /// <returns></returns>
         public static bool GetConfigBool(string key)
         {
-            bool result = false;
-            string cfgVal = GetConfigString(key);
-            if (null != cfgVal && string.Empty != cfgVal)
+            var result = false;
+            var cfgVal = GetConfigString(key);
+            if (string.IsNullOrEmpty(cfgVal)) return false;
+            try
             {
-                try
-                {
-                    result = bool.Parse(cfgVal);
-                }
-                catch (FormatException)
-                {
-                    // Ignore format exceptions.
-                }
+                result = bool.Parse(cfgVal);
+            }
+            catch (FormatException)
+            {
+                // Ignore format exceptions.
             }
 
             return result;
@@ -56,17 +50,15 @@ namespace LM.Utility.Helper
         public static decimal GetConfigDecimal(string key)
         {
             decimal result = 0;
-            string cfgVal = GetConfigString(key);
-            if (null != cfgVal && string.Empty != cfgVal)
+            var cfgVal = GetConfigString(key);
+            if (string.IsNullOrEmpty(cfgVal)) return result;
+            try
             {
-                try
-                {
-                    result = decimal.Parse(cfgVal);
-                }
-                catch (FormatException)
-                {
-                    // Ignore format exceptions.
-                }
+                result = decimal.Parse(cfgVal);
+            }
+            catch (FormatException)
+            {
+                // Ignore format exceptions.
             }
 
             return result;
@@ -90,18 +82,16 @@ namespace LM.Utility.Helper
         /// <returns></returns>
         public static int GetConfigInt(string key, int defaultValue)
         {
-            int result = 0;
-            string cfgVal = GetConfigString(key);
-            if (!string.IsNullOrEmpty(cfgVal))
+            var result = 0;
+            var cfgVal = GetConfigString(key);
+            if (string.IsNullOrEmpty(cfgVal)) return result;
+            try
             {
-                try
-                {
-                    result = int.Parse(cfgVal);
-                }
-                catch (FormatException)
-                {
-                    result = defaultValue;
-                }
+                result = int.Parse(cfgVal);
+            }
+            catch (FormatException)
+            {
+                result = defaultValue;
             }
 
             return result;

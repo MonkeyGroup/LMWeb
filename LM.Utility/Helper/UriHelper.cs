@@ -22,7 +22,7 @@ namespace LM.Utility.Helper
             var fileName = string.Format("{0}{1}", DateTime.Now.ToString("HHmmssffff"), saveName);
             if (responseStream == null) return "";
 
-            string path = saveFolder + Path.DirectorySeparatorChar + fileName;
+            var path = saveFolder + Path.DirectorySeparatorChar + fileName;
             using (var downImage = Image.FromStream(responseStream))
             {
                 if (!Directory.Exists(saveFolder))
@@ -51,9 +51,9 @@ namespace LM.Utility.Helper
             var r = new Random();
 
             var fileName = string.Format("{0}{1}{2}", DateTime.Now.ToString("HHmmssffff"), r.Next(10000), saveName);
-            string path = saveFolder + Path.DirectorySeparatorChar + fileName;
+            var path = saveFolder + Path.DirectorySeparatorChar + fileName;
 
-            WebClient client = new WebClient();
+            var client = new WebClient();
             client.DownloadFile(uri, path);
 
             return path;

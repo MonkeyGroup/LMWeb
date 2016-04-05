@@ -8,7 +8,7 @@ use [Test]
 go
 
 -- 取上一条写入的数据的Identity类型的字段值
-select @@identity as LastID
+select @@identity as [LastID]
 
 
 select * from dbo.[User]  

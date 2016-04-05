@@ -17,12 +17,7 @@ namespace LM.WebUI
 
         public static Bootstrapper Instance
         {
-            get
-            {
-                if (_strapper != null) return _strapper;
-                _strapper = new Bootstrapper();
-                return _strapper;
-            }
+            get { return _strapper ?? (_strapper = new Bootstrapper()); }
         }
 
         public IUnityContainer UnityContainer { get; private set; }

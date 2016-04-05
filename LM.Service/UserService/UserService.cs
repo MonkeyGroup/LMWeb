@@ -26,7 +26,7 @@ namespace LM.Service.UserService
 
                 return new ServiceResult(true, ServiceResultCode.正常) { Data = userList };
             }
-           catch (Exception e)
+            catch (Exception e)
             {
                 return new ServiceResult(false, ServiceResultCode.服务器异常, e.Message);
             }
