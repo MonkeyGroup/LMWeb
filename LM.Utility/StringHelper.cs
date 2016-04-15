@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace LM.Utility.Util
+namespace LM.Utility
 {
     public static class StringExtension
     {
@@ -24,22 +24,7 @@ namespace LM.Utility.Util
                 return defalutValue;
             }
         }
-
-        public static string Convert2String(this decimal? d, string defaultValue = "0")
-        {
-            return d.HasValue ? d.Value.ToString("0.##") : defaultValue;
-        }
-
-        public static string Convert2String(this decimal d)
-        {
-            return d.ToString("0.##");
-        }
-
-        public static decimal Convert2Decimal(this decimal? d)
-        {
-            return d ?? 0;
-        }
-
+        
         public static int ToInt(this string str)
         {
             return ToInt(str, 0);
@@ -89,7 +74,11 @@ namespace LM.Utility.Util
         public static float? ToNullableFloat(this string str, float? defaultValue = null)
         {
             float res;
-            return float.TryParse(str, out res) ? res : defaultValue;
+            if (float.TryParse(str, out res))
+            {
+                return res;
+            }
+            return defaultValue;
         }
 
         public static float? ToNullableRoundFloat(this string str, float? defaultValue = null)
@@ -101,22 +90,7 @@ namespace LM.Utility.Util
             }
             return defaultValue;
         }
-
-        public static decimal ToCcur(this string str)
-        {
-            return ToCcur(string.IsNullOrEmpty(str) ? "0" : str, 4);
-        }
-
-        public static decimal ToCcur(this string str, int count)
-        {
-            if (string.IsNullOrEmpty(str))
-            {
-                str = "0";
-            }
-
-            return Math.Round(decimal.Parse(str) * (decimal)Math.Pow(10, count)) / (decimal)Math.Pow(10, count);
-        }
-
+        
         public static float ToFloat(this string str, float defaultValue = 0)
         {
             try
@@ -154,6 +128,12 @@ namespace LM.Utility.Util
             return Regex.IsMatch(s, pattern);
         }
 
+        /// <summary>
+        ///  匹配并返回符合正则格式的字符串
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
         public static string Match(this string s, string pattern)
         {
             return s == null ? string.Empty : Regex.Match(s, pattern).Value;
@@ -192,26 +172,23 @@ namespace LM.Utility.Util
                 }
                 return s;
             }
-            else
+            string[] ss = s.Split(' ');
+            StringBuilder sb = new StringBuilder(ss[0]);
+            for (int i = 1; i <= wordLimit && i < ss.Length; i++)
             {
-                var ss = s.Split(' ');
-                var sb = new StringBuilder(ss[0]);
-                for (int i = 1; i <= wordLimit && i < ss.Length; i++)
+                if (sb.Length + ss[i].Length + 1 > lengthLimit)
                 {
-                    if (sb.Length + ss[i].Length + 1 > lengthLimit)
-                    {
-                        break;
-                    }
-                    sb.Append(' ').Append(ss[i]);
+                    break;
                 }
-                return sb.ToString();
+                sb.Append(' ').Append(ss[i]);
             }
+            return sb.ToString();
         }
 
         public static string Md5String(this string oriString)
         {
-            var md5 = new MD5CryptoServiceProvider();
-            var t2 = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(oriString)), 4, 8);
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            string t2 = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(oriString)), 4, 8);
             t2 = t2.Replace("-", "");
             t2 = t2.ToLower();
             return t2;
@@ -284,7 +261,7 @@ namespace LM.Utility.Util
 
         public static List<long> ToLongList(string[] strArray)
         {
-            var longArray = new List<long>();
+            List<long> longArray = new List<long>();
             foreach (var item in strArray)
             {
                 long parse;
@@ -305,7 +282,7 @@ namespace LM.Utility.Util
 
     public class StringHelper
     {
-        private static readonly Random Rand = new Random();
+        private static Random rand = new Random();
 
         public static string ConvertCreateDate(DateTime date)
         {
@@ -329,8 +306,8 @@ namespace LM.Utility.Util
             }
             else if (date.Year == DateTime.Now.Year)
             {
-                var xmonth = DateTime.Now.Month - date.Month;
-                result = xmonth + "个月前";
+                int xmonth = DateTime.Now.Month - date.Month;
+                result = xmonth.ToString() + "个月前";
             }
             else
             {
@@ -346,10 +323,9 @@ namespace LM.Utility.Util
             {
                 return string.Empty;
             }
-            var l = inputString.Length;
-
+            int l = inputString.Length;
             #region 计算长度
-            var clen = 0;
+            int clen = 0;
             while (clen < length && clen < l)
             {
                 //每遇到一个中文，则将目标长度减一。
@@ -360,7 +336,6 @@ namespace LM.Utility.Util
                 clen++;
             }
             #endregion
-
             if (clen < l)
             {
                 return inputString.Substring(0, clen) + replaceContent;
@@ -370,12 +345,12 @@ namespace LM.Utility.Util
 
         public static string UrlEncode(string strCode)
         {
-            var sb = new StringBuilder();
-            var byStr = Encoding.UTF8.GetBytes(strCode); //默认是System.Text.Encoding.Default.GetBytes(str)  
-            var regKey = new Regex("^[A-Za-z0-9]+$");
-            foreach (var t in byStr)
+            StringBuilder sb = new StringBuilder();
+            byte[] byStr = Encoding.UTF8.GetBytes(strCode); //默认是System.Text.Encoding.Default.GetBytes(str)  
+            Regex regKey = new Regex("^[A-Za-z0-9]+$");
+            for (int i = 0; i < byStr.Length; i++)
             {
-                var strBy = Convert.ToChar(t).ToString();
+                string strBy = Convert.ToChar(byStr[i]).ToString();
                 if (regKey.IsMatch(strBy))
                 {
                     //是字母或者数字则不进行转换    
@@ -383,7 +358,7 @@ namespace LM.Utility.Util
                 }
                 else
                 {
-                    sb.Append(@"%" + Convert.ToString(t, 16));
+                    sb.Append(@"%" + Convert.ToString(byStr[i], 16));
                 }
             }
             return (sb.ToString());
@@ -391,7 +366,7 @@ namespace LM.Utility.Util
 
         public static string GetRandNum(int minValue = 10000, int maxValue = 99999)
         {
-            return Rand.Next(minValue, maxValue).ToString();
+            return rand.Next(minValue, maxValue).ToString();
         }
 
     }

@@ -2,6 +2,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using LM.Service.BootStrapIoC;
 
 namespace LM.WebUI
 {
@@ -20,7 +21,7 @@ namespace LM.WebUI
             AuthConfig.RegisterAuth();
 
             // 启动依赖注入
-            Bootstrapper.Instance.Initialise();
+            UnityBootStrapper.Instance.Initialise();
         }
 
         protected void Application_End()

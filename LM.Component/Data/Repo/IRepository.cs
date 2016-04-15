@@ -1,21 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace LM.Component.Data.Repo
 {
     public interface IRepository<T> where T : class
     {
-        long Insert(T entity);
-        
-        void Insert(IEnumerable<T> entities);
+        int Insert(T entity);
 
-        void Update(T entity);
+        bool Insert(IEnumerable<T> entities);
 
-        void UpdatePart(object entity);
-        
-        void Delete(long id);
+        bool Update(object entity);
 
-        void Delete(IEnumerable<long> id);
+        bool Delete(T entity);
+
+        bool Delete(IEnumerable<int> ids);
 
         T Get(long id);
     }

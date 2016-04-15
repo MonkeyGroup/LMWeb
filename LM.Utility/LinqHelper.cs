@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LM.Utility.Util
+namespace LM.Utility
 {
-    public static class LinqExt
+    public static class LinqHelper
     {
         /// <summary>
         ///  集合的 ForEach 实现。
@@ -27,11 +27,7 @@ namespace LM.Utility.Util
             {
                 action(item);
             }
-            var list = new List<object>();
-            for (var i = 0; i < 10; i++)
-            {
-                list.Add(new { Name = "a" + 1 });
-            }
+            return ;
         }
 
 

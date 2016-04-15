@@ -1,4 +1,4 @@
-﻿namespace LM.WebUI.Common
+﻿namespace LM.Model.Common
 {
     /// <summary>
     ///  系统所有的枚举参数

@@ -1,4 +1,4 @@
-﻿namespace LM.Service
+﻿namespace LM.Service.Base
 {
     /// <summary>
     ///  业务处理结果信息，返回的数据集不能为空，否则上层的Controller判空过于臃肿。
@@ -23,7 +23,7 @@
         public string Message { get; set; }
 
         /// <summary>
-        /// 数据，可以是model或者model集合。取出来需要转型
+        /// 服务层获取的数据，可以是model或者model集合。取出来需要转型
         /// </summary>
         public object Data { get; set; }
         #endregion

@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 
-namespace LM.Utility.Helper
+namespace LM.Utility
 {
     public static class MvcHelper
     {
@@ -13,7 +13,7 @@ namespace LM.Utility.Helper
         {
             get
             {
-                return ConfigHelper.GetConfigString("ResourceDoMain", String.Empty);
+                return AppSettingHelper.GetString("ResourceDoMain", string.Empty);
             }
         }
 
@@ -24,7 +24,7 @@ namespace LM.Utility.Helper
         {
             get
             {
-                return ConfigHelper.GetConfigString("Version", "1.0");
+                return AppSettingHelper.GetString("Version", "1.0");
             }
         }
 
@@ -42,27 +42,27 @@ namespace LM.Utility.Helper
             string html;
 
             //第一次加载页面sortType可能为空，隐藏所有排序图标
-            if (String.IsNullOrEmpty(sortField))
+            if (string.IsNullOrEmpty(sortField))
             {
-                html = String.Format("<span class=\"table-title\">{2}</span><em class=\"icon-sort\" onclick=\"{0}('{1}',1)\"></em>", doFunc, curSortField, title);
+                html = string.Format("<span class=\"table-title\">{2}</span><em class=\"icon-sort\" onclick=\"{0}('{1}',1)\"></em>", doFunc, curSortField, title);
                 //html = string.Format("<div class=\"Sortnormal\">{2}</div>", doFunc, curSortType, title);
             }
             else
             {
                 if (curSortField == sortField && isAsc)
                 {
-                    html = String.Format("<span class=\"table-title\">{2}</span><em class=\"icon-sort icon-up\" onclick=\"{0}('{1}',0)\"></em>", doFunc, curSortField, title);
+                    html = string.Format("<span class=\"table-title\">{2}</span><em class=\"icon-sort icon-up\" onclick=\"{0}('{1}',0)\"></em>", doFunc, curSortField, title);
 
                     //html = string.Format("<div class=\"Sortup\" onclick=\"{0}('{1}','desc')\">{2}<div>", doFunc, curSortType, title);
                 }
                 else if (curSortField == sortField && !isAsc)
                 {
-                    html = String.Format("<span class=\"table-title\">{2}</span><em class=\"icon-sort icon-down\" onclick=\"{0}('{1}',1)\"></em>", doFunc, curSortField, title);
+                    html = string.Format("<span class=\"table-title\">{2}</span><em class=\"icon-sort icon-down\" onclick=\"{0}('{1}',1)\"></em>", doFunc, curSortField, title);
                     //html = string.Format("<div class=\"Sortdown\" onclick=\"{0}('{1}','asc')\">{2}<div>", doFunc, curSortType, title);
                 }
                 else
                 {
-                    html = String.Format("<span class=\"table-title\">{2}</span><em class=\"icon-sort\" onclick=\"{0}('{1}',1)\"></em>", doFunc, curSortField, title);
+                    html = string.Format("<span class=\"table-title\">{2}</span><em class=\"icon-sort\" onclick=\"{0}('{1}',1)\"></em>", doFunc, curSortField, title);
                     //html = string.Format("<div class=\"Sortnormal\" onclick=\"{0}('{1}','desc')\">{2}</div>", doFunc, curSortType, title);
                 }
             }
@@ -85,8 +85,8 @@ namespace LM.Utility.Helper
             //文件引用后缀改为版本号形式
             var ticks = "version=" + Version;
             //资源文件站点路径不带"/" 例:http://localhost:9999
-            string doMain = ResourceDoMain;
-            return html.Raw(String.Format(formatStr, doMain, link, ticks));
+            var doMain = ResourceDoMain;
+            return html.Raw(string.Format(formatStr, doMain, link, ticks));
         }
 
         /// <summary>
@@ -99,10 +99,10 @@ namespace LM.Utility.Helper
         /// <returns></returns>
         public static IHtmlString RenderScript(this HtmlHelper html, string link)
         {
-            string formatStr = "<script src=\"{0}{1}?{2}\" type=\"text/javascript\"></script>";
+            const string formatStr = "<script src=\"{0}{1}?{2}\" type=\"text/javascript\"></script>";
             return Render(html, formatStr, link);
         }
-        
+
         /// <summary>
         /// 在页面输出requirejs脚本 附加data-main脚本文件的引用。
         /// 如：
@@ -113,23 +113,23 @@ namespace LM.Utility.Helper
         /// <param name="main">mainJs文件路径，相对于web文件的路径</param>
         public static IHtmlString RenderRequireScript(this HtmlHelper html, string link, string main)
         {
-            string formatStr = "<script src=\"{0}{1}?{2}\" type=\"text/javascript\" data-main=\"{3}.js\"></script>";
+            const string formatStr = "<script src=\"{0}{1}?{2}\" type=\"text/javascript\" data-main=\"{3}.js\"></script>";
             //文件引用后缀改为版本号形式
             var ticks = "version=" + Version;
             //资源文件站点路径不带"/" 例:http://localhost:9999
-            string doMain = ResourceDoMain;
+            var doMain = ResourceDoMain;
             //requireJs baseURL
-            string baseUrl = "/Scripts";
-            if (doMain != String.Empty)
+            var baseUrl = "/Scripts";
+            if (doMain != string.Empty)
             {
                 baseUrl = doMain + baseUrl;
             }
 
-            string requireJsGlobalConfig = @"<script>var require = {urlArgs:'" + ticks + @"',baseUrl:'" + baseUrl
+            var requireJsGlobalConfig = @"<script>var require = {urlArgs:'" + ticks + @"',baseUrl:'" + baseUrl
                                            + @"'};</script>";
             return html.Raw(requireJsGlobalConfig + String.Format(formatStr, doMain, link, ticks, doMain + main));
         }
-        
+
         /// <summary>
         /// 在页面输出样式表文件的引用。
         /// 如：

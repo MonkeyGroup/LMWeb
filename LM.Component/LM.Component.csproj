@@ -48,12 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\DapperExt\DapperExtension.cs" />
-    <Compile Include="Data\DefaultUnitOfWork.cs" />
-    <Compile Include="Data\IUnitOfWork.cs" />
+    <Compile Include="Data\DapperExt\SqlMapperExt.cs" />
     <Compile Include="Data\Query\QueryManage.cs" />
-    <Compile Include="Data\Repo\BaseRepository.cs" />
+    <Compile Include="Data\Repo\BaseRepo.cs" />
     <Compile Include="Data\Repo\IRepository.cs" />
+    <Compile Include="Data\DbSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

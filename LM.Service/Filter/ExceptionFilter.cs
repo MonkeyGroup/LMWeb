@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Web.Mvc;
-using LM.Utility.Helper;
+using LM.Utility;
 
-namespace LM.WebUI.Filters
+namespace LM.Service.Filter
 {
     public class ExceptionFilter : FilterAttribute, IExceptionFilter
     {
@@ -11,7 +11,7 @@ namespace LM.WebUI.Filters
         {
             if (!filterContext.ExceptionHandled)
             {
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
                 sb.Append("|Url:");
                 if (filterContext.HttpContext.Request.Url != null)
                     sb.Append(filterContext.HttpContext.Request.Url.AbsoluteUri);
@@ -34,8 +34,8 @@ namespace LM.WebUI.Filters
                     ex = ex.InnerException;
                 }
 
-                StringBuilder sbHeaders = new StringBuilder();
-                for (int i = 0; i < filterContext.HttpContext.Request.Headers.Keys.Count; i++)
+                var sbHeaders = new StringBuilder();
+                for (var i = 0; i < filterContext.HttpContext.Request.Headers.Keys.Count; i++)
                 {
                     var keyName = filterContext.HttpContext.Request.Headers.AllKeys[i];
                     var strings = filterContext.HttpContext.Request.Headers.GetValues(keyName);
@@ -43,7 +43,7 @@ namespace LM.WebUI.Filters
                         sbHeaders.Append(keyName + ":" + strings[0] + " ");
                 }
 
-                LogHelper.WriteLogByIo(sb.ToString());
+                LogHelper.WriteLogByIo(sb.ToString(), "D://");
 
                 filterContext.ExceptionHandled = true;
 

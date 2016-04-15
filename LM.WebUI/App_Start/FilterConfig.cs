@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using LM.WebUI.Filters;
+using LM.Service.Filter;
 
 namespace LM.WebUI
 {

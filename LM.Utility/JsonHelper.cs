@@ -1,16 +1,15 @@
 ﻿using Newtonsoft.Json;
 
-namespace LM.Utility.Helper
+namespace LM.Utility
 {
     public class JsonHelper
     {
         /// <summary>
         ///  将对象序列化成 Json 格式字符串
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="model"></param>
+        /// <param name="model">解析的对象</param>
         /// <returns></returns>
-        public static string Serialize<T>(T model)
+        public static string Serialize(object model)
         {
             return JsonConvert.SerializeObject(model);
         }
@@ -23,18 +22,10 @@ namespace LM.Utility.Helper
         /// <returns></returns>
         public static T Deserialize<T>(string jsonStr)
         {
-            if (string.IsNullOrEmpty(jsonStr))
-            {
-                return default(T);
-            }
-
-            return JsonConvert.DeserializeObject<T>(jsonStr);
+            return string.IsNullOrEmpty(jsonStr) ? default(T) : JsonConvert.DeserializeObject<T>(jsonStr);
         }
 
-        public static T Deserialize<T>(string json, params JsonConverter[] converts)
-        {
-            return JsonConvert.DeserializeObject<T>(json, converts);
-        }
+
     }
 
 }

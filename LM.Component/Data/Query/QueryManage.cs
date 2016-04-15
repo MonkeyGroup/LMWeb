@@ -1,137 +1,108 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Dapper;
 
 namespace LM.Component.Data.Query
 {
     public sealed class QueryManage
     {
-        public IUnitOfWork UnitOfWork { get; private set; }
+        public DbSession DbSession { get; private set; }
 
-        public QueryManage(IUnitOfWork uw)
+        public QueryManage(DbSession dbSession)
         {
-            UnitOfWork = uw;
+            DbSession = dbSession;
         }
 
-        public IEnumerable<T> GetList<T>(string sql, string countSql, out long total, object param)
+        #region Get Query
+
+        /// <summary>
+        ///  原生sql列表查询，用于分页。
+        ///  推荐使用 GetListByPage 方法。
+        /// </summary>
+        /// <typeparam name="T">查询字段封装的模型</typeparam>
+        /// <param name="querySql">列表查询语句</param>
+        /// <param name="countSql">统计查询语句</param>
+        /// <param name="count">统计的结果值</param>
+        /// <param name="param">条件参数，支持字典、匿名对象</param>
+        /// <returns></returns>
+        private List<T> GetList<T>(string querySql, string countSql, out int count, object param = null)
         {
-            total = UnitOfWork.Connection.ExecuteScalar<long>(countSql, param);
-            return GetList<T>(sql, param);
+            var reader = DbSession.Connection.QueryMultiple(querySql + ";" + countSql);
+            var list = reader.Read<T>().ToList();
+            count = reader.Read<int>().FirstOrDefault();
+            return list;
         }
 
-        public IEnumerable<T> GetList<T>(string sql)
+        /// <summary>
+        ///  原生 sql 列表查询。
+        /// 使用：select * from [Novel] n 
+        ///             inner join [Author] a on a.Id = n.AuthorId
+        /// </summary>
+        /// <typeparam name="T">查询的字段集合类</typeparam>
+        /// <param name="query"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public List<T> GetList<T>(string query, object param = null)
         {
-            return UnitOfWork.Connection.Query<T>(sql);
+            return DbSession.Connection.Query<T>(query, param).ToList();
         }
 
-        public int GetExecuteQuery(string sql)
+        /// <summary>
+        ///  单表的分页查找，必须要将主表的 Id 字段传递过去。
+        ///  使用：
+        ///     QueryManage.GetListByPage《Model》("dbo.[User]", out itemCount, 1, 20);
+        /// 或者
+        ///     QueryManage.GetListByPage《Model》("(select u.id, * from [User] u inner join [Novel] n on n.uid = u.id)", out itemCount, 1, 20);
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="queryTables">表名</param>
+        /// <param name="itemCount">数据总条数</param>
+        /// <param name="pageIndex">查找页</param>
+        /// <param name="pageSize">页面量</param>
+        /// <returns></returns>
+        public IEnumerable<T> GetListByPage<T>(string queryTables, out int itemCount, int pageIndex = 1, int pageSize = 10)
         {
-            return UnitOfWork.Connection.Execute(sql);
+            var queryS = string.Format(@"
+select top {0} * from (
+    select top {2} row_number() over(order by Temp1.Id) as RowNumber,* from {1} Temp1
+)Temp2
+where Temp2.RowNumber > {3};", pageSize, queryTables, pageIndex * pageSize, (pageIndex - 1) * pageSize);
+
+            var countS = string.Format(@"select count( Temp1.Id ) from {0} Temp1", queryTables);
+
+            var data = DbSession.Connection.QueryMultiple(queryS + ";" + countS);
+            var list = data.Read<T>();
+            itemCount = data.Read<int>().FirstOrDefault();
+
+            return list;
         }
 
-        public int GetExecuteQuery(string sql, object entity)
+        /// <summary>
+        ///  执行一条 sql 语句，返回受影响的条数。
+        ///  使用：delete * from [User] where Id in(@ids)
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public int GetExecuteNoQuery(string sql, object param = null)
         {
-            return UnitOfWork.Connection.Execute(sql, entity);
+            return DbSession.Connection.Execute(sql, param);
         }
 
-        public T GetScalar<T>(string sql)
+        /// <summary>
+        ///  执行一条查询单个值的sql语句，并返回这个值。
+        /// 使用：select count(id) from [Novel]
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="querySql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public T GetScalar<T>(string querySql, object param = null)
         {
-            return UnitOfWork.Connection.ExecuteScalar<T>(sql);
-
+            return DbSession.Connection.ExecuteScalar<T>(querySql, param);
         }
+        #endregion
 
-        public T GetScalar<T>(string sql, object entity)
-        {
-            return UnitOfWork.Connection.ExecuteScalar<T>(sql, entity);
-        }
 
-        public DataTable GetDataTable(string sql)
-        {
-            return GetDataTable(UnitOfWork.Connection.ExecuteReader(sql));
-        }
-
-        private DataTable GetDataTable(IDataReader dataReader)
-        {
-            using (dataReader)
-            {
-                //把那个DataReader转化成DataTable。
-                DataTable datatable = new DataTable();
-                DataTable schemaTable = dataReader.GetSchemaTable();
-                //动态添加列
-                try
-                {
-                    if (schemaTable != null)
-                    {
-                        foreach (DataRow myRow in schemaTable.Rows)
-                        {
-                            DataColumn myDataColumn = new DataColumn();
-                            myDataColumn.DataType = myRow[11] as Type;
-                            var columnName = myRow[0].ToString();
-                            myDataColumn.ColumnName = datatable.Columns.Contains(columnName) ?
-                                string.Format("{0}.{1}", myRow[10].ToString().ToLower(), columnName) : columnName;
-                            myDataColumn.AllowDBNull = Convert.ToBoolean(myRow[12]);
-                            datatable.Columns.Add(myDataColumn);
-                        }
-                        //添加数据
-                        while (dataReader.Read())
-                        {
-                            DataRow myDataRow = datatable.NewRow();
-                            for (int i = 0; i < schemaTable.Rows.Count; i++)
-                            {
-                                //myDataRow[i] = dataReader[i];
-                                Type type = dataReader[i].GetType();
-                                switch (type.Name)
-                                {
-                                    case "String":
-                                        myDataRow[i] = (string)dataReader[i];
-                                        break;
-                                    case "Int16":
-                                        myDataRow[i] = datatable.Columns[i].AllowDBNull ? (short?)dataReader[i] : (short)dataReader[i];
-                                        break;
-                                    case "Int32":
-                                        myDataRow[i] = datatable.Columns[i].AllowDBNull ? (int?)dataReader[i] : (int)dataReader[i];
-                                        break;
-                                    case "Int64":
-                                        myDataRow[i] = datatable.Columns[i].AllowDBNull ? (long?)dataReader[i] : (long)dataReader[i];
-                                        break;
-                                    case "DateTime":
-                                        myDataRow[i] = datatable.Columns[i].AllowDBNull ? (DateTime?)dataReader[i] : (DateTime)dataReader[i];
-                                        break;
-                                    case "Decimal":
-                                        myDataRow[i] = datatable.Columns[i].AllowDBNull ? (decimal?)dataReader[i] : (decimal)dataReader[i];
-                                        break;
-                                    case "Char":
-                                        myDataRow[i] = datatable.Columns[i].AllowDBNull ? (char?)dataReader[i] : (char)dataReader[i];
-                                        break;
-                                    case "Double":
-                                        myDataRow[i] = datatable.Columns[i].AllowDBNull ? (double?)dataReader[i] : (double)dataReader[i];
-                                        break;
-                                    default:
-                                        myDataRow[i] = dataReader[i];
-                                        break;
-                                }
-                            }
-                            datatable.Rows.Add(myDataRow);
-                        }
-                    }
-                    return datatable;
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("转换出错出错!", ex);
-                }
-            }
-        }
-
-        public IEnumerable<T> GetList<T>(string sql, object entity)
-        {
-            return UnitOfWork.Connection.Query<T>(sql, entity);
-        }
-
-        public DataTable GetDataTable(string sql, object entity)
-        {
-            return GetDataTable(UnitOfWork.Connection.ExecuteReader(sql, entity));
-        }
     }
 }

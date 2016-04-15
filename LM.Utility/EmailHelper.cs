@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 
-namespace LM.Utility.Helper
+namespace LM.Utility
 {
     public class EmailHelper
     {
@@ -14,12 +14,12 @@ namespace LM.Utility.Helper
         /// <summary>
         /// 发送邮件，可带附件
         /// </summary>
-        /// <param name="targetMail">接收方邮箱</param>
+        /// <param name="sendToEmail">接收方邮箱</param>
         /// <param name="subject">邮件标题</param>
-        /// <param name="body">邮件内容</param>
+        /// <param name="content">邮件内容</param>
         /// <param name="attachName">附件名称</param>
         /// <param name="attachFilePath">附件路径</param>
-        public static void SendMail(string targetMail, string subject, string body, string attachName, string attachFilePath)
+        public static void SendMail(string sendToEmail, string subject, string content, string attachName, string attachFilePath)
         {
             var client = new SmtpClient(SmtpServer, SmtpServerPort)
             {
@@ -27,7 +27,7 @@ namespace LM.Utility.Helper
             };
 
             var attach = new Attachment(attachFilePath) { Name = attachName };
-            var message = new MailMessage(SmtpAccount, targetMail, subject, body);
+            var message = new MailMessage(SmtpAccount, sendToEmail, subject, content);
             message.Attachments.Add(attach);
             
             client.Send(message);

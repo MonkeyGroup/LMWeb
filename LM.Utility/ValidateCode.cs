@@ -4,7 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 
-namespace LM.Utility.Helper
+namespace LM.Utility
 {
     public class ValidateCode
     {
@@ -83,7 +83,7 @@ namespace LM.Utility.Helper
                 Color[] colors = { Color.Black, Color.Red, Color.DarkBlue, Color.Green, Color.Orange, Color.Brown, Color.DarkCyan, Color.Purple };
 
                 //生成随机生成器
-                Random random = new Random();
+                var random = new Random();
                 //清空图片背景色
                 g.Clear(ColorTranslator.FromHtml("#a9a9ac"));
                 Font font = new Font("宋体", 18, FontStyle.Regular);

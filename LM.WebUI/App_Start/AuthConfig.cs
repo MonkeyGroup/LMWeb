@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Web.WebPages.OAuth;
-using LM.WebUI.Models;
-
-namespace LM.WebUI
+﻿namespace LM.WebUI
 {
     public static class AuthConfig
     {

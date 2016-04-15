@@ -1,10 +1,9 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 
-namespace LM.Utility.Helper
+namespace LM.Utility
 {
     public class ImageHelper
     {
@@ -36,7 +35,6 @@ namespace LM.Utility.Helper
                     gr.Clear(Color.White);
                 }
 
-
                 gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 gr.SmoothingMode = SmoothingMode.AntiAlias;
                 gr.CompositingQuality = CompositingQuality.HighQuality;
@@ -52,7 +50,7 @@ namespace LM.Utility.Helper
             var myImageCodecInfo = GetEncoderInfo("image/jpeg");
             if (original.RawFormat.Equals(ImageFormat.Jpeg))
             {
-                myImageCodecInfo = GetEncoderInfo("image/jpeg");
+                myImageCodecInfo = GetEncoderInfo("image/jpg");
             }
             else if (original.RawFormat.Equals(ImageFormat.Png))
             {
@@ -79,7 +77,7 @@ namespace LM.Utility.Helper
         /// </summary>
         /// <param name="mimeType"></param>
         /// <returns></returns>
-        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        private static ImageCodecInfo GetEncoderInfo(string mimeType)
         {
             int j;
             var encoders = ImageCodecInfo.GetImageEncoders();

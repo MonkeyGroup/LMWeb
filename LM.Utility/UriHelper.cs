@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 
-namespace LM.Utility.Helper
+namespace LM.Utility
 {
     public class UriHelper
     {
@@ -22,7 +22,7 @@ namespace LM.Utility.Helper
             var fileName = string.Format("{0}{1}", DateTime.Now.ToString("HHmmssffff"), saveName);
             if (responseStream == null) return "";
 
-            var path = saveFolder + Path.DirectorySeparatorChar + fileName;
+            string path = saveFolder + Path.DirectorySeparatorChar + fileName;
             using (var downImage = Image.FromStream(responseStream))
             {
                 if (!Directory.Exists(saveFolder))
@@ -51,9 +51,9 @@ namespace LM.Utility.Helper
             var r = new Random();
 
             var fileName = string.Format("{0}{1}{2}", DateTime.Now.ToString("HHmmssffff"), r.Next(10000), saveName);
-            var path = saveFolder + Path.DirectorySeparatorChar + fileName;
+            string path = saveFolder + Path.DirectorySeparatorChar + fileName;
 
-            var client = new WebClient();
+            WebClient client = new WebClient();
             client.DownloadFile(uri, path);
 
             return path;

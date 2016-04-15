@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using LM.WebUI.Common;
+using LM.Model.Common;
 
-namespace LM.WebUI.Security
+namespace LM.Service.Security
 {
     /// <summary>
     /// 当前登录用户
