@@ -14,7 +14,17 @@ using Dapper;
 
 namespace Dapper.Contrib.Extensions
 {
-
+    /// <summary>
+    ///  Changed version: Dapper.1.42/.net4.0-4.5
+    ///  Changed content:
+    ///     1. override a Update method;
+    ///     2. add a Batch Insert method;
+    ///     3. add a Batch Delete method which is depends on Id property;
+    ///     4. add the SqlEscape and the SqlserverAdapter;
+    ///     5. changed the AdapterDictionary、EscapeDictionary fields;
+    ///  Changer: Catom
+    ///  Change at: 2016/04/14
+    /// </summary>
     public static partial class SqlMapperExtensions
     {
         // ReSharper disable once MemberCanBePrivate.Global

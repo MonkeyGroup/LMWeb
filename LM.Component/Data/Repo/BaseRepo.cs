@@ -9,13 +9,15 @@ namespace LM.Component.Data.Repo
     /// <typeparam name="T"></typeparam>
     public abstract class BaseRepo<T> : IRepository<T> where T : class
     {
-        public DbSession DbSession { get; protected set; }
+        private DbSession DbSession { get; set; }
 
         protected BaseRepo(DbSession dbSession)
         {
             DbSession = dbSession;
         }
 
+
+        #region CRUD methods for this table. 
         public int Insert(T entity)
         {
             return DbSession.Connection.Insert<T>(entity);
@@ -45,5 +47,8 @@ namespace LM.Component.Data.Repo
         {
             return DbSession.Connection.Get<T>(id);
         }
+
+        #endregion
+        
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LM.Component.Data;
 using LM.Model.Entity;
-using LM.Repo.Repo;
+using LM.Repo;
 using LM.Service.Base;
 
 namespace LM.Service
