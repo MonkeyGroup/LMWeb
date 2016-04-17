@@ -1,23 +1,15 @@
 ﻿@using LM.Model.Model
 @using LM.Utility
 @{
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
     ViewBag.Title = "后台管理系统";
     var config = ViewBag.HomePageConfig as HomePageConfigModel;
 }
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="renderer" content="webkit">
-    <title>网站后台管理系统</title>
-    @Html.RenderCss("/Areas/Admin/content/css/public.css")
-    @Html.RenderScript("/Areas/Admin/content/js/global.js")
-    @Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/swfobject.js")
-    @Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/jquery.uploadify.v2.1.0.min.js")
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/swfobject.js")
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/jquery.uploadify.v2.1.0.min.js")
 
-    <script type="text/javascript">
+<script type="text/javascript">
         $(document).ready(function() {
             // Logo 上传
             $("#logoUploadify").uploadify({
@@ -152,304 +144,215 @@
                 }
             });
         });
-    </script>
+</script>
 
-    <script type="text/javascript">
-        var commitFlg = true;
-        function submit() {
-            if (!commitFlg) {
-                alert('请勿重复提交！');
-                return;
-            }
-            // 判空
-            if (!checkNull()) {
+<script type="text/javascript">
+    var commitFlg = true;
+
+    function submit() {
+        if (!commitFlg) {
+            alert('请勿重复提交！');
+            return;
+        }
+        // 判空
+        if (!checkNull()) {
+            commitFlg = true;
+            return;
+        }
+        commitFlg = false;
+
+        var config = {
+            SiteName: $('#SiteName').val(),
+            LogoSrc: $('#LogoSrc').val(),
+            FlashSrc: $('#FlashSrc').val(),
+            AdSrc: $('#AdSrc').val(),
+            SloganSrc: $('#SloganSrc').val(),
+            QrSrc: $('#QrSrc').val(),
+            BusinessSrc: $('#BusinessSrc').val()
+        }
+        // 封装数据
+        var ajax = {
+            url: '/Admin/Home/HomeConfig',
+            data: JSON.stringify(config),
+            type: 'Post',
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function(resp) {
+                alert(resp.msg);
                 commitFlg = true;
-                return;
+            },
+            error: function() {
+                alert('系统故障，请联系管理员！');
+                commitFlg = true;
             }
-            commitFlg = false;
-
-            var config = {
-                SiteName: $('#SiteName').val(),
-                LogoSrc: $('#LogoSrc').val(),
-                FlashSrc: $('#FlashSrc').val(),
-                AdSrc: $('#AdSrc').val(),
-                SloganSrc: $('#SloganSrc').val(),
-                QrSrc: $('#QrSrc').val(),
-                BusinessSrc: $('#BusinessSrc').val()
-            }
-            // 封装数据
-            var ajax = {
-                url: '/Admin/Home/HomeConfig',
-                data: JSON.stringify(config),
-                type: 'Post',
-                dataType: 'json',
-                cache: false,
-                contentType: "application/json; charset=utf-8",
-                success: function (resp) {
-                    alert(resp.msg);
-                    commitFlg = true;
-                },
-                error: function () {
-                    alert('系统故障，请联系管理员！');
-                    commitFlg = true;
-                }
-            }
-            $.ajax(ajax);
         }
+        $.ajax(ajax);
+    }
 
-        function preview() {
-            // 判空
-            if (!checkNull()) {
-                return;
-            }
-            //
-            var a = $('#SiteName').val();
-            var b = $('#LogoSrc').val();
-            var c = $('#FlashSrc').val();
-            var d = $('#AdSrc').val();
-            var e = $('#SloganSrc').val();;
-            var f = $('#QrSrc').val();
-            var g = $('#BusinessSrc').val();
-            var href = '/Admin/Home/Preview?a=' + a + '&b=' + b + '&c=' + c + '&d=' + d + '&e=' + e + '&f=' + f + '&g=' + g;
-            window.open(href);
+    function preview() {
+        // 判空
+        if (!checkNull()) {
+            return;
         }
+        //
+        var a = $('#SiteName').val();
+        var b = $('#LogoSrc').val();
+        var c = $('#FlashSrc').val();
+        var d = $('#AdSrc').val();
+        var e = $('#SloganSrc').val();;
+        var f = $('#QrSrc').val();
+        var g = $('#BusinessSrc').val();
+        var href = '/Admin/Home/Preview?a=' + a + '&b=' + b + '&c=' + c + '&d=' + d + '&e=' + e + '&f=' + f + '&g=' + g;
+        window.open(href);
+    }
 
-        function checkNull() {
-            var ok = true;
-            if ($('#SiteName').val() === '') {
-                $('#msg0').text('* 请填写网站名称！');
-                ok = false;
-            }
-            if ($('#LogoSrc').val() === '') {
-                $('#msg1').text('* 请上传网站Logo图片！');
-                ok = false;
-            }
-            if ($('#FlashSrc').val() === '') {
-                $('#msg2').text('* 请上传Flash素材！');
-                ok = false;
-            }
-            if ($('#AdSrc').val() === '') {
-                $('#msg3').text('* 请上传广告位图片！');
-                ok = false;
-            }
-            if ($('#SloganSrc').val() === '') {
-                $('#msg4').text('* 请上传宣传语图片！');
-                ok = false;
-            }
-            if ($('#QrSrc').val() === '') {
-                $('#msg5').text('* 请上传二维码图片！');
-                ok = false;
-            }
-            if ($('#BusinessSrc').val() === '') {
-                $('#msg6').text('* 请招商广告位图片！');
-                ok = false;
-            }
-            ok && clearMsgs();
-            return ok;
+    function checkNull() {
+        var ok = true;
+        if ($('#SiteName').val() === '') {
+            $('#msg0').text('* 请填写网站名称！');
+            ok = false;
         }
-
-        function clearMsgs() {
-            $('#msg0').text();
-            $('#msg1').text();
-            $('#msg2').text();
-            $('#msg3').text();
-            $('#msg4').text();
-            $('#msg5').text();
-            $('#msg6').text();
+        if ($('#LogoSrc').val() === '') {
+            $('#msg1').text('* 请上传网站Logo图片！');
+            ok = false;
         }
-    </script>
-</head>
-<body>
-    <div id="dcWrap">
+        if ($('#FlashSrc').val() === '') {
+            $('#msg2').text('* 请上传Flash素材！');
+            ok = false;
+        }
+        if ($('#AdSrc').val() === '') {
+            $('#msg3').text('* 请上传广告位图片！');
+            ok = false;
+        }
+        if ($('#SloganSrc').val() === '') {
+            $('#msg4').text('* 请上传宣传语图片！');
+            ok = false;
+        }
+        if ($('#QrSrc').val() === '') {
+            $('#msg5').text('* 请上传二维码图片！');
+            ok = false;
+        }
+        if ($('#BusinessSrc').val() === '') {
+            $('#msg6').text('* 请招商广告位图片！');
+            ok = false;
+        }
+        ok && clearMsgs();
+        return ok;
+    }
 
-        <!--1. Top-->
-        <div id="dcHead">
-            <div id="head">
-                <div class="logo">
-                    <a href="/Admin/Home/Index"><img src="/Areas/Admin/content/images/dclogo.gif" alt="logo"></a>
-                </div>
-                <div class="nav">
-                    <ul>
-                        <li class="M">
-                            <a href="JavaScript:void(0);" class="topAdd">新建</a>
-                            <div class="drop mTopad">
-                                <a href="/Admin/Product/Add">商品</a>
-                                <a href="/Admin/Article/Add">文章</a>
-                                <a href="/Admin/Company/Add">成员企业</a>
-                                <a href="/Admin/Expert/Add">专家成员</a>
-                                <a href="/Admin/User/Add">管理员</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <ul class="navRight">
-                        <li class="M noLeft">
-                            <a href="JavaScript:void(0);">您好，admin</a>
-                            <div class="drop mUser">
-                                <a href="/Admin/Home/EditUser">编辑我的个人资料</a>
-                            </div>
-                        </li>
-                        <li class="noRight"><a href="/Admin/Home/Logout">退出</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    function clearMsgs() {
+        $('#msg0').text();
+        $('#msg1').text();
+        $('#msg2').text();
+        $('#msg3').text();
+        $('#msg4').text();
+        $('#msg5').text();
+        $('#msg6').text();
+    }
+</script>
 
-        <!--2. Left-->
-        <div id="dcLeft">
-            <div id="menu">
-                <ul class="top">
-                    <li class="cur"><a href="/Admin/Home/Index"><i class="home"></i><em>首页配置</em></a></li>
-                </ul>
-                <ul>
-                    <li><a href="/Admin/Home/BaseInfo"><i class="system"></i><em>联盟基本信息</em></a></li>
-                    <li><a href="/Admin/Home/Introduce"><i class="page"></i><em>联盟介绍</em></a></li>
-                    <li><a href="/Admin/Home/Constitute"><i class="page"></i><em> 联盟章程</em></a></li>
-                    <li><a href="/Admin/Home/Organize"><i class="page"></i><em>联盟组织</em></a></li>
-                    <li><a href="/Admin/Home/Notice"><i class="page"></i><em>入盟须知</em></a></li>
-                    <li><a href="/Admin/Home/Process"><i class="page"></i><em>申请流程</em></a></li>
-                </ul>
-                <ul>
-                    <li><a href="/Admin/Product/Category"><i class="productCat"></i><em>产品分类</em></a></li>
-                    <li><a href="/Admin/Product/List"><i class="product"></i><em>产品列表</em></a></li>
-                </ul>
-                <ul>
-                    <li><a href="/Admin/Article/Category"><i class="articleCat"></i><em>文章分类</em></a></li>
-                    <li><a href="/Admin/Article/List"><i class="article"></i><em>文章列表</em></a></li>
-                </ul>
-                <ul>
-                    <li><a href="/Admin/Company/List"><i class="articleCat"></i><em>成员企业列表</em></a></li>
-                </ul>
-                <ul>
-                    <li><a href="/Admin/Expert/List"><i class="articleCat"></i><em>专家列表</em></a></li>
-                </ul>
-                <ul class="bot">
-                    <li><a href="/Admin/Home/UserList"><i class="manager"></i><em>网站管理员</em></a></li>
-                    <li><a href="/Admin/Home/OpLogList"><i class="managerLog"></i><em>操作记录</em></a></li>
-                </ul>
-            </div>
-        </div>
 
-        <!--3. Main-->
-        <div id="dcMain">
-            <!-- 当前位置 -->
-            <div id="urHere">
-                后台管理中心<b>></b><strong>首页配置</strong>
-            </div>
-
-            <div class="mainBox" style="height: auto !important; height: 550px; min-height: 550px;">
-                <h3>首页配置</h3>
-                <div class="idTabs">
-                    <div class="items">
-                        <div id="main">
-                            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
-                                <tr>
-                                    <th width="131">名称</th>
-                                    <th>内容</th>
-                                </tr>
-                                <tr>
-                                    <td align="right">网站名称</td>
-                                    <td>
-                                        <input id="SiteName" type="text" name="SiteName" placeholder="输入网站名称，如：中国电子化工新材料产业联盟" size="80" class="inpMain"
-                                               value="@(string.IsNullOrEmpty(config.SiteName) ? "中国电子化工新材料产业联盟" : config.SiteName)" />
-                                        <span id="msg0" style="color: red; font-weight: bold;"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">网站 Logo</td>
-                                    <td>
-                                        <input id="LogoSrc" type="text" name="LogoSrc" class="inpMain" size="60"
-                                               value="@(string.IsNullOrEmpty(config.LogoSrc) ? "/favicon.ico" : config.LogoSrc)" />
-                                        <div id="fileQueue1" style="display: none;"></div>
-                                        <input id="logoUploadify" type="file" name="uploadify" />
-                                        <span>* logo 必须是 ico 格式的文件</span>&nbsp;&nbsp;
-                                        <span id="msg1" style="color: red; font-weight: bold;"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">网站 Flash</td>
-                                    <td>
-                                        <input id="FlashSrc" type="text" name="FlashSrc" class="inpMain" size="60"
-                                               value="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/swf/movie2.swf" : config.FlashSrc)" />
-                                        <div id="fileQueue2" style="display: none;"></div>
-                                        <input id="flashUploadify" type="file" name="uploadify" />
-                                        <span id="msg2" style="color: red; font-weight: bold;"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">广告位图片</td>
-                                    <td>
-                                        <input id="AdSrc" type="text" name="AdSrc" class="inpMain" size="60"
-                                               value="@(string.IsNullOrEmpty(config.AdSrc) ? "/Content/images/guanggao.gif" : config.AdSrc)" />
-                                        <div id="fileQueue3" style="display: none;"></div>
-                                        <input id="adUploadify" type="file" name="uploadify" />
-                                        <span id="msg3" style="color: red; font-weight: bold;"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">宣传语图片</td>
-                                    <td>
-                                        <input id="SloganSrc" type="text" name="SloganSrc" class="inpMain" size="60"
-                                               value="@(string.IsNullOrEmpty(config.SloganSrc) ? "/Content/images/20160321143707.jpg" : config.SloganSrc)" />
-                                        <div id="fileQueue4" style="display: none;"></div>
-                                        <input id="sloganUploadify" type="file" name="uploadify" />
-                                        <span id="msg4" style="color: red; font-weight: bold;"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">网站二维码</td>
-                                    <td>
-                                        <input id="QrSrc" type="text" name="QrSrc" class="inpMain" size="60"
-                                               value="@(string.IsNullOrEmpty(config.QrSrc) ? "/Content/images/2118b59.jpg" : config.QrSrc)" />
-                                        <div id="fileQueue5" style="display: none;"></div>
-                                        <input id="qrUploadify" type="file" name="uploadify" />
-                                        <span id="msg5" style="color: red; font-weight: bold;"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">招商位图片</td>
-                                    <td>
-                                        <input id="BusinessSrc" type="text" name="BusinessSrc" class="inpMain" size="60"
-                                               value="@(string.IsNullOrEmpty(config.BusinessSrc) ? "/Content/images/zhaoshang.png" : config.BusinessSrc)" />
-                                        <div id="fileQueue6" style="display: none;"></div>
-                                        <input id="businessUploadify" type="file" name="uploadify" />
-                                        <span id="msg6" style="color: red; font-weight: bold;"></span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
-                            <tr>
-                                <td width="131"></td>
-                                <td>
-                                    <input type="hidden" name="token" value="24760807" />
-                                    <input name="preview" class="btn" onclick="preview()" type="button" value="预览" />
-                                    <input name="submit" class="btn" onclick="submit()" type="button" value="提交" />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--4. Foot-->
-        <div class="clear"></div>
-        <div id="dcFooter">
-            <div id="footer">
-                <div class="line"></div>
-                <ul>
-                    版权所有 © 2013-2015 漳州豆壳网络科技有限公司，并保留所有权利。
-                </ul>
-            </div>
-        </div>
-        <div class="clear"></div>
+<!--3. Main-->
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">
+        后台管理中心<b>></b><strong>首页配置</strong>
     </div>
 
-    @if (!string.IsNullOrEmpty(ViewBag.Msg))
-    {
-        <script type="text/javascript">
-            alert('@ViewBag.Msg');
-        </script>
-    }
-</body>
-</html>
+    <div class="mainBox" style="height: auto !important; height: 550px; min-height: 550px;">
+        <h3>首页配置</h3>
+        <div class="idTabs">
+            <div class="items">
+                <div id="main">
+                    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                        <tr>
+                            <th width="131">名称</th>
+                            <th>内容</th>
+                        </tr>
+                        <tr>
+                            <td align="right">网站名称</td>
+                            <td>
+                                <input id="SiteName" type="text" name="SiteName" placeholder="输入网站名称，如：中国电子化工新材料产业联盟" size="80" class="inpMain"
+                                       value="@(string.IsNullOrEmpty(config.SiteName) ? "中国电子化工新材料产业联盟" : config.SiteName)" />
+                                <span id="msg0" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">网站 Logo</td>
+                            <td>
+                                <input id="LogoSrc" type="text" name="LogoSrc" class="inpMain" size="60"
+                                       value="@(string.IsNullOrEmpty(config.LogoSrc) ? "/favicon.ico" : config.LogoSrc)" />
+                                <div id="fileQueue1" style="display: none;"></div>
+                                <input id="logoUploadify" type="file" name="uploadify" />
+                                <span>* logo 必须是 ico 格式的文件</span>&nbsp;&nbsp;
+                                <span id="msg1" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">网站 Flash</td>
+                            <td>
+                                <input id="FlashSrc" type="text" name="FlashSrc" class="inpMain" size="60"
+                                       value="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/swf/movie2.swf" : config.FlashSrc)" />
+                                <div id="fileQueue2" style="display: none;"></div>
+                                <input id="flashUploadify" type="file" name="uploadify" />
+                                <span id="msg2" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">广告位图片</td>
+                            <td>
+                                <input id="AdSrc" type="text" name="AdSrc" class="inpMain" size="60"
+                                       value="@(string.IsNullOrEmpty(config.AdSrc) ? "/Content/images/guanggao.gif" : config.AdSrc)" />
+                                <div id="fileQueue3" style="display: none;"></div>
+                                <input id="adUploadify" type="file" name="uploadify" />
+                                <span id="msg3" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">宣传语图片</td>
+                            <td>
+                                <input id="SloganSrc" type="text" name="SloganSrc" class="inpMain" size="60"
+                                       value="@(string.IsNullOrEmpty(config.SloganSrc) ? "/Content/images/20160321143707.jpg" : config.SloganSrc)" />
+                                <div id="fileQueue4" style="display: none;"></div>
+                                <input id="sloganUploadify" type="file" name="uploadify" />
+                                <span id="msg4" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">网站二维码</td>
+                            <td>
+                                <input id="QrSrc" type="text" name="QrSrc" class="inpMain" size="60"
+                                       value="@(string.IsNullOrEmpty(config.QrSrc) ? "/Content/images/2118b59.jpg" : config.QrSrc)" />
+                                <div id="fileQueue5" style="display: none;"></div>
+                                <input id="qrUploadify" type="file" name="uploadify" />
+                                <span id="msg5" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">招商位图片</td>
+                            <td>
+                                <input id="BusinessSrc" type="text" name="BusinessSrc" class="inpMain" size="60"
+                                       value="@(string.IsNullOrEmpty(config.BusinessSrc) ? "/Content/images/zhaoshang.png" : config.BusinessSrc)" />
+                                <div id="fileQueue6" style="display: none;"></div>
+                                <input id="businessUploadify" type="file" name="uploadify" />
+                                <span id="msg6" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                    <tr>
+                        <td width="131"></td>
+                        <td>
+                            <input type="hidden" name="token" value="24760807" />
+                            <input name="preview" class="btn" onclick="preview()" type="button" value="预览" />
+                            <input name="submit" class="btn" onclick="submit()" type="button" value="提交" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

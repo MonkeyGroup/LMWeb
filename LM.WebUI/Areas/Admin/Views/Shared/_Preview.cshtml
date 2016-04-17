@@ -1,496 +1,505 @@
 ﻿@using LM.Model.Model
 @using LM.Utility
 @{
-    ViewBag.Title = "Preview";
+    ViewBag.Title = "预览";
     var config = ViewBag.HomePageConfig as HomePageConfigModel;
 }
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8"/>
+    <title>@ViewBag.Title - @config.SiteName</title>
+    <link href="@(string.IsNullOrEmpty(config.LogoSrc) ? "/favicon.ico" : config.LogoSrc)" rel="shortcut icon" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width"/>
+    @Html.RenderCss("/Content/css/tb.css")
+    @Html.RenderCss("/Content/css/tpqh.css")
+    @Html.RenderCss("/Content/css/style.css")
+    @Html.RenderCss("/Content/css/nav.css")
 
-@Html.RenderCss("/Content/css/tb.css")
-@Html.RenderCss("/Content/css/tpqh.css")
-@Html.RenderCss("/Content/css/style.css")
-@Html.RenderCss("/Content/css/nav.css")
+    @Html.RenderScript("/Content/js/jquery-1.9.1.js")
+    @Html.RenderScript("/Content/js/logoRoll.js")
+    @Html.RenderScript("/Content/js/tab.js")
+    @Html.RenderScript("/Content/js/slide.js")
 
-@Html.RenderScript("/Content/js/jquery-1.9.1.js")
-@Html.RenderScript("/Content/js/logoRoll.js")
-@Html.RenderScript("/Content/js/tab.js")
-@Html.RenderScript("/Content/js/slide.js")
+    <script type="text/javascript">
+        // 首页加载后执行
+        $(document).ready(function() {
+            // 幻灯片
+            var imglist = ["/content/images/11.jpg", "/content/images/22.jpg", "/content/images/33.png", "/content/images/44.jpg"];
+            var imgIndex = 1;
+            slide(imglist, imgIndex);
 
-<script type="text/javascript">
-    // 首页加载后执行
-    $(document).ready(function () {
-        // 幻灯片
-        var imglist = ["/content/images/11.jpg", "/content/images/22.jpg", "/content/images/33.png", "/content/images/44.jpg"];
-        var imgIndex = 1;
-        slide(imglist, imgIndex);
+            // Logo 自动滚动
+            MoveDiv(window.event);
+        });
+    </script>
+</head>
 
-        // Logo 自动滚动
-        MoveDiv(window.event);
-    });
-</script>
-
-<!--1. Top-->
-<!--search-->
-<div class="find">
-    <div style="float:left;margin:0 10px;">
-        <span class="ding"><a href="javascript:window.location.href='/Admin/Home/Index'">进入后台</a><a onclick="SetHome(window.location)" href="javascript:void(0)">设为首页</a> | <a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">加入收藏</a></span>
+<body>
+    <!--1. Top-->
+    <!--search-->
+    <div class="find">
+        <div style="float:left;margin:0 10px;">
+            <span class="ding"><a href="javascript:window.location.href='/Admin/Home/Index'">进入后台</a><a onclick="SetHome(window.location)" href="javascript:void(0)">设为首页</a> | <a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">加入收藏</a></span>
+        </div>
+        <span class="find_content">
+            <form name='search' id='searchFrm' method='get'>
+                <input style='color:#999; font-size:13px; padding-left:5px;' type="text" id="tbxKeyword" class="ss_ct" rel='search' placeholder="请输入内容" />
+                <input type='hidden' id="search_Key" name="search_Key" value="" />
+                <div class="ss"> <a href="#" onclick='seaSubmit()'></a></div>
+                <input type="hidden" name="__hash__" value="" />
+            </form>
+        </span>
     </div>
-    <span class="find_content">
-        <form name='search' id='searchFrm' method='get'>
-            <input style='color:#999; font-size:13px; padding-left:5px;' type="text" id="tbxKeyword" class="ss_ct" rel='search' placeholder="请输入内容" />
-            <input type='hidden' id="search_Key" name="search_Key" value="" />
-            <div class="ss"> <a href="#" onclick='seaSubmit()'></a></div>
-            <input type="hidden" name="__hash__" value="" />
-        </form>
-    </span>
-</div>
-<!--end Top-->
-<!--flash-->
-<div class="top">
-    <div class="flash">
-        <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="1004" height="181">
-            <param name="movie" value="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/swf/flash.swf" : config.FlashSrc)" />
-            <param name="quality" value="high" />
-            <param name="wmode" value="opaque" />
-            <embed src="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/swf/flash.swf" : config.FlashSrc)" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="1004" height="181" />
-        </object>
+    <!--end Top-->
+    <!--flash-->
+    <div class="top">
+        <div class="flash">
+            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="1004" height="181">
+                <param name="movie" value="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/swf/flash.swf" : config.FlashSrc)" />
+                <param name="quality" value="high" />
+                <param name="wmode" value="opaque" />
+                <embed src="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/swf/flash.swf" : config.FlashSrc)" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="1004" height="181" />
+            </object>
+        </div>
     </div>
-</div>
 
-<!--nav-->
-<div class="top1">
-    <ul id="navmenu">
-        <li><a href="/Home/Index" title="首页">首页</a></li>
-        <li>
-            <a href="/Home/About" title="关于联盟">关于联盟</a>
-        </li>
-        <li>
-            <a href="/Trend/Index" title="联盟动态">联盟动态</a>
-        </li>
-        <li>
-            <a href="/Member/Index" title="联盟成员">联盟成员</a>
-        </li>
-        <li>
-            <a href="/Committee/Index" title="专家委员会">专家委员会</a>
-        </li>
-        <li>
-            <a href="/Product/Index" title="产品展示">产品展示</a>
-        </li>
-        <li>
-            <a href="/Outcome/Index" title="联盟成果">科研与合作</a>
-        </li>
-        <li>
-            <a href="/Home/Contact" title="联系我们">联系我们</a>
-        </li>
-    </ul>
-</div>
-
-<!--广告栏-->
-<div class="" style="padding-top:10px;margin-bottom: 10px;">
-    <a href="#">
-        <img width="1004;" src="@(string.IsNullOrEmpty(config.AdSrc)?"/Content/images/guanggao.gif":config.AdSrc)" alt="" />
-    </a>
-</div>
-
-<!--body1-->
-<div style="width: 1004px; height: 260px; margin: 8px auto; margin-bottom: 2px;">
-    <!--幻灯片-->
-    <div id="aa" class="pic_list" style="width: 331px; float: left; border: 1px solid #ccc; height: 257px; margin-right: 6px;">
-        <img src="/content/images/11.jpg" style="width: 100%; height: 100%;" />
-        <style>
-            #aa ul {
-                width: 100%;
-                margin: 0;
-                padding: 0;
-                position: relative;
-                left: 175px;
-                top: -35px;
-            }
-
-            .li {
-                color: #ffffff;
-                background: #003271;
-                padding: 3px 7px;
-                float: left;
-                margin: 3px;
-                border-radius: 10px;
-                list-style: none;
-                cursor: pointer;
-            }
-
-                .li:hover {
-                    background: #9fd5fc;
-                    color: #000000;
-                }
-
-            .active {
-                background: #FF6911;
-                color: #000000;
-                font-weight: bold;
-            }
-        </style>
-        <ul id="aa_index">
-            <li class="li active">1</li>
-            <li class="li">2</li>
-            <li class="li">3</li>
-            <li class="li">4</li>
+    <!--nav-->
+    <div class="top1">
+        <ul id="navmenu">
+            <li><a href="/Home/Index" title="首页">首页</a></li>
+            <li>
+                <a href="/Home/About" title="关于联盟">关于联盟</a>
+            </li>
+            <li>
+                <a href="/Trend/Index" title="联盟动态">联盟动态</a>
+            </li>
+            <li>
+                <a href="/Member/Index" title="联盟成员">联盟成员</a>
+            </li>
+            <li>
+                <a href="/Committee/Index" title="专家委员会">专家委员会</a>
+            </li>
+            <li>
+                <a href="/Product/Index" title="产品展示">产品展示</a>
+            </li>
+            <li>
+                <a href="/Outcome/Index" title="联盟成果">科研与合作</a>
+            </li>
+            <li>
+                <a href="/Home/Contact" title="联系我们">联系我们</a>
+            </li>
         </ul>
     </div>
 
-    <!--联盟成就、特别关注-->
-    <div style="width: 468px; float: left;">
-        <div style="height: 127px; border: 1px solid #ccc; margin-bottom: 2px;">
-            <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
-                <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #0A33C7; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
-                    联盟要闻
-                    <a href="11.科研与合作.html" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
-                        更多<span style="font-size: 12px;">&gt;&gt;</span>
-                    </a>
-                </p>
-            </div>
-            <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;">拥抱大数据 夺取大胜利</p>
-            <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
-                十三五时期是恩施州打赢脱贫攻坚战、与全省同步全面建成小康社会的决胜阶段。接下来的五年，恩施州将站在新的历史起点，既处于投资的高峰期和多重利好政策叠加的黄金机遇期。
-                <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="#" style="">详情>></a></span>
-            </p>
-        </div>
-        <div style="height: 127px; border: 1px solid #ccc;">
-            <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
-                <p style="text-align: left; font-family: '微软简楷体'; font-weight: bold; color: #0A33C7; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
-                    特别关注
-                    <a href="#" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
-                        更多<span style="font-size: 12px;">&gt;&gt;</span>
-                    </a>
-                </p>
-            </div>
-            <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;">“互联网+”大潮下的十大创业机会</p>
-            <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
-                “互联网+”中的“+”是跨界，就是变革，就是开放，就是重塑融合。敢于跨界了，创新的基础就更坚实；融合协同了，群体智能才会实现，从研发到产业化的路径才会更垂直 ...
-                <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="#" style="">详情>></a></span>
-            </p>
-        </div>
-    </div>
-    <!--二维码、简报-->
-    <div style="float: left; width: 190px; padding-left: 6px; border: 1px;">
-        <div style="height: 130px; padding: 3px 3px 0 3px; border: 1px solid #ccc; margin-bottom: 2px;">
-            <p>
-                <img style="width: 137px; height: 125px;" src="@(string.IsNullOrEmpty(config.QrSrc)?"/Content/images/2118b59.jpg":config.QrSrc)" />
-            </p>
-        </div>
-        <div style="height: 121px; border: 1px solid #ccc;">
-            <div style="padding-top: 5px; height: 25px; background: url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
-                <p style="text-align: left; font-family: '微软简楷体'; font-weight: bold; color: #0A33C7; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
-                    联盟简报
-                    <a href="#" style="text-align: right; padding-left: 28%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
-                        更多<span style="font-size: 12px;">&gt;&gt;</span>
-                    </a>
-                </p>
-            </div>
-            <div style="height: 10px;">&nbsp;</div>
-            <p style="font-size: 12px; line-height: 24px; padding-left: 10px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
-                <a href="#">中国电子化工新材料产业联...</a>
-            </p>
-            <p style="font-size: 12px; line-height: 24px; padding-left: 10px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
-                <a href="#">中国电子化工新材料产业联...</a>
-            </p>
-            <p style="font-size: 12px; line-height: 24px; padding-left: 10px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
-                <a href="#">中国电子化工新材料产业联...</a>
-            </p>
-
-        </div>
-    </div>
-</div>
-
-<!--口号栏-->
-<div class="" style="padding-top:6px; width: 1004px;margin: 0 auto">
-    <a href="#"><img width="100%" src="@(string.IsNullOrEmpty(config.SloganSrc)?"/Content/images/20160321143707.jpg":config.SloganSrc)" /></a>
-</div>
-
-<!---------------------------------------------分界线---------------------------------------------------------->
-<!--body2部分begin-->
-<div style="width:1004px;margin:0 auto; padding-top:0px;">
-    <!---联盟会员LOGO--->
-    <div id="demo" style="OVERFLOW: hidden; WIDTH: 1004px; margin:10px auto; COLOR: #ffffff; HEIGHT: 60px; border-radius:10px; border:1px solid #f1f1f1;" onmousemove="MoveDiv(event);" onmouseout="MoveOutDiv();">
-        <div id="demo1" style="width:100%;">
-            <table cellspacing=0 cellpadding=0>
-                <tbody>
-                    <tr valign=top>
-                        <td valign=top nowrap=noWrap>
-                            <div align=right style="width:1004px;">
-                                <div style="width:120px;height:60px;">
-                                    <img width="100%" height="100%" src="/Content/images/juhua.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/zhongxin.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/jingdongfang.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/dinglong.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/duofuduohua.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/guanghua.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/shengquan.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/jianghua.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/tianmahui.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/huahong.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/huaxing.jpg" />
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <td width="0">
-                <div id="demo2" style="width:100%;"></div>
-            </td>
-        </div>
+    <!--广告栏-->
+    <div class="" style="padding-top:10px;margin-bottom: 10px;">
+        <a href="#">
+            <img width="1004;" src="@(string.IsNullOrEmpty(config.AdSrc)?"/Content/images/guanggao.gif":config.AdSrc)" alt="" />
+        </a>
     </div>
 
-    <!--3组企业名称自下而上自动滚动-->
-    <div class="floor1" style="width:1004px; margin:0 auto;height:200px;margin-bottom:8px;">
-        <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;margin-top:0px; margin-right: 10px; width: 326px; height: 198px; float: left; border: 1px solid #ccc; ">
-            <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
-                <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">产业上游联盟理事企业</span>
-                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right; ">更多>></a>
-            </p>
-            <div class="tonggao_content">
-                <ul class="r_upload mbm">
-                    <div id="newlist" style="width:222px; height:130px; overflow:hidden">
-                        <li><a href="#">理事长单位  华烁科技股份有限...</a></li>
-                        <li><a href="/index.php/index/view/aid/265.html">副理事长单位  苏州瑞红电子化...</a></li>
-                        <li><a href="/index.php/index/view/aid/313.html">湖北鼎龙化学股份有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/298.html">南京化学试剂有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/297.html">江阴江化微电子材料股份有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/296.html">常州市尚科特种高分子材料有限公...</a></li>
-                        <li><a href="/index.php/index/view/aid/295.html">苏州晶瑞化学有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/294.html">北京师范大学化学学院</a></li>
-                        <li><a href="/index.php/index/view/aid/293.html">北京海斯迪克新材料有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/292.html">巨化集团公司</a></li>
-                        <li><a href="/index.php/index/view/aid/291.html">中南电子化学材料所</a></li>
-                        <li><a href="/index.php/index/view/aid/290.html">青岛新硕精细化工有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/289.html">昆山瑞和信息材料科技有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/288.html">无锡市化工研究设计院有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/287.html">副理事长单位  中国科学院化学...</a></li>
-                        <li><a href="/index.php/index/view/aid/286.html">副理事长单位  中蓝晨光化工研...</a></li>
-                        <li><a href="/index.php/index/view/aid/312.html">华南理工大学高分子光电材料及器...</a></li>
-                        <li><a href="/index.php/index/view/aid/311.html">广东省石油化工研究院</a></li>
-                        <li><a href="/index.php/index/view/aid/310.html">邯郸开发区立业化工有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/309.html">山东圣泉化工股份有限公司</a></li>
-                    </div>
-                </ul>
-            </div>
-        </div>
-        <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;margin-right: 10px; width: 326px; height: 198px; float: left; border: 1px solid #ccc;">
-            <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
-                <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">产业下游联盟理事企业</span>
-                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right; ">更多>></a>
-            </p>
-            <div class="tonggao_content">
-                <ul class="r_upload mbm">
-                    <div id="newlist1" style="width:222px; height:130px; overflow:hidden">
-                        <li><a href="#">理事长单位  华烁科技股份有限...</a></li>
-                        <li><a href="/index.php/index/view/aid/265.html">副理事长单位  苏州瑞红电子化...</a></li>
-                        <li><a href="/index.php/index/view/aid/313.html">湖北鼎龙化学股份有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/298.html">南京化学试剂有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/297.html">江阴江化微电子材料股份有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/296.html">常州市尚科特种高分子材料有限公...</a></li>
-                        <li><a href="/index.php/index/view/aid/295.html">苏州晶瑞化学有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/294.html">北京师范大学化学学院</a></li>
-                        <li><a href="/index.php/index/view/aid/293.html">北京海斯迪克新材料有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/292.html">巨化集团公司</a></li>
-                        <li><a href="/index.php/index/view/aid/291.html">中南电子化学材料所</a></li>
-                        <li><a href="/index.php/index/view/aid/290.html">青岛新硕精细化工有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/289.html">昆山瑞和信息材料科技有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/288.html">无锡市化工研究设计院有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/287.html">副理事长单位  中国科学院化学...</a></li>
-                        <li><a href="/index.php/index/view/aid/286.html">副理事长单位  中蓝晨光化工研...</a></li>
-                        <li><a href="/index.php/index/view/aid/312.html">华南理工大学高分子光电材料及器...</a></li>
-                        <li><a href="/index.php/index/view/aid/311.html">广东省石油化工研究院</a></li>
-                        <li><a href="/index.php/index/view/aid/310.html">邯郸开发区立业化工有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/309.html">山东圣泉化工股份有限公司</a></li>
-                    </div>
-                </ul>
-            </div>
-        </div>
-        <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;width: 326px; height: 198px; float: left; border: 1px solid #ccc;">
-            <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
-                <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">科研院所协会理事单位</span>
-                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right; ">更多>></a>
-            </p>
-            <div class="tonggao_content">
-                <ul class="r_upload mbm">
-                    <div id="newlist2" style="width:222px; height:130px; overflow:hidden">
-                        <li><a href="#">理事长单位  华烁科技股份有限...</a></li>
-                        <li><a href="#">副理事长单位  苏州瑞红电子化...</a></li>
-                        <li><a href="#">湖北鼎龙化学股份有限公司</a></li>
-                        <li><a href="#">南京化学试剂有限公司</a></li>
-                        <li><a href="#">江阴江化微电子材料股份有限公司</a></li>
-                        <li><a href="#">常州市尚科特种高分子材料有限公...</a></li>
-                        <li><a href="#">苏州晶瑞化学有限公司</a></li>
-                        <li><a href="#">北京师范大学化学学院</a></li>
-                        <li><a href="#">北京海斯迪克新材料有限公司</a></li>
-                        <li><a href="#">巨化集团公司</a></li>
-                        <li><a href="#">中南电子化学材料所</a></li>
-                        <li><a href="#">青岛新硕精细化工有限公司</a></li>
-                        <li><a href="#">昆山瑞和信息材料科技有限公司</a></li>
-                        <li><a href="#">无锡市化工研究设计院有限公司</a></li>
-                        <li><a href="#">副理事长单位  中国科学院化学...</a></li>
-                        <li><a href="#">副理事长单位  中蓝晨光化工研...</a></li>
-                        <li><a href="#">华南理工大学高分子光电材料及器...</a></li>
-                        <li><a href="#">广东省石油化工研究院</a></li>
-                        <li><a href="#">邯郸开发区立业化工有限公司</a></li>
-                        <li><a href="#">山东圣泉化工股份有限公司</a></li>
-                    </div>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!--滚动的js-->
-    @Html.RenderScript("/Content/js/ListScroll.js")
+    <!--body1-->
+    <div style="width: 1004px; height: 260px; margin: 8px auto; margin-bottom: 2px;">
+        <!--幻灯片-->
+        <div id="aa" class="pic_list" style="width: 331px; float: left; border: 1px solid #ccc; height: 257px; margin-right: 6px;">
+            <img src="/content/images/11.jpg" style="width: 100%; height: 100%;" />
+            <style>
+                #aa ul {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    position: relative;
+                    left: 175px;
+                    top: -35px;
+                }
 
-    <!--企业产品推荐-->
-    <div style="padding-top:5px;height:28px;background:url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom:1px solid #ccc;">
-        <p style="text-align: left; font-family: '微软简楷体'; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
-            企业产品推荐
-        </p>
-    </div>
-    <div class="floor2" style="width: 1004px; margin: 0 auto; height: 160px; margin-bottom: 10px;">
-        <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 11px;">
-            <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/xinpian1.jpg" /></a>
-        </div>
-        <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 11px;">
-            <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/dianzu2.jpg" /></a>
-        </div>
-        <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 10px;">
-            <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/guiding1.jpg" /></a>
-        </div>
-        <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc;">
-            <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/yuanjing1.jpg" /></a>
-        </div>
-    </div>
+                .li {
+                    color: #ffffff;
+                    background: #003271;
+                    padding: 3px 7px;
+                    float: left;
+                    margin: 3px;
+                    border-radius: 10px;
+                    list-style: none;
+                    cursor: pointer;
+                }
 
-    <!--联盟动态、行业信息、广告位-->
-    <div class="floor3" style="width:1004px; margin:0 auto;height:320px;margin-bottom:10px; ">
-        <div class="" style="width: 342px; height: 318px; float: left; margin-right: 10px; border: 1px solid #ccc; text-align:left;padding:0px 10px 0px 15px;">
-            <div style="margin-left: -15px; margin-right: -10px; margin-bottom: 15px; padding-top: 0px; height: 30px;">
-                <img height="100%" src="/Content/images/lmdt.png" />
-            </div>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">关于参加“跨境电子商务创新..</a>.<span style="float:right;">[ 2015-11-15 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">杭州市2015年电子化工新材...</a><span style="float:right;">[ 2015-09-12 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
-            <p style="text-align:right; padding-right:10px; margin-top:5px;"><a href="#" style="font-size:12px; font-family:'宋体'; color:#ADA7A7; cursor:pointer;">更多<span style="font-size:12px;">&gt;&gt;</span></a></p>
-        </div>
-        <div class="" style="width: 346px; height: 318px; float: left; margin-right: 10px; border: 1px solid #ccc;text-align:left;padding:0px 10px 0px 15px;">
-            <div style="margin-left: -15px; margin-right: -10px; margin-bottom: 15px; padding-top: 0px; height: 30px;">
-                <img height="100%" src="/Content/images/hyxx.png" />
-            </div>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">关于参加“跨境电子商务创新..</a>.<span style="float:right;">[ 2015-11-15 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">杭州市2015年电子化工新材...</a><span style="float:right;">[ 2015-09-12 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
-            <p class="pmore" style="text-align:right; padding-right:10px; margin-top:5px;"><a href="#" style="font-size:12px; font-family:'宋体'; color:#ADA7A7; cursor:pointer;">更多<span style="font-size:12px;">&gt;&gt;</span></a></p>
-        </div>
-        <div class="" style="width: 240px; height: 318px; float: left; border: 1px solid #ccc;">
-            <img width="100%" height="100%" src="@(string.IsNullOrEmpty(config.BusinessSrc)?"/Content/images/zhaoshang.png":config.BusinessSrc)" />
-        </div>
-    </div>
+                    .li:hover {
+                        background: #9fd5fc;
+                        color: #000000;
+                    }
 
-</div>
-<!--body2部分end-->
-<!--footer-->
-<div class="footer">
-    <div class="content">
-        <div class="yqlj">
-            <span>友情链接：</span>
-            <div class="yqlj1">
-                <select name="url" onchange="if(value !== ''){window.open(this.options[this.selectedIndex].value);}else{return(false);}">
-                    <option value="" selected=selected>中央部门</option>
-                    <option value="http://www.miit.gov.cn/n11293472/index.html">工业和信息化部</option>
-                    <option value="http://www.most.gov.cn/">科学技术部</option>
-                    <option value="http://www.sdpc.gov.cn/">发展与改革委员会</option>
-                    <option value="http://www.mofcom.gov.cn/">商务部</option>
-                </select>
-            </div>
-            <div class="yqlj1">
-                <select name="url" onchange="if(value !== ''){window.open(this.options[this.selectedIndex].value);}else{return(false);}">
-                    <option value="" selected="selected">政府部门</option>
-                    <option value="http://www.ecma.org.cn">中国电子材料协会</option>
-                    <option value="http://www.c-e-m.com/index.html">中国电子材料网</option>
-                </select>
-            </div>
-            <div class="yqlj1">
-                <select name="url" onchange="if(value !== ''){window.open(this.options[this.selectedIndex].value);}else{return(false);}">
-                    <option value="" selected="selected">其他相关协会</option>
-                    <option value="http://www.chinaccl.cn/">中国电子材料行业协会</option>
-                    <option value="http://www.chinaccl.cn/">石化联合会化工新材料专委会</option>
-                    <option value="http://www.chinaccl.cn/">中国氟硅有机材料工业协会</option>
-                    <option value="http://www.chinaccl.cn/">中国合成树脂协会</option>
-                    <option value="http://www.chinaccl.cn/">国家电子功能及辅助材料质量监督检验中心</option>
-                </select>
-            </div>
-            <div class="yqlj1">
-                <select name="url" onchange="if(value !== ''){window.open(this.options[this.selectedIndex].value);}else{return(false);}">
-                    <option value="" selected="selected">联盟理事成员单位</option>
-                    <option value="http://www.cast.org.cn/">巨化集团公司（理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">中芯国际集成电路制造有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">京东方科技集团股份有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">多氟多化工股份公司(（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">湖北鼎龙化学股份有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">广东光华科技股份有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">山东圣泉新材料股份有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">江阴江化微电子材料股份有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">中国电子材料行业协会（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">深圳市华星光电技术有限公司</option>
-                    <option value="http://www.cast.org.cn/">天马微电子集团</option>
-                    <option value="http://www.cast.org.cn/">上海先进半导体制造股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">广东生益科技股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">广东风华高科技股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">佛山市华特气体有限公司</option>
-                    <option value="http://www.cast.org.cn/">杭州格林达化学有限公司</option>
-                    <option value="http://www.cast.org.cn/">华烁科技股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">苏州晶瑞化学股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">江阴润玛电子材料股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">江苏广信感光新材料股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">西安宏星电子浆料有限公司</option>
-                    <option value="http://www.cast.org.cn/">清华大学化学系</option>
-                    <option value="http://www.cast.org.cn/">中科院化学所</option>
-                    <option value="http://www.cast.org.cn/">中蓝晨光化工研究设计院有限公司</option>
-                    <option value="http://www.cast.org.cn/">南通星辰合成材料有限公司</option>
-                    <option value="http://www.cast.org.cn/">浙江金瑞泓科技股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">北京鼎材科技有限公司</option>
-                    <option value="http://www.cast.org.cn/">苏州瑞红电子化学品有限公司</option>
-                    <option value="http://www.cast.org.cn/">大连保税区科利德化工科技开发有限公司</option>
-                    <option value="http://www.cast.org.cn/">合肥正帆电子材料有限公司</option>
-                    <option value="http://www.cast.org.cn/">湖南利德电子浆料股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">浙江东氟塑料科技有限公司</option>
-                    <option value="http://www.cast.org.cn/">绿菱电子材料（天津）有限公司</option>
-                    <option value="http://www.cast.org.cn/">浙江省化工研究院有限公司（中化蓝天）  </option>
-                    <option value="http://www.cast.org.cn/">中昊光明化工研究设计院</option>
-                    <option value="http://www.cast.org.cn/">黎明化工研究设计院</option>
-                    <option value="http://www.cast.org.cn/">北京化工大学</option>
-                    <option value="http://www.cast.org.cn/">华东理工大学</option>
-                    <option value="http://www.cast.org.cn/">北京华通瑞驰材料科技有限公司</option>
-                    <option value="http://www.cast.org.cn/">湖北卓熙氟化股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">济南泰星精细化工有限公司</option>
-                    <option value="http://www.cast.org.cn/">江苏雅克科技股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">宇瑞(上海)化学有限公司</option>
-                </select>
-            </div>
-            <div class="info">
-                <div class="db">
-                    <p>
-                        主办方：中国电子材料行业协会&nbsp;&nbsp;&nbsp;&nbsp;地址：武汉市洪山区光谷街30号&nbsp;&nbsp;&nbsp;&nbsp;E-mail： ECMA2010@126.com<br />
-                        CopyRight@2013 中国电子化工新材料产业联盟&nbsp;&nbsp;&nbsp;&nbsp;邮编：430074&nbsp;&nbsp;&nbsp;&nbsp;技术支持：NWDesign
+                .active {
+                    background: #FF6911;
+                    color: #000000;
+                    font-weight: bold;
+                }
+            </style>
+            <ul id="aa_index">
+                <li class="li active">1</li>
+                <li class="li">2</li>
+                <li class="li">3</li>
+                <li class="li">4</li>
+            </ul>
+        </div>
+
+        <!--联盟成就、特别关注-->
+        <div style="width: 468px; float: left;">
+            <div style="height: 127px; border: 1px solid #ccc; margin-bottom: 2px;">
+                <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
+                    <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #0A33C7; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
+                        联盟要闻
+                        <a href="11.科研与合作.html" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                            更多<span style="font-size: 12px;">&gt;&gt;</span>
+                        </a>
                     </p>
+                </div>
+                <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;">拥抱大数据 夺取大胜利</p>
+                <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
+                    十三五时期是恩施州打赢脱贫攻坚战、与全省同步全面建成小康社会的决胜阶段。接下来的五年，恩施州将站在新的历史起点，既处于投资的高峰期和多重利好政策叠加的黄金机遇期。
+                    <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="#" style="">详情>></a></span>
+                </p>
+            </div>
+            <div style="height: 127px; border: 1px solid #ccc;">
+                <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
+                    <p style="text-align: left; font-family: '微软简楷体'; font-weight: bold; color: #0A33C7; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
+                        特别关注
+                        <a href="#" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                            更多<span style="font-size: 12px;">&gt;&gt;</span>
+                        </a>
+                    </p>
+                </div>
+                <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;">“互联网+”大潮下的十大创业机会</p>
+                <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
+                    “互联网+”中的“+”是跨界，就是变革，就是开放，就是重塑融合。敢于跨界了，创新的基础就更坚实；融合协同了，群体智能才会实现，从研发到产业化的路径才会更垂直 ...
+                    <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="#" style="">详情>></a></span>
+                </p>
+            </div>
+        </div>
+        <!--二维码、简报-->
+        <div style="float: left; width: 190px; padding-left: 6px; border: 1px;">
+            <div style="height: 130px; padding: 3px 3px 0 3px; border: 1px solid #ccc; margin-bottom: 2px;">
+                <p>
+                    <img style="width: 137px; height: 125px;" src="@(string.IsNullOrEmpty(config.QrSrc)?"/Content/images/2118b59.jpg":config.QrSrc)" />
+                </p>
+            </div>
+            <div style="height: 121px; border: 1px solid #ccc;">
+                <div style="padding-top: 5px; height: 25px; background: url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
+                    <p style="text-align: left; font-family: '微软简楷体'; font-weight: bold; color: #0A33C7; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
+                        联盟简报
+                        <a href="#" style="text-align: right; padding-left: 28%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                            更多<span style="font-size: 12px;">&gt;&gt;</span>
+                        </a>
+                    </p>
+                </div>
+                <div style="height: 10px;">&nbsp;</div>
+                <p style="font-size: 12px; line-height: 24px; padding-left: 10px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
+                    <a href="#">中国电子化工新材料产业联...</a>
+                </p>
+                <p style="font-size: 12px; line-height: 24px; padding-left: 10px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
+                    <a href="#">中国电子化工新材料产业联...</a>
+                </p>
+                <p style="font-size: 12px; line-height: 24px; padding-left: 10px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
+                    <a href="#">中国电子化工新材料产业联...</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <!--口号栏-->
+    <div class="" style="padding-top:6px; width: 1004px;margin: 0 auto">
+        <a href="#"><img width="100%" src="@(string.IsNullOrEmpty(config.SloganSrc)?"/Content/images/20160321143707.jpg":config.SloganSrc)" /></a>
+    </div>
+
+    <!---------------------------------------------分界线---------------------------------------------------------->
+    <!--body2部分begin-->
+    <div style="width:1004px;margin:0 auto; padding-top:0px;">
+        <!---联盟会员LOGO--->
+        <div id="demo" style="OVERFLOW: hidden; WIDTH: 1004px; margin:10px auto; COLOR: #ffffff; HEIGHT: 60px; border-radius:10px; border:1px solid #f1f1f1;" onmousemove="MoveDiv(event);" onmouseout="MoveOutDiv();">
+            <div id="demo1" style="width:100%;">
+                <table cellspacing=0 cellpadding=0>
+                    <tbody>
+                        <tr valign=top>
+                            <td valign=top nowrap=noWrap>
+                                <div align=right style="width:1004px;">
+                                    <div style="width:120px;height:60px;">
+                                        <img width="100%" height="100%" src="/Content/images/juhua.jpg" />
+                                        <img width="100%" height="100%" src="/Content/images/zhongxin.jpg" />
+                                        <img width="100%" height="100%" src="/Content/images/jingdongfang.jpg" />
+                                        <img width="100%" height="100%" src="/Content/images/dinglong.jpg" />
+                                        <img width="100%" height="100%" src="/Content/images/duofuduohua.jpg" />
+                                        <img width="100%" height="100%" src="/Content/images/guanghua.jpg" />
+                                        <img width="100%" height="100%" src="/Content/images/shengquan.jpg" />
+                                        <img width="100%" height="100%" src="/Content/images/jianghua.jpg" />
+                                        <img width="100%" height="100%" src="/Content/images/tianmahui.jpg" />
+                                        <img width="100%" height="100%" src="/Content/images/huahong.jpg" />
+                                        <img width="100%" height="100%" src="/Content/images/huaxing.jpg" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <td width="0">
+                    <div id="demo2" style="width:100%;"></div>
+                </td>
+            </div>
+        </div>
+
+        <!--3组企业名称自下而上自动滚动-->
+        <div class="floor1" style="width:1004px; margin:0 auto;height:200px;margin-bottom:8px;">
+            <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;margin-top:0px; margin-right: 10px; width: 326px; height: 198px; float: left; border: 1px solid #ccc; ">
+                <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
+                    <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">产业上游联盟理事企业</span>
+                    <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right; ">更多>></a>
+                </p>
+                <div class="tonggao_content">
+                    <ul class="r_upload mbm">
+                        <div id="newlist" style="width:222px; height:130px; overflow:hidden">
+                            <li><a href="#">理事长单位  华烁科技股份有限...</a></li>
+                            <li><a href="/index.php/index/view/aid/265.html">副理事长单位  苏州瑞红电子化...</a></li>
+                            <li><a href="/index.php/index/view/aid/313.html">湖北鼎龙化学股份有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/298.html">南京化学试剂有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/297.html">江阴江化微电子材料股份有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/296.html">常州市尚科特种高分子材料有限公...</a></li>
+                            <li><a href="/index.php/index/view/aid/295.html">苏州晶瑞化学有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/294.html">北京师范大学化学学院</a></li>
+                            <li><a href="/index.php/index/view/aid/293.html">北京海斯迪克新材料有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/292.html">巨化集团公司</a></li>
+                            <li><a href="/index.php/index/view/aid/291.html">中南电子化学材料所</a></li>
+                            <li><a href="/index.php/index/view/aid/290.html">青岛新硕精细化工有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/289.html">昆山瑞和信息材料科技有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/288.html">无锡市化工研究设计院有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/287.html">副理事长单位  中国科学院化学...</a></li>
+                            <li><a href="/index.php/index/view/aid/286.html">副理事长单位  中蓝晨光化工研...</a></li>
+                            <li><a href="/index.php/index/view/aid/312.html">华南理工大学高分子光电材料及器...</a></li>
+                            <li><a href="/index.php/index/view/aid/311.html">广东省石油化工研究院</a></li>
+                            <li><a href="/index.php/index/view/aid/310.html">邯郸开发区立业化工有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/309.html">山东圣泉化工股份有限公司</a></li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;margin-right: 10px; width: 326px; height: 198px; float: left; border: 1px solid #ccc;">
+                <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
+                    <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">产业下游联盟理事企业</span>
+                    <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right; ">更多>></a>
+                </p>
+                <div class="tonggao_content">
+                    <ul class="r_upload mbm">
+                        <div id="newlist1" style="width:222px; height:130px; overflow:hidden">
+                            <li><a href="#">理事长单位  华烁科技股份有限...</a></li>
+                            <li><a href="/index.php/index/view/aid/265.html">副理事长单位  苏州瑞红电子化...</a></li>
+                            <li><a href="/index.php/index/view/aid/313.html">湖北鼎龙化学股份有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/298.html">南京化学试剂有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/297.html">江阴江化微电子材料股份有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/296.html">常州市尚科特种高分子材料有限公...</a></li>
+                            <li><a href="/index.php/index/view/aid/295.html">苏州晶瑞化学有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/294.html">北京师范大学化学学院</a></li>
+                            <li><a href="/index.php/index/view/aid/293.html">北京海斯迪克新材料有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/292.html">巨化集团公司</a></li>
+                            <li><a href="/index.php/index/view/aid/291.html">中南电子化学材料所</a></li>
+                            <li><a href="/index.php/index/view/aid/290.html">青岛新硕精细化工有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/289.html">昆山瑞和信息材料科技有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/288.html">无锡市化工研究设计院有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/287.html">副理事长单位  中国科学院化学...</a></li>
+                            <li><a href="/index.php/index/view/aid/286.html">副理事长单位  中蓝晨光化工研...</a></li>
+                            <li><a href="/index.php/index/view/aid/312.html">华南理工大学高分子光电材料及器...</a></li>
+                            <li><a href="/index.php/index/view/aid/311.html">广东省石油化工研究院</a></li>
+                            <li><a href="/index.php/index/view/aid/310.html">邯郸开发区立业化工有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/309.html">山东圣泉化工股份有限公司</a></li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;width: 326px; height: 198px; float: left; border: 1px solid #ccc;">
+                <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
+                    <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">科研院所协会理事单位</span>
+                    <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right; ">更多>></a>
+                </p>
+                <div class="tonggao_content">
+                    <ul class="r_upload mbm">
+                        <div id="newlist2" style="width:222px; height:130px; overflow:hidden">
+                            <li><a href="#">理事长单位  华烁科技股份有限...</a></li>
+                            <li><a href="#">副理事长单位  苏州瑞红电子化...</a></li>
+                            <li><a href="#">湖北鼎龙化学股份有限公司</a></li>
+                            <li><a href="#">南京化学试剂有限公司</a></li>
+                            <li><a href="#">江阴江化微电子材料股份有限公司</a></li>
+                            <li><a href="#">常州市尚科特种高分子材料有限公...</a></li>
+                            <li><a href="#">苏州晶瑞化学有限公司</a></li>
+                            <li><a href="#">北京师范大学化学学院</a></li>
+                            <li><a href="#">北京海斯迪克新材料有限公司</a></li>
+                            <li><a href="#">巨化集团公司</a></li>
+                            <li><a href="#">中南电子化学材料所</a></li>
+                            <li><a href="#">青岛新硕精细化工有限公司</a></li>
+                            <li><a href="#">昆山瑞和信息材料科技有限公司</a></li>
+                            <li><a href="#">无锡市化工研究设计院有限公司</a></li>
+                            <li><a href="#">副理事长单位  中国科学院化学...</a></li>
+                            <li><a href="#">副理事长单位  中蓝晨光化工研...</a></li>
+                            <li><a href="#">华南理工大学高分子光电材料及器...</a></li>
+                            <li><a href="#">广东省石油化工研究院</a></li>
+                            <li><a href="#">邯郸开发区立业化工有限公司</a></li>
+                            <li><a href="#">山东圣泉化工股份有限公司</a></li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--滚动的js-->
+        @Html.RenderScript("/Content/js/ListScroll.js")
+
+        <!--企业产品推荐-->
+        <div style="padding-top:5px;height:28px;background:url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom:1px solid #ccc;">
+            <p style="text-align: left; font-family: '微软简楷体'; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
+                企业产品推荐
+            </p>
+        </div>
+        <div class="floor2" style="width: 1004px; margin: 0 auto; height: 160px; margin-bottom: 10px;">
+            <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 11px;">
+                <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/xinpian1.jpg" /></a>
+            </div>
+            <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 11px;">
+                <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/dianzu2.jpg" /></a>
+            </div>
+            <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 10px;">
+                <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/guiding1.jpg" /></a>
+            </div>
+            <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc;">
+                <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/yuanjing1.jpg" /></a>
+            </div>
+        </div>
+
+        <!--联盟动态、行业信息、广告位-->
+        <div class="floor3" style="width:1004px; margin:0 auto;height:320px;margin-bottom:10px; ">
+            <div class="" style="width: 342px; height: 318px; float: left; margin-right: 10px; border: 1px solid #ccc; text-align:left;padding:0px 10px 0px 15px;">
+                <div style="margin-left: -15px; margin-right: -10px; margin-bottom: 15px; padding-top: 0px; height: 30px;">
+                    <img height="100%" src="/Content/images/lmdt.png" />
+                </div>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">关于参加“跨境电子商务创新..</a>.<span style="float:right;">[ 2015-11-15 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">杭州市2015年电子化工新材...</a><span style="float:right;">[ 2015-09-12 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
+                <p style="text-align:right; padding-right:10px; margin-top:5px;"><a href="#" style="font-size:12px; font-family:'宋体'; color:#ADA7A7; cursor:pointer;">更多<span style="font-size:12px;">&gt;&gt;</span></a></p>
+            </div>
+            <div class="" style="width: 346px; height: 318px; float: left; margin-right: 10px; border: 1px solid #ccc;text-align:left;padding:0px 10px 0px 15px;">
+                <div style="margin-left: -15px; margin-right: -10px; margin-bottom: 15px; padding-top: 0px; height: 30px;">
+                    <img height="100%" src="/Content/images/hyxx.png" />
+                </div>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">关于参加“跨境电子商务创新..</a>.<span style="float:right;">[ 2015-11-15 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">杭州市2015年电子化工新材...</a><span style="float:right;">[ 2015-09-12 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
+                <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
+                <p class="pmore" style="text-align:right; padding-right:10px; margin-top:5px;"><a href="#" style="font-size:12px; font-family:'宋体'; color:#ADA7A7; cursor:pointer;">更多<span style="font-size:12px;">&gt;&gt;</span></a></p>
+            </div>
+            <div class="" style="width: 240px; height: 318px; float: left; border: 1px solid #ccc;">
+                <img width="100%" height="100%" src="@(string.IsNullOrEmpty(config.BusinessSrc)?"/Content/images/zhaoshang.png":config.BusinessSrc)" />
+            </div>
+        </div>
+
+    </div>
+    <!--body2部分end-->
+    <!--footer-->
+    <div class="footer">
+        <div class="content">
+            <div class="yqlj">
+                <span>友情链接：</span>
+                <div class="yqlj1">
+                    <select name="url" onchange="if(value !== ''){window.open(this.options[this.selectedIndex].value);}else{return(false);}">
+                        <option value="" selected=selected>中央部门</option>
+                        <option value="http://www.miit.gov.cn/n11293472/index.html">工业和信息化部</option>
+                        <option value="http://www.most.gov.cn/">科学技术部</option>
+                        <option value="http://www.sdpc.gov.cn/">发展与改革委员会</option>
+                        <option value="http://www.mofcom.gov.cn/">商务部</option>
+                    </select>
+                </div>
+                <div class="yqlj1">
+                    <select name="url" onchange="if(value !== ''){window.open(this.options[this.selectedIndex].value);}else{return(false);}">
+                        <option value="" selected="selected">政府部门</option>
+                        <option value="http://www.ecma.org.cn">中国电子材料协会</option>
+                        <option value="http://www.c-e-m.com/index.html">中国电子材料网</option>
+                    </select>
+                </div>
+                <div class="yqlj1">
+                    <select name="url" onchange="if(value !== ''){window.open(this.options[this.selectedIndex].value);}else{return(false);}">
+                        <option value="" selected="selected">其他相关协会</option>
+                        <option value="http://www.chinaccl.cn/">中国电子材料行业协会</option>
+                        <option value="http://www.chinaccl.cn/">石化联合会化工新材料专委会</option>
+                        <option value="http://www.chinaccl.cn/">中国氟硅有机材料工业协会</option>
+                        <option value="http://www.chinaccl.cn/">中国合成树脂协会</option>
+                        <option value="http://www.chinaccl.cn/">国家电子功能及辅助材料质量监督检验中心</option>
+                    </select>
+                </div>
+                <div class="yqlj1">
+                    <select name="url" onchange="if(value !== ''){window.open(this.options[this.selectedIndex].value);}else{return(false);}">
+                        <option value="" selected="selected">联盟理事成员单位</option>
+                        <option value="http://www.cast.org.cn/">巨化集团公司（理事长单位）</option>
+                        <option value="http://www.cast.org.cn/">中芯国际集成电路制造有限公司（副理事长单位）</option>
+                        <option value="http://www.cast.org.cn/">京东方科技集团股份有限公司（副理事长单位）</option>
+                        <option value="http://www.cast.org.cn/">多氟多化工股份公司(（副理事长单位）</option>
+                        <option value="http://www.cast.org.cn/">湖北鼎龙化学股份有限公司（副理事长单位）</option>
+                        <option value="http://www.cast.org.cn/">广东光华科技股份有限公司（副理事长单位）</option>
+                        <option value="http://www.cast.org.cn/">山东圣泉新材料股份有限公司（副理事长单位）</option>
+                        <option value="http://www.cast.org.cn/">江阴江化微电子材料股份有限公司（副理事长单位）</option>
+                        <option value="http://www.cast.org.cn/">中国电子材料行业协会（副理事长单位）</option>
+                        <option value="http://www.cast.org.cn/">深圳市华星光电技术有限公司</option>
+                        <option value="http://www.cast.org.cn/">天马微电子集团</option>
+                        <option value="http://www.cast.org.cn/">上海先进半导体制造股份有限公司</option>
+                        <option value="http://www.cast.org.cn/">广东生益科技股份有限公司</option>
+                        <option value="http://www.cast.org.cn/">广东风华高科技股份有限公司</option>
+                        <option value="http://www.cast.org.cn/">佛山市华特气体有限公司</option>
+                        <option value="http://www.cast.org.cn/">杭州格林达化学有限公司</option>
+                        <option value="http://www.cast.org.cn/">华烁科技股份有限公司</option>
+                        <option value="http://www.cast.org.cn/">苏州晶瑞化学股份有限公司</option>
+                        <option value="http://www.cast.org.cn/">江阴润玛电子材料股份有限公司</option>
+                        <option value="http://www.cast.org.cn/">江苏广信感光新材料股份有限公司</option>
+                        <option value="http://www.cast.org.cn/">西安宏星电子浆料有限公司</option>
+                        <option value="http://www.cast.org.cn/">清华大学化学系</option>
+                        <option value="http://www.cast.org.cn/">中科院化学所</option>
+                        <option value="http://www.cast.org.cn/">中蓝晨光化工研究设计院有限公司</option>
+                        <option value="http://www.cast.org.cn/">南通星辰合成材料有限公司</option>
+                        <option value="http://www.cast.org.cn/">浙江金瑞泓科技股份有限公司</option>
+                        <option value="http://www.cast.org.cn/">北京鼎材科技有限公司</option>
+                        <option value="http://www.cast.org.cn/">苏州瑞红电子化学品有限公司</option>
+                        <option value="http://www.cast.org.cn/">大连保税区科利德化工科技开发有限公司</option>
+                        <option value="http://www.cast.org.cn/">合肥正帆电子材料有限公司</option>
+                        <option value="http://www.cast.org.cn/">湖南利德电子浆料股份有限公司</option>
+                        <option value="http://www.cast.org.cn/">浙江东氟塑料科技有限公司</option>
+                        <option value="http://www.cast.org.cn/">绿菱电子材料（天津）有限公司</option>
+                        <option value="http://www.cast.org.cn/">浙江省化工研究院有限公司（中化蓝天）  </option>
+                        <option value="http://www.cast.org.cn/">中昊光明化工研究设计院</option>
+                        <option value="http://www.cast.org.cn/">黎明化工研究设计院</option>
+                        <option value="http://www.cast.org.cn/">北京化工大学</option>
+                        <option value="http://www.cast.org.cn/">华东理工大学</option>
+                        <option value="http://www.cast.org.cn/">北京华通瑞驰材料科技有限公司</option>
+                        <option value="http://www.cast.org.cn/">湖北卓熙氟化股份有限公司</option>
+                        <option value="http://www.cast.org.cn/">济南泰星精细化工有限公司</option>
+                        <option value="http://www.cast.org.cn/">江苏雅克科技股份有限公司</option>
+                        <option value="http://www.cast.org.cn/">宇瑞(上海)化学有限公司</option>
+                    </select>
+                </div>
+                <div class="info">
+                    <div class="db">
+                        <p>
+                            主办方：中国电子材料行业协会&nbsp;&nbsp;&nbsp;&nbsp;地址：武汉市洪山区光谷街30号&nbsp;&nbsp;&nbsp;&nbsp;E-mail： ECMA2010@126.com<br />
+                            CopyRight@2013 中国电子化工新材料产业联盟&nbsp;&nbsp;&nbsp;&nbsp;邮编：430074&nbsp;&nbsp;&nbsp;&nbsp;技术支持：NWDesign
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+</body>

@@ -9,6 +9,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 {
     public class HomeController : BaseController
     {
+        #region 登录登出
         //[Authentication]
         public ActionResult Index()
         {
@@ -68,23 +69,23 @@ namespace LM.WebUI.Areas.Admin.Controllers
             return View("Login");
         }
 
-        [Authentication]
-        public ActionResult Top()
-        {
-            return View("_Top");
-        }
+        #endregion
 
-        [Authentication]
-        public ActionResult Left()
-        {
-            return View("_Left");
-        }
 
+        #region 首页配置
         [HttpGet]
         //[Authentication]
         public ActionResult HomeConfig()
         {
-            // 取现有的配置，首次为空
+            // 首先判断session中有无存储此配置信息
+            var conf = DiMySession.Get<HomePageConfigModel>("HomePageConfig");
+            if (conf != null)
+            {
+                ViewBag.HomePageConfig = conf;
+                ViewBag.Nav = "Index";
+                return View();
+            }
+            // 若无，则取出后放入session
             using (var homePageConfigService = ResolveService<HomePageConfigService>())
             {
                 var svs = homePageConfigService.GetLast();
@@ -92,11 +93,14 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 {
                     var config = svs.Data as HomePageConfigModel;
                     ViewBag.HomePageConfig = config;
+                    DiMySession.Set("HomePageConfig", config);
                 }
                 else
                 {
                     ViewBag.HomePageConfig = new HomePageConfigModel();
                 }
+
+                ViewBag.Nav = "Index";
                 return View();
             }
         }
@@ -124,7 +128,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 return Json(new { status = rs.Status, msg = msg });
             }
         }
-        
+
         [HttpGet]
         //[Authentication]
         public ActionResult Preview(string a, string b, string c, string d, string e, string f, string g)
@@ -143,6 +147,33 @@ namespace LM.WebUI.Areas.Admin.Controllers
             ViewBag.HomePageConfig = config;
             return View("_Preview");
         }
+        #endregion
 
+
+        #region 联盟信息配置
+
+        public ActionResult BasicInfo()
+        {
+            // 取现有的配置，首次为空
+            using (var homePageConfigService = ResolveService<HomePageConfigService>())
+            {
+                var svs = homePageConfigService.GetLast();
+                if (svs.Status)
+                {
+                    var config = svs.Data as HomePageConfigModel;
+                    ViewBag.HomePageConfig = config;
+                }
+                else
+                {
+                    ViewBag.HomePageConfig = new HomePageConfigModel();
+                }
+                
+                ViewBag.Nav = "BasicInfo";
+                return View();
+            }
+        }
+
+
+        #endregion
     }
 }
