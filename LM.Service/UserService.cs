@@ -5,6 +5,7 @@ using LM.Component.Data;
 using LM.Model.Entity;
 using LM.Repo;
 using LM.Service.Base;
+using LM.Utility;
 
 namespace LM.Service
 {
@@ -113,6 +114,21 @@ namespace LM.Service
                 return new ServiceResult(false, ServiceResultCode.服务器异常, e.Message);
             }
         }
+
+        public ServiceResult GetLoginUser(string name, string pwd)
+        {
+            try
+            {
+                var param = new { Name = name, MD5Pwd = pwd.Md5String() };
+                var user = QueryManage.GetList<User>("select * from [User] where [Name] = @Name and [Pwd] = @MD5Pwd", param);
+                return user.Count > 0 ? new ServiceResult(true) { Data = user.FirstOrDefault() } : new ServiceResult(false);
+            }
+            catch (Exception e)
+            {
+                return new ServiceResult(false, ServiceResultCode.服务器异常, e.Message);
+            }
+        }
+
 
         #endregion
 

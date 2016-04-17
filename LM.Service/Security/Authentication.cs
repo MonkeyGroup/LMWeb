@@ -20,6 +20,14 @@ namespace LM.Service.Security
         /// <summary>
         ///  默认需要验证鉴权
         /// </summary>
+        public Authentication()
+        {
+            _openAuth = true;
+        }
+
+        /// <summary>
+        ///  默认需要验证鉴权
+        /// </summary>
         /// <param name="openAuth"></param>
         public Authentication(bool openAuth = true)
         {
@@ -28,7 +36,7 @@ namespace LM.Service.Security
         }
 
         /// <summary>
-        /// 判断角色 权限
+        /// 传入需要校验的权限集合
         /// </summary>
         /// <param name="functions">用户权限集合</param>
         public Authentication(Function[] functions)
@@ -57,18 +65,18 @@ namespace LM.Service.Security
             if (user == null || user.UserId == 0)
             {
                 // 没有登录返回登录界面
-                filterContext.Result = new RedirectResult("/Home/Login");
+                filterContext.Result = new RedirectResult("Login");
                 return;
             }
 
             // 3. 权限验证
-            if (!user.ContainFunctions(NeededFunctions))
+            if (NeededFunctions != null && !user.ContainFunctions(NeededFunctions))
             {
                 // 无权操作
                 var cr = new ContentResult();
                 filterContext.HttpContext.Response.Clear();
                 filterContext.HttpContext.Response.StatusCode = 497;
-                cr.Content = String.Format("<script type='text/javascript'>alert('{0}')</script>", "您无权操作！");
+                cr.Content = string.Format("<script type='text/javascript'>alert('{0}')</script>", "您无权操作！");
                 filterContext.Result = cr;
             }
 

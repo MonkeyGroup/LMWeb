@@ -26,14 +26,7 @@ namespace LM.WebUI.Controllers
 
 
         #endregion
-
-
-        public CurrentUser CurrentUser;
-
-        public BaseController()
-        {
-            CurrentUser = CurrentContext.GetCurrentUser();
-        }
+        
 
         /// <summary>
         ///  从 AutoFac 的 IoC 容器中取出service层实例

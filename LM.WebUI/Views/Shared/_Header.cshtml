@@ -1,13 +1,15 @@
-﻿@{
+﻿@using LM.Model.Model
+@{
     Layout = null; /* 此句必须加，不然默认布局页为_Layout页，会造成死循环 */
     ViewBag.Title = "Header";
+    var config = ViewBag.HomePageConfig as HomePageConfigModel;
 }
 
 <!--1. Top-->
 <!--search-->
 <div class="find">
     <div style="float:left;margin:0 10px;">
-        <span class="ding"><a onclick="SetHome(window.location)" href="javascript:void(0)">设为首页</a> | <a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">加入收藏</a></span>
+        <span class="ding"><a href="javascript:window.location.href='/Admin/Home/Index'">进入后台</a><a onclick="SetHome(window.location)" href="javascript:void(0)">设为首页</a> | <a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">加入收藏</a></span>
     </div>
     <span class="find_content">
         <form name='search' id='searchFrm' method='get'>
@@ -23,10 +25,10 @@
 <div class="top">
     <div class="flash">
         <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="1004" height="181">
-            <param name="movie" value="/Content/swf/movie2.swf" />
+            <param name="movie" value="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/swf/flash.swf" : config.FlashSrc)" />
             <param name="quality" value="high" />
             <param name="wmode" value="opaque" />
-            <embed src="/Content/swf/movie2.swf" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="1004" height="181" />
+            <embed src="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/swf/flash.swf" : config.FlashSrc)" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="1004" height="181" />
         </object>
     </div>
 </div>
@@ -51,7 +53,7 @@
             <a href="/Product/Index" title="产品展示">产品展示</a>
         </li>
         <li>
-            <a href="/Outcome/Index" title="联盟成果">联盟成果</a>
+            <a href="/Outcome/Index" title="联盟成果">科研与合作</a>
         </li>
         <li>
             <a href="/Home/Contact" title="联系我们">联系我们</a>
@@ -62,6 +64,7 @@
 <!--广告栏-->
 <div class="" style="padding-top:10px;margin-bottom: 10px;">
     <a href="#">
-        <img width="1004;" src="/Content/images/guanggao.gif" alt=""/></a>
+        <img width="1004;" src="@(string.IsNullOrEmpty(config.AdSrc)?"/Content/images/guanggao.gif":config.AdSrc)" alt="" />
+    </a>
 </div>
 

@@ -200,20 +200,291 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ArticleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommonController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CompanyController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ExpertController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CommitteeController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\ExpertController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MemberController.cs" />
-    <Compile Include="Controllers\OutcomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\TrendController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Content\css\base.css" />
+    <Content Include="Areas\Admin\Content\css\bootstrap.min.css" />
+    <Content Include="Areas\Admin\Content\css\css.css" />
+    <Content Include="Areas\Admin\Content\css\index.css" />
+    <Content Include="Areas\Admin\Content\css\jqPaginator.css" />
+    <Content Include="Areas\Admin\Content\css\public.css" />
+    <Content Include="Areas\Admin\Content\css\reset.css" />
+    <Content Include="Areas\Admin\Content\css\select.css" />
+    <Content Include="Areas\Admin\Content\css\style.css" />
+    <Content Include="Areas\Admin\Content\images\001.jpg" />
+    <Content Include="Areas\Admin\Content\images\404.png" />
+    <Content Include="Areas\Admin\Content\images\action_btn.gif" />
+    <Content Include="Areas\Admin\Content\images\add.png" />
+    <Content Include="Areas\Admin\Content\images\AddA.jpg" />
+    <Content Include="Areas\Admin\Content\images\AddQ.jpg" />
+    <Content Include="Areas\Admin\Content\images\admin_comments.png" />
+    <Content Include="Areas\Admin\Content\images\bangzhu.jpg" />
+    <Content Include="Areas\Admin\Content\images\baocun.jpg" />
+    <Content Include="Areas\Admin\Content\images\baocun1.jpg" />
+    <Content Include="Areas\Admin\Content\images\baocunmingxi.jpg" />
+    <Content Include="Areas\Admin\Content\images\bg.jpg" />
+    <Content Include="Areas\Admin\Content\images\bj.gif" />
+    <Content Include="Areas\Admin\Content\images\btnbg.png" />
+    <Content Include="Areas\Admin\Content\images\btnbg1.png" />
+    <Content Include="Areas\Admin\Content\images\btnbg2.png" />
+    <Content Include="Areas\Admin\Content\images\buttonbg.png" />
+    <Content Include="Areas\Admin\Content\images\b_export.png" />
+    <Content Include="Areas\Admin\Content\images\c01.png" />
+    <Content Include="Areas\Admin\Content\images\c02.png" />
+    <Content Include="Areas\Admin\Content\images\c03.png" />
+    <Content Include="Areas\Admin\Content\images\cbg.png" />
+    <Content Include="Areas\Admin\Content\images\chanchu1.jpg" />
+    <Content Include="Areas\Admin\Content\images\ck.gif" />
+    <Content Include="Areas\Admin\Content\images\cksj.jpg" />
+    <Content Include="Areas\Admin\Content\images\clist.png" />
+    <Content Include="Areas\Admin\Content\images\close.png" />
+    <Content Include="Areas\Admin\Content\images\close1.png" />
+    <Content Include="Areas\Admin\Content\images\cloud.png" />
+    <Content Include="Areas\Admin\Content\images\crm01.jpg" />
+    <Content Include="Areas\Admin\Content\images\crm02.jpg" />
+    <Content Include="Areas\Admin\Content\images\czmm.jpg" />
+    <Content Include="Areas\Admin\Content\images\d01.png" />
+    <Content Include="Areas\Admin\Content\images\d02.png" />
+    <Content Include="Areas\Admin\Content\images\d03.png" />
+    <Content Include="Areas\Admin\Content\images\d04.png" />
+    <Content Include="Areas\Admin\Content\images\d05.png" />
+    <Content Include="Areas\Admin\Content\images\d06.png" />
+    <Content Include="Areas\Admin\Content\images\d07.png" />
+    <Content Include="Areas\Admin\Content\images\daochu.jpg" />
+    <Content Include="Areas\Admin\Content\images\daoru.jpg" />
+    <Content Include="Areas\Admin\Content\images\daoruwenjian-.jpg" />
+    <Content Include="Areas\Admin\Content\images\dayin.jpg" />
+    <Content Include="Areas\Admin\Content\images\dayinpeihuo.jpg" />
+    <Content Include="Areas\Admin\Content\images\dclogo.gif" />
+    <Content Include="Areas\Admin\Content\images\DelQ.jpg" />
+    <Content Include="Areas\Admin\Content\images\diskbg.png" />
+    <Content Include="Areas\Admin\Content\images\dp.png" />
+    <Content Include="Areas\Admin\Content\images\f01.png" />
+    <Content Include="Areas\Admin\Content\images\f02.png" />
+    <Content Include="Areas\Admin\Content\images\f03.png" />
+    <Content Include="Areas\Admin\Content\images\f04.png" />
+    <Content Include="Areas\Admin\Content\images\f05.png" />
+    <Content Include="Areas\Admin\Content\images\f06.png" />
+    <Content Include="Areas\Admin\Content\images\fafang.jpg" />
+    <Content Include="Areas\Admin\Content\images\fanhui.jpg" />
+    <Content Include="Areas\Admin\Content\images\fenpei.jpg" />
+    <Content Include="Areas\Admin\Content\images\fenyelan.gif" />
+    <Content Include="Areas\Admin\Content\images\fh.jpg" />
+    <Content Include="Areas\Admin\Content\images\h1.png" />
+    <Content Include="Areas\Admin\Content\images\h3bg.jpg" />
+    <Content Include="Areas\Admin\Content\images\header_bg.jpg" />
+    <Content Include="Areas\Admin\Content\images\header_bg1.jpg" />
+    <Content Include="Areas\Admin\Content\images\header_bg2.jpg" />
+    <Content Include="Areas\Admin\Content\images\help.png" />
+    <Content Include="Areas\Admin\Content\images\i01.png" />
+    <Content Include="Areas\Admin\Content\images\i02.png" />
+    <Content Include="Areas\Admin\Content\images\i03.png" />
+    <Content Include="Areas\Admin\Content\images\i04.png" />
+    <Content Include="Areas\Admin\Content\images\i05.png" />
+    <Content Include="Areas\Admin\Content\images\i06.png" />
+    <Content Include="Areas\Admin\Content\images\i07.png" />
+    <Content Include="Areas\Admin\Content\images\i08.png" />
+    <Content Include="Areas\Admin\Content\images\i09.png" />
+    <Content Include="Areas\Admin\Content\images\iadd.png" />
+    <Content Include="Areas\Admin\Content\images\ibtnbg.png" />
+    <Content Include="Areas\Admin\Content\images\ico01.png" />
+    <Content Include="Areas\Admin\Content\images\ico02.png" />
+    <Content Include="Areas\Admin\Content\images\ico03.png" />
+    <Content Include="Areas\Admin\Content\images\ico04.png" />
+    <Content Include="Areas\Admin\Content\images\ico05.png" />
+    <Content Include="Areas\Admin\Content\images\ico06.png" />
+    <Content Include="Areas\Admin\Content\images\icon01.png" />
+    <Content Include="Areas\Admin\Content\images\icon02.png" />
+    <Content Include="Areas\Admin\Content\images\icon03.png" />
+    <Content Include="Areas\Admin\Content\images\icon04.png" />
+    <Content Include="Areas\Admin\Content\images\icon05.png" />
+    <Content Include="Areas\Admin\Content\images\icon06.png" />
+    <Content Include="Areas\Admin\Content\images\icon_back.gif" />
+    <Content Include="Areas\Admin\Content\images\icon_back_arrow.gif" />
+    <Content Include="Areas\Admin\Content\images\icon_cloud_account.png" />
+    <Content Include="Areas\Admin\Content\images\icon_cloud_handle.png" />
+    <Content Include="Areas\Admin\Content\images\icon_cloud_order.png" />
+    <Content Include="Areas\Admin\Content\images\icon_cloud_uninstall.png" />
+    <Content Include="Areas\Admin\Content\images\icon_edit_blue.png" />
+    <Content Include="Areas\Admin\Content\images\icon_edit_white.png" />
+    <Content Include="Areas\Admin\Content\images\icon_exc.gif" />
+    <Content Include="Areas\Admin\Content\images\icon_exc_small.gif" />
+    <Content Include="Areas\Admin\Content\images\icon_fork.png" />
+    <Content Include="Areas\Admin\Content\images\icon_menu.png" />
+    <Content Include="Areas\Admin\Content\images\icon_mobile.png" />
+    <Content Include="Areas\Admin\Content\images\icon_no.png" />
+    <Content Include="Areas\Admin\Content\images\icon_picture.png" />
+    <Content Include="Areas\Admin\Content\images\icon_picture_big.png" />
+    <Content Include="Areas\Admin\Content\images\icon_yes.png" />
+    <Content Include="Areas\Admin\Content\images\img01.png" />
+    <Content Include="Areas\Admin\Content\images\img02.png" />
+    <Content Include="Areas\Admin\Content\images\img03.png" />
+    <Content Include="Areas\Admin\Content\images\img04.png" />
+    <Content Include="Areas\Admin\Content\images\img05.png" />
+    <Content Include="Areas\Admin\Content\images\img06.png" />
+    <Content Include="Areas\Admin\Content\images\img07.png" />
+    <Content Include="Areas\Admin\Content\images\img08.png" />
+    <Content Include="Areas\Admin\Content\images\img09.png" />
+    <Content Include="Areas\Admin\Content\images\img10.png" />
+    <Content Include="Areas\Admin\Content\images\img11.png" />
+    <Content Include="Areas\Admin\Content\images\img12.png" />
+    <Content Include="Areas\Admin\Content\images\img13.png" />
+    <Content Include="Areas\Admin\Content\images\img14.png" />
+    <Content Include="Areas\Admin\Content\images\img15.png" />
+    <Content Include="Areas\Admin\Content\images\imgload.jpg" />
+    <Content Include="Areas\Admin\Content\images\index01_bg.jpg" />
+    <Content Include="Areas\Admin\Content\images\index02.gif" />
+    <Content Include="Areas\Admin\Content\images\inputbg.gif" />
+    <Content Include="Areas\Admin\Content\images\itabbg.png" />
+    <Content Include="Areas\Admin\Content\images\itabbg1.png" />
+    <Content Include="Areas\Admin\Content\images\kuaididan.jpg" />
+    <Content Include="Areas\Admin\Content\images\leftico.png" />
+    <Content Include="Areas\Admin\Content\images\leftico01.png" />
+    <Content Include="Areas\Admin\Content\images\leftico02.png" />
+    <Content Include="Areas\Admin\Content\images\leftico03.png" />
+    <Content Include="Areas\Admin\Content\images\leftico04.png" />
+    <Content Include="Areas\Admin\Content\images\leftline.gif" />
+    <Content Include="Areas\Admin\Content\images\leftmenubg.gif" />
+    <Content Include="Areas\Admin\Content\images\lefttop.gif" />
+    <Content Include="Areas\Admin\Content\images\libg.png" />
+    <Content Include="Areas\Admin\Content\images\light.png" />
+    <Content Include="Areas\Admin\Content\images\line.gif" />
+    <Content Include="Areas\Admin\Content\images\line1.png" />
+    <Content Include="Areas\Admin\Content\images\list.gif" />
+    <Content Include="Areas\Admin\Content\images\list1.gif" />
+    <Content Include="Areas\Admin\Content\images\list2.png" />
+    <Content Include="Areas\Admin\Content\images\login01_bak.jpg" />
+    <Content Include="Areas\Admin\Content\images\login02.jpg" />
+    <Content Include="Areas\Admin\Content\images\login03.jpg" />
+    <Content Include="Areas\Admin\Content\images\login04.jpg" />
+    <Content Include="Areas\Admin\Content\images\login05.jpg" />
+    <Content Include="Areas\Admin\Content\images\login06.jpg" />
+    <Content Include="Areas\Admin\Content\images\login07.jpg" />
+    <Content Include="Areas\Admin\Content\images\loginbg1.png" />
+    <Content Include="Areas\Admin\Content\images\loginbg2.png" />
+    <Content Include="Areas\Admin\Content\images\loginbg3.png" />
+    <Content Include="Areas\Admin\Content\images\logininfo.png" />
+    <Content Include="Areas\Admin\Content\images\loginlogo.png" />
+    <Content Include="Areas\Admin\Content\images\loginpassword.png" />
+    <Content Include="Areas\Admin\Content\images\loginsj.png" />
+    <Content Include="Areas\Admin\Content\images\loginuser.png" />
+    <Content Include="Areas\Admin\Content\images\login_bg.jpg" />
+    <Content Include="Areas\Admin\Content\images\logo.gif" />
+    <Content Include="Areas\Admin\Content\images\logo.jpg" />
+    <Content Include="Areas\Admin\Content\images\logo.png" />
+    <Content Include="Areas\Admin\Content\images\logo_1_x.jpg" />
+    <Content Include="Areas\Admin\Content\images\logo_X.jpg" />
+    <Content Include="Areas\Admin\Content\images\menu-bg.jpg" />
+    <Content Include="Areas\Admin\Content\images\menu_cur.gif" />
+    <Content Include="Areas\Admin\Content\images\msg.png" />
+    <Content Include="Areas\Admin\Content\images\navbg.png" />
+    <Content Include="Areas\Admin\Content\images\next.gif" />
+    <Content Include="Areas\Admin\Content\images\nopic.jpg" />
+    <Content Include="Areas\Admin\Content\images\pointer.bmp" />
+    <Content Include="Areas\Admin\Content\images\pre.gif" />
+    <Content Include="Areas\Admin\Content\images\px.gif" />
+    <Content Include="Areas\Admin\Content\images\querenbaocun.jpg" />
+    <Content Include="Areas\Admin\Content\images\querenfahuo.jpg" />
+    <Content Include="Areas\Admin\Content\images\querentijiao.jpg" />
+    <Content Include="Areas\Admin\Content\images\quxiaofanhui.jpg" />
+    <Content Include="Areas\Admin\Content\images\righttop.gif" />
+    <Content Include="Areas\Admin\Content\images\rlist.gif" />
+    <Content Include="Areas\Admin\Content\images\scfhd.jpg" />
+    <Content Include="Areas\Admin\Content\images\scpdd.jpg" />
+    <Content Include="Areas\Admin\Content\images\search.png" />
+    <Content Include="Areas\Admin\Content\images\shanchu.jpg" />
+    <Content Include="Areas\Admin\Content\images\shangchuan.jpg" />
+    <Content Include="Areas\Admin\Content\images\shtg.jpg" />
+    <Content Include="Areas\Admin\Content\images\side02.jpg" />
+    <Content Include="Areas\Admin\Content\images\side04_off.jpg" />
+    <Content Include="Areas\Admin\Content\images\side04_on.jpg" />
+    <Content Include="Areas\Admin\Content\images\side06.jpg" />
+    <Content Include="Areas\Admin\Content\images\side1.jpg" />
+    <Content Include="Areas\Admin\Content\images\side1_bg.jpg" />
+    <Content Include="Areas\Admin\Content\images\side1_X.jpg" />
+    <Content Include="Areas\Admin\Content\images\sj.png" />
+    <Content Include="Areas\Admin\Content\images\sosuo.jpg" />
+    <Content Include="Areas\Admin\Content\images\spzt1.jpg" />
+    <Content Include="Areas\Admin\Content\images\sun.png" />
+    <Content Include="Areas\Admin\Content\images\t01.png" />
+    <Content Include="Areas\Admin\Content\images\t02.png" />
+    <Content Include="Areas\Admin\Content\images\t03.png" />
+    <Content Include="Areas\Admin\Content\images\t04.png" />
+    <Content Include="Areas\Admin\Content\images\t05.png" />
+    <Content Include="Areas\Admin\Content\images\tbg.png" />
+    <Content Include="Areas\Admin\Content\images\tcbg.gif" />
+    <Content Include="Areas\Admin\Content\images\th.gif" />
+    <Content Include="Areas\Admin\Content\images\tianjia1.jpg" />
+    <Content Include="Areas\Admin\Content\images\ticon.png" />
+    <Content Include="Areas\Admin\Content\images\tijiaoshenhe.jpg" />
+    <Content Include="Areas\Admin\Content\images\time.png" />
+    <Content Include="Areas\Admin\Content\images\tongbu.jpg" />
+    <Content Include="Areas\Admin\Content\images\toolbg.gif" />
+    <Content Include="Areas\Admin\Content\images\topbg.gif" />
+    <Content Include="Areas\Admin\Content\images\topleft.jpg" />
+    <Content Include="Areas\Admin\Content\images\topright.jpg" />
+    <Content Include="Areas\Admin\Content\images\top_add.gif" />
+    <Content Include="Areas\Admin\Content\images\tubiao.jpg" />
+    <Content Include="Areas\Admin\Content\images\tuichu.jpg" />
+    <Content Include="Areas\Admin\Content\images\tupian.jpg" />
+    <Content Include="Areas\Admin\Content\images\ub1.png" />
+    <Content Include="Areas\Admin\Content\images\uew_icon.png" />
+    <Content Include="Areas\Admin\Content\images\uew_icon_hover.png" />
+    <Content Include="Areas\Admin\Content\images\ulist.png" />
+    <Content Include="Areas\Admin\Content\images\user.png" />
+    <Content Include="Areas\Admin\Content\images\userbg.png" />
+    <Content Include="Areas\Admin\Content\images\vcode.png" />
+    <Content Include="Areas\Admin\Content\images\x.jpg" />
+    <Content Include="Areas\Admin\Content\images\xinzeng.jpg" />
+    <Content Include="Areas\Admin\Content\images\xiugai.jpg" />
+    <Content Include="Areas\Admin\Content\images\xiugai2.jpg" />
+    <Content Include="Areas\Admin\Content\images\yifukuan.jpg" />
+    <Content Include="Areas\Admin\Content\images\yulan-.jpg" />
+    <Content Include="Areas\Admin\Content\images\yulan.jpg" />
+    <Content Include="Areas\Admin\Content\images\zhuye1_1.jpg" />
+    <Content Include="Areas\Admin\Content\images\模版下载.jpg" />
+    <Content Include="Areas\Admin\Content\js\cloud.js" />
+    <Content Include="Areas\Admin\Content\js\global.js" />
+    <Content Include="Areas\Admin\Content\js\jquery-1.9.1.js" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\cancel.png" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\cancel.png" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\css\default.css" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\css\uploadify.css" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\css\_notes\dwsync.xml" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\scripts\expressInstall.swf" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\scripts\jquery-1.3.2.min.js" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\scripts\jquery.uploadify.v2.1.0.min.js" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\scripts\swfobject.js" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\scripts\uploadify.swf" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\scripts\_notes\dwsync.xml" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\_notes\dwsync.xml" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\expressInstall.swf" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\jquery-1.3.2.min.js" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\jquery.uploadify.v2.1.0.js" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\jquery.uploadify.v2.1.0.min.js" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\swfobject.js" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\uploadify.allglyphs.swf" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\uploadify.css" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\uploadify.swf" />
     <Content Include="Content\css\about.css" />
     <Content Include="Content\css\footer.css" />
     <Content Include="Content\css\header.css" />
@@ -384,7 +655,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Common\" />
+    <Folder Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\uploads\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Upload\images\" />
+    <Folder Include="Upload\swf\" />
+    <Folder Include="Upload\word\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -418,19 +693,124 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Trend\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Committee\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Outcome\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Shared\_Left.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Shared\_Top.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Shared\_Main.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Expert\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Company\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Article\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Article\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Company\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Expert\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Home\HomeConfig.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\check.php" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\air\logging\FileTarget.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\crypto\HMAC.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\crypto\MD5.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\crypto\MD5Stream.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\crypto\SHA1.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\crypto\SHA224.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\crypto\SHA256.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\crypto\WSSEUsernameToken.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\errors\IllegalStateError.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\fileformats\vcard\Address.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\fileformats\vcard\Email.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\fileformats\vcard\Phone.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\fileformats\vcard\VCard.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\fileformats\vcard\VCardParser.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\images\BitString.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\images\JPGEncoder.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\images\PNGEncoder.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\net\DynamicURLLoader.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\net\IURIResolver.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\net\MimeTypeMap.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\net\proxies\RFC2817Socket.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\net\URI.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\net\URIEncodingBitmap.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\Database.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\Definition.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\Dict.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\DictionaryServer.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\events\ConnectedEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\events\DatabaseEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\events\DefinitionEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\events\DefinitionHeaderEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\events\DictionaryServerEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\events\DisconnectedEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\events\ErrorEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\events\MatchEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\events\MatchStrategiesEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\events\NoMatchEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\MatchStrategy.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\Response.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\util\CompleteResponseEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\protocols\dict\util\SocketHelper.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\serialization\json\JSON.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\serialization\json\JSONDecoder.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\serialization\json\JSONEncoder.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\serialization\json\JSONParseError.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\serialization\json\JSONToken.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\serialization\json\JSONTokenizer.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\serialization\json\JSONTokenType.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\utils\ArrayUtil.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\utils\DateUtil.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\utils\DictionaryUtil.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\utils\IntUtil.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\utils\NumberFormatter.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\utils\StringUtil.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\utils\XMLUtil.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\webapis\events\ServiceEvent.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\webapis\ServiceBase.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\com\adobe\webapis\URLLoaderBase.as" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\index.php" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\scripts\check.php" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\scripts\uploadify.php" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\uploadify.fla" />
+    <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\uploadify.php" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Common\Preview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Shared\_Preview.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

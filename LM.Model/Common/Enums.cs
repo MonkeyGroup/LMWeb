@@ -7,5 +7,17 @@
     {
         全部权限 = 1
     }
+
+
+    /// <summary>
+    ///  上传的文件类型
+    /// </summary>
+    public enum UploadFileTye
+    {
+        Img = 1,
+        Swf = 2,
+        Word = 3,
+        Pdf = 4,
+    }
 }
 

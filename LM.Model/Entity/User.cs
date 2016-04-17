@@ -12,6 +12,6 @@ namespace LM.Model.Entity
 
         public string Name { get; set; }
 
-        public int Age { get; set; }
+        public string Pwd { get; set; }
     }
 }

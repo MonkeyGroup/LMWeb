@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LM.Model.Model;
 
 namespace LM.WebUI.Controllers
 {
@@ -14,6 +15,8 @@ namespace LM.WebUI.Controllers
         /// <returns></returns>
         public ActionResult Header()
         {
+            var conf = DiMySession.Get<HomePageConfigModel>("HomePageConfig");
+            ViewBag.HomePageConfig = conf;
             return View("_Header");
         }
 

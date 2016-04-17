@@ -59,6 +59,7 @@
     <Compile Include="Base\BaseService.cs" />
     <Compile Include="BootStrapIoC\UnityBootStrapper.cs" />
     <Compile Include="Filter\ExceptionFilter.cs" />
+    <Compile Include="HomePageConfigService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\ServiceResult.cs" />
     <Compile Include="Security\Authentication.cs" />

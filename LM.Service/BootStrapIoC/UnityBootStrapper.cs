@@ -54,6 +54,7 @@ namespace LM.Service.BootStrapIoC
             #region 注入业务逻辑层实例
 
             UnityContainer.RegisterType<UserService>(new InjectionConstructor(UnityContainer.Resolve<DbSession>("WriteDbSession")));
+            UnityContainer.RegisterType<HomePageConfigService>(new InjectionConstructor(UnityContainer.Resolve<DbSession>("WriteDbSession")));
 
             #endregion
 

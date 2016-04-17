@@ -39,9 +39,16 @@ namespace LM.Utility.Util
 
         public void Clear(string key)
         {
-            HttpContext.Current.Session[key] = null;
+            if (string.IsNullOrEmpty(key))
+            {
+                HttpContext.Current.Session.Clear();
+            }
+            else
+            {
+                HttpContext.Current.Session[key] = null;
+            }
         }
-
+        
         public string GetSessionId()
         {
             try

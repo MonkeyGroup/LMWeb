@@ -54,6 +54,27 @@ namespace LM.Component.Data.Query
         }
 
         /// <summary>
+        ///  多表同时查询。
+        /// 使用：
+        ///     conn.GetMultiList《User, Role》("select * from [User] where Id in @Id1; select * from [Role] where Id in @Id2", param);
+        /// </summary>
+        /// <typeparam name="TModel1"></typeparam>
+        /// <typeparam name="TModel2"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public List<object> GetMultiList<TModel1, TModel2>(string query, object param = null)
+        {
+            var returns = new List<object>();
+            var result = DbSession.Connection.QueryMultiple(query, param);
+            var list1 = result.Read<TModel1>().ToList();
+            var list2 = result.Read<TModel2>().ToList();
+            returns.Add(list1);
+            returns.Add(list2);
+            return returns;
+        }
+
+        /// <summary>
         ///  sqlserver单表的分页查找，必须要将主表的 Id 字段传递过去。
         ///  使用：
         ///     QueryManage.GetListByPage《Model》("dbo.[User]", out itemCount, 1, 20);
