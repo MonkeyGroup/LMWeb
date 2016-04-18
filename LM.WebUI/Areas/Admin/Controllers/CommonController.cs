@@ -11,6 +11,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
     public class CommonController : WebUI.Controllers.BaseController
     {
 
+        #region 文件上传
         [HttpPost]
         public JsonResult ImgUpload()
         {
@@ -68,5 +69,9 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 return new FileUploadModel { Status = false, Message = "文件上传出现异常！" };
             }
         }
+
+        #endregion
+
+
     }
 }

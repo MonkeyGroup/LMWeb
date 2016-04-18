@@ -1,0 +1,141 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
+    ViewBag.Title = "BasicInfo";
+}
+@Html.RenderCss("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.css")
+@Html.RenderCss("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.css")
+
+@Html.RenderScript("/Areas/Admin/Content/js/UEditor/ueditor.config.js")
+@Html.RenderScript("/Areas/Admin/Content/js/UEditor/ueditor.all.js")
+@Html.RenderScript("/Areas/Admin/Content/js/")
+
+<!-- UEditor -->
+<script type="text/javascript">
+    window.UEDITOR_HOME_URL = '/Areas/Admin/Content/js/UEditor/';
+    var ue = UE.getEditor('container');
+    ue.ready(function () {
+        //设置编辑器的内容
+        //ue.setContent('hello');
+        //获取html内容，返回: <p>hello</p>
+        var html = ue.getContent();
+        //获取纯文本内容，返回: hello
+        var txt = ue.getContentTxt();
+    });
+</script>
+<!-- /UEditor -->
+
+<script type="text/javascript">
+    function checkType() {
+        
+    }
+
+    var commitFlag = true;
+    function submit() {
+        var html = ue.getContent();
+        alert(html);
+    }
+
+    function checkNull() {
+
+    }
+
+</script>
+
+<!--3. Main-->
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">
+        后台管理中心<b>></b><strong>首页配置</strong>
+    </div>
+
+    <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><a href="../Home/article.html" class="actionBtn">文章列表</a>添加文章</h3>
+        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+
+            <tr>
+                <td align="right">文章分类</td>
+                <td>
+                    <select id="type" name="type" onchange="checkType()">
+                        <option value="0"> 联盟动态</option>
+                        <option value="1"> 行业信息</option>
+                        <option value="3"> 科技要闻</option>
+                        <option value="4"> 联盟简报</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">文章标题</td>
+                <td>
+                    <input type="text" name="title" value="" size="80" class="inpMain" />
+                    <font class="prompt" color="red">*</font><span id="msg1" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">文章来源</td>
+                <td>
+                    <input type="text" name="title" value="" size="80" class="inpMain" />
+                    <span id="msg1" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">关键词</td>
+                <td>
+                    <input type="text" name="title" value="" size="80" class="inpMain" placeholder='请以逗号","分隔，如：电子科技，太阳能，新材料' />
+                    <span id="msg2" class="prompt"></span>
+                </td>
+            </tr>
+            <tr id="trBrief">
+                <td width="90" align="right">内容摘要</td>
+                <td>
+                    <textarea name="description" id="description" class="inpMain" style=" font-size: 14px;color: #999;height: 50px;border: 1px solid #D6D6D6; width: 520px; height: 160px; padding: 5px;"></textarea>
+                    <span id="msg3" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" valign="top">文章描述</td>
+                <td>
+                    <div id="container" style="width: 800px; height: 300px;"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right">是否推荐</td>
+                <td>
+                    <select name="cat_id">
+                        <option value="0"> 否</option>
+                        <option value="1"> 是</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">特别关注</td>
+                <td>
+                    <select name="cat_id">
+                        <option value="0"> 否</option>
+                        <option value="1"> 是</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">是否隐藏</td>
+                <td>
+                    <select name="cat_id">
+                        <option value="0"> 否</option>
+                        <option value="1"> 是</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <input type="hidden" name="id" value="">
+                    <input name="submit" class="btn" type="button" value="提交" onclick="return submit() && false;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>

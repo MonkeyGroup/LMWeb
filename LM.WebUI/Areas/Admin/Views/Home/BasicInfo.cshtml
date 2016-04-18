@@ -3,10 +3,13 @@
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
     ViewBag.Title = "BasicInfo";
-    var config = ViewBag.HomePageConfig as HomePageConfigModel;
 }
-@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/swfobject.js")
-@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/jquery.uploadify.v2.1.0.min.js")
+@Html.RenderCss("/Areas/Admin/content/js/kindeditor/plugins/code/prettify.css")
+@Html.RenderCss("/Areas/Admin/content/js/kindeditor/plugins/code/prettify.css")
+
+@Html.RenderScript("/Areas/Admin/content/js/kindeditor/kindeditor.js")
+@Html.RenderScript("/Areas/Admin/content/js/kindeditor/lang/zh_CN.js")
+@Html.RenderScript("/Areas/Admin/content/js/kindeditor/plugins/code/prettify.js")
 
 <!--3. Main-->
 <div id="dcMain">
@@ -15,98 +18,86 @@
         后台管理中心<b>></b><strong>首页配置</strong>
     </div>
 
-    <div class="mainBox" style="height: auto !important; height: 550px; min-height: 550px;">
-        <h3>首页配置</h3>
-        <div class="idTabs">
-            <div class="items">
-                <div id="main">
-                    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
-                        <tr>
-                            <th width="131">名称</th>
-                            <th>内容</th>
-                        </tr>
-                        <tr>
-                            <td align="right">网站名称</td>
-                            <td>
-                                <input id="SiteName" type="text" name="SiteName" placeholder="输入网站名称，如：中国电子化工新材料产业联盟" size="80" class="inpMain"
-                                       value="@(string.IsNullOrEmpty(config.SiteName) ? "中国电子化工新材料产业联盟" : config.SiteName)" />
-                                <span id="msg0" style="color: red; font-weight: bold;"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right">网站 Logo</td>
-                            <td>
-                                <input id="LogoSrc" type="text" name="LogoSrc" class="inpMain" size="60"
-                                       value="@(string.IsNullOrEmpty(config.LogoSrc) ? "/favicon.ico" : config.LogoSrc)" />
-                                <div id="fileQueue1" style="display: none;"></div>
-                                <input id="logoUploadify" type="file" name="uploadify" />
-                                <span>* logo 必须是 ico 格式的文件</span>&nbsp;&nbsp;
-                                <span id="msg1" style="color: red; font-weight: bold;"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right">网站 Flash</td>
-                            <td>
-                                <input id="FlashSrc" type="text" name="FlashSrc" class="inpMain" size="60"
-                                       value="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/swf/movie2.swf" : config.FlashSrc)" />
-                                <div id="fileQueue2" style="display: none;"></div>
-                                <input id="flashUploadify" type="file" name="uploadify" />
-                                <span id="msg2" style="color: red; font-weight: bold;"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right">广告位图片</td>
-                            <td>
-                                <input id="AdSrc" type="text" name="AdSrc" class="inpMain" size="60"
-                                       value="@(string.IsNullOrEmpty(config.AdSrc) ? "/Content/images/guanggao.gif" : config.AdSrc)" />
-                                <div id="fileQueue3" style="display: none;"></div>
-                                <input id="adUploadify" type="file" name="uploadify" />
-                                <span id="msg3" style="color: red; font-weight: bold;"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right">宣传语图片</td>
-                            <td>
-                                <input id="SloganSrc" type="text" name="SloganSrc" class="inpMain" size="60"
-                                       value="@(string.IsNullOrEmpty(config.SloganSrc) ? "/Content/images/20160321143707.jpg" : config.SloganSrc)" />
-                                <div id="fileQueue4" style="display: none;"></div>
-                                <input id="sloganUploadify" type="file" name="uploadify" />
-                                <span id="msg4" style="color: red; font-weight: bold;"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right">网站二维码</td>
-                            <td>
-                                <input id="QrSrc" type="text" name="QrSrc" class="inpMain" size="60"
-                                       value="@(string.IsNullOrEmpty(config.QrSrc) ? "/Content/images/2118b59.jpg" : config.QrSrc)" />
-                                <div id="fileQueue5" style="display: none;"></div>
-                                <input id="qrUploadify" type="file" name="uploadify" />
-                                <span id="msg5" style="color: red; font-weight: bold;"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right">招商位图片</td>
-                            <td>
-                                <input id="BusinessSrc" type="text" name="BusinessSrc" class="inpMain" size="60"
-                                       value="@(string.IsNullOrEmpty(config.BusinessSrc) ? "/Content/images/zhaoshang.png" : config.BusinessSrc)" />
-                                <div id="fileQueue6" style="display: none;"></div>
-                                <input id="businessUploadify" type="file" name="uploadify" />
-                                <span id="msg6" style="color: red; font-weight: bold;"></span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
-                    <tr>
-                        <td width="131"></td>
-                        <td>
-                            <input type="hidden" name="token" value="24760807" />
-                            <input name="preview" class="btn" onclick="preview()" type="button" value="预览" />
-                            <input name="submit" class="btn" onclick="submit()" type="button" value="提交" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+    <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><a href="article.html" class="actionBtn">文章列表</a>添加文章</h3>
+        <form action="article.php?rec=insert" method="post" enctype="multipart/form-data">
+            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                <tr>
+                    <td width="90" align="right">文章名称</td>
+                    <td>
+                        <input type="text" name="title" value="" size="80" class="inpMain" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">文章分类</td>
+                    <td>
+                        <select name="cat_id">
+                            <option value="0">未分类</option>
+                            <option value="1"> 公司动态</option>
+                            <option value="2"> 行业新闻</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">文章描述</td>
+                    <td>
+                        <!-- KindEditor -->
+                        <script>
+                            KindEditor.ready(function (K) {
+                                var editor1 = K.create('textarea[name="content"]', {
+                                    cssPath: '../plugins/code/prettify.css',
+                                    uploadJson: '../php/upload_json.php',
+                                    fileManagerJson: '../php/file_manager_json.php',
+                                    allowFileManager: true,
+                                    afterCreate: function () {
+                                        var self = this;
+                                        K.ctrl(document, 13, function () {
+                                            self.sync();
+                                            K('form[name=example]')[0].submit();
+                                        });
+                                        K.ctrl(self.edit.doc, 13, function () {
+                                            self.sync();
+                                            K('form[name=example]')[0].submit();
+                                        });
+                                    }
+                                });
+                                prettyPrint();
+                            });
+                        </script>
+                        <!-- /KindEditor -->
+                        <textarea id="content" name="content" style="width:780px;height:400px;" class="textArea"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">缩略图</td>
+                    <td>
+                        <input type="file" name="image" size="38" class="inpFlie" />
+                        <img src="/Areas/Admin/Content/images/icon_no.png">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">关键字</td>
+                    <td>
+                        <input type="text" name="keywords" value="" size="50" class="inpMain" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">简单描述</td>
+                    <td>
+                        <input type="text" name="description" value="" size="50" class="inpMain" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="hidden" name="token" value="7e4a88fb" />
+                        <input type="hidden" name="image" value="">
+                        <input type="hidden" name="id" value="">
+                        <input name="submit" class="btn" type="submit" value="提交" />
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div>
+
 </div>

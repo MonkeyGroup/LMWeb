@@ -13,5 +13,7 @@ namespace LM.Model.Entity
         public string Name { get; set; }
 
         public string Pwd { get; set; }
+
+        public DateTime CreateAt { get; set; }
     }
 }

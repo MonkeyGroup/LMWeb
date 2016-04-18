@@ -40,8 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Enums.cs" />
+    <Compile Include="Entity\Article.cs" />
     <Compile Include="Entity\HomePageConfig.cs" />
     <Compile Include="Entity\User.cs" />
+    <Compile Include="Model\ArticleModel.cs" />
     <Compile Include="Model\FileUploadModel.cs" />
     <Compile Include="Model\HomePageConfigModel.cs" />
     <Compile Include="Model\UserModel.cs" />

@@ -10,8 +10,10 @@
     <meta charset="utf-8" />
     <title>后台管理系统</title>
     @Html.RenderCss("/Areas/Admin/content/css/public.css")
+
     @Html.RenderScript("/Areas/Admin/content/js/jquery-1.9.1.js")
     @Html.RenderScript("/Areas/Admin/content/js/global.js")
+    @Html.RenderScript("/Areas/Admin/content/js/jquery.autotextarea.js")
 </head>
 <body>
 
@@ -29,7 +31,7 @@
                             <a href="JavaScript:void(0);" class="topAdd">新建</a>
                             <div class="drop mTopad">
                                 <a href="/Admin/Product/Add">商品</a>
-                                <a href="/Admin/Article/Add">文章</a>
+                                <a href="/Admin/Article/Article">文章</a>
                                 <a href="/Admin/Company/Add">成员企业</a>
                                 <a href="/Admin/Expert/Add">专家成员</a>
                                 <a href="/Admin/User/Add">管理员</a>
@@ -64,11 +66,11 @@
                     <li @Html.Raw("Process".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Process"><i class="page"></i><em>申请流程</em></a></li>
                 </ul>
                 <ul>
-                    <li @Html.Raw("ProductCategory".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Product/Category"><i class="productCat"></i><em>产品分类</em></a></li>
+                    @*<li @Html.Raw("ProductCategory".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Product/Category"><i class="productCat"></i><em>产品分类</em></a></li>*@
                     <li @Html.Raw("ProductList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Product/List"><i class="product"></i><em>产品列表</em></a></li>
                 </ul>
                 <ul>
-                    <li @Html.Raw("ArticleCategory".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Article/Category"><i class="articleCat"></i><em>文章分类</em></a></li>
+                    @*<li @Html.Raw("ArticleCategory".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Article/Category"><i class="articleCat"></i><em>文章分类</em></a></li>*@
                     <li @Html.Raw("ArticleList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Article/List"><i class="article"></i><em>文章列表</em></a></li>
                 </ul>
                 <ul>
@@ -93,7 +95,7 @@
             <div id="footer">
                 <div class="line"></div>
                 <ul>
-                    版权所有 © 2013-2015 漳州豆壳网络科技有限公司，并保留所有权利。
+                    版权所有 ©2016  NWDesign 团队，并保留所有权利。
                 </ul>
             </div>
         </div>
