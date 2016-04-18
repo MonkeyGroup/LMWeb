@@ -2,7 +2,7 @@
 
 namespace LM.WebUI.Areas.Admin.Controllers
 {
-    public class ProductController : WebUI.Controllers.BaseController
+    public class ProductController : BaseController
     {
         //
         // GET: /Product/

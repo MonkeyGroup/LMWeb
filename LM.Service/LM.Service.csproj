@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArticleService.cs" />
     <Compile Include="Base\BaseService.cs" />
     <Compile Include="BootStrapIoC\UnityBootStrapper.cs" />
     <Compile Include="Filter\ExceptionFilter.cs" />

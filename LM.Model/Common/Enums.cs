@@ -18,6 +18,8 @@
         Swf = 2,
         Word = 3,
         Pdf = 4,
+        Media = 5,
+        Other = 99
     }
 }
 

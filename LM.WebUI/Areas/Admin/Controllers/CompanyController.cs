@@ -2,7 +2,7 @@
 
 namespace LM.WebUI.Areas.Admin.Controllers
 {
-    public class CompanyController : WebUI.Controllers.BaseController
+    public class CompanyController : BaseController
     {
         //
         // GET: /Company/

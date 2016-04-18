@@ -2,7 +2,7 @@
 
 namespace LM.WebUI.Areas.Admin.Controllers
 {
-    public class ExpertController : WebUI.Controllers.BaseController
+    public class ExpertController :BaseController
     {
         //
         // GET: /Expert/
