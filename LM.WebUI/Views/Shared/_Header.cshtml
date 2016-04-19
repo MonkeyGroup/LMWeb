@@ -9,7 +9,11 @@
 <!--search-->
 <div class="find">
     <div style="float:left;margin:0 10px;">
-        <span class="ding"><a href="javascript:window.location.href='/Admin/Home/Index'">进入后台</a><a onclick="SetHome(window.location)" href="javascript:void(0)">设为首页</a> | <a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">加入收藏</a></span>
+        <span class="ding">
+            <a onclick="SetHome(window.location)" href="javascript:void(0)">设为首页</a> |
+            <a onclick="AddFavorite(window.location, document.title)" href="javascript:void(0)">加入收藏</a> |
+            <a href="javascript:window.location.href='/Admin/Home/Index'">登录</a>
+        </span>
     </div>
     <span class="find_content">
         <form name='search' id='searchFrm' method='get'>

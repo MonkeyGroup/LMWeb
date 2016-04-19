@@ -7,6 +7,7 @@ using LM.Model.Model;
 using LM.Service;
 using LM.Service.Base;
 using LM.Service.Security;
+using LM.WebUI.Areas.Admin.Models;
 
 namespace LM.WebUI.Areas.Admin.Controllers
 {
@@ -20,22 +21,24 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         //[Authentication]
-        public ActionResult List(string type, string keys, int pindex = 1, int psize = 20)
+        public ActionResult List(string type, string keys, int pindex = 1, int psize = 10)
         {
-            var articles = new List<ArticleModel>();
+            List<ArticleModel> articles;
+            int itemCount;
+
             using (var articleService = ResolveService<ArticleService>())
             {
-                var rs = articleService.GetByPage(pindex, psize);
-                if (rs.Status)
+                //var rs = articleService.GetByPage(pindex, psize);
+                var rs = articleService.QueryManage.GetListByPage<ArticleModel>("[Article]", out itemCount, pindex, psize);
+                articles = rs as List<ArticleModel> ?? rs.ToList();
+                if (articles.Any())
                 {
-                    articles = rs.Data as List<ArticleModel>;
-
                     // 查询条件通过 linq 方法过滤
-                    if (articles != null && (!string.IsNullOrEmpty(type) && articles.Count > 0))
+                    if (!string.IsNullOrEmpty(type) && articles.Count > 0)
                     {
                         articles = articles.Where(a => a.Type.ToString().Equals(type)).ToList();
                     }
-                    if (articles != null && (!string.IsNullOrEmpty(keys) && articles.Count > 0))
+                    if (!string.IsNullOrEmpty(keys) && articles.Count > 0)
                     {
                         articles = articles.Where(a => a.Keywords.Split(',', '，').Intersect(keys.Split(',', '，', ' ')).Any()).ToList();
                     }
@@ -45,6 +48,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
             ViewBag.Keys = keys;
             ViewBag.Type = type;
             ViewBag.Articles = articles;
+            ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
             return View();
         }
 

@@ -20,6 +20,6 @@
         /// <summary>
         ///  服务器返回数据
         /// </summary>
-        public object Data { get; set; }
+        public object data { get; set; }
     }
 }

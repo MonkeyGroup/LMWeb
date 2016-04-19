@@ -53,7 +53,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
             {
                 model = FileUploadHandler(file, UploadFileTye.Other);
             }
-            return Json("aaaaaaaaaaaa");
+            return Json(model);
         }
 
 

@@ -5,99 +5,451 @@
     ViewBag.Title = "BasicInfo";
 }
 @Html.RenderCss("/Areas/Admin/content/js/kindeditor/plugins/code/prettify.css")
-@Html.RenderCss("/Areas/Admin/content/js/kindeditor/plugins/code/prettify.css")
 
 @Html.RenderScript("/Areas/Admin/content/js/kindeditor/kindeditor.js")
 @Html.RenderScript("/Areas/Admin/content/js/kindeditor/lang/zh_CN.js")
 @Html.RenderScript("/Areas/Admin/content/js/kindeditor/plugins/code/prettify.js")
+@Html.RenderScript("/Areas/Admin/content/js/jquery.tab.js")
 
+<script type="text/javascript">
+    $(function () { $(".idTabs").idTabs(); });
+</script>
+
+<!-- KindEditor -->
+<script type="text/javascript">
+    var mapEditor, introEditor, chapterEditor, orgEditor, noticeEditor, procEditor;
+    KindEditor.ready(function (K) {
+        mapEditor = K.create('#mapDiv', {
+            //上传管理
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //文件管理
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
+            allowFileManager: true,
+            //上传文件后执行的回调函数,获取上传图片的路径
+            afterUpload: function (url) {
+            },
+            //编辑器高度
+            width: '550px',
+            //编辑器宽度
+            height: '450px;',
+            //配置编辑器的工具栏
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'baidumap', 'preview'
+            ]
+        });
+
+        introEditor = K.create('#introDiv', {
+            //上传管理
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //文件管理
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
+            allowFileManager: true,
+            //上传文件后执行的回调函数,获取上传图片的路径
+            afterUpload: function (url) {
+            },
+            //编辑器高度
+            width: '700px',
+            //编辑器宽度
+            height: '500px;',
+            //配置编辑器的工具栏
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'baidumap', 'preview'
+            ]
+        });
+
+        chapterEditor = K.create('#chapterDiv', {
+            //上传管理
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //文件管理
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
+            allowFileManager: true,
+            //上传文件后执行的回调函数,获取上传图片的路径
+            afterUpload: function (url) {
+            },
+            //编辑器高度
+            width: '700px',
+            //编辑器宽度
+            height: '500px;',
+            //配置编辑器的工具栏
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'baidumap', 'preview'
+            ]
+        });
+
+        orgEditor = K.create('#orgDiv', {
+            //上传管理
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //文件管理
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
+            allowFileManager: true,
+            //上传文件后执行的回调函数,获取上传图片的路径
+            afterUpload: function (url) {
+            },
+            //编辑器高度
+            width: '700px',
+            //编辑器宽度
+            height: '500px;',
+            //配置编辑器的工具栏
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'baidumap', 'preview'
+            ]
+        });
+
+        noticeEditor = K.create('#noticeDiv', {
+            //上传管理
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //文件管理
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
+            allowFileManager: true,
+            //上传文件后执行的回调函数,获取上传图片的路径
+            afterUpload: function (url) {
+            },
+            //编辑器高度
+            width: '700px',
+            //编辑器宽度
+            height: '500px;',
+            //配置编辑器的工具栏
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'baidumap', 'preview'
+            ]
+        });
+
+        procEditor = K.create('#procDiv', {
+            //上传管理
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //文件管理
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
+            allowFileManager: true,
+            //上传文件后执行的回调函数,获取上传图片的路径
+            afterUpload: function (url) {
+            },
+            //编辑器高度
+            width: '700px',
+            //编辑器宽度
+            height: '500px;',
+            //配置编辑器的工具栏
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'baidumap', 'preview'
+            ]
+        });
+
+        prettyPrint();
+    });
+</script>
+<!-- /KindEditor -->
 <!--3. Main-->
 <div id="dcMain">
     <!-- 当前位置 -->
     <div id="urHere">
-        后台管理中心<b>></b><strong>首页配置</strong>
+        DouPHP 管理中心<b>></b><strong>系统设置</strong>
     </div>
 
     <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
-        <h3><a href="article.html" class="actionBtn">文章列表</a>添加文章</h3>
-        <form action="article.php?rec=insert" method="post" enctype="multipart/form-data">
-            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
-                <tr>
-                    <td width="90" align="right">文章名称</td>
-                    <td>
-                        <input type="text" name="title" value="" size="80" class="inpMain" />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">文章分类</td>
-                    <td>
-                        <select name="cat_id">
-                            <option value="0">未分类</option>
-                            <option value="1"> 公司动态</option>
-                            <option value="2"> 行业新闻</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" valign="top">文章描述</td>
-                    <td>
-                        <!-- KindEditor -->
-                        <script>
-                            KindEditor.ready(function (K) {
-                                var editor1 = K.create('textarea[name="content"]', {
-                                    cssPath: '../plugins/code/prettify.css',
-                                    uploadJson: '../php/upload_json.php',
-                                    fileManagerJson: '../php/file_manager_json.php',
-                                    allowFileManager: true,
-                                    afterCreate: function () {
-                                        var self = this;
-                                        K.ctrl(document, 13, function () {
-                                            self.sync();
-                                            K('form[name=example]')[0].submit();
-                                        });
-                                        K.ctrl(self.edit.doc, 13, function () {
-                                            self.sync();
-                                            K('form[name=example]')[0].submit();
-                                        });
-                                    }
-                                });
-                                prettyPrint();
-                            });
-                        </script>
-                        <!-- /KindEditor -->
-                        <textarea id="content" name="content" style="width:780px;height:400px;" class="textArea"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">缩略图</td>
-                    <td>
-                        <input type="file" name="image" size="38" class="inpFlie" />
-                        <img src="/Areas/Admin/Content/images/icon_no.png">
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">关键字</td>
-                    <td>
-                        <input type="text" name="keywords" value="" size="50" class="inpMain" />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">简单描述</td>
-                    <td>
-                        <input type="text" name="description" value="" size="50" class="inpMain" />
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="hidden" name="token" value="7e4a88fb" />
-                        <input type="hidden" name="image" value="">
-                        <input type="hidden" name="id" value="">
-                        <input name="submit" class="btn" type="submit" value="提交" />
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
+        <h3>关于联盟</h3>
+        <div class="idTabs">
+            <ul class="tab">
+                <li><a href="#contract">联系我们</a></li>
+                <li><a href="#introduce">联盟介绍</a></li>
+                <li><a href="#chapter">联盟章程</a></li>
+                <li><a href="#organize">联盟组织</a></li>
+                <li><a href="#notice">入盟须知</a></li>
+                <li><a href="#process">申请流程</a></li>
+            </ul>
+            <div class="items">
+                <form action="/Admin/Home/BasicInfo" method="post" enctype="multipart/form-data">
+                    <div id="contract">
+                        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                            <tr>
+                                <th width="131">名称</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr>
+                                <td align="right">地址</td>
+                                <td>
+                                    <input type="text" name="address" value="" size="80" class="inpMain" placeholder="请输入联盟地址" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">电话</td>
+                                <td>
+                                    <input type="text" name="telphone" value="" size="80" class="inpMain" placeholder="请输入联盟联系电话" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">传真</td>
+                                <td>
+                                    <input type="text" name="fax" value="" size="80" class="inpMain" placeholder="请输入联盟传真电话" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">网站</td>
+                                <td>
+                                    <input type="text" name="site" value="" size="80" class="inpMain" placeholder="请输入联盟官网地址" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">邮箱</td>
+                                <td>
+                                    <input type="text" name="email" value="" size="80" class="inpMain" placeholder="请输入联盟邮箱" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">标记地图</td>
+                                <td>
+                                    <textarea name="mapMark" id="mapDiv" style="width: 600px; height: 250px;"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="introduce">
+                        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                            <tr>
+                                <th width="131">名称</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr>
+                                <td align="right">缩略图宽度</td>
+                                <td>
+                                    <input type="text" name="thumb_width" value="135" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">缩略图高度</td>
+                                <td>
+                                    <input type="text" name="thumb_height" value="135" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">商品价格保留小数位数</td>
+                                <td>
+                                    <input type="text" name="price_decimal" value="2" size="80" class="inpMain" />
+                                    <p class="cue">将以四舍五入形式保留小数</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">文章列表数量</td>
+                                <td>
+                                    <input type="text" name="display[article]" value="10" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">首页展示文章数量</td>
+                                <td>
+                                    <input type="text" name="display[home_article]" value="5" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">商品列表数量</td>
+                                <td>
+                                    <input type="text" name="display[product]" value="10" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">首页展示商品数量</td>
+                                <td>
+                                    <input type="text" name="display[home_product]" value="4" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="chapter">
+                        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                            <tr>
+                                <th width="131">名称</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr>
+                                <td align="right">文章自定义属性</td>
+                                <td>
+                                    <input type="text" name="defined[article]" value="" size="80" class="inpMain" />
+                                    <p class="cue">如"颜色,尺寸,型号"中间以英文逗号隔开</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">商品自定义属性</td>
+                                <td>
+                                    <input type="text" name="defined[product]" value="" size="80" class="inpMain" />
+                                    <p class="cue">如"颜色,尺寸,型号"中间以英文逗号隔开</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="organize">
+                        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                            <tr>
+                                <th width="131">名称</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr>
+                                <td align="right">邮件服务</td>
+                                <td>
+                                    <label for="mail_service_0">
+                                        <input type="radio" name="mail_service" id="mail_service_0" value="0" checked="true">
+                                        系统内置Mail服务
+                                    </label>
+                                    <label for="mail_service_1">
+                                        <input type="radio" name="mail_service" id="mail_service_1" value="1">
+                                        SMTP服务
+                                    </label>
+                                    <span class="cue ml">如果选择系统内置Mail服务则以下SMTP有关信息无需填写</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">SMTP服务器</td>
+                                <td>
+                                    <input type="text" name="mail_host" value="smtp.domain.com" size="80" class="inpMain" />
+                                    <p class="cue">一般邮件服务器地址为：smtp.domain.com，如果是本机则对应localhost即可</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">服务器端口</td>
+                                <td>
+                                    <input type="text" name="mail_port" value="25" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">是否使用SSL安全协议</td>
+                                <td>
+                                    <label for="mail_ssl_0">
+                                        <input type="radio" name="mail_ssl" id="mail_ssl_0" value="0" checked="true">
+                                        否
+                                    </label>
+                                    <label for="mail_ssl_1">
+                                        <input type="radio" name="mail_ssl" id="mail_ssl_1" value="1">
+                                        是
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">发件邮箱</td>
+                                <td>
+                                    <input type="text" name="mail_username" value="" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">发件邮箱密码</td>
+                                <td>
+                                    <input type="text" name="mail_password" value="" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="notice">
+                        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                            <tr>
+                                <th width="131">名称</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr>
+                                <td align="right">缩略图宽度</td>
+                                <td>
+                                    <input type="text" name="thumb_width" value="135" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">缩略图高度</td>
+                                <td>
+                                    <input type="text" name="thumb_height" value="135" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">商品价格保留小数位数</td>
+                                <td>
+                                    <input type="text" name="price_decimal" value="2" size="80" class="inpMain" />
+                                    <p class="cue">将以四舍五入形式保留小数</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">文章列表数量</td>
+                                <td>
+                                    <input type="text" name="display[article]" value="10" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">首页展示文章数量</td>
+                                <td>
+                                    <input type="text" name="display[home_article]" value="5" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">商品列表数量</td>
+                                <td>
+                                    <input type="text" name="display[product]" value="10" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">首页展示商品数量</td>
+                                <td>
+                                    <input type="text" name="display[home_product]" value="4" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="process">
+                        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                            <tr>
+                                <th width="131">名称</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr>
+                                <td align="right">缩略图宽度</td>
+                                <td>
+                                    <input type="text" name="thumb_width" value="135" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">缩略图高度</td>
+                                <td>
+                                    <input type="text" name="thumb_height" value="135" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">商品价格保留小数位数</td>
+                                <td>
+                                    <input type="text" name="price_decimal" value="2" size="80" class="inpMain" />
+                                    <p class="cue">将以四舍五入形式保留小数</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">文章列表数量</td>
+                                <td>
+                                    <input type="text" name="display[article]" value="10" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">首页展示文章数量</td>
+                                <td>
+                                    <input type="text" name="display[home_article]" value="5" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">商品列表数量</td>
+                                <td>
+                                    <input type="text" name="display[product]" value="10" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">首页展示商品数量</td>
+                                <td>
+                                    <input type="text" name="display[home_product]" value="4" size="80" class="inpMain" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
+                    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                        <tr>
+                            <td width="131"></td>
+                            <td>
+                                <input type="hidden" name="token" value="24760807" />
+                                <input name="submit" class="btn" type="submit" value="提交" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+<input type="hidden" id="Id" name="Id" value="" />

@@ -1,13 +1,39 @@
 ﻿@using LM.Model.Model
 @using LM.Utility
+@using LM.WebUI.Areas.Admin.Models
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
     ViewBag.Title = "List";
+
     var articles = ViewBag.Articles as List<ArticleModel>;
-    var index = articles.Count;
+    var pageInfo = ViewBag.PageInfo as PageInfo;
+
+    var index = 1;
     var type = ViewBag.Type ?? "";
     var keys = ViewBag.Keys ?? "";
 }
+@Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
+
+<script>
+    $(function () {
+        /* 分页使用异步 */
+        laypage({
+            cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
+            pages: '@pageInfo.PageCount', //总页数
+            curr: '@pageInfo.PageIndex', // 当前页
+            groups: 6, //连续显示分页数
+            skin: '#0072C6',
+            jump: function (e, first) {
+                // 第一次的事件必须要判断
+                if (!first) {
+                    var type = $('#type').val();
+                    var keys = $('#keys').val();
+                    window.location.href = '/Admin/Article/List?type=' + type + '&keys=' + keys + '&pindex=' + e.curr;
+                }
+            }
+        });
+    });
+</script>
 
 <script>
     function search() {
@@ -19,8 +45,7 @@
     function delArticle(id) {
         var type = $('#type').val();
         var keys = $('#keys').val();
-        var a = '/Admin/Article/Delete?ids=' + id + '&type=' + type + '&keys=' + keys;
-        window.location.href = a;
+        window.location.href = '/Admin/Article/Delete?ids=' + id + '&type=' + type + '&keys=' + keys;
     }
 
     function batchDelete(form) {
@@ -36,8 +61,7 @@
         } else {
             var type = $('#type').val();
             var keys = $('#keys').val();
-            var a = '/Admin/Article/Delete?ids=' + ids + '&type=' + type + '&keys=' + keys;
-            window.location.href = a;
+            window.location.href = '/Admin/Article/Delete?ids=' + ids + '&type=' + type + '&keys=' + keys;
         }
     }
 
@@ -88,7 +112,7 @@
                                 <td align="center">
                                     <input type="checkbox" name="checkbox" value="@article.Id" />
                                 </td>
-                                <td align="center">@(index--)</td>
+                                <td align="center">@(index++)</td>
                                 <td>
                                     <a href="/Admin/Article/Article?articleId=@article.Id">@article.Title</a>
                                 </td>
@@ -115,14 +139,16 @@
                 </table>
 
                 <div class="action">
-                    <button name="" class="btn" type="button" value="删除" onclick="return batchDelete(this.form) && false;">删除</button>
+                    <button name="" class="btn" type="button" value="删除" onclick="return batchDelete(this.form) && false;">删除</button> 
+                    <!--分页-->
+                    <div class="pageDiv" id="pageDiv1" style="float: right;"></div>
                 </div>
             </form>
         </div>
         <div class="clear"></div>
-        <div class="pager">
-            总计 10 个记录，共 1 页，当前第 1 页 | <a href="">第一页</a> 上一页 下一页 <a href="article.php?page=1">最末页</a>
-        </div>
+        @*<div class="pager">
+                总计 10 个记录，共 1 页，当前第 1 页 | <a href="">第一页</a> 上一页 下一页 <a href="article.php?page=1">最末页</a>
+            </div>*@
     </div>
 </div>
 

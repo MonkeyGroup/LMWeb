@@ -213,7 +213,7 @@
     <Compile Include="Areas\Admin\Controllers\ExpertController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
-    <Compile Include="Areas\Admin\Models\Page.cs" />
+    <Compile Include="Areas\Admin\Models\PageInfo.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
@@ -472,6 +472,7 @@
     <Content Include="Areas\Admin\Content\js\global.js" />
     <Content Include="Areas\Admin\Content\js\jquery-1.9.1.js" />
     <Content Include="Areas\Admin\Content\js\jquery.autoTextarea.js" />
+    <Content Include="Areas\Admin\Content\js\jquery.tab.js" />
     <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\cancel.png" />
     <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\cancel.png" />
     <Content Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\css\default.css" />
@@ -749,6 +750,8 @@
     <Content Include="Areas\Admin\Content\js\kindeditor\themes\qq\editor.gif" />
     <Content Include="Areas\Admin\Content\js\kindeditor\themes\qq\qq.css" />
     <Content Include="Areas\Admin\Content\js\kindeditor\themes\simple\simple.css" />
+    <Content Include="Areas\Admin\Content\js\laypage\laypage.js" />
+    <Content Include="Areas\Admin\Content\js\laypage\skin\laypage.css" />
     <Content Include="Areas\Admin\Content\js\UEditor\dialogs\anchor\anchor.html" />
     <Content Include="Areas\Admin\Content\js\UEditor\dialogs\attachment\attachment.css" />
     <Content Include="Areas\Admin\Content\js\UEditor\dialogs\attachment\attachment.html" />
@@ -1178,7 +1181,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
