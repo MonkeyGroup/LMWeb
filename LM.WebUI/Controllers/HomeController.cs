@@ -40,10 +40,10 @@ namespace LM.WebUI.Controllers
         {
             using (var userService = ResolveService<UserService>())
             {
-                var sr = userService.GetByPage(1, 8);
-                var userList = new List<UserModel>();
-                ((List<User>)sr.Data).ForEach<User>(u => { userList.Add(new UserModel { Id = u.Id, Pwd = u.Pwd, Name = u.Name }); });
-                ViewBag.UserList = userList;
+                //var sr = userService.GetByPage(1, 8);
+                //var userList = new List<UserModel>();
+                //((List<User>)sr.Data).ForEach<User>(u => { userList.Add(new UserModel { Id = u.Id, Pwd = u.Pwd, Name = u.Name }); });
+                //ViewBag.UserList = userList;
                 return View();
             }
         }

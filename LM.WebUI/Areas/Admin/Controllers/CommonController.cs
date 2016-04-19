@@ -21,7 +21,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         public JsonResult FileUpload()
         {
             var file = HttpContext.Request.Files[0]; // 默认传单个文件
-            if (file == null || file.InputStream == null)
+            if (file == null || file.InputStream == null || string.IsNullOrEmpty(file.FileName))
             {
                 return Json(new FileUploadModel { Status = false, Message = "请选择文件！" });
             }
@@ -35,7 +35,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 {"file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2"}
             };
 
-            var ext = file.FileName.Substring(file.FileName.LastIndexOf(".") + 1);
+            var ext = file.FileName.ToLower().Substring(file.FileName.LastIndexOf(".") + 1);
             FileUploadModel model;
             if (extTable["image"].Contains(ext))
             {
@@ -45,16 +45,65 @@ namespace LM.WebUI.Areas.Admin.Controllers
             {
                 model = FileUploadHandler(file, UploadFileTye.Swf);
             }
-            else if (extTable["file"].Contains(ext))
-            {
-                model = FileUploadHandler(file, UploadFileTye.Other);
-            }
-            else
+            else if (extTable["media"].Contains(ext))
             {
                 model = FileUploadHandler(file, UploadFileTye.Media);
             }
+            else
+            {
+                model = FileUploadHandler(file, UploadFileTye.Other);
+            }
             return Json("aaaaaaaaaaaa");
         }
+
+
+        [HttpPost]
+        //[Authentication]
+        public void EditorFileUpload()
+        {
+            var file = HttpContext.Request.Files[0]; // 默认传单个文件
+            if (file == null || file.InputStream == null || string.IsNullOrEmpty(file.FileName))
+            {
+                HttpContext.Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
+                HttpContext.Response.Write(JsonHelper.Serialize(new { error = 0, message = "请选择文件！！！" }));
+                HttpContext.Response.End();
+                return;
+            }
+
+            //定义允许上传的文件扩展名
+            var extTable = new Dictionary<string, string>
+            {
+                {"image", "gif,jpg,jpeg,png,bmp"},
+                {"flash", "swf,flv"},
+                {"media", "swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb"},
+                {"file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2"}
+            };
+
+            var ext = file.FileName.ToLower().Substring(file.FileName.LastIndexOf(".") + 1);
+            FileUploadModel model;
+            if (extTable["image"].Contains(ext))
+            {
+                model = FileUploadHandler(file, UploadFileTye.Img);
+            }
+            else if (extTable["flash"].Contains(ext))
+            {
+                model = FileUploadHandler(file, UploadFileTye.Swf);
+            }
+            else if (extTable["media"].Contains(ext))
+            {
+                model = FileUploadHandler(file, UploadFileTye.Media);
+            }
+            else
+            {
+                model = FileUploadHandler(file, UploadFileTye.Other);
+            }
+
+            var jsonStr = JsonHelper.Serialize(new { error = 0, url = model.FilePath });
+            HttpContext.Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
+            HttpContext.Response.Write(jsonStr);
+            HttpContext.Response.End();
+        }
+
 
         /// <summary>
         ///  按文件类型放入不同的文件夹
@@ -76,12 +125,10 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     fileFolder = "~/Upload/images"; break;
                 case UploadFileTye.Swf:
                     fileFolder = "~/Upload/swf"; break;
-                case UploadFileTye.Word:
-                    fileFolder = "~/Upload/word"; break;
-                case UploadFileTye.Pdf:
-                    fileFolder = "~/Upload/pdf"; break;
                 case UploadFileTye.Media:
                     fileFolder = "~/Upload/media"; break;
+                case UploadFileTye.Other:
+                    fileFolder = "~/Upload/other"; break;
                 default:
                     fileFolder = "~/Upload/other"; break;
             }
@@ -95,7 +142,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 {
                     Directory.CreateDirectory(directory);
                 }
-                file.SaveAs(directory + newFileName);
+                file.SaveAs(directory + "/" + newFileName);
                 return new FileUploadModel { Status = true, FilePath = fileFolder.Substring(1) + "/" + DateTime.Now.ToString("yyyyMMdd") + "/" + newFileName };
             }
             catch (Exception e)
@@ -105,7 +152,6 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         #endregion
-
 
     }
 }

@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="ArticleService.cs" />
     <Compile Include="Base\BaseService.cs" />
+    <Compile Include="Base\ListReqModel.cs" />
+    <Compile Include="Base\JsonRespModel.cs" />
     <Compile Include="BootStrapIoC\UnityBootStrapper.cs" />
     <Compile Include="Filter\ExceptionFilter.cs" />
     <Compile Include="HomePageConfigService.cs" />

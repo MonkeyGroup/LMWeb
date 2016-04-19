@@ -14,6 +14,8 @@ namespace LM.Model.Model
 
         public string Origin { get; set; }
 
+        public int Hits { get; set; }
+
         /// <summary>
         ///  关键字，以逗号分隔（不区分中英文）
         /// </summary>

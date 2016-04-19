@@ -24,14 +24,16 @@ public class Upload : IHttpHandler
 		String aspxUrl = context.Request.Path.Substring(0, context.Request.Path.LastIndexOf("/") + 1);
 		
 		//文件保存目录路径
-		String savePath = "../attached/";
+        //String savePath = "../attached/";
+        String savePath = "/Upload/";
 
 		//文件保存目录URL
-		String saveUrl = aspxUrl + "../attached/";
+        //String saveUrl = aspxUrl + "../attached/";
+        String saveUrl = "/Upload/";
 
 		//定义允许上传的文件扩展名
 		Hashtable extTable = new Hashtable();
-		extTable.Add("image", "gif,jpg,jpeg,png,bmp");
+		extTable.Add("images", "gif,jpg,jpeg,png,bmp");
 		extTable.Add("flash", "swf,flv");
 		extTable.Add("media", "swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb");
 		extTable.Add("file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2");
@@ -49,10 +51,11 @@ public class Upload : IHttpHandler
 		String dirPath = context.Server.MapPath(savePath);
 		if (!Directory.Exists(dirPath))
 		{
-			showError("上传目录不存在。");
+            //showError("上传目录不存在。");
+		    Directory.CreateDirectory(dirPath);
 		}
 
-		String dirName = context.Request.QueryString["dir"];
+	    String dirName = "images";
 		if (String.IsNullOrEmpty(dirName)) {
 			dirName = "image";
 		}

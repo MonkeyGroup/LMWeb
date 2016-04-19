@@ -8,38 +8,28 @@
 
 @Html.RenderScript("/Areas/Admin/Content/js/kindeditor/lang/zh_CN.js")
 @Html.RenderScript("/Areas/Admin/Content/js/kindeditor/kindeditor.js")
-@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.js")
+@Html.RenderScript("../asp.net/upload_json.ashx/plugins/code/prettify.js")
 
-<!-- UEditor -->
+<!-- KindEditor -->
 <script type="text/javascript">
     var editor;
     KindEditor.ready(function (K) {
         editor = K.create('#container', {
             //上传管理
-            uploadJson: '/Admin/Common/FileUpload',
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //uploadJson: '/Areas/Admin/Content/js/kindeditor/asp.net/upload_json.ashx',
             //文件管理
-            fileManagerJson: '/Areas/Common/FileUpload',
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
             allowFileManager: true,
-            //设置编辑器创建后执行的回调函数
-            afterCreate: function () {
-                var self = this;
-                K.ctrl(document, 13, function () {
-                    self.sync();
-                    K('form[name=example]')[0].submit();
-                });
-                K.ctrl(self.edit.doc, 13, function () {
-                    self.sync();
-                    K('form[name=example]')[0].submit();
-                });
-            },
             //上传文件后执行的回调函数,获取上传图片的路径
             afterUpload: function (url) {
                 // 更改dom值
+                $("#imgSrc").val() ==='' && $("#imgSrc").val(url);
             },
             //编辑器高度
-            width: '700px',
+            width: '800px',
             //编辑器宽度
-            height: '250px;',
+            height: '500px;',
             //配置编辑器的工具栏
             items: [
                 'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
@@ -47,7 +37,7 @@
                 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
                 'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
                 'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
-                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
                 'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
                 'anchor', 'link', 'unlink', '|', 'about'
             ]
@@ -55,13 +45,9 @@
         prettyPrint();
     });
 </script>
-<!-- /UEditor -->
+<!-- /KindEditor -->
 
 <script type="text/javascript">
-    function checkType() {
-
-    }
-
     var commitFlag = true;
     function submit() {
         // 判空
@@ -93,10 +79,18 @@
             cache: false,
             contentType: "application/json; charset=utf-8",
             success: function (resp) {
-                if (resp.Status) window.location.href = '/Admin/Article/Index';
+                if (resp.Status) {
+                    alert(resp.Message);
+                    window.location.href = '/Admin/Article/Index';
+                } else {
+                    $("#imgSrc").val("");
+                    alert(resp.Message);
+                    commitFlag = true;
+                }
             },
             error: function () {
                 alert('系统故障，请联系管理员！');
+                $("#imgSrc").val("");
                 commitFlag = true;
             }
         }
@@ -128,13 +122,13 @@
     </div>
 
     <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
-        <h3><a href="../Home/article.html" class="actionBtn">文章列表</a>添加文章</h3>
+        <h3><a href="/Admin/Article/Index" class="actionBtn">文章列表</a>添加文章</h3>
         <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
 
             <tr>
                 <td align="right">文章分类</td>
                 <td>
-                    <select id="type" name="type" onchange="checkType()">
+                    <select id="type" name="type">
                         <option value="0"> 联盟动态</option>
                         <option value="1"> 行业信息</option>
                         <option value="3"> 科技要闻</option>
@@ -159,7 +153,7 @@
             <tr>
                 <td width="90" align="right">点击量</td>
                 <td>
-                    <input type="text" id="hits" value="" size="80" class="inpMain" />
+                    <input type="text" id="hits" value="" size="80" class="inpMain" placeholder="请输入正整数" />
                     <span id="msg3" class="prompt"></span>
                 </td>
             </tr>
@@ -216,7 +210,7 @@
                 <td></td>
                 <td>
                     <input type="hidden" name="id" value="">
-                    <input type="hidden" name="imgSrc" value="">
+                    <input type="hidden" id="imgSrc" name="imgSrc" value="">
                     <input name="submit" class="btn" type="button" value="提交" onclick="return submit() && false;" />
                 </td>
             </tr>
