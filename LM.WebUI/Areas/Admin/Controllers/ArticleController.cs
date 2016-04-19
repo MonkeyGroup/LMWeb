@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using LM.Model.Entity;
 using LM.Model.Model;
@@ -18,8 +20,31 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         //[Authentication]
-        public ActionResult List()
+        public ActionResult List(string type, string keys, int pindex = 1, int psize = 20)
         {
+            var articles = new List<ArticleModel>();
+            using (var articleService = ResolveService<ArticleService>())
+            {
+                var rs = articleService.GetByPage(pindex, psize);
+                if (rs.Status)
+                {
+                    articles = rs.Data as List<ArticleModel>;
+
+                    // 查询条件通过 linq 方法过滤
+                    if (articles != null && (!string.IsNullOrEmpty(type) && articles.Count > 0))
+                    {
+                        articles = articles.Where(a => a.Type.ToString().Equals(type)).ToList();
+                    }
+                    if (articles != null && (!string.IsNullOrEmpty(keys) && articles.Count > 0))
+                    {
+                        articles = articles.Where(a => a.Keywords.Split(',', '，').Intersect(keys.Split(',', '，', ' ')).Any()).ToList();
+                    }
+                }
+            }
+
+            ViewBag.Keys = keys;
+            ViewBag.Type = type;
+            ViewBag.Articles = articles;
             return View();
         }
 
@@ -58,6 +83,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     }
                 }
             }
+
             ViewBag.Article = article;
             return View();
         }
@@ -116,5 +142,15 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 return Json(respModel);
             }
         }
+
+        public ActionResult Delete(string ids, string type, string keys)
+        {
+            using (var articleService = ResolveService<ArticleService>())
+            {
+                articleService.Delete(ids.Split(',').Select(int.Parse).ToArray());
+                return RedirectToAction("List", new { type = type, keys = keys });
+            }
+        }
+
     }
 }

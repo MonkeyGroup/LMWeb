@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LM.Component.Data;
 using LM.Model.Entity;
+using LM.Model.Model;
 using LM.Repo;
 using LM.Service.Base;
 
@@ -34,13 +32,19 @@ namespace LM.Service
             }
         }
 
+        /// <summary>
+        ///  此方法废弃，因为不支持 out 参数
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         public ServiceResult GetByPage(int pageIndex, int pageSize)
         {
             try
             {
                 const string query = "[Article]";
                 int pageCount;
-                var articles = QueryManage.GetListByPage<Article>(query, out pageCount, pageIndex, pageSize).ToList();
+                var articles = QueryManage.GetListByPage<ArticleModel>(query, out pageCount, pageIndex, pageSize).ToList();
                 return new ServiceResult(true) { Data = articles };
             }
             catch (Exception e)

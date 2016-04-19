@@ -162,7 +162,6 @@ p.cue {
 }
 /*- form -*/
 .btn {
-    margin-left: 32%;
     display: inline-block;
     background-color: #0072C6;
     -moz-border-radius: 2px;
@@ -276,6 +275,7 @@ select {
         }
 /*- tableBasic -*/
 .tableBasic {
+    font-size: 12px;
     background-color: #F9F9F9;
     color: #666666;
     border-left: 1px dotted #CCCCCC;

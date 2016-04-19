@@ -6,7 +6,7 @@ namespace LM.Service.Base
 {
     public class BaseService : IDisposable
     {
-        protected QueryManage QueryManage;
+        public QueryManage QueryManage;
 
         public BaseService() { }
 

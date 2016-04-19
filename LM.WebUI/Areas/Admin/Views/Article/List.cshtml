@@ -2,197 +2,152 @@
 @using LM.Utility
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
-    ViewBag.Title = "BasicInfo";
+    ViewBag.Title = "List";
+    var articles = ViewBag.Articles as List<ArticleModel>;
+    var index = articles.Count;
+    var type = ViewBag.Type ?? "";
+    var keys = ViewBag.Keys ?? "";
 }
-@Html.RenderCss("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.css")
-@Html.RenderCss("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.css")
 
-@Html.RenderScript("/Areas/Admin/Content/js/UEditor/ueditor.config.js")
-@Html.RenderScript("/Areas/Admin/Content/js/UEditor/ueditor.all.js")
-
-<!-- UEditor -->
-<script type="text/javascript">
-    //window.UEDITOR_HOME_URL = '/Areas/Admin/Content/js/UEditor/';
-    var ue = UE.getEditor('container', {
-        imageUrl: "/Admin/Common/FileUpload", //图片上传提交后台对应的地址
-        imagePath: "/Upload/images/",  //图片在服务器上的存储目录
-    });
-    ue.ready(function () {
-        //设置编辑器的内容
-        //ue.setContent('hello');
-        //获取html内容，返回: <p>hello</p>
-        var html = ue.getContent();
-        //获取纯文本内容，返回: hello
-        var txt = ue.getContentTxt();
-    });
-</script>
-<!-- /UEditor -->
-
-<script type="text/javascript">
-    function checkType() {
-
+<script>
+    function search() {
+        var type = $('#type').val();
+        var keys = $('#keys').val();
+        window.location.href = '/Admin/Article/List?type=' + type + '&keys=' + keys;
     }
 
-    var commitFlag = true;
-    function submit() {
-        // 判空
-        if (!checkNull()) {
-            commitFlag = true;
-            return;
-        }
-        commitFlag = false;
+    function delArticle(id) {
+        var type = $('#type').val();
+        var keys = $('#keys').val();
+        var a = '/Admin/Article/Delete?ids=' + id + '&type=' + type + '&keys=' + keys;
+        window.location.href = a;
+    }
 
-        var article = {
-            Title: $('#title').val(),
-            Type: $('#type').val(),
-            Author: $('#author').val(),
-            Origin: $('#origin').val(),
-            Keywords: $('#keywords').val(),
-            Brief: $('#brief').val(),
-            Content: ue.getContent(),
-            IsRecommend: $('#isRecommend').val(),
-            IsFocus: $('#isFocus').val(),
-            IsHide: $('#isHide').val(),
-            ImgSrc: $('#imgSrc').val()
-        }
-        // 封装数据
-        var ajax = {
-            url: '/Admin/Article/Save',
-            data: JSON.stringify(article),
-            type: 'Post',
-            dataType: 'json',
-            cache: false,
-            contentType: "application/json; charset=utf-8",
-            success: function (resp) {
-                alert(resp.msg);
-                window.location.href = '/Admin/Article/Index';
-            },
-            error: function () {
-                alert('系统故障，请联系管理员！');
-                commitFlag = true;
+    function batchDelete(form) {
+        var ids = [];
+        for (var i = 0; i < form.elements.length; i++) {
+            var e = form.elements[i];
+            if (e.name !== "chkall" && e.type !== "button" && e.disabled !== true && e.checked) {
+                e.value != null && ids.push(Number(e.value));
             }
         }
-        $.ajax(ajax);
-    }
-
-    function checkNull() {
-        //Title: $('#title').val(),
-        //Type: $('#type').val(),
-        //Author: $('#author').val(),
-        //Origin: $('#origin'),
-        //Keywords: $('#keywords').val(),
-        //Brief: $('#brief').val(),
-        //Content: html,
-        //IsRecommend: $('#isRecommend').val(),
-        //IsFocus: $('#isFocus').val(),
-        //IsHide: $('#isHide').val(),
-        //ImgSrc: $('#imgSrc').val()
-        return true;
+        if (ids.length === 0) {
+            alert('请勾选删除项！');
+        } else {
+            var type = $('#type').val();
+            var keys = $('#keys').val();
+            var a = '/Admin/Article/Delete?ids=' + ids + '&type=' + type + '&keys=' + keys;
+            window.location.href = a;
+        }
     }
 
 </script>
 
-<!--3. Main-->
 <div id="dcMain">
     <!-- 当前位置 -->
     <div id="urHere">
-        后台管理中心<b>></b><strong>首页配置</strong>
+        DouPHP 管理中心<b>></b><strong>文章列表</strong>
     </div>
 
-    <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
-        <h3><a href="../Home/article.html" class="actionBtn">文章列表</a>添加文章</h3>
-        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    <div class="mainBox" style="height: auto !important; height: 550px; min-height: 550px;">
+        <h3>
+            <a href="/Admin/Article/Article" class="actionBtn add">添加文章</a>文章列表
+        </h3>
+        <div class="filter">
+            <form action="/Admin/Article/List" method="post">
+                <select id="type" name="type">
+                    <option value=""> 未分类</option>
+                    <option value="联盟动态" @(type.Equals("联盟动态") ? "selected" : "")> 联盟动态</option>
+                    <option value="行业信息" @(type.Equals("行业信息") ? "selected" : "")> 行业信息</option>
+                    <option value="科技要闻" @(type.Equals("科技要闻") ? "selected" : "")> 科技要闻</option>
+                    <option value="联盟简报" @(type.Equals("联盟简报") ? "selected" : "")> 联盟简报</option>
+                </select>
+                <input id="keys" name="keys" type="text" class="inpMain" value="@(keys ?? "")" size="20" />
+                <input name="submit" class="btnGray" type="button" value="筛选" onclick="return search() && false;" />
+            </form>
+        </div>
+        <div id="list">
+            <form name="action">
+                <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                    @if (articles != null && articles.Count > 0)
+                    {
+                        <tr>
+                            <th width="22" align="center">
+                                <input name='chkall' type='checkbox' id='chkall' onclick='selectcheckbox(this.form)' value='check'>
+                            </th>
+                            <th width="40" align="center">编号</th>
+                            <th align="center">文章名称</th>
+                            <th width="150" align="center">文章分类</th>
+                            <th width="80" align="center">添加日期</th>
+                            <th width="80" align="center">操作</th>
+                        </tr>
 
-            <tr>
-                <td align="right">文章分类</td>
-                <td>
-                    <select id="type" name="type" onchange="checkType()">
-                        <option value="0"> 联盟动态</option>
-                        <option value="1"> 行业信息</option>
-                        <option value="3"> 科技要闻</option>
-                        <option value="4"> 联盟简报</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="90" align="right">文章标题</td>
-                <td>
-                    <input type="text" id="title" value="" size="80" class="inpMain" />
-                    <font class="prompt" color="red">*</font><span id="msg1" class="prompt"></span>
-                </td>
-            </tr>
-            <tr>
-                <td width="90" align="right">文章来源</td>
-                <td>
-                    <input type="text" id="origin" value="" size="80" class="inpMain" />
-                    <span id="msg2" class="prompt"></span>
-                </td>
-            </tr>
-            <tr>
-                <td width="90" align="right">点击量</td>
-                <td>
-                    <input type="text" id="hits" value="" size="80" class="inpMain" />
-                    <span id="msg3" class="prompt"></span>
-                </td>
-            </tr>
-            <tr>
-                <td width="90" align="right">关键词</td>
-                <td>
-                    <input type="text" id="keywords" value="" size="80" class="inpMain" placeholder='请以逗号","分隔，如：电子科技，太阳能，新材料' />
-                    <span id="msg4" class="prompt"></span>
-                </td>
-            </tr>
-            <tr id="trBrief">
-                <td width="90" align="right">内容摘要</td>
-                <td>
-                    <textarea name="description" id="brief" class="inpMain" style=" font-size: 14px;color: #999;height: 50px;border: 1px solid #D6D6D6; width: 520px; height: 160px; padding: 5px;"></textarea>
-                    <span id="msg5" class="prompt"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" valign="top">文章正文</td>
-                <td>
-                    <div id="container" style="width: 800px; height: 300px;"></div>
-                </td>
-            </tr>
+                        foreach (var article in articles)
+                        {
+                            <tr>
+                                <td align="center">
+                                    <input type="checkbox" name="checkbox" value="@article.Id" />
+                                </td>
+                                <td align="center">@(index--)</td>
+                                <td>
+                                    <a href="/Admin/Article/Article?articleId=@article.Id">@article.Title</a>
+                                </td>
+                                <td align="center">
+                                    <a href="/Admin/Article/List?type=@article.Type">@article.Type</a>
+                                </td>
+                                <td align="center">
+                                    @article.CreateAt.ToString("yyyy-MM-dd HH:mm:ss")
+                                </td>
+                                <td align="center">
+                                    <a href="/Admin/Article/Article?articleId=@article.Id">编辑</a> | <a href="#" onclick="return delArticle('@article.Id') && false;">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <th width="22" align="center">
+                                <span style="text-align: center;">无数据！</span>
+                            </th>
+                        </tr>
+                    }
+                </table>
 
-            <tr>
-                <td align="right">是否推荐</td>
-                <td>
-                    <select id="isRecommend" name="isRecommend">
-                        <option value="false"> 否</option>
-                        <option value="true"> 是</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">特别关注</td>
-                <td>
-                    <select name="isFocus" id="isFocus">
-                        <option value="false"> 否</option>
-                        <option value="true"> 是</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">是否隐藏</td>
-                <td>
-                    <select name="isHide" id="isHide">
-                        <option value="false"> 否</option>
-                        <option value="true"> 是</option>
-                    </select>
-                </td>
-            </tr>
-
-            <tr>
-                <td></td>
-                <td>
-                    <input type="hidden" name="id" value="">
-                    <input type="hidden" name="imgSrc" value="">
-                    <input name="submit" class="btn" type="button" value="提交" onclick="return submit() && false;" />
-                </td>
-            </tr>
-        </table>
+                <div class="action">
+                    <button name="" class="btn" type="button" value="删除" onclick="return batchDelete(this.form) && false;">删除</button>
+                </div>
+            </form>
+        </div>
+        <div class="clear"></div>
+        <div class="pager">
+            总计 10 个记录，共 1 页，当前第 1 页 | <a href="">第一页</a> 上一页 下一页 <a href="article.php?page=1">最末页</a>
+        </div>
     </div>
-
 </div>
+
+<input type="hidden" id="type" value="@(type ?? "")" />
+<input type="hidden" id="keys" value="@(keys ?? "")" />
+
+<script type="text/javascript">
+    onload = function () {
+        document.forms['action'].reset();
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

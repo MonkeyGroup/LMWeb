@@ -213,6 +213,7 @@
     <Compile Include="Areas\Admin\Controllers\ExpertController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Models\Page.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
@@ -1186,7 +1187,6 @@
     <Folder Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\uploads\" />
     <Folder Include="Areas\Admin\Content\js\kindeditor\attached\" />
     <Folder Include="Areas\Admin\Content\js\UEditor\upload\image\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Upload\images\" />
     <Folder Include="Upload\swf\" />
     <Folder Include="Upload\word\" />
