@@ -1102,6 +1102,7 @@
     <Content Include="Content\images\yuanjing1.jpg" />
     <Content Include="Content\images\zhaoshang.png" />
     <Content Include="Content\images\zhongxin.jpg" />
+    <Content Include="Content\js\createAd.js" />
     <Content Include="Content\js\jquery-1.9.1.js" />
     <Content Include="Content\js\listScroll.js" />
     <Content Include="Content\js\logoRoll.js" />
@@ -1361,6 +1362,9 @@
     <Content Include="Areas\Admin\Content\js\kindeditor\php\file_manager_json.php" />
     <Content Include="Areas\Admin\Content\js\kindeditor\php\JSON.php" />
     <Content Include="Areas\Admin\Content\js\kindeditor\php\upload_json.php" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\LMweb.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

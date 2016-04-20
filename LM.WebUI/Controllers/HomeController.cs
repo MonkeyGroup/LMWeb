@@ -22,16 +22,12 @@ namespace LM.WebUI.Controllers
             using (var homePageConfigService = ResolveService<HomePageConfigService>())
             {
                 var svs = homePageConfigService.GetLast();
-                if (svs.Status)
-                {
-                    var config = svs.Data as HomePageConfigModel;
-                    ViewBag.HomePageConfig = config;
-                    DiMySession.Set("HomePageConfig", config);
-                }
-                else
-                {
-                    ViewBag.HomePageConfig = new HomePageConfigModel();
-                }
+
+                if (!svs.Status) return View("Error");
+                
+                var config = svs.Data as HomePageConfigModel;
+                ViewBag.HomePageConfig = config;
+                DiMySession.Set("HomePageConfig", config);
                 return View();
             }
         }

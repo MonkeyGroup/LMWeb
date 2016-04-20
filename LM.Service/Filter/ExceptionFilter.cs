@@ -43,7 +43,7 @@ namespace LM.Service.Filter
                         sbHeaders.Append(keyName + ":" + strings[0] + " ");
                 }
 
-                LogHelper.WriteLogByIo(sb.ToString(), "D://");
+                LogHelper.WriteLogByIo(sb.ToString());
 
                 filterContext.ExceptionHandled = true;
 
