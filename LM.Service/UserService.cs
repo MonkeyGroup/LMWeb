@@ -106,7 +106,7 @@ namespace LM.Service
             {
                 const string query = "[User]";
                 int pageCount;
-                var novels = QueryManage.GetListByPage<User>(query, out pageCount, pageIndex, pageSize).ToList();
+                var novels = QueryManage.GetListByPage<User>(query, "createAt desc",out pageCount, pageIndex, pageSize).ToList();
                 return new ServiceResult(true) { Data = novels };
             }
             catch (Exception e)

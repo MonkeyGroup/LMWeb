@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using LM.Model.Entity;
 using LM.Model.Model;
 using LM.Service;
+using LM.Service.Base;
 using LM.Service.Security;
 
 namespace LM.WebUI.Areas.Admin.Controllers
@@ -125,7 +126,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 });
 
                 var msg = rs.Status ? "保存成功！" : "服务器异常！";
-                return Json(new { status = rs.Status, msg = msg });
+                return Json(new JsonRespModel { status = rs.Status, message = msg });
             }
         }
 
@@ -152,24 +153,96 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
         #region 联盟信息配置
 
+        [HttpGet]
         public ActionResult BasicInfo()
         {
             // 取现有的配置，首次为空
-            using (var homePageConfigService = ResolveService<HomePageConfigService>())
+            using (var baseInfoService = ResolveService<BaseInfoService>())
             {
-                var svs = homePageConfigService.GetLast();
+                var svs = baseInfoService.GetById(1);
                 if (svs.Status)
                 {
-                    var config = svs.Data as HomePageConfigModel;
-                    ViewBag.HomePageConfig = config;
+                    var config = svs.Data as BaseInfoModel;
+                    ViewBag.BaseInfo = config;
                 }
                 else
                 {
-                    ViewBag.HomePageConfig = new HomePageConfigModel();
+                    ViewBag.BaseInfo = new BaseInfoModel();
                 }
-                
+
                 ViewBag.Nav = "BasicInfo";
                 return View();
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult SaveBasicInfo(BaseInfoModel infoModel, string type)
+        {
+            using (var baseInfoService = ResolveService<BaseInfoService>())
+            {
+                var state = false;
+                JsonRespModel respModel;
+                // Id > 0 修改；Id = 0 新增
+                if (infoModel.Id > 0)
+                {
+                    switch (type.ToLower())
+                    {
+                        case "contract":
+                            state = baseInfoService.Update(new { }).Status;
+                            break;
+                        case "introduce":
+                            state = baseInfoService.Update(new { }).Status;
+                            break;
+                        case "chapter":
+                            state = baseInfoService.Update(new { }).Status;
+                            break;
+                        case "organize":
+                            state = baseInfoService.Update(new { }).Status;
+                            break;
+                        case "notice":
+                            state = baseInfoService.Update(new { }).Status;
+                            break;
+                        case "process":
+                            state = baseInfoService.Update(new { }).Status;
+                            break;
+                        default:
+                            state = baseInfoService.Update(new { }).Status;
+                            break;
+                    }
+                    respModel = new JsonRespModel { status = state, message = state ? "修改成功！" : "修改失败！" };
+                }
+                else
+                {
+                    BaseInfo baseInfo;
+                    switch (type.ToLower())
+                    {
+                        case "contract":
+                            baseInfo = new BaseInfo {};
+                            break;
+                        case "introduce":
+                            baseInfo = new BaseInfo { };
+                            break;
+                        case "chapter":
+                            baseInfo = new BaseInfo { };
+                            break;
+                        case "organize":
+                            baseInfo = new BaseInfo { };
+                            break;
+                        case "notice":
+                            baseInfo = new BaseInfo { };
+                            break;
+                        case "process":
+                            baseInfo = new BaseInfo { };
+                            break;
+                        default:
+                            baseInfo = new BaseInfo { };
+                            break;
+                    }
+                    state = baseInfoService.Insert(baseInfo).Status;
+                    respModel = new JsonRespModel { status = state, message = state ? "新建成功！" : "新建失败！" };
+                }
+                return Json(respModel);
             }
         }
 

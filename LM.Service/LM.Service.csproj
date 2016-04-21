@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArticleService.cs" />
+    <Compile Include="BaseInfoService.cs" />
     <Compile Include="Base\BaseService.cs" />
     <Compile Include="Base\ListReqModel.cs" />
     <Compile Include="Base\JsonRespModel.cs" />
