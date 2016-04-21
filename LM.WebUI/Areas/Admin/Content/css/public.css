@@ -541,20 +541,20 @@ select {
         }
 
     #menu .top li {
-        height: 27px;
+        height: 38px;
     }
 
         #menu .top li a {
-            height: 27px;
-            line-height: 27px;
+            height: 38px;
+            line-height: 38px;
         }
 
         #menu .top li i {
-            height: 27px;
+            height: 38px;
         }
 
             #menu .top li i.home {
-                background-position: 13px -40px;
+                background-position: 13px -34px;
             }
 
     #menu li i.system {

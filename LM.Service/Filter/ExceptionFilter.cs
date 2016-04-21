@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Web.Mvc;
 using LM.Utility;
@@ -43,7 +44,12 @@ namespace LM.Service.Filter
                         sbHeaders.Append(keyName + ":" + strings[0] + " ");
                 }
 
-                LogHelper.WriteLogByIo(sb.ToString());
+                var logPath = string.Empty;
+                if (Directory.Exists("D://"))
+                {
+                    logPath = "D://";
+                }
+                LogHelper.WriteLogByIo(sb.ToString(), logPath);
 
                 filterContext.ExceptionHandled = true;
 

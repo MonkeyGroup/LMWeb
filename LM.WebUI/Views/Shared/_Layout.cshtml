@@ -1,8 +1,9 @@
 ﻿@using LM.Model.Model
 @using LM.Utility
 @{
-    var config = ViewBag.HomePageConfig as HomePageConfigModel;
+    var config = ViewBag.HomePageConfig as HomePageConfigModel ?? new HomePageConfigModel();
 }
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />

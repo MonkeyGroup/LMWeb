@@ -23,7 +23,7 @@ namespace LM.WebUI.Controllers
             {
                 var svs = homePageConfigService.GetLast();
 
-                if (!svs.Status) return View("Error");
+                //if (!svs.Status) return View("Error");
                 
                 var config = svs.Data as HomePageConfigModel;
                 ViewBag.HomePageConfig = config;

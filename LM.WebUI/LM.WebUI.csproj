@@ -1109,6 +1109,7 @@
     <Content Include="Content\js\slide.js" />
     <Content Include="Content\js\tab.js" />
     <Content Include="Content\js\xtqh_js.js" />
+    <Content Include="Content\swf\flash.swf" />
     <Content Include="Content\swf\movie.swf" />
     <Content Include="Content\swf\movie2.swf" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
