@@ -4,6 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
     ViewBag.Title = "BasicInfo";
     var baseInfo = ViewBag.BaseInfo as BaseInfoModel ?? new BaseInfoModel();
+    var currTab = ViewBag.CurrTab ?? "contract";
 }
 @Html.RenderCss("/Areas/Admin/content/js/kindeditor/plugins/code/prettify.css")
 
@@ -13,87 +14,7 @@
 @Html.RenderScript("/Areas/Admin/content/js/jquery.tab.js")
 
 <script type="text/javascript">
-    $(function () { $(".idTabs").idTabs(); });
-</script>
-
-<script>
-    var commitFlag = true;
-    function submitIt(type) {
-        // 判空
-        if (!checkNull(type)) {
-            commitFlag = true;
-            return;
-        }
-        commitFlag = false;
-
-        var baseInfo = {};
-        if (type === 'contract') {
-            baseInfo = {
-                address: $('#address').val(),
-                telphone: $('#telphone').val(),
-                fax: $('#fax').val(),
-                site: $('#site').val(),
-                email: $('#email').val(),
-                map: $('#mapDiv').parent().first().text()
-            }
-        }
-        if (type === 'introduce') {
-            baseInfo.introduce = $('#introDiv').text();
-        }
-        if (type === 'chapter') {
-            baseInfo.chapter = $('#chapterDiv').text();
-        }
-        if (type === 'organize') {
-            baseInfo.organize = $('#orgDiv').text();
-        }
-        if (type === 'notice') {
-            baseInfo.notice = $('#noticeDiv').text();
-        }
-        if (type === 'process') {
-            baseInfo.process = $('#processDiv').text();
-        }
-
-        // 封装数据
-        var ajax = {
-            url: '/Admin/Home/SaveBaseInfo',
-            data: JSON.stringify({ type: type, baseInfo: baseInfo }),
-            type: 'Post',
-            dataType: 'json',
-            cache: false,
-            contentType: "application/json; charset=utf-8",
-            success: function (resp) {
-                if (resp.status) {
-                    alert(resp.message);
-                    window.location.href = '/Admin/Article/List';
-                } else {
-                    alert(resp.message);
-                    commitFlag = true;
-                }
-            },
-            error: function () {
-                alert('系统故障，请联系管理员！');
-                commitFlag = true;
-            }
-        }
-        $.ajax(ajax);
-    }
-
-    function checkNull(type) {
-        var ok = true;
-        if (type === 'contract') {
-            if ($('#address').val() === '' || $('#telphone').val() === '' || $('#fax').val() === '' || $('#site').val() === '' || $('#email').val() === '' || $('#mapDiv').siblings('.ke-container ke-container-default').text() === '') {
-                ok = false;
-            }
-        }
-        if (type === 'introduce' && $('#introDiv').text() === '') { ok = false; }
-        if (type === 'chapter' && $('#chapterDiv').text() === '') { ok = false; }
-        if (type === 'organize' && $('#orgDiv').text() === '') { ok = false; }
-        if (type === 'notice' && $('#noticeDiv').text() === '') { ok = false; }
-        if (type === 'process' && $('#procDiv').text() === '') { ok = false; }
-        !ok && alert('请填写完整表单！');
-        return true;
-    }
-
+    $(function () { $(".idTabs").idTabs('@currTab'); });
 </script>
 
 <!-- KindEditor -->
@@ -118,6 +39,7 @@
                 'source', '|', 'undo', 'redo', '|', 'baidumap', 'preview'
             ]
         });
+        prettyPrint();
 
         introEditor = K.create('#introDiv', {
             //上传管理
@@ -144,6 +66,7 @@
                 'anchor', 'link', 'unlink', '|', 'about'
             ]
         });
+        prettyPrint();
 
         chapterEditor = K.create('#chapterDiv', {
             //上传管理
@@ -170,6 +93,7 @@
                 'anchor', 'link', 'unlink', '|', 'about'
             ]
         });
+        prettyPrint();
 
         orgEditor = K.create('#orgDiv', {
             //上传管理
@@ -196,6 +120,7 @@
                 'anchor', 'link', 'unlink', '|', 'about'
             ]
         });
+        prettyPrint();
 
         noticeEditor = K.create('#noticeDiv', {
             //上传管理
@@ -222,6 +147,7 @@
                 'anchor', 'link', 'unlink', '|', 'about'
             ]
         });
+        prettyPrint();
 
         procEditor = K.create('#procDiv', {
             //上传管理
@@ -248,11 +174,99 @@
                 'anchor', 'link', 'unlink', '|', 'about'
             ]
         });
-
         prettyPrint();
     });
 </script>
 <!-- /KindEditor -->
+
+<script>
+    var commitFlag = true;
+    function submitIt(type) {
+        // 判空
+        if (!checkNull(type)) {
+            commitFlag = true;
+            return;
+        }
+        commitFlag = false;
+
+        var baseInfo = {};
+        if (type === 'contract') {
+            baseInfo = {
+                id: $('#id').val(),
+                address: $('#address').val(),
+                telphone: $('#telphone').val(),
+                fax: $('#fax').val(),
+                site: $('#site').val(),
+                email: $('#email').val(),
+                map: mapEditor.html()
+            }
+        }
+        if (type === 'introduce') {
+            baseInfo.id = $('#id').val();
+            baseInfo.introduce = introEditor.html();
+        }
+        if (type === 'chapter') {
+            baseInfo.id = $('#id').val();
+            baseInfo.chapter = chapterEditor.html();
+        }
+        if (type === 'organize') {
+            baseInfo.id = $('#id').val();
+            baseInfo.organize = orgEditor.html();
+        }
+        if (type === 'notice') {
+            baseInfo.id = $('#id').val();
+            baseInfo.notice = noticeEditor.html();
+        }
+        if (type === 'process') {
+            baseInfo.id = $('#id').val();
+            baseInfo.process = procEditor.html();
+        }
+
+        var data = JSON.stringify({ type: type, infoModel: baseInfo });
+        // 封装数据
+        var ajax = {
+            url: '/Admin/Home/SaveBasicInfo',
+            data: data,
+            type: 'Post',
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (resp) {
+                if (resp.status) {
+                    alert(resp.message);
+                    window.location.href = '/Admin/Home/BasicInfo';
+                } else {
+                    alert(resp.message);
+                    commitFlag = true;
+                }
+            },
+            error: function (data, textStatus) {
+                alert('系统故障，请联系管理员！');
+                commitFlag = true;
+            }
+        }
+        $.ajax(ajax);
+    }
+
+    function checkNull(type) {
+        var ok = true;
+        if (type === 'contract') {
+            if ($('#address').val() === '' || $('#telphone').val() === '' || $('#fax').val() === '' || $('#site').val() === '' ||
+                    $('#email').val() === '' || mapEditor.html() === '') {
+                ok = false;
+            }
+        }
+        if (type === 'introduce' && introEditor.html() === '') { ok = false; }
+        if (type === 'chapter' && chapterEditor.html() === '') { ok = false; }
+        if (type === 'organize' && orgEditor.html() === '') { ok = false; }
+        if (type === 'notice' && noticeEditor.html() === '') { ok = false; }
+        if (type === 'process' && procEditor.html() === '') { ok = false; }
+        !ok && alert('请填写完整表单！');
+        return ok;
+    }
+
+</script>
+
 <!--3. Main-->
 <div id="dcMain">
     <!-- 当前位置 -->
@@ -318,7 +332,6 @@
                                 <td align="right">标记地图</td>
                                 <td>
                                     <textarea name="map" id="mapDiv" style="width: 600px; height: 250px;">@(baseInfo.Map ?? "")</textarea>
-                                    <font class="prompt" color="red">*</font>
                                 </td>
                             </tr>
                             <tr>
@@ -346,7 +359,7 @@
                                 <td width="131"></td>
                                 <td>
                                     <input type="hidden" name="token" value="" />
-                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submit('introduce') && false;" />
+                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submitIt('introduce') && false;" />
                                 </td>
                             </tr>
                         </table>
@@ -367,7 +380,7 @@
                                 <td width="131"></td>
                                 <td>
                                     <input type="hidden" name="token" value="" />
-                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submit('chapter') && false;" />
+                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submitIt('chapter') && false;" />
                                 </td>
                             </tr>
                         </table>
@@ -388,7 +401,7 @@
                                 <td width="131"></td>
                                 <td>
                                     <input type="hidden" name="token" value="" />
-                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submit('organize') && false;" />
+                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submitIt('organize') && false;" />
                                 </td>
                             </tr>
                         </table>
@@ -409,7 +422,7 @@
                                 <td width="131"></td>
                                 <td>
                                     <input type="hidden" name="token" value="" />
-                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submit('notice') && false;" />
+                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submitIt('notice') && false;" />
                                 </td>
                             </tr>
                         </table>
@@ -430,13 +443,14 @@
                                 <td width="131"></td>
                                 <td>
                                     <input type="hidden" name="token" value="" />
-                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submit('process') && false;" />
+                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submitIt('process') && false;" />
                                 </td>
                             </tr>
                         </table>
                     </div>
 
-                    <input type="hidden" id="Id" name="Id" value="@baseInfo.Id" />
+                    <input type="hidden" id="currTab" name="currTab" value="@currTab" />
+                    <input type="hidden" id="id" name="id" value="@baseInfo.Id" />
                 </form>
             </div>
         </div>

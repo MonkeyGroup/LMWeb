@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LM.Component", "LM.Component\LM.Component.csproj", "{F9B636FD-50E4-4D83-A8C6-1041568742E8}"
 EndProject
@@ -18,7 +18,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LM.WebUI", "LM.WebUI\LM.Web
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{76A83953-CA53-4ECD-A1CB-AB6576592B78}"
 	ProjectSection(SolutionItems) = preProject
+		DB\LM.mdf = DB\LM.mdf
 		DB\LM_dev.sql = DB\LM_dev.sql
+		DB\LM_log.ldf = DB\LM_log.ldf
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LM.Model", "LM.Model\LM.Model.csproj", "{F6EB281F-2980-49E7-B702-C85B5FE5E472}"

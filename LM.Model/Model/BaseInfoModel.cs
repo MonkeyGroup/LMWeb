@@ -1,4 +1,6 @@
-﻿namespace LM.Model.Model
+﻿using System;
+
+namespace LM.Model.Model
 {
     public class BaseInfoModel
     {
@@ -44,9 +46,11 @@
         /// </summary>
         public string Process { get; set; }
 
-        /// <summary>
-        ///  上传的相关文件的绝对路径
-        /// </summary>
-        public string FilePath { get; set; }
+        public DateTime ModifiedAt { get; set; }
+
+        ///// <summary>
+        /////  上传的相关文件的绝对路径
+        ///// </summary>
+        //public string FilePath { get; set; }
     }
 }

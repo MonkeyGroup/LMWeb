@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using LM.Component.Data;
 using LM.Model.Entity;
+using LM.Model.Model;
 using LM.Repo;
 using LM.Service.Base;
 
@@ -23,8 +25,25 @@ namespace LM.Service
         {
             try
             {
-                var novel = _baseInfoRepo.Get(id);
-                return new ServiceResult(true, ServiceResultCode.正常, "成功", novel);
+                var baseInfo = _baseInfoRepo.Get(id);
+                return new ServiceResult(true, ServiceResultCode.正常, "成功", baseInfo);
+            }
+            catch (Exception e)
+            {
+                return new ServiceResult(false, ServiceResultCode.服务器异常, e.Message);
+            }
+        }
+
+        /// <summary>
+        ///  获取最新的一条机构信息
+        /// </summary>
+        /// <returns></returns>
+        public ServiceResult GetLast()
+        {
+            try
+            {
+                var baseInfos = QueryManage.GetList<BaseInfoModel>("select * from [BaseInfo] order by [Id] desc;");
+                return baseInfos.Count > 0 ? new ServiceResult(true) { Data = baseInfos.FirstOrDefault() } : new ServiceResult(false) { Message = "无数据" };
             }
             catch (Exception e)
             {

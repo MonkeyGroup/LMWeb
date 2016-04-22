@@ -159,7 +159,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
             // 取现有的配置，首次为空
             using (var baseInfoService = ResolveService<BaseInfoService>())
             {
-                var svs = baseInfoService.GetById(1);
+                var svs = baseInfoService.GetLast();
                 if (svs.Status)
                 {
                     var config = svs.Data as BaseInfoModel;
@@ -189,22 +189,32 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     switch (type.ToLower())
                     {
                         case "contract":
-                            state = baseInfoService.Update(new { }).Status;
+                            state = baseInfoService.Update(new
+                            {
+                                Id = infoModel.Id,
+                                Address = infoModel.Address,
+                                Telphone = infoModel.Telphone,
+                                Fax = infoModel.Fax,
+                                Site = infoModel.Site,
+                                Email = infoModel.Email,
+                                Map = infoModel.Map,
+                                ModifiedAt = DateTime.Now
+                            }).Status;
                             break;
                         case "introduce":
-                            state = baseInfoService.Update(new { }).Status;
+                            state = baseInfoService.Update(new { Id = infoModel.Id, Introduce = infoModel.Introduce, ModifiedAt = DateTime.Now }).Status;
                             break;
                         case "chapter":
-                            state = baseInfoService.Update(new { }).Status;
+                            state = baseInfoService.Update(new { Id = infoModel.Id, Chapter = infoModel.Chapter, ModifiedAt = DateTime.Now }).Status;
                             break;
                         case "organize":
-                            state = baseInfoService.Update(new { }).Status;
+                            state = baseInfoService.Update(new { Id = infoModel.Id, Organize = infoModel.Organize, ModifiedAt = DateTime.Now }).Status;
                             break;
                         case "notice":
-                            state = baseInfoService.Update(new { }).Status;
+                            state = baseInfoService.Update(new { Id = infoModel.Id, Notice = infoModel.Notice, ModifiedAt = DateTime.Now }).Status;
                             break;
                         case "process":
-                            state = baseInfoService.Update(new { }).Status;
+                            state = baseInfoService.Update(new { Id = infoModel.Id, Process = infoModel.Process, ModifiedAt = DateTime.Now }).Status;
                             break;
                         default:
                             state = baseInfoService.Update(new { }).Status;
@@ -218,25 +228,35 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     switch (type.ToLower())
                     {
                         case "contract":
-                            baseInfo = new BaseInfo {};
+                            baseInfo = new BaseInfo
+                            {
+                                Id = infoModel.Id,
+                                Address = infoModel.Address,
+                                Telphone = infoModel.Telphone,
+                                Fax = infoModel.Fax,
+                                Site = infoModel.Site,
+                                Email = infoModel.Email,
+                                Map = infoModel.Map,
+                                ModifiedAt = DateTime.Now
+                            };
                             break;
                         case "introduce":
-                            baseInfo = new BaseInfo { };
+                            baseInfo = new BaseInfo { Id = infoModel.Id, Introduce = infoModel.Introduce, ModifiedAt = DateTime.Now };
                             break;
                         case "chapter":
-                            baseInfo = new BaseInfo { };
+                            baseInfo = new BaseInfo { Id = infoModel.Id, Chapter = infoModel.Chapter, ModifiedAt = DateTime.Now };
                             break;
                         case "organize":
-                            baseInfo = new BaseInfo { };
+                            baseInfo = new BaseInfo { Id = infoModel.Id, Organize = infoModel.Organize, ModifiedAt = DateTime.Now };
                             break;
                         case "notice":
-                            baseInfo = new BaseInfo { };
+                            baseInfo = new BaseInfo { Id = infoModel.Id, Notice = infoModel.Notice, ModifiedAt = DateTime.Now };
                             break;
                         case "process":
-                            baseInfo = new BaseInfo { };
+                            baseInfo = new BaseInfo { Id = infoModel.Id, Process = infoModel.Process, ModifiedAt = DateTime.Now };
                             break;
                         default:
-                            baseInfo = new BaseInfo { };
+                            baseInfo = new BaseInfo();
                             break;
                     }
                     state = baseInfoService.Insert(baseInfo).Status;
