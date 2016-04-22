@@ -12,7 +12,7 @@
 
         public string Site { get; set; }
 
-        public string Emain { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         ///  百度地图的Html

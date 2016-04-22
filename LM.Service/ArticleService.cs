@@ -44,7 +44,7 @@ namespace LM.Service
             {
                 const string query = "[Article]";
                 int pageCount;
-                var articles = QueryManage.GetListByPage<ArticleModel>(query, out pageCount, pageIndex, pageSize).ToList();
+                var articles = QueryManage.GetListByPage<ArticleModel>(query, "createat desc", out  pageCount, pageIndex, pageSize).ToList();
                 return new ServiceResult(true) { Data = articles };
             }
             catch (Exception e)

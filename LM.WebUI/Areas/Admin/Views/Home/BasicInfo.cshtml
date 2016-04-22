@@ -3,6 +3,7 @@
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
     ViewBag.Title = "BasicInfo";
+    var baseInfo = ViewBag.BaseInfo as BaseInfoModel ?? new BaseInfoModel();
 }
 @Html.RenderCss("/Areas/Admin/content/js/kindeditor/plugins/code/prettify.css")
 
@@ -16,8 +17,81 @@
 </script>
 
 <script>
-    function submit(type) {
+    var commitFlag = true;
+    function submitIt(type) {
+        // 判空
+        if (!checkNull(type)) {
+            commitFlag = true;
+            return;
+        }
+        commitFlag = false;
 
+        var baseInfo = {};
+        if (type === 'contract') {
+            baseInfo = {
+                address: $('#address').val(),
+                telphone: $('#telphone').val(),
+                fax: $('#fax').val(),
+                site: $('#site').val(),
+                email: $('#email').val(),
+                map: $('#mapDiv').parent().first().text()
+            }
+        }
+        if (type === 'introduce') {
+            baseInfo.introduce = $('#introDiv').text();
+        }
+        if (type === 'chapter') {
+            baseInfo.chapter = $('#chapterDiv').text();
+        }
+        if (type === 'organize') {
+            baseInfo.organize = $('#orgDiv').text();
+        }
+        if (type === 'notice') {
+            baseInfo.notice = $('#noticeDiv').text();
+        }
+        if (type === 'process') {
+            baseInfo.process = $('#processDiv').text();
+        }
+
+        // 封装数据
+        var ajax = {
+            url: '/Admin/Home/SaveBaseInfo',
+            data: JSON.stringify({ type: type, baseInfo: baseInfo }),
+            type: 'Post',
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (resp) {
+                if (resp.status) {
+                    alert(resp.message);
+                    window.location.href = '/Admin/Article/List';
+                } else {
+                    alert(resp.message);
+                    commitFlag = true;
+                }
+            },
+            error: function () {
+                alert('系统故障，请联系管理员！');
+                commitFlag = true;
+            }
+        }
+        $.ajax(ajax);
+    }
+
+    function checkNull(type) {
+        var ok = true;
+        if (type === 'contract') {
+            if ($('#address').val() === '' || $('#telphone').val() === '' || $('#fax').val() === '' || $('#site').val() === '' || $('#email').val() === '' || $('#mapDiv').siblings('.ke-container ke-container-default').text() === '') {
+                ok = false;
+            }
+        }
+        if (type === 'introduce' && $('#introDiv').text() === '') { ok = false; }
+        if (type === 'chapter' && $('#chapterDiv').text() === '') { ok = false; }
+        if (type === 'organize' && $('#orgDiv').text() === '') { ok = false; }
+        if (type === 'notice' && $('#noticeDiv').text() === '') { ok = false; }
+        if (type === 'process' && $('#procDiv').text() === '') { ok = false; }
+        !ok && alert('请填写完整表单！');
+        return true;
     }
 
 </script>
@@ -208,44 +282,50 @@
                             <tr>
                                 <td align="right">地址</td>
                                 <td>
-                                    <input type="text" name="address" value="" size="80" class="inpMain" placeholder="请输入联盟地址" />
+                                    <input type="text" id="address" value="@(baseInfo.Address ?? "")" size="80" class="inpMain" placeholder="请输入联盟地址" />
+                                    <font class="prompt" color="red">*</font>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="right">电话</td>
                                 <td>
-                                    <input type="text" name="telphone" value="" size="80" class="inpMain" placeholder="请输入联盟联系电话" />
+                                    <input type="text" id="telphone" value="@(baseInfo.Telphone ?? "")" size="80" class="inpMain" placeholder="请输入联盟联系电话" />
+                                    <font class="prompt" color="red">*</font>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="right">传真</td>
                                 <td>
-                                    <input type="text" name="fax" value="" size="80" class="inpMain" placeholder="请输入联盟传真电话" />
+                                    <input type="text" id="fax" value="@(baseInfo.Fax ?? "")" size="80" class="inpMain" placeholder="请输入联盟传真电话" />
+                                    <font class="prompt" color="red">*</font>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="right">网站</td>
                                 <td>
-                                    <input type="text" name="site" value="" size="80" class="inpMain" placeholder="请输入联盟官网地址" />
+                                    <input type="text" id="site" value="@(baseInfo.Site ?? "")" size="80" class="inpMain" placeholder="请输入联盟官网地址" />
+                                    <font class="prompt" color="red">*</font>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="right">邮箱</td>
                                 <td>
-                                    <input type="text" name="email" value="" size="80" class="inpMain" placeholder="请输入联盟邮箱" />
+                                    <input type="text" id="email" value="@(baseInfo.Email ?? "")" size="80" class="inpMain" placeholder="请输入联盟邮箱" />
+                                    <font class="prompt" color="red">*</font>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="right">标记地图</td>
                                 <td>
-                                    <textarea name="map" id="mapDiv" style="width: 600px; height: 250px;"></textarea>
+                                    <textarea name="map" id="mapDiv" style="width: 600px; height: 250px;">@(baseInfo.Map ?? "")</textarea>
+                                    <font class="prompt" color="red">*</font>
                                 </td>
                             </tr>
                             <tr>
                                 <td width="131"></td>
                                 <td>
                                     <input type="hidden" name="token" value="" />
-                                    <input name="button" class="btn" type="submit" value="提交" style="margin-left: 299px;" onclick="return submit('contract') && false;" />
+                                    <input name="button" class="btn" type="button" value="提交" style="margin-left: 299px;" onclick="submitIt('contract')" />
                                 </td>
                             </tr>
                         </table>
@@ -259,7 +339,7 @@
                             <tr>
                                 <td align="right">联盟介绍</td>
                                 <td>
-                                    <textarea name="introduce" id="introDiv" style="width: 800px; height: 500px;"></textarea>
+                                    <textarea name="introduce" id="introDiv" style="width: 800px; height: 500px;">@(baseInfo.Introduce ?? "")</textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -278,9 +358,9 @@
                                 <th>内容</th>
                             </tr>
                             <tr>
-                                <td align="right">联盟介绍</td>
+                                <td align="right">联盟章程</td>
                                 <td>
-                                    <textarea name="chapter" id="chapterDiv" style="width: 800px; height: 500px;"></textarea>
+                                    <textarea name="chapter" id="chapterDiv" style="width: 800px; height: 500px;">@(baseInfo.Chapter ?? "")</textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -299,9 +379,9 @@
                                 <th>内容</th>
                             </tr>
                             <tr>
-                                <td align="right">联盟介绍</td>
+                                <td align="right">联盟组织</td>
                                 <td>
-                                    <textarea name="organize" id="orgDiv" style="width: 800px; height: 500px;"></textarea>
+                                    <textarea name="organize" id="orgDiv" style="width: 800px; height: 500px;">@(baseInfo.Organize ?? "")</textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -320,9 +400,9 @@
                                 <th>内容</th>
                             </tr>
                             <tr>
-                                <td align="right">联盟介绍</td>
+                                <td align="right">入盟须知</td>
                                 <td>
-                                    <textarea name="notice" id="noticeDiv" style="width: 800px; height: 500px;"></textarea>
+                                    <textarea name="notice" id="noticeDiv" style="width: 800px; height: 500px;">@(baseInfo.Notice ?? "")</textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -341,22 +421,22 @@
                                 <th>内容</th>
                             </tr>
                             <tr>
-                                <td align="right">联盟介绍</td>
+                                <td align="right">申请流程</td>
                                 <td>
-                                    <textarea name="process" id="procDiv" style="width: 800px; height: 500px;"></textarea>
+                                    <textarea name="process" id="procDiv" style="width: 800px; height: 500px;">@(baseInfo.Process ?? "")</textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <td width="131"></td>
                                 <td>
-                                    <input type="hidden" name="token" value=""/>
-                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submit('process') && false;"/>
+                                    <input type="hidden" name="token" value="" />
+                                    <input name="submit" class="btn" type="submit" value="提交" style="margin-left: 400px;" onclick="return submit('process') && false;" />
                                 </td>
                             </tr>
                         </table>
                     </div>
 
-                    <input type="hidden" id="Id" name="Id" value="" />
+                    <input type="hidden" id="Id" name="Id" value="@baseInfo.Id" />
                 </form>
             </div>
         </div>

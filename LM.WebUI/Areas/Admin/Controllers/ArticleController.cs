@@ -28,8 +28,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
             using (var articleService = ResolveService<ArticleService>())
             {
-                //var rs = articleService.GetByPage(pindex, psize);
-                var rs = articleService.QueryManage.GetListByPage<ArticleModel>("[Article]", out itemCount, pindex, psize);
+                var rs = articleService.QueryManage.GetListByPage<ArticleModel>("[Article]", "CreateAt desc", out itemCount, pindex, psize);
                 articles = rs as List<ArticleModel> ?? rs.ToList();
                 if (articles.Any())
                 {
@@ -40,7 +39,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     }
                     if (!string.IsNullOrEmpty(keys) && articles.Count > 0)
                     {
-                        articles = articles.Where(a => a.Keywords.Split(',', '，').Intersect(keys.Split(',', '，', ' ')).Any()).ToList();
+                        articles = articles.Where(a => !string.IsNullOrEmpty(a.Keywords) && a.Keywords.Split(',', '，').Intersect(keys.Split(',', '，', ' ')).Any()).ToList();
                     }
                 }
             }
@@ -96,11 +95,11 @@ namespace LM.WebUI.Areas.Admin.Controllers
         //[Authentication]
         public JsonResult Save(ArticleModel article)
         {
-            JsonRespModel respModel = null;
             // 若无，则取出后放入session
             using (var articleService = ResolveService<ArticleService>())
             {
                 // Id > 0 修改，Id = 0 新增
+                JsonRespModel respModel;
                 if (article.Id > 0)
                 {
                     var svs = articleService.Update(new Article
