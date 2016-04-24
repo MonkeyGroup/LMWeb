@@ -24,6 +24,6 @@ namespace LM.Model.Entity
 
         public string BusinessSrc { get; set; }
 
-        public DateTime SaveTime { get; set; }
+        public DateTime SaveAt { get; set; }
     }
 }

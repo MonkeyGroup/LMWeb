@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LM.Component.Data;
 using LM.Model.Entity;
+using LM.Model.Model;
 using LM.Repo;
 using LM.Service.Base;
 using LM.Utility;
@@ -99,18 +100,17 @@ namespace LM.Service
                 return new ServiceResult(false, ServiceResultCode.服务器异常, e.Message);
             }
         }
-
-        public ServiceResult GetByPage(int pageIndex, int pageSize)
+        
+        public ServiceResult GetByPage(string targetQuery, string orderby, int pageIndex, int pageSize, out int itemCount)
         {
             try
             {
-                const string query = "[User]";
-                int pageCount;
-                var novels = QueryManage.GetListByPage<User>(query, "createAt desc",out pageCount, pageIndex, pageSize).ToList();
-                return new ServiceResult(true) { Data = novels };
+                var users = QueryManage.GetListByPage<UserModel>(targetQuery, orderby, out  itemCount, pageIndex, pageSize).ToList();
+                return new ServiceResult(true) { Data = users };
             }
             catch (Exception e)
             {
+                itemCount = 0;
                 return new ServiceResult(false, ServiceResultCode.服务器异常, e.Message);
             }
         }

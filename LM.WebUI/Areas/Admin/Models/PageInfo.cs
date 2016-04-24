@@ -10,7 +10,11 @@
 
         public int ItemCount { get; set; }
 
-        public PageInfo() { }
+        public PageInfo()
+        {
+            PageIndex = 1;
+            PageSize = 10;
+        }
 
         public PageInfo(int pageIndex, int pageSize, int itemCount, int pageCount)
         {

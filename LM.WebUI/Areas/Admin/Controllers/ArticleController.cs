@@ -21,52 +21,58 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         //[Authentication]
-        public ActionResult List(string type, string keys, int pindex = 1, int psize = 10)
+        public ActionResult List(string type, string keys, int pindex = 1, int psize = 2)
         {
-            List<ArticleModel> articles;
+            List<ArticleModel> models;
             int itemCount;
 
             using (var articleService = ResolveService<ArticleService>())
             {
-                var rs = articleService.QueryManage.GetListByPage<ArticleModel>("[Article]", "CreateAt desc", out itemCount, pindex, psize);
-                articles = rs as List<ArticleModel> ?? rs.ToList();
-                if (articles.Any())
+                // 按条件查询 sql
+                var where = " where 1=1 ";
+                if (!string.IsNullOrEmpty(type))
                 {
-                    // 查询条件通过 linq 方法过滤
-                    if (!string.IsNullOrEmpty(type) && articles.Count > 0)
-                    {
-                        articles = articles.Where(a => a.Type.ToString().Equals(type)).ToList();
-                    }
-                    if (!string.IsNullOrEmpty(keys) && articles.Count > 0)
-                    {
-                        articles = articles.Where(a => !string.IsNullOrEmpty(a.Keywords) && a.Keywords.Split(',', '，').Intersect(keys.Split(',', '，', ' ')).Any()).ToList();
-                    }
+                    where += string.Format(" and a.Type = '{0}' ", type);
                 }
+                if (!string.IsNullOrEmpty(keys))
+                {
+                    var keyArr = keys.Split(',', '，', ' ');
+                    where += " and ( 1=2 ";
+                    where = keyArr.Aggregate(where, (current, key) => current + string.Format(" or CHARINDEX('{0}',a.Title)>0 or CHARINDEX('{0}',a.Keywords)>0 ", key));
+                    where += ")";
+                }
+
+                var query = string.Format(@"(select a.* from [Article] a {0})", where);
+                var rs = articleService.GetByPage(query, "SaveAt desc", pindex, psize, out itemCount);
+                models = rs.Status ? rs.Data as List<ArticleModel> : new List<ArticleModel>();
+
+                articleService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Status ? "查询成功！" : "查询失败！", "文章列表页") });
             }
 
             ViewBag.Keys = keys;
             ViewBag.Type = type;
-            ViewBag.Articles = articles;
+            ViewBag.Articles = models;
             ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
+            ViewBag.Nav = "ArticleList";
             return View();
         }
 
         [HttpGet]
         //[Authentication]
-        public ActionResult Article(int articleId = 0)
+        public ActionResult Article(int id = 0)
         {
-            var article = new ArticleModel();
+            var model = new ArticleModel();
 
             // Id > 0 是编辑；Id = 0 是新建
-            if (articleId > 0)
+            if (id > 0)
             {
                 using (var articleService = ResolveService<ArticleService>())
                 {
-                    var rs = articleService.GetById(articleId);
+                    var rs = articleService.GetById(id);
                     if (rs.Status && rs.Data != null)
                     {
                         var entity = rs.Data as Article;
-                        article = new ArticleModel
+                        model = new ArticleModel
                         {
                             Id = entity.Id,
                             Title = entity.Title,
@@ -80,66 +86,69 @@ namespace LM.WebUI.Areas.Admin.Controllers
                             IsRecommend = entity.IsRecommend,
                             IsFocus = entity.IsFocus,
                             IsHide = entity.IsHide,
-                            CreateAt = DateTime.Now,
+                            SaveAt = DateTime.Now,
                             ImgSrc = entity.ImgSrc
                         };
                     }
                 }
             }
 
-            ViewBag.Article = article;
+            ViewBag.Article = model;
+            ViewBag.Nav = "ArticleList";
             return View();
         }
 
         [HttpPost]
         //[Authentication]
-        public JsonResult Save(ArticleModel article)
+        public JsonResult Save(ArticleModel model)
         {
             // 若无，则取出后放入session
             using (var articleService = ResolveService<ArticleService>())
             {
                 // Id > 0 修改，Id = 0 新增
                 JsonRespModel respModel;
-                if (article.Id > 0)
+                if (model.Id > 0)
                 {
                     var svs = articleService.Update(new Article
                     {
-                        Id = article.Id,
-                        Title = article.Title,
-                        Type = article.Type,
+                        Id = model.Id,
+                        Title = model.Title,
+                        Type = model.Type,
                         Author = CurrentUser.UserName,
-                        Origin = article.Origin,
-                        Hits = article.Hits,
-                        Keywords = article.Keywords,
-                        Brief = article.Brief,
-                        Content = article.Content,
-                        IsRecommend = article.IsRecommend,
-                        IsFocus = article.IsFocus,
-                        IsHide = article.IsHide,
-                        CreateAt = DateTime.Now,
-                        ImgSrc = article.ImgSrc
+                        Origin = model.Origin,
+                        Hits = model.Hits,
+                        Keywords = model.Keywords,
+                        Brief = model.Brief,
+                        Content = model.Content,
+                        IsRecommend = model.IsRecommend,
+                        IsFocus = model.IsFocus,
+                        IsHide = model.IsHide,
+                        SaveAt = DateTime.Now,
+                        ImgSrc = model.ImgSrc
                     });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "修改成功！" : "修改失败！" };
+                    articleService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "修改成功！" : "修改失败！", "文章修改页") });
                 }
                 else
                 {
                     var svs = articleService.Insert(new Article
                     {
-                        Title = article.Title,
-                        Type = article.Type,
+                        Title = model.Title,
+                        Type = model.Type,
                         Author = CurrentUser.UserName,
-                        Origin = article.Origin,
-                        Hits = article.Hits,
-                        Keywords = article.Keywords,
-                        Brief = article.Brief,
-                        Content = article.Content,
-                        IsRecommend = article.IsRecommend,
-                        IsFocus = article.IsFocus,
-                        IsHide = article.IsHide,
-                        CreateAt = DateTime.Now,
-                        ImgSrc = article.ImgSrc
+                        Origin = model.Origin,
+                        Hits = model.Hits,
+                        Keywords = model.Keywords,
+                        Brief = model.Brief,
+                        Content = model.Content,
+                        IsRecommend = model.IsRecommend,
+                        IsFocus = model.IsFocus,
+                        IsHide = model.IsHide,
+                        SaveAt = DateTime.Now,
+                        ImgSrc = model.ImgSrc
                     });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "新建成功！" : "新建失败！" };
+                    articleService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "新建成功！" : "新建失败！", "文章新建页") });
                 }
 
                 return Json(respModel);
@@ -150,7 +159,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
         {
             using (var articleService = ResolveService<ArticleService>())
             {
-                articleService.Delete(ids.Split(',').Select(int.Parse).ToArray());
+                var rs = articleService.Delete(ids.Split(',').Select(int.Parse).ToArray());
+                articleService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Status ? "删除成功！" : "删除失败！", "文章删除页") });
                 return RedirectToAction("List", new { type = type, keys = keys });
             }
         }

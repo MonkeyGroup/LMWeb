@@ -32,23 +32,16 @@ namespace LM.Service
             }
         }
 
-        /// <summary>
-        ///  此方法废弃，因为不支持 out 参数
-        /// </summary>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
-        /// <returns></returns>
-        public ServiceResult GetByPage(int pageIndex, int pageSize)
+        public ServiceResult GetByPage(string targetQuery, string orderby, int pageIndex, int pageSize, out int itemCount)
         {
             try
             {
-                const string query = "[Article]";
-                int pageCount;
-                var articles = QueryManage.GetListByPage<ArticleModel>(query, "createat desc", out  pageCount, pageIndex, pageSize).ToList();
+                var articles = QueryManage.GetListByPage<ArticleModel>(targetQuery, orderby, out  itemCount, pageIndex, pageSize).ToList();
                 return new ServiceResult(true) { Data = articles };
             }
             catch (Exception e)
             {
+                itemCount = 0;
                 return new ServiceResult(false, ServiceResultCode.服务器异常, e.Message);
             }
         }
@@ -57,8 +50,9 @@ namespace LM.Service
         {
             try
             {
-                article.Id = _articleRepo.Insert(article);
-                return article.Id > 0 ? new ServiceResult(true, ServiceResultCode.正常, "成功") : new ServiceResult(false, ServiceResultCode.服务器异常, ServiceResultCode.服务器异常.ToString());
+                return _articleRepo.Insert(article) > 0 ?
+                    new ServiceResult(true, ServiceResultCode.正常, "成功") :
+                    new ServiceResult(false, ServiceResultCode.服务器异常, ServiceResultCode.服务器异常.ToString());
             }
             catch (Exception e)
             {
@@ -70,8 +64,9 @@ namespace LM.Service
         {
             try
             {
-                var state = _articleRepo.Update(article);
-                return state ? new ServiceResult(true, ServiceResultCode.正常, "成功") : new ServiceResult(false, ServiceResultCode.服务器异常, ServiceResultCode.服务器异常.ToString());
+                return _articleRepo.Update(article) ?
+                    new ServiceResult(true, ServiceResultCode.正常, "成功") :
+                    new ServiceResult(false, ServiceResultCode.服务器异常, ServiceResultCode.服务器异常.ToString());
             }
             catch (Exception e)
             {
@@ -83,8 +78,9 @@ namespace LM.Service
         {
             try
             {
-                var state = _articleRepo.Delete(new Article { Id = id });
-                return state ? new ServiceResult(true, ServiceResultCode.正常, "成功") : new ServiceResult(false, ServiceResultCode.服务器异常, ServiceResultCode.服务器异常.ToString());
+                return _articleRepo.Delete(new Article { Id = id }) ?
+                    new ServiceResult(true, ServiceResultCode.正常, "成功") :
+                    new ServiceResult(false, ServiceResultCode.服务器异常, ServiceResultCode.服务器异常.ToString());
             }
             catch (Exception e)
             {
@@ -96,8 +92,9 @@ namespace LM.Service
         {
             try
             {
-                var state = _articleRepo.Delete(ids.Distinct());
-                return state ? new ServiceResult(true, ServiceResultCode.正常, "成功") : new ServiceResult(false, ServiceResultCode.服务器异常, ServiceResultCode.服务器异常.ToString());
+                return _articleRepo.Delete(ids.Distinct()) ?
+                    new ServiceResult(true, ServiceResultCode.正常, "成功") :
+                    new ServiceResult(false, ServiceResultCode.服务器异常, ServiceResultCode.服务器异常.ToString());
             }
             catch (Exception e)
             {

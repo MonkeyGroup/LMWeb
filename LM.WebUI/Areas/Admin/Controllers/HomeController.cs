@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using LM.Model.Entity;
 using LM.Model.Model;
 using LM.Service;
 using LM.Service.Base;
 using LM.Service.Security;
+using LM.Utility;
+using LM.WebUI.Areas.Admin.Models;
 
 namespace LM.WebUI.Areas.Admin.Controllers
 {
@@ -55,6 +59,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     {
                         loginMsg = "用户名或密码错误！";
                     }
+                    userService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "登录成功！" : "登录失败！", "登录后台") });
                 }
             }
 
@@ -101,6 +106,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     ViewBag.HomePageConfig = new HomePageConfigModel();
                 }
 
+                homePageConfigService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "查看成功！" : "查看失败！", "查看首页配置页") });
+
                 ViewBag.Nav = "Index";
                 return View();
             }
@@ -122,8 +129,10 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     SloganSrc = info.SloganSrc,
                     QrSrc = info.QrSrc,
                     BusinessSrc = info.BusinessSrc,
-                    SaveTime = DateTime.Now
+                    SaveAt = DateTime.Now
                 });
+
+                homePageConfigService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Status ? "修改成功！" : "修改失败！", "修改首页配置页") });
 
                 var msg = rs.Status ? "保存成功！" : "服务器异常！";
                 return Json(new JsonRespModel { status = rs.Status, message = msg });
@@ -170,6 +179,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     ViewBag.BaseInfo = new BaseInfoModel();
                 }
 
+                baseInfoService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Message, "查看系统配置信息") });
+
                 ViewBag.Nav = "BasicInfo";
                 return View();
             }
@@ -198,28 +209,29 @@ namespace LM.WebUI.Areas.Admin.Controllers
                                 Site = infoModel.Site,
                                 Email = infoModel.Email,
                                 Map = infoModel.Map,
-                                ModifiedAt = DateTime.Now
+                                SaveAt = DateTime.Now
                             }).Status;
                             break;
                         case "introduce":
-                            state = baseInfoService.Update(new { Id = infoModel.Id, Introduce = infoModel.Introduce, ModifiedAt = DateTime.Now }).Status;
+                            state = baseInfoService.Update(new { Id = infoModel.Id, Introduce = infoModel.Introduce, SaveAt = DateTime.Now }).Status;
                             break;
                         case "chapter":
-                            state = baseInfoService.Update(new { Id = infoModel.Id, Chapter = infoModel.Chapter, ModifiedAt = DateTime.Now }).Status;
+                            state = baseInfoService.Update(new { Id = infoModel.Id, Chapter = infoModel.Chapter, SaveAt = DateTime.Now }).Status;
                             break;
                         case "organize":
-                            state = baseInfoService.Update(new { Id = infoModel.Id, Organize = infoModel.Organize, ModifiedAt = DateTime.Now }).Status;
+                            state = baseInfoService.Update(new { Id = infoModel.Id, Organize = infoModel.Organize, SaveAt = DateTime.Now }).Status;
                             break;
                         case "notice":
-                            state = baseInfoService.Update(new { Id = infoModel.Id, Notice = infoModel.Notice, ModifiedAt = DateTime.Now }).Status;
+                            state = baseInfoService.Update(new { Id = infoModel.Id, Notice = infoModel.Notice, SaveAt = DateTime.Now }).Status;
                             break;
                         case "process":
-                            state = baseInfoService.Update(new { Id = infoModel.Id, Process = infoModel.Process, ModifiedAt = DateTime.Now }).Status;
+                            state = baseInfoService.Update(new { Id = infoModel.Id, Process = infoModel.Process, SaveAt = DateTime.Now }).Status;
                             break;
                         default:
                             state = baseInfoService.Update(new { }).Status;
                             break;
                     }
+                    baseInfoService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", state ? "修改成功！" : "修改失败！", "修改系统配置信息") });
                     respModel = new JsonRespModel { status = state, message = state ? "修改成功！" : "修改失败！" };
                 }
                 else
@@ -237,29 +249,30 @@ namespace LM.WebUI.Areas.Admin.Controllers
                                 Site = infoModel.Site,
                                 Email = infoModel.Email,
                                 Map = infoModel.Map,
-                                ModifiedAt = DateTime.Now
+                                SaveAt = DateTime.Now
                             };
                             break;
                         case "introduce":
-                            baseInfo = new BaseInfo { Id = infoModel.Id, Introduce = infoModel.Introduce, ModifiedAt = DateTime.Now };
+                            baseInfo = new BaseInfo { Id = infoModel.Id, Introduce = infoModel.Introduce, SaveAt = DateTime.Now };
                             break;
                         case "chapter":
-                            baseInfo = new BaseInfo { Id = infoModel.Id, Chapter = infoModel.Chapter, ModifiedAt = DateTime.Now };
+                            baseInfo = new BaseInfo { Id = infoModel.Id, Chapter = infoModel.Chapter, SaveAt = DateTime.Now };
                             break;
                         case "organize":
-                            baseInfo = new BaseInfo { Id = infoModel.Id, Organize = infoModel.Organize, ModifiedAt = DateTime.Now };
+                            baseInfo = new BaseInfo { Id = infoModel.Id, Organize = infoModel.Organize, SaveAt = DateTime.Now };
                             break;
                         case "notice":
-                            baseInfo = new BaseInfo { Id = infoModel.Id, Notice = infoModel.Notice, ModifiedAt = DateTime.Now };
+                            baseInfo = new BaseInfo { Id = infoModel.Id, Notice = infoModel.Notice, SaveAt = DateTime.Now };
                             break;
                         case "process":
-                            baseInfo = new BaseInfo { Id = infoModel.Id, Process = infoModel.Process, ModifiedAt = DateTime.Now };
+                            baseInfo = new BaseInfo { Id = infoModel.Id, Process = infoModel.Process, SaveAt = DateTime.Now };
                             break;
                         default:
                             baseInfo = new BaseInfo();
                             break;
                     }
                     state = baseInfoService.Insert(baseInfo).Status;
+                    baseInfoService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", state ? "新建成功！" : "新建失败！", "新建系统配置信息") });
                     respModel = new JsonRespModel { status = state, message = state ? "新建成功！" : "新建失败！" };
                 }
                 return Json(respModel);
@@ -268,5 +281,136 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
 
         #endregion
+
+
+        #region 用户模块
+
+        [HttpGet]
+        //[Authentication]
+        public ActionResult UserList(int pindex = 1, int psize = 2)
+        {
+            List<UserModel> models;
+            int itemCount;
+
+            using (var userService = ResolveService<UserService>())
+            {
+                var rs = userService.GetByPage("[User]", "SaveAt desc", pindex, psize, out itemCount);
+                models = rs.Status ? rs.Data as List<UserModel> : new List<UserModel>();
+
+                userService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Status ? "查询成功！" : "查询失败！", "用户列表页") });
+            }
+
+            ViewBag.Users = models;
+            ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
+            ViewBag.Nav = "UserList";
+            return View();
+        }
+
+        [HttpGet]
+        //[Authentication]
+        public ActionResult User(int id = 0)
+        {
+            var model = new UserModel();
+
+            // Id > 0 是编辑；Id = 0 是新建
+            if (id > 0)
+            {
+                using (var userService = ResolveService<UserService>())
+                {
+                    var rs = userService.GetById(id);
+                    if (rs.Status && rs.Data != null)
+                    {
+                        var entity = rs.Data as User;
+                        model = new UserModel
+                        {
+                            Id = entity.Id,
+                            Name = entity.Name
+                        };
+                    }
+                }
+            }
+
+            ViewBag.User = model;
+            ViewBag.Nav = "UserList";
+            return View();
+        }
+
+        [HttpPost]
+        //[Authentication]
+        public JsonResult SaveUser(UserModel model)
+        {
+            // 若无，则取出后放入session
+            using (var userService = ResolveService<UserService>())
+            {
+                // Id > 0 修改，Id = 0 新增
+                JsonRespModel respModel;
+                if (model.Id > 0)
+                {
+                    var svs = userService.Update(new User
+                    {
+                        Id = model.Id,
+                        Name = model.Name,
+                        Pwd = model.Pwd.Md5String()
+                    });
+                    respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "修改成功！" : "修改失败！" };
+                    userService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "修改成功！" : "修改失败！", "用户修改页") });
+                }
+                else
+                {
+                    var svs = userService.Insert(new User
+                    {
+                        Id = model.Id,
+                        Name = model.Name,
+                        Pwd = model.Pwd.Md5String(),
+                        SaveAt = DateTime.Now,
+                        LastLoginAt = DateTime.Now,
+                    });
+                    respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "新建成功！" : "新建失败！" };
+                    userService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "新建成功！" : "新建失败！", "用户新建页") });
+                }
+
+                return Json(respModel);
+            }
+        }
+
+        public ActionResult DeleteUser(string ids)
+        {
+            using (var userService = ResolveService<UserService>())
+            {
+                var rs = userService.Delete(ids.Split(',').Select(int.Parse).ToArray());
+                userService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Status ? "删除成功！" : "删除失败！", "用户删除页") });
+                return RedirectToAction("UserList");
+            }
+        }
+
+        #endregion
+
+
+        #region 日志模块
+
+        [HttpGet]
+        public ActionResult OpLogList(int pindex = 1, int psize = 2)
+        {
+            List<OperationLogModel> models;
+            int itemCount;
+
+            using (var operationLogService = ResolveService<OperationLogService>())
+            {
+                var query = @"[OperationLog]";
+                var rs = operationLogService.GetByPage(query, "SaveAt desc", pindex, psize, out itemCount);
+                models = rs.Status ? rs.Data as List<OperationLogModel> : new List<OperationLogModel>();
+                operationLogService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Message, "查看日志") });
+            }
+
+            ViewBag.OperationLogs = models;
+            ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
+            ViewBag.Nav = "OpLogList";
+            return View();
+        }
+
+
+        #endregion
+
+
     }
 }

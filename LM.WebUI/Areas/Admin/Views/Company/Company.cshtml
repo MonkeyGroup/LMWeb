@@ -1,0 +1,224 @@
+﻿@using LM.Model.Common
+@using LM.Model.Model
+@using LM.Utility
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
+    ViewBag.Title = "Company";
+    var model = ViewBag.Company as CompanyModel;
+}
+@Html.RenderCss("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.css")
+
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/swfobject.js")
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/jquery.uploadify.v2.1.0.min.js")
+@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/kindeditor.js")
+@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/lang/zh_CN.js")
+@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.js")
+
+<!-- KindEditor -->
+<script type="text/javascript">
+    var editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('#container', {
+            //上传管理
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //uploadJson: '/Areas/Admin/Content/js/kindeditor/asp.net/upload_json.ashx',
+            //文件管理
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
+            allowFileManager: true,
+            //上传文件后执行的回调函数,获取上传图片的路径
+            afterUpload: function (url) {
+                // 更改dom值
+                $("#imgSrc").val(url);
+            },
+            //编辑器高度
+            width: '800px',
+            //编辑器宽度
+            height: '500px;',
+            //配置编辑器的工具栏
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+                'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'
+            ]
+        });
+        prettyPrint();
+    });
+</script>
+<!-- /KindEditor -->
+<!--logo上传-->
+<script>
+    $(document).ready(function () {
+        // Logo 上传
+        $("#logoUploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue1',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#logoSrc').val(rs.FilePath);
+                    $('#msg2').text("");
+                } else {
+                    $('#msg2').text(rs.Message);
+                }
+            },
+            uploadifyCancel: function () {
+            }
+        });
+    });
+</script>
+<!-- /logo上传-->
+
+<script type="text/javascript">
+    var commitFlag = true;
+    function submitIt() {
+        // 判空
+        if (!checkNull()) {
+            commitFlag = true;
+            return;
+        }
+        commitFlag = false;
+
+        var model = {
+            Id: $('#id').val(),
+            Type: $('#type').val(),
+            Name: $('#name').val(),
+            Site: $('#site').val(),
+            LogoSrc: $('#logoSrc').val(),
+            Range: $('#range').val(),
+            Description: editor.html()
+        }
+        // 封装数据
+        var ajax = {
+            url: '/Admin/Company/Save',
+            data: JSON.stringify(model),
+            type: 'Post',
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (resp) {
+                if (resp.status) {
+                    alert(resp.message);
+                    window.location.href = '/Admin/Company/List?type=' + $('#type').val();
+                } else {
+                    alert(resp.message);
+                    commitFlag = true;
+                }
+            },
+            error: function () {
+                alert('系统故障，请联系管理员！');
+                commitFlag = true;
+            }
+        }
+        $.ajax(ajax);
+    }
+
+    function checkNull() {
+        var ok = true;
+        if ($('#name').val() === '') {
+            $('#msg0').text('请填写成员名称！');
+            ok = false;
+        }
+        if ($('#site').val() === '') {
+            $('#msg1').text('请填写成员官网地址！');
+            ok = false;
+        }
+        if ($('#logoSrc').val() === '') {
+            $('#msg2').text('请上传成员官网Logo！');
+            ok = false;
+        }
+        ok && clearMsgs();
+        return ok;
+    }
+
+    function clearMsgs() {
+        $('#msg0').text("");
+        $('#msg1').text("");
+        $('#msg2').text("");
+    }
+</script>
+
+<!--3. Main-->
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">
+        后台管理中心<b>></b><strong>添加成员</strong>
+    </div>
+
+    <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><a href="/Admin/Company/List" class="actionBtn">成员列表</a>添加成员</h3>
+        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+
+            <tr>
+                <td align="right">成员分类</td>
+                <td>
+                    <select id="type" name="type">
+                        <option value="@((int)MemberType.上游企业)" @(model.Type == MemberType.上游企业 ? "selected" : "")> @MemberType.上游企业.ToString()</option>
+                        <option value="@((int)MemberType.下游企业)" @(model.Type == MemberType.下游企业 ? "selected" : "")> @MemberType.下游企业.ToString()</option>
+                        <option value="@((int)MemberType.科研院所协会)" @(model.Type == MemberType.科研院所协会 ? "selected" : "")> @MemberType.科研院所协会.ToString()</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">成员名称</td>
+                <td>
+                    <input type="text" id="name" value="@(model.Name ?? "")" si size="80" class="inpMain" />
+                    <font class="prompt" color="red">*</font><span id="msg0" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">成员官网链接</td>
+                <td>
+                    <input type="text" id="site" value="@(model.Site ?? "")" size="80" class="inpMain" />
+                    <font class="prompt" color="red">*</font><span id="msg1" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">成员官网 Logo</td>
+                <td>
+                    <input id="logoSrc" type="text" name="LogoSrc" class="inpMain" size="60"
+                           value="@(model.Site)" />
+                    <div id="fileQueue1" style="display: none;"></div>
+                    <input id="logoUploadify" type="file" name="uploadify" />
+                    <font class="prompt" color="red">*</font><span id="msg2" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">成员头衔</td>
+                <td>
+                    <select id="range" name="range">
+                        <option value="@((int)MemberRange.理事长单位)" @(model.Range == MemberRange.理事长单位 ? "selected" : "")> @MemberRange.理事长单位.ToString()</option>
+                        <option value="@((int)MemberRange.副理事长单位)" @(model.Range == MemberRange.副理事长单位 ? "selected" : "")> @MemberRange.副理事长单位.ToString()</option>
+                        <option value="@((int)MemberRange.常务理事单位)" @(model.Range == MemberRange.理事单位 ? "selected" : "")> @MemberRange.常务理事单位.ToString()</option>
+                        <option value="@((int)MemberRange.理事单位)" @(model.Range == MemberRange.常务理事单位 ? "selected" : "")> @MemberRange.理事单位.ToString()</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" valign="top">成员描述</td>
+                <td>
+                    <textarea name="container" id="container" style="width: 800px; height: 300px;">@(model.Description ?? "")</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <input type="hidden" id="id" name="id" value="@(model.Id)">
+                    <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="提交" onclick="return submitIt() && false;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>

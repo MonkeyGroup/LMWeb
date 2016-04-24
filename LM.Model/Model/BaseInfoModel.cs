@@ -46,7 +46,7 @@ namespace LM.Model.Model
         /// </summary>
         public string Process { get; set; }
 
-        public DateTime ModifiedAt { get; set; }
+        public DateTime SaveAt { get; set; }
 
         ///// <summary>
         /////  上传的相关文件的绝对路径

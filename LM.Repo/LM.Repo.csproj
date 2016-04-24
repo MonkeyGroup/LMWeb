@@ -41,7 +41,11 @@
   <ItemGroup>
     <Compile Include="ArticleRepo.cs" />
     <Compile Include="BaseInfoRepo.cs" />
+    <Compile Include="CompanyRepo.cs" />
+    <Compile Include="ExpertRepo.cs" />
     <Compile Include="HomePageConfigRepo.cs" />
+    <Compile Include="OperationLogRepo.cs" />
+    <Compile Include="ProductRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserRepo.cs" />
   </ItemGroup>

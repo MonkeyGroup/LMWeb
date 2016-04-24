@@ -224,6 +224,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Content Include="Areas\Admin\Content\images\grouplogo.png" />
+    <Content Include="Areas\Admin\Views\Home\UserList.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\User.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Expert\Expert.cshtml" />
+    <Content Include="Areas\Admin\Views\Expert\List.cshtml" />
+    <None Include="log4net.config">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1365,6 +1374,10 @@
     <Content Include="Areas\Admin\Content\js\kindeditor\php\upload_json.php" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\Product\Product.cshtml" />
+    <Content Include="Areas\Admin\Views\Company\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Company\Company.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\OpLogList.cshtml" />
     <None Include="Properties\PublishProfiles\LMweb.pubxml" />
   </ItemGroup>
   <PropertyGroup>

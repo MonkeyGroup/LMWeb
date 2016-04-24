@@ -30,11 +30,11 @@
                         <li class="M">
                             <a href="JavaScript:void(0);" class="topAdd">新建</a>
                             <div class="drop mTopad">
-                                <a href="/Admin/Product/Add">商品</a>
+                                <a href="/Admin/Product/Product">商品</a>
                                 <a href="/Admin/Article/Article">文章</a>
-                                <a href="/Admin/Company/Add">成员企业</a>
-                                <a href="/Admin/Expert/Add">专家成员</a>
-                                <a href="/Admin/User/Add">管理员</a>
+                                <a href="/Admin/Company/Company">成员企业</a>
+                                <a href="/Admin/Expert/Expert">专家成员</a>
+                                <a href="/Admin/Home/User">管理员</a>
                             </div>
                         </li>
                     </ul>
@@ -79,8 +79,10 @@
                 <ul>
                     <li @Html.Raw("ExpertList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Expert/List"><i class="articleCat"></i><em>专家列表</em></a></li>
                 </ul>
-                <ul class="bot">
+                <ul>
                     <li @Html.Raw("UserList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/UserList"><i class="manager"></i><em>网站管理员</em></a></li>
+                </ul>
+                <ul class="bot">
                     <li @Html.Raw("OpLogList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/OpLogList"><i class="managerLog"></i><em>操作记录</em></a></li>
                 </ul>
             </div>

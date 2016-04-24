@@ -2,14 +2,14 @@
 @using LM.Utility
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
-    ViewBag.Title = "BasicInfo";
-    var article = ViewBag.Article as ArticleModel;
+    ViewBag.Title = "Article";
+    var model = ViewBag.Article as ArticleModel;
 }
 @Html.RenderCss("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.css")
 
-@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/lang/zh_CN.js")
 @Html.RenderScript("/Areas/Admin/Content/js/kindeditor/kindeditor.js")
-@Html.RenderScript("../asp.net/upload_json.ashx/plugins/code/prettify.js")
+@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/lang/zh_CN.js")
+@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.js")
 
 <!-- KindEditor -->
 <script type="text/javascript">
@@ -50,7 +50,7 @@
 
 <script type="text/javascript">
     var commitFlag = true;
-    function submit() {
+    function submitIt() {
         // 判空
         if (!checkNull()) {
             commitFlag = true;
@@ -121,7 +121,7 @@
 <div id="dcMain">
     <!-- 当前位置 -->
     <div id="urHere">
-        后台管理中心<b>></b><strong>首页配置</strong>
+        后台管理中心<b>></b><strong>添加文章</strong>
     </div>
 
     <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
@@ -133,10 +133,10 @@
                 <td>
                     <select id="type" name="type">
                         <option value=""> 未分类</option>
-                        <option value="联盟动态" @(article.Type != null && article.Type.Equals("联盟动态") ? "selected" : "")> 联盟动态</option>
-                        <option value="行业信息" @(article.Type != null && article.Type.Equals("行业信息") ? "selected" : "")> 行业信息</option>
-                        <option value="科技要闻" @(article.Type != null && article.Type.Equals("科技要闻") ? "selected" : "")> 科技要闻</option>
-                        <option value="联盟简报" @(article.Type != null && article.Type.Equals("联盟简报") ? "selected" : "")> 联盟简报</option>
+                        <option value="联盟动态" @(model.Type != null && model.Type.Equals("联盟动态") ? "selected" : "")> 联盟动态</option>
+                        <option value="行业信息" @(model.Type != null && model.Type.Equals("行业信息") ? "selected" : "")> 行业信息</option>
+                        <option value="科技要闻" @(model.Type != null && model.Type.Equals("科技要闻") ? "selected" : "")> 科技要闻</option>
+                        <option value="联盟简报" @(model.Type != null && model.Type.Equals("联盟简报") ? "selected" : "")> 联盟简报</option>
                     </select>
                     <font class="prompt" color="red">*</font><span id="msg0" class="prompt"></span>
                 </td>
@@ -144,42 +144,42 @@
             <tr>
                 <td width="90" align="right">文章标题</td>
                 <td>
-                    <input type="text" id="title" value="@(article.Title ?? "")" size="80" class="inpMain" />
+                    <input type="text" id="title" value="@(model.Title ?? "")" size="80" class="inpMain" />
                     <font class="prompt" color="red">*</font><span id="msg1" class="prompt"></span>
                 </td>
             </tr>
             <tr>
                 <td width="90" align="right">文章来源</td>
                 <td>
-                    <input type="text" id="origin" value="@(article.Origin ?? "")" size="80" class="inpMain" />
+                    <input type="text" id="origin" value="@(model.Origin ?? "")" size="80" class="inpMain" />
                     <span id="msg2" class="prompt"></span>
                 </td>
             </tr>
             <tr>
                 <td width="90" align="right">点击量</td>
                 <td>
-                    <input type="text" id="hits" value="@(article.Hits)" size="80" class="inpMain" placeholder="请输入正整数" />
+                    <input type="text" id="hits" value="@(model.Hits)" size="80" class="inpMain" placeholder="请输入正整数" />
                     <span id="msg3" class="prompt"></span>
                 </td>
             </tr>
             <tr>
                 <td width="90" align="right">关键词</td>
                 <td>
-                    <input type="text" id="keywords" value="@(article.Keywords ?? "")" size="80" class="inpMain" placeholder='请以逗号","分隔，如：电子科技，太阳能，新材料' />
+                    <input type="text" id="keywords" value="@(model.Keywords ?? "")" size="80" class="inpMain" placeholder='请以逗号","分隔，如：电子科技，太阳能，新材料' />
                     <span id="msg4" class="prompt"></span>
                 </td>
             </tr>
             <tr id="trBrief">
                 <td width="90" align="right">内容摘要</td>
                 <td>
-                    <textarea name="description" id="brief" class="inpMain" style="font-size: 14px; color: #999; height: 50px; border: 1px solid #D6D6D6; width: 520px; height: 160px; padding: 5px;">@(article.Brief ?? "")</textarea>
+                    <textarea name="description" id="brief" class="inpMain" style="font-size: 14px; color: #999; height: 50px; border: 1px solid #D6D6D6; width: 520px; height: 160px; padding: 5px;">@(model.Brief ?? "")</textarea>
                     <span id="msg5" class="prompt"></span>
                 </td>
             </tr>
             <tr>
                 <td align="right" valign="top">文章正文</td>
                 <td>
-                    <textarea name="container" id="container" style="width: 800px; height: 300px;">@(article.Content ?? "")</textarea>
+                    <textarea name="container" id="container" style="width: 800px; height: 300px;">@(model.Content ?? "")</textarea>
                 </td>
             </tr>
 
@@ -187,8 +187,8 @@
                 <td align="right">是否推荐</td>
                 <td>
                     <select id="isRecommend" name="isRecommend">
-                        <option value="false" @(article.IsRecommend ? "" : "selected")> 否</option>
-                        <option value="true" @(article.IsRecommend ? "selected" : "")> 是</option>
+                        <option value="false" @(model.IsRecommend ? "" : "selected")> 否</option>
+                        <option value="true" @(model.IsRecommend ? "selected" : "")> 是</option>
                     </select>
                 </td>
             </tr>
@@ -196,8 +196,8 @@
                 <td align="right">特别关注</td>
                 <td>
                     <select name="isFocus" id="isFocus">
-                        <option value="false" @(article.IsFocus ? "" : "selected")> 否</option>
-                        <option value="true" @(article.IsFocus ? "selected" : "")> 是</option>
+                        <option value="false" @(model.IsFocus ? "" : "selected")> 否</option>
+                        <option value="true" @(model.IsFocus ? "selected" : "")> 是</option>
                     </select>
                 </td>
             </tr>
@@ -205,8 +205,8 @@
                 <td align="right">是否隐藏</td>
                 <td>
                     <select name="isHide" id="isHide">
-                        <option value="false" @(article.IsHide ? "" : "selected")> 否</option>
-                        <option value="true" @(article.IsHide ? "selected" : "")> 是</option>
+                        <option value="false" @(model.IsHide ? "" : "selected")> 否</option>
+                        <option value="true" @(model.IsHide ? "selected" : "")> 是</option>
                     </select>
                 </td>
             </tr>
@@ -214,9 +214,9 @@
             <tr>
                 <td></td>
                 <td>
-                    <input type="hidden" id="id" name="id" value="@article.Id">
-                    <input type="hidden" id="imgSrc" name="imgSrc" value="@article.ImgSrc">
-                    <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="提交" onclick="return submit() && false;" />
+                    <input type="hidden" id="id" name="id" value="@(model.Id)">
+                    <input type="hidden" id="imgSrc" name="imgSrc" value="@(model.ImgSrc)">
+                    <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="提交" onclick="return submitIt() && false;" />
                 </td>
             </tr>
         </table>

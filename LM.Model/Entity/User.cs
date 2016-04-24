@@ -14,6 +14,9 @@ namespace LM.Model.Entity
 
         public string Pwd { get; set; }
 
-        public DateTime CreateAt { get; set; }
+        public DateTime SaveAt { get; set; }
+        
+        public DateTime LastLoginAt { get; set; }
+        
     }
 }

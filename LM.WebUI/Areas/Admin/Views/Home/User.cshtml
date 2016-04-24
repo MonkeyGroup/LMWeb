@@ -1,0 +1,129 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
+    ViewBag.Title = "User";
+    var model = ViewBag.User as UserModel;
+}
+
+<script type="text/javascript">
+    var commitFlag = true;
+    function submitIt() {
+        // 判空
+        if (!checkNull()) {
+            commitFlag = true;
+            return;
+        }
+        commitFlag = false;
+
+        var user = {
+            Id: $('#id').val(),
+            Name: $('#name').val(),
+            Pwd: $('#password').val()
+        }
+        // 封装数据
+        var ajax = {
+            url: '/Admin/Home/SaveUser',
+            data: JSON.stringify(user),
+            type: 'Post',
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (resp) {
+                if (resp.status) {
+                    alert(resp.message);
+                    window.location.href = '/Admin/Home/UserList';
+                } else {
+                    alert(resp.message);
+                    commitFlag = true;
+                }
+            },
+            error: function () {
+                alert('系统故障，请联系管理员！');
+                commitFlag = true;
+            }
+        }
+        $.ajax(ajax);
+    }
+
+    function checkNull() {
+        var ok = true;
+        if ($('#name').val() === '') {
+            $('#msg0').text('请填写用户名！');
+            ok = false;
+        }
+        if ($('#password').val() === '') {
+            $('#msg1').text('请填写密码！');
+            ok = false;
+        }
+        if ($('#password_confirm').val() === '') {
+            $('#msg2').text('请填写确认密码！');
+            ok = false;
+        }
+        if ($('#password').val() !== $('#password_confirm').val()) {
+            $('#msg2').text("");
+            $('#msg2').text('密码不一致！');
+            ok = false;
+        }
+        ok && clearMsgs();
+        return ok;
+    }
+
+    function clearMsgs() {
+        $('#msg0').text("");
+        $('#msg1').text("");
+        $('#msg2').text("");
+    }
+</script>
+
+
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">
+        后台管理中心<b>&gt;</b><strong>添加用户</strong>
+    </div>
+
+    <div id="manager" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3>
+            <a href="/Admin/Home/UserList" class="actionBtn">返回列表</a>添加用户
+        </h3>
+        <form method="post">
+            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                <tbody>
+                    <tr>
+                        <td width="100" align="right">管理员名称</td>
+                        <td>
+                            <input type="text" id="name" size="40" class="inpMain" value="@(model.Name)">
+                            <font class="prompt" color="red">*</font><span id="msg0" class="prompt"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">密码</td>
+                        <td>
+                            <input type="password" id="password" size="40" class="inpMain">
+                            <font class="prompt" color="red">*</font><span id="msg1" class="prompt"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">确认密码</td>
+                        <td>
+                            <input type="password" id="password_confirm" size="40" class="inpMain">
+                            <font class="prompt" color="red">*</font><span id="msg2" class="prompt"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="hidden" id="id" value="@(model.Id)">
+                            <input type="button" name="button" class="btn" value="提交" onclick="submitIt()">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+
+
+

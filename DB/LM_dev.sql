@@ -19,11 +19,24 @@ select top 8 * from (
 where A.rownumber > 3*8
 
 
+---------------------------------------------------------- 草稿纸 --------------
+use LM
+go
+
+select a.CreateAt,a.*,PATINDEX('%啊%',a.title) from [Article] a
+where PATINDEX('%啊%',a.title)>0
 
 
 
 
 
+select top 1 * from (
+    select top 1 row_number() over(order by Temp1.CreateAt desc) as RowNumber,* from (select a.* from [Article] a  where 1=1  and ( 1=2  or CHARINDEX('科技',a.Title)>0 or CHARINDEX('科技',a.Keys)>0 )) Temp1
+)Temp2
+where Temp2.RowNumber > 0;
+
+
+select count( Temp1.Id ) from (select a.* from [Article] a  where 1=1 ) Temp1
 
 
 

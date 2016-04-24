@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LM.Model.Model
 {
@@ -22,6 +18,8 @@ namespace LM.Model.Model
         ///  上传成功文件路径
         /// </summary>
         public string FilePath { set; get; }
+
+
     }
 
 

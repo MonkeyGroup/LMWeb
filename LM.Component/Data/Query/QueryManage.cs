@@ -80,24 +80,24 @@ namespace LM.Component.Data.Query
         ///  使用：
         ///     QueryManage.GetListByPage《Model》("dbo.[User]", "id desc", out itemCount, 1, 20);
         /// 或者
-        ///     QueryManage.GetListByPage《Model》("(select u.id, * from [User] u inner join [Novel] n on n.uid = u.id)", "createAt desc", out itemCount, 1, 20);
+        ///     QueryManage.GetListByPage《Model》("(select u.id, * from [User] u inner join [Novel] n on n.uid = u.id)", "SaveAt desc", out itemCount, 1, 20);
         /// </summary>
         /// <typeparam name="TModel">实体类型</typeparam>
-        /// <param name="queryTables">表名</param>
+        /// <param name="targetQuery">表名</param>
         /// <param name="orderby">排序字段及排序方式</param>
         /// <param name="itemCount">数据总条数</param>
         /// <param name="pageIndex">查找页</param>
         /// <param name="pageSize">页面量</param>
         /// <returns></returns>
-        public IEnumerable<TModel> GetListByPage<TModel>(string queryTables, string orderby, out int itemCount, int pageIndex = 1, int pageSize = 10)
+        public IEnumerable<TModel> GetListByPage<TModel>(string targetQuery, string orderby, out int itemCount, int pageIndex = 1, int pageSize = 10)
         {
             var queryS = string.Format(@"
 select top {2} * from (
     select top {3} row_number() over(order by Temp1.{1}) as RowNumber,* from {0} Temp1
 )Temp2
-where Temp2.RowNumber > {4};", queryTables, orderby, pageSize, pageIndex * pageSize, (pageIndex - 1) * pageSize);
+where Temp2.RowNumber > {4};", targetQuery, orderby, pageSize, pageIndex * pageSize, (pageIndex - 1) * pageSize);
 
-            var countS = string.Format(@"select count( Temp1.Id ) from {0} Temp1", queryTables);
+            var countS = string.Format(@"select count( Temp1.Id ) from {0} Temp1", targetQuery);
 
             var data = DbSession.Connection.QueryMultiple(queryS + ";" + countS);
             var list = data.Read<TModel>();

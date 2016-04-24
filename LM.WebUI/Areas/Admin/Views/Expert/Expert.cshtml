@@ -1,0 +1,165 @@
+﻿@using LM.Model.Common
+@using LM.Model.Model
+@using LM.Utility
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
+    ViewBag.Title = "Expert";
+    var model = ViewBag.Expert as ExpertModel;
+}
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/swfobject.js")
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/jquery.uploadify.v2.1.0.min.js")
+
+<!--logo上传-->
+<script>
+    $(document).ready(function () {
+        // Logo 上传
+        $("#logoUploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue1',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#imgSrc').val(rs.FilePath);
+                    $('#msg1').text("");
+                } else {
+                    $('#msg1').text(rs.Message);
+                }
+            },
+            uploadifyCancel: function () {
+            }
+        });
+    });
+</script>
+<!-- /logo上传-->
+
+<script type="text/javascript">
+    var commitFlag = true;
+    function submitIt() {
+        // 判空
+        if (!checkNull()) {
+            commitFlag = true;
+            return;
+        }
+        commitFlag = false;
+
+        var model = {
+            Id: $('#id').val(),
+            Range: $('#type').val(),
+            Name: $('#name').val(),
+            ImgSrc: $('#imgSrc').val(),
+            Description: $('#description').val(),
+            Books: $('#books').val(),
+        }
+        // 封装数据
+        var ajax = {
+            url: '/Admin/Expert/Save',
+            data: JSON.stringify(model),
+            type: 'Post',
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (resp) {
+                if (resp.status) {
+                    alert(resp.message);
+                    window.location.href = '/Admin/Expert/List?type=' + $('#type').val();
+                } else {
+                    alert(resp.message);
+                    commitFlag = true;
+                }
+            },
+            error: function () {
+                alert('系统故障，请联系管理员！');
+                commitFlag = true;
+            }
+        }
+        $.ajax(ajax);
+    }
+
+    function checkNull() {
+        var ok = true;
+        if ($('#name').val() === '') {
+            $('#msg0').text('请填写专家姓名！');
+            ok = false;
+        }
+        if ($('#imgSrc').val() === '') {
+            $('#msg1').text('请上传专家展示图片！');
+            ok = false;
+        }
+        ok && clearMsgs();
+        return ok;
+    }
+
+    function clearMsgs() {
+        $('#msg0').text("");
+        $('#msg1').text("");
+    }
+</script>
+
+<!--3. Main-->
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">
+        后台管理中心<b>></b><strong>添加专家</strong>
+    </div>
+
+    <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><a href="/Admin/Expert/List" class="actionBtn">专家列表</a>添加专家</h3>
+        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+
+            <tr>
+                <td align="right">专家职位</td>
+                <td>
+                    <select id="type" name="type">
+                        <option value="@((int)ExpertRange.专家组组长)" @(model.Range == ExpertRange.专家组组长 ? "selected" : "")> @ExpertRange.专家组组长.ToString()</option>
+                        <option value="@((int)ExpertRange.专家组副组长)" @(model.Range == ExpertRange.专家组副组长 ? "selected" : "")> @ExpertRange.专家组副组长.ToString()</option>
+                        <option value="@((int)ExpertRange.专家组成员)" @(model.Range == ExpertRange.专家组成员 ? "selected" : "")> @ExpertRange.专家组成员.ToString()</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">专家姓名</td>
+                <td>
+                    <input type="text" id="name" value="@(model.Name ?? "")" si size="80" class="inpMain" />
+                    <font class="prompt" color="red">*</font><span id="msg0" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">专家展示图</td>
+                <td>
+                    <input id="imgSrc" type="text" name="ImgSrc" class="inpMain" size="60"
+                           value="@(model.ImgSrc)" />
+                    <div id="fileQueue1" style="display: none;"></div>
+                    <input id="logoUploadify" type="file" name="uploadify" />
+                    <font class="prompt" color="red">*</font><span id="msg1" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" valign="top">专家简述</td>
+                <td>
+                    <textarea name="container" id="description" class="inpMain" style="width: 800px; height: 300px;">@(model.Description ?? "")</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">专家著作</td>
+                <td>
+                    <input type="text" id="books" value="@(model.Name ?? "")" size="80" class="inpMain" placeholder="选填"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <input type="hidden" id="id" name="id" value="@(model.Id)">
+                    <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="提交" onclick="return submitIt() && false;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>

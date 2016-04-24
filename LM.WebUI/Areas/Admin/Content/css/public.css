@@ -1586,3 +1586,8 @@ span .prompt {
     margin-left: 5px;
     color: red;
 }
+
+#logoUploadifyUploader ,#flashUploadifyUploader, #adUploadifyUploader, 
+#sloganUploadifyUploader, #qrUploadifyUploader, #businessUploadifyUploader{
+    vertical-align: middle;
+}

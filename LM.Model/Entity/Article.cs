@@ -49,7 +49,7 @@ namespace LM.Model.Entity
         /// </summary>
         public bool IsHide { get; set; }
 
-        public DateTime CreateAt { get; set; }
+        public DateTime SaveAt { get; set; }
 
         /// <summary>
         ///  推荐文章在幻灯片中展示的那张图片的地址
