@@ -15,7 +15,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
     public class HomeController : BaseController
     {
         #region 登录登出
-        //[Authentication]
+        [Authentication]
         public ActionResult Index()
         {
             return RedirectToAction("HomeConfig");
@@ -80,7 +80,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
         #region 首页配置
         [HttpGet]
-        //[Authentication]
+        [Authentication]
         public ActionResult HomeConfig()
         {
             // 首先判断session中有无存储此配置信息
@@ -114,7 +114,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        //[Authentication]
+        [Authentication]
         public JsonResult HomeConfig(HomePageConfigModel info)
         {
             // 更新配置
@@ -140,7 +140,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        //[Authentication]
+        [Authentication]
         public ActionResult Preview(string a, string b, string c, string d, string e, string f, string g)
         {
             var config = new HomePageConfigModel
@@ -163,6 +163,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         #region 联盟信息配置
 
         [HttpGet]
+        [Authentication]
         public ActionResult BasicInfo()
         {
             // 取现有的配置，首次为空
@@ -188,6 +189,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [Authentication]
         public JsonResult SaveBasicInfo(BaseInfoModel infoModel, string type)
         {
             using (var baseInfoService = ResolveService<BaseInfoService>())
@@ -286,7 +288,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         #region 用户模块
 
         [HttpGet]
-        //[Authentication]
+        [Authentication]
         public ActionResult UserList(int pindex = 1, int psize = 2)
         {
             List<UserModel> models;
@@ -294,6 +296,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
             using (var userService = ResolveService<UserService>())
             {
+                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : pindex;
                 var rs = userService.GetByPage("[User]", "SaveAt desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<UserModel> : new List<UserModel>();
 
@@ -307,7 +310,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        //[Authentication]
+        [Authentication]
         public ActionResult User(int id = 0)
         {
             var model = new UserModel();
@@ -336,7 +339,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        //[Authentication]
+        [Authentication]
         public JsonResult SaveUser(UserModel model)
         {
             // 若无，则取出后放入session
@@ -373,6 +376,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet]
+        [Authentication]
         public ActionResult DeleteUser(string ids)
         {
             using (var userService = ResolveService<UserService>())
@@ -396,6 +401,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
             using (var operationLogService = ResolveService<OperationLogService>())
             {
+                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : pindex;
                 var query = @"[OperationLog]";
                 var rs = operationLogService.GetByPage(query, "SaveAt desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<OperationLogModel> : new List<OperationLogModel>();

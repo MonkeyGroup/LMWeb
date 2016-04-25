@@ -6,20 +6,22 @@ using LM.Model.Entity;
 using LM.Model.Model;
 using LM.Service;
 using LM.Service.Base;
+using LM.Service.Security;
+using LM.Utility;
 using LM.WebUI.Areas.Admin.Models;
 
 namespace LM.WebUI.Areas.Admin.Controllers
 {
     public class CompanyController : BaseController
     {
-
+        [Authentication]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        //[Authentication]
+        [Authentication]
         public ActionResult Company(int id = 0)
         {
             var company = new CompanyModel();
@@ -54,7 +56,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        //[Authentication]
+        [Authentication]
         public JsonResult Save(CompanyModel model)
         {
             // 若无，则取出后放入session
@@ -98,8 +100,9 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 return Json(respModel);
             }
         }
-
-
+        
+        [HttpGet]
+        [Authentication]
         public ActionResult Delete(string ids, string type, string range, string keys)
         {
             using (var companyService = ResolveService<CompanyService>())
@@ -110,7 +113,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
             }
         }
 
-        //[Authentication]
+        [HttpGet]
+        [Authentication]
         public ActionResult List(string type, string range, string keys, int pindex = 1, int psize = 2)
         {
             List<CompanyModel> models;
@@ -136,6 +140,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     where += ")";
                 }
 
+                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : pindex;
                 var query = string.Format(@"(select a.* from [Company] a {0})", where);
                 var rs = companyService.GetByPage(query, "SaveAt desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<CompanyModel> : new List<CompanyModel>();

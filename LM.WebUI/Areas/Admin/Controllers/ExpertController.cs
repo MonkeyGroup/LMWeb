@@ -6,12 +6,15 @@ using LM.Model.Entity;
 using LM.Model.Model;
 using LM.Service;
 using LM.Service.Base;
+using LM.Service.Security;
+using LM.Utility;
 using LM.WebUI.Areas.Admin.Models;
 
 namespace LM.WebUI.Areas.Admin.Controllers
 {
     public class ExpertController : BaseController
     {
+        [Authentication]
         public ActionResult Index()
         {
             return View();
@@ -19,7 +22,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
 
         [HttpGet]
-        //[Authentication]
+        [Authentication]
         public ActionResult Expert(int id = 0)
         {
             var model = new ExpertModel();
@@ -52,8 +55,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-
-        //[Authentication]
+        [HttpGet]
+        [Authentication]
         public ActionResult List(string type, string keys, int pindex = 1, int psize = 2)
         {
             List<ExpertModel> models;
@@ -75,6 +78,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     where += ")";
                 }
 
+                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : pindex;
                 var query = string.Format(@"(select a.* from [Expert] a {0})", where);
                 var rs = expertService.GetByPage(query, "SaveAt desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<ExpertModel> : new List<ExpertModel>();
@@ -92,7 +96,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
 
         [HttpPost]
-        //[Authentication]
+        [Authentication]
         public JsonResult Save(ExpertModel model)
         {
             // 若无，则取出后放入session
@@ -135,6 +139,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet]
+        [Authentication]
         public ActionResult Delete(string ids, string type, string keys)
         {
             using (var expertService = ResolveService<ExpertService>())

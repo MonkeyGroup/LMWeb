@@ -17,7 +17,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         #region 文件上传
 
         [HttpPost]
-        //[Authentication]
+        [Authentication]
         public JsonResult FileUpload()
         {
             var file = HttpContext.Request.Files[0]; // 默认传单个文件
@@ -58,7 +58,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
 
         [HttpPost]
-        //[Authentication]
+        [Authentication]
         public void EditorFileUpload()
         {
             var file = HttpContext.Request.Files[0]; // 默认传单个文件

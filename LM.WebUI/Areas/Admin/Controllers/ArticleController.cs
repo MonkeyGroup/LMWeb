@@ -7,6 +7,7 @@ using LM.Model.Model;
 using LM.Service;
 using LM.Service.Base;
 using LM.Service.Security;
+using LM.Utility;
 using LM.WebUI.Areas.Admin.Models;
 
 namespace LM.WebUI.Areas.Admin.Controllers
@@ -14,13 +15,14 @@ namespace LM.WebUI.Areas.Admin.Controllers
     public class ArticleController : BaseController
     {
         [HttpGet]
-        //[Authentication]
+        [Authentication]
         public ActionResult Index()
         {
             return View("List");
         }
 
-        //[Authentication]
+        [HttpGet]
+        [Authentication]
         public ActionResult List(string type, string keys, int pindex = 1, int psize = 2)
         {
             List<ArticleModel> models;
@@ -42,6 +44,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     where += ")";
                 }
 
+                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : pindex;
                 var query = string.Format(@"(select a.* from [Article] a {0})", where);
                 var rs = articleService.GetByPage(query, "SaveAt desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<ArticleModel> : new List<ArticleModel>();
@@ -58,7 +61,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        //[Authentication]
+        [Authentication]
         public ActionResult Article(int id = 0)
         {
             var model = new ArticleModel();
@@ -99,7 +102,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        //[Authentication]
+        [Authentication]
         public JsonResult Save(ArticleModel model)
         {
             // 若无，则取出后放入session
@@ -155,6 +158,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
             }
         }
 
+        [HttpPost]
+        [Authentication]
         public ActionResult Delete(string ids, string type, string keys)
         {
             using (var articleService = ResolveService<ArticleService>())
