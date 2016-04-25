@@ -54,12 +54,13 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         var user = svs.Data as User;
                         CurrentContext.SetUser(new CurrentUser { UserId = user.Id, UserName = user.Name });
                         status = true;
+                        loginMsg = "登录成功！";
                     }
                     else
                     {
                         loginMsg = "用户名或密码错误！";
                     }
-                    userService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "登录成功！" : "登录失败！", "登录后台") });
+                    userService.WriteLog(new OperationLog { User = userName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", loginMsg, "登录后台系统") });
                 }
             }
 
