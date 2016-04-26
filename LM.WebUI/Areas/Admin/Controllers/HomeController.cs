@@ -126,12 +126,28 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     SiteName = info.SiteName,
                     LogoSrc = info.LogoSrc,
                     FlashSrc = info.FlashSrc,
-                    AdSrc = info.AdSrc,
-                    SloganSrc = info.SloganSrc,
                     QrSrc = info.QrSrc,
+                    AdSrc = info.AdSrc,
+                    AdLink = info.AdLink,
+                    SloganSrc = info.SloganSrc,
+                    SloganLink = info.SloganLink,
                     BusinessSrc = info.BusinessSrc,
+                    BusinessLink = info.BusinessLink,
+                    Product1Src = info.Product1Src,
+                    Product1Link = info.Product1Link,
+                    Product2Src = info.Product2Src,
+                    Product2Link = info.Product2Link,
+                    Product3Src = info.Product3Src,
+                    Product3Link = info.Product3Link,
+                    Product4Src = info.Product4Src,
+                    Product4Link = info.Product4Link,
                     SaveAt = DateTime.Now
                 });
+                if (rs.Status)
+                {
+                    DiMySession.Clear("HomePageConfig");
+                    DiMySession.Set("HomePageConfig", info);
+                }
 
                 homePageConfigService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Status ? "修改成功！" : "修改失败！", "修改首页配置页") });
 
@@ -142,7 +158,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
         [HttpGet]
         [Authentication]
-        public ActionResult Preview(string a, string b, string c, string d, string e, string f, string g)
+        public ActionResult Preview(string a, string b, string c, string d, string e, string f, string g, string h, string i, string j, string k)
         {
             var config = new HomePageConfigModel
             {
@@ -152,7 +168,11 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 AdSrc = d,
                 SloganSrc = e,
                 QrSrc = f,
-                BusinessSrc = g
+                BusinessSrc = g,
+                Product1Src = h,
+                Product2Src = i,
+                Product3Src = j,
+                Product4Src = k
             };
 
             ViewBag.HomePageConfig = config;

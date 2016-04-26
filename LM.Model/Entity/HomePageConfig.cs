@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LM.Model.Entity
 {
@@ -16,13 +12,35 @@ namespace LM.Model.Entity
 
         public string FlashSrc { get; set; }
 
+        public string QrSrc { get; set; }
+
         public string AdSrc { get; set; }
+
+        public string AdLink { get; set; }
 
         public string SloganSrc { get; set; }
 
-        public string QrSrc { get; set; }
+        public string SloganLink { get; set; }
 
         public string BusinessSrc { get; set; }
+
+        public string BusinessLink { get; set; }
+
+        public string Product1Src { get; set; }
+
+        public string Product1Link { get; set; }
+
+        public string Product2Src { get; set; }
+
+        public string Product2Link { get; set; }
+
+        public string Product3Src { get; set; }
+
+        public string Product3Link { get; set; }
+
+        public string Product4Src { get; set; }
+
+        public string Product4Link { get; set; }
 
         public DateTime SaveAt { get; set; }
     }

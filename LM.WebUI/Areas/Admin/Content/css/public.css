@@ -1587,7 +1587,8 @@ span .prompt {
     color: red;
 }
 
-#logoUploadifyUploader ,#flashUploadifyUploader, #adUploadifyUploader, 
-#sloganUploadifyUploader, #qrUploadifyUploader, #businessUploadifyUploader{
+#logoUploadifyUploader, #flashUploadifyUploader, #adUploadifyUploader,
+#sloganUploadifyUploader, #qrUploadifyUploader, #businessUploadifyUploader,
+#product1UploadifyUploader, #product2UploadifyUploader, #product3UploadifyUploader, #product4UploadifyUploader {
     vertical-align: middle;
 }

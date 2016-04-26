@@ -40,7 +40,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 {
                     var keyArr = keys.Split(',', '，', ' ');
                     where += " and ( 1=2 ";
-                    where = keyArr.Aggregate(where, (current, key) => current + string.Format(" or CHARINDEX('{0}',a.Title)>0 or CHARINDEX('{0}',a.Keywords)>0 ", key));
+                    where = keyArr.Aggregate(where, (current, key) => current + string.Format(" or CHARINDEX('{0}',a.Title)>0 or CHARINDEX('{0}',a.Keywords)>0 ", key.Trim()));
                     where += ")";
                 }
 
@@ -64,7 +64,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         [Authentication]
         public ActionResult Article(int id = 0)
         {
-            var model = new ArticleModel();
+            var model = new ArticleModel { Hits = new Random().Next(0, 500) };
 
             // Id > 0 是编辑；Id = 0 是新建
             if (id > 0)

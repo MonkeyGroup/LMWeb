@@ -121,8 +121,8 @@
                 uploadifyCancel: function() {
                 }
             });
-            // Business 上传
-            $("#businessUploadify").uploadify({
+            // 推荐产品1 上传
+            $("#product1Uploadify").uploadify({
                 uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
                 buttonText: 'Upload',
                 cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
@@ -134,10 +134,98 @@
                 onComplete: function(even, queueId, fileObj, response, data) {
                     var rs = JSON.parse(response);
                     if (rs.Status) {
-                        $('#BusinessSrc').val(rs.FilePath);
+                        $('#Product1Src').val(rs.FilePath);
                         $('#msg6').text("");
                     } else {
                         $('#msg6').text(rs.Message);
+                    }
+                },
+                uploadifyCancel: function() {
+                }
+            });
+            // 推荐产品2 上传
+            $("#product2Uploadify").uploadify({
+                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+                buttonText: 'Upload',
+                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+                script: '/Admin/Common/FileUpload',
+                folder: 'upload/images',
+                queueID: 'fileQueue7',
+                auto: true,
+                multi: false,
+                onComplete: function(even, queueId, fileObj, response, data) {
+                    var rs = JSON.parse(response);
+                    if (rs.Status) {
+                        $('#Product2Src').val(rs.FilePath);
+                        $('#msg7').text("");
+                    } else {
+                        $('#msg7').text(rs.Message);
+                    }
+                },
+                uploadifyCancel: function() {
+                }
+            });
+            // 推荐产品3 上传
+            $("#product3Uploadify").uploadify({
+                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+                buttonText: 'Upload',
+                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+                script: '/Admin/Common/FileUpload',
+                folder: 'upload/images',
+                queueID: 'fileQueue8',
+                auto: true,
+                multi: false,
+                onComplete: function(even, queueId, fileObj, response, data) {
+                    var rs = JSON.parse(response);
+                    if (rs.Status) {
+                        $('#Product3Src').val(rs.FilePath);
+                        $('#msg8').text("");
+                    } else {
+                        $('#msg8').text(rs.Message);
+                    }
+                },
+                uploadifyCancel: function() {
+                }
+            });
+            // 推荐产品4 上传
+            $("#product4Uploadify").uploadify({
+                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+                buttonText: 'Upload',
+                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+                script: '/Admin/Common/FileUpload',
+                folder: 'upload/images',
+                queueID: 'fileQueue9',
+                auto: true,
+                multi: false,
+                onComplete: function(even, queueId, fileObj, response, data) {
+                    var rs = JSON.parse(response);
+                    if (rs.Status) {
+                        $('#Product4Src').val(rs.FilePath);
+                        $('#msg9').text("");
+                    } else {
+                        $('#msg9').text(rs.Message);
+                    }
+                },
+                uploadifyCancel: function() {
+                }
+            });
+            // Business 上传
+            $("#businessUploadify").uploadify({
+                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+                buttonText: 'Upload',
+                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+                script: '/Admin/Common/FileUpload',
+                folder: 'upload/images',
+                queueID: 'fileQueue10',
+                auto: true,
+                multi: false,
+                onComplete: function(even, queueId, fileObj, response, data) {
+                    var rs = JSON.parse(response);
+                    if (rs.Status) {
+                        $('#BusinessSrc').val(rs.FilePath);
+                        $('#msg10').text("");
+                    } else {
+                        $('#msg10').text(rs.Message);
                     }
                 },
                 uploadifyCancel: function() {
@@ -165,10 +253,21 @@
             SiteName: $('#SiteName').val(),
             LogoSrc: $('#LogoSrc').val(),
             FlashSrc: $('#FlashSrc').val(),
-            AdSrc: $('#AdSrc').val(),
-            SloganSrc: $('#SloganSrc').val(),
             QrSrc: $('#QrSrc').val(),
-            BusinessSrc: $('#BusinessSrc').val()
+            AdSrc: $('#AdSrc').val(),
+            AdLink: $('#AdLink').val(),
+            SloganSrc: $('#SloganSrc').val(),
+            SloganLink: $('#SloganLink').val(),
+            BusinessSrc: $('#BusinessSrc').val(),
+            BusinessLink: $('#BusinessLink').val(),
+            Product1Src: $('#Product1Src').val(),
+            Product1Link: $('#Product1Link').val(),
+            Product2Src: $('#Product2Src').val(),
+            Product2Link: $('#Product2Link').val(),
+            Product3Src: $('#Product3Src').val(),
+            Product3Link: $('#Product3Link').val(),
+            Product4Src: $('#Product4Src').val(),
+            Product4Link: $('#Product4Link').val()
         }
         // 封装数据
         var ajax = {
@@ -178,11 +277,11 @@
             dataType: 'json',
             cache: false,
             contentType: "application/json; charset=utf-8",
-            success: function(resp) {
+            success: function (resp) {
                 alert(resp.message);
                 commitFlg = true;
             },
-            error: function() {
+            error: function () {
                 alert('系统故障，请联系管理员！');
                 commitFlg = true;
             }
@@ -203,7 +302,11 @@
         var e = $('#SloganSrc').val();;
         var f = $('#QrSrc').val();
         var g = $('#BusinessSrc').val();
-        var href = '/Admin/Home/Preview?a=' + a + '&b=' + b + '&c=' + c + '&d=' + d + '&e=' + e + '&f=' + f + '&g=' + g;
+        var h = $('#Product1Src').val();
+        var i = $('#Product2Src').val();
+        var j = $('#Product3Src').val();
+        var k = $('#Product4Src').val();
+        var href = '/Admin/Home/Preview?a=' + a + '&b=' + b + '&c=' + c + '&d=' + d + '&e=' + e + '&f=' + f + '&g=' + g + '&h=' + h + '&i=' + i + '&j=' + j + '&k=' + k;
         window.open(href);
     }
 
@@ -300,6 +403,16 @@
                             </td>
                         </tr>
                         <tr>
+                            <td align="right">网站二维码</td>
+                            <td>
+                                <input id="QrSrc" type="text" name="QrSrc" class="inpMain" size="60"
+                                       value="@(string.IsNullOrEmpty(config.QrSrc) ? "/Content/images/2118b59.jpg" : config.QrSrc)" />
+                                <div id="fileQueue5" style="display: none;"></div>
+                                <input id="qrUploadify" type="file" name="uploadify" />
+                                <span id="msg5" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
                             <td align="right">广告位图片</td>
                             <td>
                                 <input id="AdSrc" type="text" name="AdSrc" class="inpMain" size="60"
@@ -307,6 +420,12 @@
                                 <div id="fileQueue3" style="display: none;"></div>
                                 <input id="adUploadify" type="file" name="uploadify" />
                                 <span id="msg3" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">广告位图片链接地址</td>
+                            <td>
+                                <input id="AdLink" type="text" name="AdLink" class="inpMain" size="60" value="@(config.AdLink)" />
                             </td>
                         </tr>
                         <tr>
@@ -320,13 +439,73 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align="right">网站二维码</td>
+                            <td align="right">宣传语图片链接地址</td>
                             <td>
-                                <input id="QrSrc" type="text" name="QrSrc" class="inpMain" size="60"
-                                       value="@(string.IsNullOrEmpty(config.QrSrc) ? "/Content/images/2118b59.jpg" : config.QrSrc)" />
-                                <div id="fileQueue5" style="display: none;"></div>
-                                <input id="qrUploadify" type="file" name="uploadify" />
-                                <span id="msg5" style="color: red; font-weight: bold;"></span>
+                                <input id="SloganLink" type="text" name="SloganLink" class="inpMain" size="60" value="@(config.SloganLink)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">推荐产品1图片</td>
+                            <td>
+                                <input id="Product1Src" type="text" name="Product1Src" class="inpMain" size="60"
+                                       value="@(string.IsNullOrEmpty(config.Product1Src) ? "/Content/images/2118b59.jpg" : config.Product1Src)" />
+                                <div id="fileQueue6" style="display: none;"></div>
+                                <input id="product1Uploadify" type="file" name="uploadify" />
+                                <span id="msg6" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">推荐产品1图片链接地址</td>
+                            <td>
+                                <input id="Product1Link" type="text" name="Product1Link" class="inpMain" size="60" value="@(config.Product1Link)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">推荐产品2图片</td>
+                            <td>
+                                <input id="Product2Src" type="text" name="Product2Src" class="inpMain" size="60"
+                                       value="@(string.IsNullOrEmpty(config.Product2Src) ? "/Content/images/2118b59.jpg" : config.Product2Src)" />
+                                <div id="fileQueue7" style="display: none;"></div>
+                                <input id="product2Uploadify" type="file" name="uploadify" />
+                                <span id="msg7" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">推荐产品2图片链接地址</td>
+                            <td>
+                                <input id="Product2Link" type="text" name="Product2Link" class="inpMain" size="60" value="@(config.Product2Link)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">推荐产品3图片</td>
+                            <td>
+                                <input id="Product3Src" type="text" name="Product3Src" class="inpMain" size="60"
+                                       value="@(string.IsNullOrEmpty(config.Product3Src) ? "/Content/images/2118b59.jpg" : config.Product3Src)" />
+                                <div id="fileQueue8" style="display: none;"></div>
+                                <input id="product3Uploadify" type="file" name="uploadify" />
+                                <span id="msg8" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">推荐产品3图片链接地址</td>
+                            <td>
+                                <input id="Product3Link" type="text" name="Product3Link" class="inpMain" size="60" value="@(config.Product3Link)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">推荐产品4图片</td>
+                            <td>
+                                <input id="Product4Src" type="text" name="Product4Src" class="inpMain" size="60"
+                                       value="@(string.IsNullOrEmpty(config.Product4Src) ? "/Content/images/2118b59.jpg" : config.Product4Src)" />
+                                <div id="fileQueue9" style="display: none;"></div>
+                                <input id="product4Uploadify" type="file" name="uploadify" />
+                                <span id="msg9" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">推荐产品4图片链接地址</td>
+                            <td>
+                                <input id="Product4Link" type="text" name="Product4Link" class="inpMain" size="60" value="@(config.Product4Link)" />
                             </td>
                         </tr>
                         <tr>
@@ -334,9 +513,15 @@
                             <td>
                                 <input id="BusinessSrc" type="text" name="BusinessSrc" class="inpMain" size="60"
                                        value="@(string.IsNullOrEmpty(config.BusinessSrc) ? "/Content/images/zhaoshang.png" : config.BusinessSrc)" />
-                                <div id="fileQueue6" style="display: none;"></div>
+                                <div id="fileQueue10" style="display: none;"></div>
                                 <input id="businessUploadify" type="file" name="uploadify" />
-                                <span id="msg6" style="color: red; font-weight: bold;"></span>
+                                <span id="msg10" style="color: red; font-weight: bold;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">招商位图片链接地址</td>
+                            <td>
+                                <input id="BusinessLink" type="text" name="BusinessLink" class="inpMain" size="60" value="@(config.BusinessLink)" />
                             </td>
                         </tr>
                     </table>

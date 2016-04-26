@@ -155,17 +155,17 @@
                     <span id="msg2" class="prompt"></span>
                 </td>
             </tr>
-            <tr>
+            @*<tr>
                 <td width="90" align="right">点击量</td>
                 <td>
-                    <input type="text" id="hits" value="@(model.Hits)" size="80" class="inpMain" placeholder="请输入正整数" />
-                    <span id="msg3" class="prompt"></span>
+                    <input type="text" id="hits" value="@(model.Hits)" size="80" class="inpMain" placeholder="请输入正整数" readonly="readonly"/>
+                    <span id="msg3" class="prompt">由系统自动生成</span>
                 </td>
-            </tr>
+            </tr>*@
             <tr>
                 <td width="90" align="right">关键词</td>
                 <td>
-                    <input type="text" id="keywords" value="@(model.Keywords ?? "")" size="80" class="inpMain" placeholder='请以逗号","分隔，如：电子科技，太阳能，新材料' />
+                    <input type="text" id="keywords" value="@(model.Keywords ?? "")" size="80" class="inpMain" placeholder='请以逗号或空格分隔，如：电子科技，太阳能 新材料' />
                     <span id="msg4" class="prompt"></span>
                 </td>
             </tr>
@@ -216,6 +216,7 @@
                 <td>
                     <input type="hidden" id="id" name="id" value="@(model.Id)">
                     <input type="hidden" id="imgSrc" name="imgSrc" value="@(model.ImgSrc)">
+                    <input type="hidden" id="hits" name="hits" value="@(model.Hits)">
                     <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="提交" onclick="return submitIt() && false;" />
                 </td>
             </tr>
