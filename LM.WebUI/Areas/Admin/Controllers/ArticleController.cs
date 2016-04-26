@@ -44,7 +44,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     where += ")";
                 }
 
-                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : pindex;
+                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : psize;
                 var query = string.Format(@"(select a.* from [Article] a {0})", where);
                 var rs = articleService.GetByPage(query, "SaveAt desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<ArticleModel> : new List<ArticleModel>();

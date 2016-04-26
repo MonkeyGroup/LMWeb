@@ -98,6 +98,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 model = FileUploadHandler(file, UploadFileTye.Other);
             }
 
+            // 数据返回类型必须要和 Js 的控件格式一致
             var jsonStr = JsonHelper.Serialize(new { error = 0, url = model.FilePath });
             HttpContext.Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
             HttpContext.Response.Write(jsonStr);

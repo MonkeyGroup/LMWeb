@@ -65,7 +65,7 @@ namespace LM.Service.Security
             if (user == null || user.UserId == 0)
             {
                 // 没有登录返回登录界面
-                filterContext.Result = new RedirectResult("Login");
+                filterContext.Result = new RedirectResult("/Admin/Home/Login");
                 return;
             }
 

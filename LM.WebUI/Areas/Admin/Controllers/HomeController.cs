@@ -52,6 +52,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     if (svs.Status)
                     {
                         var user = svs.Data as User;
+                        userService.Update(new { Id = user.Id, LastLoginAt = DateTime.Now });
                         CurrentContext.SetUser(new CurrentUser { UserId = user.Id, UserName = user.Name });
                         status = true;
                         loginMsg = "登录成功！";
@@ -317,7 +318,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
             using (var userService = ResolveService<UserService>())
             {
-                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : pindex;
+                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : psize;
                 var rs = userService.GetByPage("[User]", "SaveAt desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<UserModel> : new List<UserModel>();
 
@@ -422,8 +423,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
             using (var operationLogService = ResolveService<OperationLogService>())
             {
-                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : pindex;
-                var query = @"[OperationLog]";
+                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : psize;
+                const string query = @"[OperationLog]";
                 var rs = operationLogService.GetByPage(query, "SaveAt desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<OperationLogModel> : new List<OperationLogModel>();
                 operationLogService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Message, "查看日志") });

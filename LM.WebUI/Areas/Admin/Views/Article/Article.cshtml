@@ -25,6 +25,8 @@
             //上传文件后执行的回调函数,获取上传图片的路径
             afterUpload: function (url) {
                 // 更改dom值
+                var ind = editor.html().indexOf();
+                alert(ind);
                 $("#imgSrc").val(url);
             },
             //编辑器高度

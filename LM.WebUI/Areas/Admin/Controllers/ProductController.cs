@@ -83,7 +83,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     where += ")";
                 }
 
-                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : pindex;
+                psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : psize;
                 var query = string.Format(@"(select a.* from [Product] a {0})", where);
                 var rs = productService.GetByPage(query, "SaveAt desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<ProductModel> : new List<ProductModel>();
