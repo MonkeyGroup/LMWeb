@@ -107,7 +107,7 @@
                             <th width="40" align="center">编号</th>
                             <th align="center">文章名称</th>
                             <th width="150" align="center">文章分类</th>
-                            <th width="80" align="center">添加日期</th>
+                            <th width="80" align="center">编辑日期</th>
                             <th width="80" align="center">操作</th>
                         </tr>
 
@@ -143,7 +143,7 @@
                     }
                 </table>
 
-                <div class="action">
+                <div class="action" style="@(models != null && models.Count > 0 ? "" : "display:none;")">
                     <button name="" class="btn" type="button" value="删除" onclick="return batchDelete(this.form) && false;">删除</button>
                     <!--分页-->
                     <div class="pageDiv" id="pageDiv1" style="float: right;"></div>

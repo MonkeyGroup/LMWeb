@@ -39,13 +39,34 @@ WHERE
 
 ---------------------------- 获取数据库信息 --------------------------
 -- 所有数据库
-SELECT Name FROM Master..SysDatabases ORDER BY Name
--- 所有模式（用户）
+SELECT Name FROM Master..SysDatabases 
+ORDER BY Name
+
+-- 所有自定义模式（用户）
+SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA 
+WHERE SCHEMA_OWNER = 'dbo'
 
 -- 所有表
-SELECT Name FROM SysObjects Where XType='U' ORDER BY Name
+SELECT Name FROM SysObjects 
+Where XType='U' 
+ORDER BY Name
+
+-- 查找模式下面的表
+SELECT TABLE_SCHEMA,TABLE_NAME FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'dbo'
+ORDER BY TABLE_SCHEMA, TABLE_NAME ASC
+
 -- 表信息
-select * from SysObjects a where a.name = 'User'
+SELECT * FROM SysObjects a 
+WHERE a.name = 'User'
+
+-- 表字段信息
+SELECT * FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'User' 
+
+-- * 查询哪些表有用到此字段
+SELECT distinct TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS
+WHERE COLUMN_NAME = 'SaveAt'
 
 -- 查询所有表、字段的详细信息
 SELECT 

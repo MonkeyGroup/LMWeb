@@ -61,6 +61,7 @@ namespace LM.Service.BootStrapIoC
             UnityContainer.RegisterType<OperationLogService>(new InjectionConstructor(UnityContainer.Resolve<DbSession>("WriteDbSession")));
             UnityContainer.RegisterType<ProductService>(new InjectionConstructor(UnityContainer.Resolve<DbSession>("WriteDbSession")));
             UnityContainer.RegisterType<ExpertService>(new InjectionConstructor(UnityContainer.Resolve<DbSession>("WriteDbSession")));
+            UnityContainer.RegisterType<BriefService>(new InjectionConstructor(UnityContainer.Resolve<DbSession>("WriteDbSession")));
 
             #endregion
 

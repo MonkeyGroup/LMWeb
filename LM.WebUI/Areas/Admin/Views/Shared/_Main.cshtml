@@ -1,7 +1,9 @@
-﻿@using LM.Utility
+﻿@using LM.Service.Security
+@using LM.Utility
 @{
     ViewBag.Title = "后台管理系统";
     var nav = ViewBag.Nav ?? "";
+    var currUser = CurrentContext.GetCurrentUser();
 }
 
 <html>
@@ -32,6 +34,7 @@
                             <div class="drop mTopad">
                                 <a href="/Admin/Product/Product">商品</a>
                                 <a href="/Admin/Article/Article">文章</a>
+                                <a href="/Admin/Home/BriefList">联盟简报</a>
                                 <a href="/Admin/Company/Company">成员企业</a>
                                 <a href="/Admin/Expert/Expert">专家成员</a>
                                 <a href="/Admin/Home/User">管理员</a>
@@ -40,9 +43,9 @@
                     </ul>
                     <ul class="navRight">
                         <li class="M noLeft">
-                            <a href="JavaScript:void(0);">您好，admin</a>
+                            <a href="JavaScript:void(0);">您好，@currUser.UserName</a>
                             <div class="drop mUser">
-                                <a href="/Admin/Home/EditUser">编辑我的个人资料</a>
+                                <a href="/Admin/Home/User?id=@currUser.UserId">编辑我的个人资料</a>
                             </div>
                         </li>
                         <li class="noRight"><a href="/Admin/Home/Logout">退出</a></li>
@@ -60,10 +63,10 @@
                 <ul>
                     <li @Html.Raw("BasicInfo".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/BasicInfo"><i class="system"></i><em>关于联盟</em></a></li>
                     @*<li @Html.Raw("Introduce".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Introduce"><i class="page"></i><em>联盟介绍</em></a></li>
-                    <li @Html.Raw("Constitute".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Constitute"><i class="page"></i><em> 联盟章程</em></a></li>
-                    <li @Html.Raw("Organize".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Organize"><i class="page"></i><em>联盟组织</em></a></li>
-                    <li @Html.Raw("Notice".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Notice"><i class="page"></i><em>入盟须知</em></a></li>
-                    <li @Html.Raw("Process".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Process"><i class="page"></i><em>申请流程</em></a></li>*@
+                        <li @Html.Raw("Constitute".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Constitute"><i class="page"></i><em> 联盟章程</em></a></li>
+                        <li @Html.Raw("Organize".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Organize"><i class="page"></i><em>联盟组织</em></a></li>
+                        <li @Html.Raw("Notice".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Notice"><i class="page"></i><em>入盟须知</em></a></li>
+                        <li @Html.Raw("Process".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Process"><i class="page"></i><em>申请流程</em></a></li>*@
                 </ul>
                 <ul>
                     @*<li @Html.Raw("ProductCategory".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Product/Category"><i class="productCat"></i><em>产品分类</em></a></li>*@
@@ -72,6 +75,9 @@
                 <ul>
                     @*<li @Html.Raw("ArticleCategory".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Article/Category"><i class="articleCat"></i><em>文章分类</em></a></li>*@
                     <li @Html.Raw("ArticleList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Article/List"><i class="article"></i><em>文章列表</em></a></li>
+                </ul>
+                <ul>
+                    <li @Html.Raw("BriefList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/BriefList"><i class="articleCat"></i><em>联盟简报列表</em></a></li>
                 </ul>
                 <ul>
                     <li @Html.Raw("CompanyList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Company/List"><i class="articleCat"></i><em>成员企业列表</em></a></li>

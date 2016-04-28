@@ -23,8 +23,8 @@ namespace LM.Service
         {
             try
             {
-                var article = _articleRepo.Get(id);
-                return new ServiceResult(true, ServiceResultCode.正常, "成功", article);
+                var entity = _articleRepo.Get(id);
+                return new ServiceResult(true, ServiceResultCode.正常, "成功", entity);
             }
             catch (Exception e)
             {
@@ -36,8 +36,8 @@ namespace LM.Service
         {
             try
             {
-                var articles = QueryManage.GetListByPage<ArticleModel>(targetQuery, orderby, out  itemCount, pageIndex, pageSize).ToList();
-                return new ServiceResult(true) { Data = articles };
+                var entities = QueryManage.GetListByPage<ArticleModel>(targetQuery, orderby, out  itemCount, pageIndex, pageSize).ToList();
+                return new ServiceResult(true) { Data = entities };
             }
             catch (Exception e)
             {
@@ -46,11 +46,11 @@ namespace LM.Service
             }
         }
 
-        public ServiceResult Insert(Article article)
+        public ServiceResult Insert(Article entity)
         {
             try
             {
-                return _articleRepo.Insert(article) > 0 ?
+                return _articleRepo.Insert(entity) > 0 ?
                     new ServiceResult(true, ServiceResultCode.正常, "成功") :
                     new ServiceResult(false, ServiceResultCode.服务器异常, ServiceResultCode.服务器异常.ToString());
             }
@@ -60,11 +60,11 @@ namespace LM.Service
             }
         }
 
-        public ServiceResult Update(object article)
+        public ServiceResult Update(object model)
         {
             try
             {
-                return _articleRepo.Update(article) ?
+                return _articleRepo.Update(model) ?
                     new ServiceResult(true, ServiceResultCode.正常, "成功") :
                     new ServiceResult(false, ServiceResultCode.服务器异常, ServiceResultCode.服务器异常.ToString());
             }

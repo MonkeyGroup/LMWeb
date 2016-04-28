@@ -35,7 +35,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         /// <summary>
-        ///  从 AutoFac 的 IoC 容器中取出service层实例
+        ///  从 AutoFac 的 IoC 容器中取出 service 层实例
         /// </summary>
         /// <typeparam name="T">Service 类型</typeparam>
         /// <param name="serviceName">Service 在IoC注入时的标记名</param>

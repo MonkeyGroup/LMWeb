@@ -230,6 +230,7 @@
     <Content Include="Areas\Admin\Views\Product\List.cshtml" />
     <Content Include="Areas\Admin\Views\Expert\Expert.cshtml" />
     <Content Include="Areas\Admin\Views\Expert\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\BriefList.cshtml" />
     <None Include="log4net.config">
       <SubType>Designer</SubType>
     </None>

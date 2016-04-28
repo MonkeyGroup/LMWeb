@@ -62,6 +62,7 @@
     <Compile Include="Base\ListReqModel.cs" />
     <Compile Include="Base\JsonRespModel.cs" />
     <Compile Include="BootStrapIoC\UnityBootStrapper.cs" />
+    <Compile Include="BriefService.cs" />
     <Compile Include="CompanyService.cs" />
     <Compile Include="ExpertService.cs" />
     <Compile Include="Filter\ExceptionFilter.cs" />
