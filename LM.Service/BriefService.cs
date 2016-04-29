@@ -37,7 +37,7 @@ namespace LM.Service
         {
             try
             {
-                var entities = QueryManage.GetListByPage<ArticleModel>(targetQuery, orderby, out  itemCount, pageIndex, pageSize).ToList();
+                var entities = QueryManage.GetListByPage<BriefModel>(targetQuery, orderby, out  itemCount, pageIndex, pageSize).ToList();
                 return new ServiceResult(true) { Data = entities };
             }
             catch (Exception e)

@@ -1,34 +1,43 @@
-﻿@{
+﻿@using LM.Utility
+@{
     ViewBag.Title = "About";
+    var content = ViewBag.Introduce;
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>@ViewBag.Message</h2>
-</hgroup>
+@Html.RenderCss("/Content/css/about1.css")
 
-<article>
-    <p>
-        Use this area to provide additional information.
-    </p>
+@section partialScriptCss{
 
-    <p>
-        Use this area to provide additional information.
-    </p>
+}
+<!--页面主体内容begin-->
+<div class="bg">
+    <div class="about_main">
+        <div class="aboutleft">
+            <!-- left -->
+            <div class="ab_t mt20">
+                <span class="ab_t01 pl10">关于联盟</span>
+                <br />
+                <span class="ab_t02 pl10">About Alliance</span>
+            </div>
+            <div class="ab_c mt20">
+                <ul>
+                    <li><a href="/Home/About">联盟介绍</a></li>
+                    <li><a href="/Home/Chapter">联盟章程</a></li>
+                    <li><a href="/Home/Organization">联盟组织</a></li>
+                    <li><a href="/Home/Notice">入盟申请</a></li>
+                </ul>
+            </div>
+        </div>
 
-    <p>
-        Use this area to provide additional information.
-    </p>
-</article>
+        <!-- right  -->
+        
+        <div class="aboutright">
+            <div class="weizi">
+                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Home/About">关于联盟</a> &gt; <a href="/Home/About">联盟简介</a>
+            </div>
 
-<aside>
-    <h3>Aside Title</h3>
-    <p>
-        Use this area to provide additional information.
-    </p>
-    <ul>
-        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-        <li>@Html.ActionLink("About", "About", "Home")</li>
-        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-    </ul>
-</aside>
+            @Html.Raw(content)
+        </div>
+
+    </div>
+</div>

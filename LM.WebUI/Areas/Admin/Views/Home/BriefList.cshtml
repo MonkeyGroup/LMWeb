@@ -21,16 +21,15 @@
             uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
             buttonText: 'Upload',
             cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
-            script: '/Admin/Home/BriefUpload',
+            script: '/Admin/Common/BriefUpload',
             queueID: 'fileQueue1',
             auto: true,
             multi: false,
             onComplete: function (even, queueId, fileObj, response, data) {
                 var rs = JSON.parse(response);
                 if (rs.Status) {
-                    alert('上传成功！');
                     $('#filePath').val(rs.FilePath);
-                    window.location.href = '/Admin/Home/BriefList';
+                    alert('上传成功！');
                 } else {
                     $('#msg1').text(rs.Message);
                 }
@@ -48,10 +47,8 @@
             jump: function (e, first) {
                 // 第一次的事件必须要判断
                 if (!first) {
-                    var type = $('#type').val();
-                    var keys = $('#keys').val();
                     //window.location.href = '/Admin/Article/List?type=' + type + '&keys=' + keys + '&pindex=' + e.curr;
-                    window.location.href = '/Admin/Home/BriefList?&pindex=' + e.curr + (type !== '' ? '&type=' + type : '') + (keys !== '' ? '&keys=' + keys : '');
+                    window.location.href = '/Admin/Home/BriefList?&pindex=' + e.curr;
                 }
             }
         });
@@ -59,18 +56,25 @@
 </script>
 
 <script>
-    function search() {
-        var type = $('#type').val();
-        var keys = $('#keys').val();
-        window.location.href = '/Admin/Article/List?type=' + type + '&keys=' + keys;
+    function sure() {
+        var name = $('#fileName').val();
+        var filePath = $('#filePath').val();
+        if (filePath === '') {
+            alert('请选择文件！');
+            return;
+        }
+        if (name === '') {
+            alert('请输入简报名称！');
+            return;
+        }
+
+        window.location.href = '/Admin/Home/SaveBrief?name=' + name + "&filePath=" + filePath;
     }
 
-    function delArticle(id) {
+    function delBrief(id) {
         if (!confirm('确定删除吗？'))
             return;
-        var type = $('#type').val();
-        var keys = $('#keys').val();
-        window.location.href = '/Admin/Article/Delete?ids=' + id + '&type=' + type + '&keys=' + keys;
+        window.location.href = '/Admin/Home/DeleteBrief?ids=' + id;
     }
 
     function batchDelete(form) {
@@ -86,9 +90,7 @@
         if (ids.length === 0) {
             alert('请勾选删除项！');
         } else {
-            var type = $('#type').val();
-            var keys = $('#keys').val();
-            window.location.href = '/Admin/Article/Delete?ids=' + ids + '&type=' + type + '&keys=' + keys;
+            window.location.href = '/Admin/Home/DeleteBrief?ids=' + ids;
         }
     }
 
@@ -104,10 +106,11 @@
         <h3>简报列表</h3>
 
         <div style="text-align: center">
-            <input id="filePath" type="text" name="filePath" class="inpMain" size="60" value="" /> 
+            <input id="fileName" type="text" name="fileName" class="inpMain" size="50" value="" placeholder="输入简报名称" />
+            <input id="filePath" type="text" name="filePath" class="inpMain" size="50" value="" placeholder="简报存储路径" />
             <div id="fileQueue1" style="display: none;"></div>
             <input id="briefUploadify" type="file" name="uploadify" />
-            <span id="msg1" style="color: red; font-weight: bold;"></span>
+            <input id="sure" type="button" class="btn" name="sure" value="确定" onclick="sure()" />
         </div><br /><br />
 
         <div id="list">
@@ -115,46 +118,46 @@
                 <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
                     @if (models != null && models.Count > 0)
                     {
-                    <tr>
-                        <th width="22" align="center">
-                            <input name='chkall' type='checkbox' id='chkall' onclick='selectcheckbox(this.form)' value='check'>
-                        </th>
-                        <th width="40" align="center">编号</th>
-                        <th align="center">简报名称</th>
-                        <th width="150" align="center">存储路径</th>
-                        <th width="80" align="center">添加日期</th>
-                        <th width="80" align="center">操作</th>
-                    </tr>
+                        <tr>
+                            <th width="22" align="center">
+                                <input name='chkall' type='checkbox' id='chkall' onclick='selectcheckbox(this.form)' value='check'>
+                            </th>
+                            <th width="40" align="center">编号</th>
+                            <th align="center">简报名称</th>
+                            <th width="150" align="center">存储路径</th>
+                            <th width="80" align="center">添加日期</th>
+                            <th width="80" align="center">操作</th>
+                        </tr>
 
                         foreach (var model in models)
                         {
-                    <tr>
-                        <td align="center">
-                            <input type="checkbox" name="checkbox" value="@(model.Id)" />
-                        </td>
-                        <td align="center">@((pageInfo.PageIndex - 1) * pageInfo.PageSize + index++)</td>
-                        <td>
-                            @(model.Name)
-                        </td>
-                        <td align="center">
-                            @(model.FilePath)
-                        </td>
-                        <td align="center">
-                            @(model.SaveAt.ToString("yyyy-MM-dd HH:mm:ss"))
-                        </td>
-                        <td align="center">
-                            <a href="@(model.FilePath)">下载</a> | <a href="#" onclick="return delArticle('@(model.Id)') && false;">删除</a>
-                        </td>
-                    </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="checkbox" name="checkbox" value="@(model.Id)" />
+                                </td>
+                                <td align="center">@((pageInfo.PageIndex - 1) * pageInfo.PageSize + index++)</td>
+                                <td>
+                                    @(model.Name)
+                                </td>
+                                <td align="center">
+                                    @(model.FilePath)
+                                </td>
+                                <td align="center">
+                                    @(model.SaveAt.ToString("yyyy-MM-dd HH:mm:ss"))
+                                </td>
+                                <td align="center">
+                                    <a href="@(model.FilePath)">下载</a> | <a href="#" onclick="return delBrief('@(model.Id)') && false;">删除</a>
+                                </td>
+                            </tr>
                         }
                     }
                     else
                     {
-                    <tr>
-                        <th width="22" align="center">
-                            <span style="text-align: center;">无数据！</span>
-                        </th>
-                    </tr>
+                        <tr>
+                            <th width="22" align="center">
+                                <span style="text-align: center;">无数据！</span>
+                            </th>
+                        </tr>
                     }
                 </table>
 

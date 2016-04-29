@@ -1,0 +1,67 @@
+﻿*{ margin:0px; padding:0px;}
+body{ font-family:"新宋体","宋体","微软雅黑"; font-size:12px; text-align:center}
+a{ text-decoration:none; color:#787878;}
+a:hover{ color:#f17100; cursor:pointer;}
+img{ border:0px;}
+ui{ list-style:none;}
+clen{ clear:both;}
+li{ padding-top:15px}
+
+.mt20{margin-top:20px;}
+
+.bg{width:1004px; margin:0 auto; height:auto;background: url(../images/bg.jpg) top left repeat-x;overflow: hidden;}
+.about_main {width:850px; height:570px; margin:0 auto; background-color:#fff; margin-top:10px;}
+.about_left {width:636px; border:1px solid #ccc; max-height:600px; float:left;}
+
+.experts_right p{text-align:center; font-family:Arial,'Microsoft YaHei'; font-size:23px; color: #070707; line-height: 40px; margin-top: 4%; margin-left:20px; }
+.about_mishu{width:560px; margin:30px auto; height:160px; border:1px solid #ccc; border-radius:5px;}
+.about_mishu table{font-size:12px; line-height:20px;margin-top:10px;}
+.about_mishu table td{/*text-align:center;*/}
+.about_mishu p{text-align:center;font-size:18px; line-height:24px;}
+.w180{width:180px;}
+.w400{width:400px; text-align:left;}
+.about_adress{width:400px; margin:0 auto; height:400px; border:1px solid #ccc; text-align:center;}
+
+.pl10{padding-left:10px; overflow:hidden;}
+.aboutleft{width:208px; height:652px; float:left;padding-bottom:0;  text-align:left; border:1px solid #ccc;}
+.ab_t01{color:#0093cf;font-size:18px; font-weight:bold;}
+.ab_t02{color:#999;}
+.ab_c li{height:18px; line-height:37px; background:url(../images/list_01.jpg) 10px 13px no-repeat;    border-bottom: 1px dashed #ddd;}
+.ab_c li a{ height:20px; line-height:6px; display:block; padding-left:25px;}
+/*专家信息页*/
+.headimg{font-family:'Microsoft YaHei'; border:1px solid #ccc; margin:5px 10px;}
+.intro{font-family:'Microsoft YaHei'; border:1px solid #ccc; margin:10px;}
+.books{font-family:'Microsoft YaHei'; border:1px solid #ccc; margin:10px; }
+
+.experts_right{border: 1px solid #CCC; width:630px;float:right;height:652px;}
+.experts_right .experts_tit{ overflow:hidden; width:100%; line-height:40px; margin-bottom:10px;}
+.experts_right dl{ overflow:hidden; width:500px; height:auto; margin-left:30px; margin-bottom:10px;}
+.experts_right dl dt{float:left; width:150px; margin-right:20px; margin-top:3px;}
+.experts_right dl dt p{ height:auto; text-align:center; line-height:30px; border:1px solid #09F; border-radius:15px; font-size:14px; font-family:'微软雅黑';  color:#09F;}
+.experts_right dl dd{float:left; width:200px; height:auto; text-align:center; line-height:30px; border:1px solid #ccc; border-radius:10px; font-size:14px; font-family:'微软雅黑';  margin-top:10px;}
+.fenye{border:1px solid #ccc; width:600px; float:right; height:50px; overflow:hidden; margin-top:50px;}
+
+/*分页*/
+#pagination-flickr li {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    list-style: none;
+}
+#pagination-flickr a{border:solid 1px #DDDDDD;margin-right:2px;}
+#pagination-flickr .previous-off,#pagination-flickr .next-off {color:#666666;display:block;float:left;font-weight:bold;padding:3px 10px;}
+#pagination-flickr .next a,#pagination-flickr .previous a {font-weight:bold;border:solid 1px #FFFFFF;} 
+#pagination-flickr .active{color:#ff0084;font-weight:bold;display:block;float:left;padding:4px 10px;}
+#pagination-flickr a:link,#pagination-flickr a:visited {color:#0063e3;display:block;float:left;padding:4px 10px;text-decoration:none;}
+#pagination-flickr a:hover{border:solid 1px #666666;}
+
+.exportinfo .headimg{ padding-top:10px;}
+.exportinfo .headimg img{width:150px; height:auto; margin-left:18px;}
+.exportinfo .headimg p{border:none; text-align:center; line-height:30px;}
+.exportinfo .intro p{ text-indent:2em; font-size:12px; line-height:24px; margin-left:5px; margin-right:5px;} 
+.exportinfo .intro span{font-family:'黑体';font-size:14px; line-height:24px; margin-left:5px; }
+.exportinfo .books p{ margin-left:5px; margin-right:5px; font-size:12px; line-height:24px; text-indent: 2em;}
+.exportinfo .books span{font-family:'黑体';font-size:14px; line-height:24px; margin-left:5px;}
+
+.pageDiv{margin-top:100px;}

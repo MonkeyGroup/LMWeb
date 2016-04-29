@@ -1,50 +1,68 @@
-﻿@{
+﻿@using LM.Model.Model
+@using LM.Utility
+@{
     ViewBag.Title = "Contact";
+    var info = ViewBag.Model as BaseInfoModel;
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>@ViewBag.Message</h2>
-</hgroup>
+@Html.RenderCss("/Content/css/联系我们.css")
 
-<section class="contact">
-    <header>
-        <h3>Phone</h3>
-    </header>
-    <p>
-        <span class="label">Main:</span>
-        <span>425.555.0100</span>
-    </p>
-    <p>
-        <span class="label">After Hours:</span>
-        <span>425.555.0199</span>
-    </p>
-</section>
+@section partialScriptCss{
 
-<section class="contact">
-    <header>
-        <h3>Email</h3>
-    </header>
-    <p>
-        <span class="label">Support:</span>
-        <span><a href="mailto:Support@example.com">Support@example.com</a></span>
-    </p>
-    <p>
-        <span class="label">Marketing:</span>
-        <span><a href="mailto:Marketing@example.com">Marketing@example.com</a></span>
-    </p>
-    <p>
-        <span class="label">General:</span>
-        <span><a href="mailto:General@example.com">General@example.com</a></span>
-    </p>
-</section>
+}
 
-<section class="contact">
-    <header>
-        <h3>Address</h3>
-    </header>
-    <p>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399
-    </p>
-</section>
+<!--页面主体内容begin-->
+<div class="bg">
+    <div class="about_main">
+        <div class="aboutleft">
+            <!-- left -->
+            <div class="ab_t mt20">
+                <span class="ab_t01 pl10">联系我们</span>
+                <br />
+                <span class="ab_t02 pl10">Contact Us</span>
+            </div>
+            <div class="ab_c mt20">
+                <ul>
+                    <li><a href="/Home/Contact">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="about_right">
+            <div class="weizi">
+                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Home/Contact">联系我们</a> &gt; <a href="/Home/Contact">联系我们</a>
+            </div>
+
+            <p>联系我们</p>
+            <div class="about_mishu">
+                <table>
+                    <tr>
+                        <td class="w100 tr">地址：</td>
+                        <td class="w400">@info.Address</td>
+                    </tr>
+                    <tr>
+                        <td class="w100 tr">电话：</td>
+                        <td class="w400">@info.Telphone</td>
+                    </tr>
+                    <tr>
+                        <td class="w100 tr">传真：</td>
+                        <td class="w400">@info.Fax</td>
+                    </tr>
+                    <tr>
+                        <td class="w100 tr">网址：</td>
+                        <td class="w400">@info.Site</td>
+                    </tr>
+                    <tr>
+                        <td class="w100 tr">邮箱：</td>
+                        <td class="w400">@info.Email</td>
+                    </tr>
+                </table>
+            </div>
+            <!--百度地图容器-->
+            @Html.Raw(info.Map)
+            @*<div style="margin: auto;width: 500px; height: 400px; border: #ccc solid 1px;" id="dituContent">@Html.Raw(info.Map)</div>*@
+            @*<script type="text/javascript">initMap();</script>*@
+            <br/>
+        </div>
+    </div>
+
+</div>

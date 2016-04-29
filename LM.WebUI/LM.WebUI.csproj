@@ -235,6 +235,22 @@
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\css\dynamic.css" />
+    <Content Include="Content\css\experts.css" />
+    <Content Include="Content\css\members.css" />
+    <Content Include="Content\css\product_show1.css" />
+    <Content Include="Content\css\product_show2.css" />
+    <Content Include="Content\css\信息阅览.css" />
+    <Content Include="Content\css\入盟申请.css" />
+    <Content Include="Content\css\关于联盟.css" />
+    <Content Include="Content\css\联盟成员.css" />
+    <Content Include="Content\css\联盟成果.css" />
+    <Content Include="Content\css\联盟简报.css" />
+    <Content Include="Content\css\联系我们.css" />
+    <Content Include="Views\Home\Chapter.cshtml" />
+    <Content Include="Views\Home\Organization.cshtml" />
+    <Content Include="Views\Home\Notice.cshtml" />
+    <Content Include="Views\Home\Process.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Content\css\base.css" />
@@ -1028,6 +1044,7 @@
     <Content Include="Areas\Admin\Content\js\UEditor\ueditor.parse.js" />
     <Content Include="Areas\Admin\Content\js\UEditor\ueditor.parse.min.js" />
     <Content Include="Content\css\about.css" />
+    <Content Include="Content\css\about1.css" />
     <Content Include="Content\css\footer.css" />
     <Content Include="Content\css\header.css" />
     <Content Include="Content\css\index.css" />

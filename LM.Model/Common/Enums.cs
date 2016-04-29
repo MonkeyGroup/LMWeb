@@ -9,19 +9,6 @@
     }
 
     /// <summary>
-    ///  上传的文件类型
-    /// </summary>
-    public enum UploadFileTye
-    {
-        Img = 1,
-        Swf = 2,
-        Word = 3,
-        Pdf = 4,
-        Media = 5,
-        Other = 99
-    }
-
-    /// <summary>
     ///  成员企业等级
     /// </summary>
     public enum MemberRange

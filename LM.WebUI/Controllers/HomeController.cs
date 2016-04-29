@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using LM.Model.Entity;
 using LM.Model.Model;
 using LM.Service;
+using LM.Service.Security;
 using LM.Utility;
 
 namespace LM.WebUI.Controllers
@@ -12,7 +13,7 @@ namespace LM.WebUI.Controllers
         public ActionResult Index()
         {
             // 首先判断session中有无存储此配置信息
-            var conf = DiMySession.Get<HomePageConfigModel>("HomePageConfig");
+            var conf = CurrentContext.Get("HomePageConfig");
             if (conf != null)
             {
                 ViewBag.HomePageConfig = conf;
@@ -23,30 +24,88 @@ namespace LM.WebUI.Controllers
             {
                 var svs = homePageConfigService.GetLast();
 
-                //if (!svs.Status) return View("Error");
-                
+                if (!svs.Status)
+                {
+                    CurrentContext.Set("HomePageConfig", new HomePageConfigModel());
+                    return View("Error");
+                }
+
                 var config = svs.Data as HomePageConfigModel;
-                ViewBag.HomePageConfig = config;
-                DiMySession.Set("HomePageConfig", config);
+                CurrentContext.Set("HomePageConfig", config);
                 return View();
             }
         }
+
+
+        #region 关于联盟 & 加入联盟
 
         public ActionResult About()
         {
-            using (var userService = ResolveService<UserService>())
+            using (var baseInfoService = ResolveService<BaseInfoService>())
             {
-                //var sr = userService.GetByPage(1, 8);
-                //var userList = new List<UserModel>();
-                //((List<User>)sr.Data).ForEach<User>(u => { userList.Add(new UserModel { Id = u.Id, Pwd = u.Pwd, Name = u.Name }); });
-                //ViewBag.UserList = userList;
+                var baseInfo = baseInfoService.GetLast().Data as BaseInfoModel;
+                ViewBag.Introduce = baseInfo.Introduce;
                 return View();
             }
         }
 
+        public ActionResult Chapter()
+        {
+            using (var baseInfoService = ResolveService<BaseInfoService>())
+            {
+                var baseInfo = baseInfoService.GetLast().Data as BaseInfoModel;
+                ViewBag.Chapter = baseInfo.Chapter;
+                return View();
+            }
+        }
+
+        public ActionResult Organization()
+        {
+            using (var baseInfoService = ResolveService<BaseInfoService>())
+            {
+                var baseInfo = baseInfoService.GetLast().Data as BaseInfoModel;
+                ViewBag.Organize = baseInfo.Organize;
+                return View();
+            }
+        }
+
+        public ActionResult Notice()
+        {
+            using (var baseInfoService = ResolveService<BaseInfoService>())
+            {
+                var baseInfo = baseInfoService.GetLast().Data as BaseInfoModel;
+                ViewBag.Notice = baseInfo.Notice;
+                return View();
+            }
+        }
+
+        public ActionResult Process()
+        {
+            using (var baseInfoService = ResolveService<BaseInfoService>())
+            {
+                var baseInfo = baseInfoService.GetLast().Data as BaseInfoModel;
+                ViewBag.Process = baseInfo.Process;
+                return View();
+            }
+        }
+
+        #endregion
+
+
+        #region 联系我们
+
         public ActionResult Contact()
         {
-            return View();
+            using (var baseInfoService = ResolveService<BaseInfoService>())
+            {
+                var info = baseInfoService.GetLast().Data as BaseInfoModel;
+                info = info ?? new BaseInfoModel();
+                ViewBag.Model = new BaseInfoModel { Address = info.Address, Telphone = info.Telphone, Fax = info.Fax, Site = info.Site, Email = info.Email, Map = info.Map };
+                return View();
+            }
         }
+
+        #endregion
+
     }
 }

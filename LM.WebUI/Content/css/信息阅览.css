@@ -1,0 +1,77 @@
+﻿* {
+	margin: 0px;
+	padding: 0px;
+}
+body {
+	font-family: "新宋体","宋体","微软雅黑";
+	font-size: 12px;
+}
+a {
+	text-decoration: none;
+	color: #787878;
+}
+a: hover {
+	color: #f17100;
+	cursor: pointer;
+}
+img {
+	border: 0px;
+}
+clen {
+	clear: both;
+}lor: #CCCCCC;
+}
+/*li {
+	padding-top: 15px
+}*/p {
+	text-align: center;
+	font-size: 15px;
+	padding: 3% 0;
+}
+.bg {
+	width: 1004px;
+	margin: 0 auto;
+	height: auto;
+	background: url(../images/bg.jpg) top left repeat-x;
+	overflow: hidden;
+}
+.about_main {
+	width: 850px;
+	min-height: 450px;
+	margin: 0 auto;
+	background-color: #fff;
+	margin-top: 10px;
+}
+.about_left {
+	float: left;
+	border: 1px solid #C7C6C6;
+	width: 700px;
+	height:auto!important;
+	min-height: 800px;
+    padding-bottom:20px;
+}
+.about_left h3{ color:#333;font-family:'Microsoft YaHei';font-size:16px; font-weight:normal; margin-top:30px; margin-bottom:25px;}
+.about_left p { margin-left: 19px; font-size:12px; line-height: 24px; color: #333333; margin-bottom: 24px;}
+.about_left .p1{ width:637px;margin:0 auto; font-size:14px; font-family: '宋体';line-height:24px; text-align:left;text-indent:2em; margin-top:15px;}
+.about_left .p2{width:637px; height:auto; margin:0 auto; margin-top:10px;}
+.about_left .p3{width:637px; font-size:14px; font-family: '宋体';line-height:24px; text-indent:2em; margin-top:15px;}
+.tr{text-align:right;}
+
+.about_right {
+	float: right;
+	border: 1px solid #ccc;
+	width: 120px;
+	min-height: 345px;
+}
+.about_dd {
+	border: 1px solid #ccc;
+	font-family: 'Microsoft YaHei';
+	font-size: 12px;
+	width: 80%;
+	text-align: center;
+	margin-left: 11%;
+}
+.about_nr {
+	text-indent: 2em;
+}
+

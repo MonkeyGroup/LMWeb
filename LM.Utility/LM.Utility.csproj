@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="AppSettingHelper.cs" />
     <Compile Include="EmailHelper.cs" />
+    <Compile Include="UploadHelper.cs" />
     <Compile Include="HttpHelper.cs" />
     <Compile Include="ImageHelper.cs" />
     <Compile Include="JsonHelper.cs" />

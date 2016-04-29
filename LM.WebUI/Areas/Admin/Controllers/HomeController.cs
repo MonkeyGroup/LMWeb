@@ -332,38 +332,23 @@ namespace LM.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authentication]
-        public JsonResult SaveBrief(BriefModel model)
+        public ActionResult SaveBrief(BriefModel model)
         {
             // 若无，则取出后放入session
             using (var briefService = ResolveService<BriefService>())
             {
-                // Id > 0 修改，Id = 0 新增
-                JsonRespModel respModel;
-                if (model.Id > 0)
+                // 再写入数据库
+                var svs = briefService.Insert(new Brief
                 {
-                    var svs = briefService.Update(new Brief
-                    {
-                        Id = model.Id,
-                        Name = model.Name,
-                        FilePath = model.FilePath,
-                        SaveAt = DateTime.Now,
-                    });
-                    briefService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "修改成功！" : "修改失败！", "修改简报") });
-                }
-                else
-                {
-                    var svs = briefService.Insert(new Brief
-                    {
-                        Name = model.Name,
-                        FilePath = model.FilePath,
-                        SaveAt = DateTime.Now,
-                    });
-                    briefService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "新建成功！" : "新建失败！", "上传简报") });
-                }
+                    Name = model.Name,
+                    FilePath = model.FilePath,
+                    SaveAt = DateTime.Now,
+                });
+                briefService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "新建成功！" : "新建失败！", "上传简报") });
 
-                return null;
+                return RedirectToAction("BriefList");
             }
         }
 
@@ -445,12 +430,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 JsonRespModel respModel;
                 if (model.Id > 0)
                 {
-                    var svs = userService.Update(new User
-                    {
-                        Id = model.Id,
-                        Name = model.Name,
-                        Pwd = model.Pwd.Md5String()
-                    });
+                    var svs = userService.Update(new { Id = model.Id, Name = model.Name, Pwd = model.Pwd.Md5String() });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "修改成功！" : "修改失败！" };
                     userService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "修改成功！" : "修改失败！", "用户修改页") });
                 }

@@ -1,9 +1,10 @@
 ﻿@using LM.Model.Model
+@using LM.Service.Security
 @using LM.Utility
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "首页";
-    var config = ViewBag.HomePageConfig as HomePageConfigModel ?? new HomePageConfigModel();
+    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
 }
 
 @section partialScriptCss{

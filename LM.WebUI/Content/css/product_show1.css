@@ -1,0 +1,254 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-family: "新宋体","宋体","微软雅黑";
+    font-size: 12px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #787878;
+}
+
+    a:hover {
+        color: #f17100;
+        cursor: pointer;
+    }
+
+img {
+    border: 0px;
+}
+
+ui {
+    list-style: none;
+}
+
+clen {
+    clear: both;
+}
+
+span {
+    padding-left: 0%;
+    font-size: 15px;
+    font-weight: bold;
+    color: #CCCCCC;
+}
+/*li{ padding-top:15px}*/
+
+
+.bg {
+    width: 1004px;
+    margin: 0 auto;
+    height: auto;
+    background: url(../images/bg.jpg) top left repeat-x;
+    overflow: hidden;
+}
+
+.about_main {
+    width: 850px;
+    min-height: 450px;
+    margin: 0 auto;
+    background-color: #fff;
+    margin-top: 10px;
+}
+
+.about_left {
+    width: 640px; /*border:1px solid #ccc;*/
+    height: 450px;
+    float: left;
+}
+
+.about_right {
+    width: 208px;
+    height: 500px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    float: right;
+    border-left: none;
+}
+
+    .about_right .about_right_tit {
+        width: 100%;
+        height: 30px;
+        margin: 12% 0 8% 0%;
+        line-height: 30px;
+        font-size:20px;
+    }
+
+    .about_right .about_right_main {
+        width: 100%;
+        height: 400px;
+        margin: 0 auto;
+        overflow:hidden;
+    }
+
+.about_right_main div {
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px dotted #000000;
+    height: 35px;
+    line-height: 35px;
+}
+
+/*木木：tab begin*/
+
+@charset "utf-8";
+/* CSS Document */
+* {
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+body {
+    font-family: "宋体","Arial";
+    font-size: 12px;
+    background: #fff;
+    min-width: 800px;
+}
+
+img {
+    border: 0px;
+    behavior: url("css/pngbehavior.htc");
+    display: inline;
+}
+
+ul, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #555;
+}
+
+h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0em 0 0.5em 0;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 1em 0;
+}
+
+/**tabs**/
+.tab_ul {
+    height: 36px;
+    border-bottom: 1px solid #aaa;
+}
+
+    .tab_ul li {
+        float: left;
+        margin: 0 2px 0 0;
+        border: 1px solid #aaa;
+        font-size: 11px;
+        height: 35px;
+        line-height: 36px;
+        width: 111px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 4px 4px 0 0;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        background: #ddd;
+        background: -moz-linear-gradient(top, #eee, #ddd);
+        background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#FFFFFF));
+    }
+
+.tabPanel .hit {
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+    color: black;
+    background: #fff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#67C2F7), to(#fff));
+    background: -moz-linear-gradient(top, #e1e1e1, #fff);
+}
+
+.pane {
+    border: 1px solid #aaa;
+    border-top: 0;
+    min-height: 425px;
+    background-color: #fff;
+    display: none;
+    padding: 20px 50px;
+}
+
+    .pane p {
+        padding: 5px 15px 0 10px;
+    }
+
+    .pane h4 {
+        padding: 15px 15px 0 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .pane .pane_goods {
+        width: 106px;
+        height: 150px;
+        float: left;
+        margin: 10px;
+    }
+
+        .pane .pane_goods img {
+            width: 100px;
+            height: 100px;
+            border: 0px solid #ccc;
+        }
+
+/*木木：tab end*/
+
+/*分页 begin*/
+#pagination-flickr li {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    list-style: none;
+}
+
+#pagination-flickr a {
+    border: solid 1px #DDDDDD;
+    margin-right: 2px;
+}
+
+#pagination-flickr .previous-off, #pagination-flickr .next-off {
+    color: #666666;
+    display: block;
+    float: left;
+    font-weight: bold;
+    padding: 3px 10px;
+}
+
+#pagination-flickr .next a, #pagination-flickr .previous a {
+    font-weight: bold;
+    border: solid 1px #FFFFFF;
+}
+
+#pagination-flickr .active {
+    color: #ff0084;
+    font-weight: bold;
+    display: block;
+    float: left;
+    padding: 4px 10px;
+}
+
+#pagination-flickr a:link, #pagination-flickr a:visited {
+    color: #0063e3;
+    display: block;
+    float: left;
+    padding: 4px 10px;
+    text-decoration: none;
+}
+
+#pagination-flickr a:hover {
+    border: solid 1px #666666;
+}
+/*分页 end*/

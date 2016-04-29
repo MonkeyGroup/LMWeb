@@ -54,7 +54,6 @@
     <Compile Include="Model\BriefModelcs.cs" />
     <Compile Include="Model\CompanyModel.cs" />
     <Compile Include="Model\ExpertModel.cs" />
-    <Compile Include="Model\FileUploadModel.cs" />
     <Compile Include="Model\HomePageConfigModel.cs" />
     <Compile Include="Model\OperationLogModel.cs" />
     <Compile Include="Model\UserModel.cs" />

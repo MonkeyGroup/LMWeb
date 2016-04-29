@@ -1,8 +1,9 @@
 ﻿@using LM.Model.Model
+@using LM.Service.Security
 @{
     Layout = null; /* 此句必须加，不然默认布局页为_Layout页，会造成死循环 */
-    ViewBag.Title = "Header";
-    var config = ViewBag.HomePageConfig as HomePageConfigModel;
+    ViewBag.Title = "Header"; 
+    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel;
 }
 
 <!--1. Top-->

@@ -31,5 +31,22 @@ namespace LM.Service.Security
             var empty = new CurrentUser();
             mySession.Set("Current_User", empty);
         }
+
+
+        #region 通用方法
+        public static void Set(string key, object model)
+        {
+            var mySession = UnityBootStrapper.Instance.UnityContainer.Resolve<ISession>();
+            mySession.Set(key, model);
+        }
+
+        public static object Get(string key)
+        {
+            var mySession = UnityBootStrapper.Instance.UnityContainer.Resolve<ISession>();
+            return mySession[key];
+        }
+
+        #endregion
+
     }
 }
