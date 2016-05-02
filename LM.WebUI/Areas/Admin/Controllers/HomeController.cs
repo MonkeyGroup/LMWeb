@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using LM.Model.Entity;
@@ -75,7 +76,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
             DiMySession.Clear();
             DiCache.RemoveAll();
             CurrentContext.ClearUser();
-            return View("Login");
+            return Redirect("/Home/Index");
         }
 
         #endregion
@@ -225,6 +226,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     switch (type.ToLower())
                     {
                         case "contract":
+                            //var mapHtml = Regex.Match(infoModel.Map, @"(<img \>)", RegexOptions.IgnoreCase);
                             state = baseInfoService.Update(new
                             {
                                 Id = infoModel.Id,
@@ -481,7 +483,6 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 const string query = @"[OperationLog]";
                 var rs = operationLogService.GetByPage(query, "SaveAt desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<OperationLogModel> : new List<OperationLogModel>();
-                operationLogService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Message, "查看日志") });
             }
 
             ViewBag.OperationLogs = models;

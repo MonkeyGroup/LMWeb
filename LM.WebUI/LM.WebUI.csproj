@@ -208,6 +208,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ArticleController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommonController.cs" />
     <Compile Include="Areas\Admin\Controllers\CompanyController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExpertController.cs" />
@@ -225,12 +226,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Content Include="Areas\Admin\Content\images\grouplogo.png" />
+    <Content Include="Areas\Admin\Content\images\logininfo.png" />
     <Content Include="Areas\Admin\Views\Home\UserList.cshtml" />
     <Content Include="Areas\Admin\Views\Home\User.cshtml" />
     <Content Include="Areas\Admin\Views\Product\List.cshtml" />
     <Content Include="Areas\Admin\Views\Expert\Expert.cshtml" />
     <Content Include="Areas\Admin\Views\Expert\List.cshtml" />
     <Content Include="Areas\Admin\Views\Home\BriefList.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Category.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\List.cshtml" />
     <None Include="log4net.config">
       <SubType>Designer</SubType>
     </None>
@@ -247,10 +251,48 @@
     <Content Include="Content\css\联盟成果.css" />
     <Content Include="Content\css\联盟简报.css" />
     <Content Include="Content\css\联系我们.css" />
+    <Content Include="Content\images\20130929094813_32394.jpg" />
+    <Content Include="Content\images\20130929095024_72706.jpg" />
+    <Content Include="Content\images\20130929095031_47500.jpg" />
+    <Content Include="Content\images\20130929095202_80033.jpg" />
+    <Content Include="Content\images\20130929095413_80224.jpg" />
+    <Content Include="Content\images\20130929095433_17256.jpg" />
+    <Content Include="Content\images\20130929095632_36995.jpg" />
+    <Content Include="Content\images\20130929095639_90135.jpg" />
+    <Content Include="Content\images\20130929095750_16260.jpg" />
+    <Content Include="Content\images\20130929095757_76723.jpg" />
+    <Content Include="Content\images\20131011152757_25781.jpg" />
+    <Content Include="Content\images\20131021141721_50326.jpg" />
+    <Content Include="Content\images\20131022100757_47882.jpg" />
+    <Content Include="Content\images\20131223095649_54043.jpg" />
+    <Content Include="Content\images\20150608154821_36425.jpg" />
+    <Content Include="Content\images\citycompschool.jpg" />
+    <Content Include="Content\images\citykidssite.jpg" />
+    <Content Include="Content\images\company_adress.png" />
+    <Content Include="Content\images\gc-general.jpg" />
+    <Content Include="Content\images\groups.jpg" />
+    <Content Include="Content\images\list_01.jpg" />
+    <Content Include="Content\images\logininfo1.png" />
+    <Content Include="Content\images\mayun.jpg" />
+    <Content Include="Content\images\membership_seminar.jpg" />
+    <Content Include="Content\images\newspaper1.jpg" />
+    <Content Include="Content\images\newspaper_02.jpg" />
+    <Content Include="Content\images\pwpsoftcover.jpg" />
+    <Content Include="Content\images\rhemacards.jpg" />
+    <Content Include="Content\images\shouqi.png" />
+    <Content Include="Content\images\zanwu.jpg" />
+    <Content Include="Content\images\zhankai.png" />
     <Content Include="Views\Home\Chapter.cshtml" />
     <Content Include="Views\Home\Organization.cshtml" />
     <Content Include="Views\Home\Notice.cshtml" />
     <Content Include="Views\Home\Process.cshtml" />
+    <Content Include="Views\Article\InfoList.cshtml" />
+    <Content Include="Views\Article\Detail.cshtml" />
+    <Content Include="Views\Company\List.cshtml" />
+    <Content Include="Views\Company\Detail.cshtml" />
+    <Content Include="Views\Product\List.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Expert\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Content\css\base.css" />
@@ -414,7 +456,7 @@
     <Content Include="Areas\Admin\Content\images\loginbg1.png" />
     <Content Include="Areas\Admin\Content\images\loginbg2.png" />
     <Content Include="Areas\Admin\Content\images\loginbg3.png" />
-    <Content Include="Areas\Admin\Content\images\logininfo.png" />
+    <Content Include="Areas\Admin\Content\images\logininfo2.png" />
     <Content Include="Areas\Admin\Content\images\loginlogo.png" />
     <Content Include="Areas\Admin\Content\images\loginpassword.png" />
     <Content Include="Areas\Admin\Content\images\loginsj.png" />
@@ -1275,7 +1317,7 @@
     <Content Include="Views\Company\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Article\Index.cshtml" />
+    <Content Include="Views\Article\PerfomList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Article\Index.cshtml" />

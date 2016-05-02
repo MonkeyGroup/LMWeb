@@ -91,11 +91,13 @@ namespace LM.Component.Data.Query
         /// <returns></returns>
         public IEnumerable<TModel> GetListByPage<TModel>(string targetQuery, string orderby, out int itemCount, int pageIndex = 1, int pageSize = 10)
         {
+            var orderbyFields = @orderby.Split(',').Aggregate("", (current, item) => current + string.Format(" Temp1.{0},", item.Trim(' '))).TrimEnd(',');
+
             var queryS = string.Format(@"
 select top {2} * from (
-    select top {3} row_number() over(order by Temp1.{1}) as RowNumber,* from {0} Temp1
+    select top {3} row_number() over(order by {1}) as RowNumber,* from {0} Temp1
 )Temp2
-where Temp2.RowNumber > {4};", targetQuery, orderby, pageSize, pageIndex * pageSize, (pageIndex - 1) * pageSize);
+where Temp2.RowNumber > {4};", targetQuery, orderbyFields, pageSize, pageIndex * pageSize, (pageIndex - 1) * pageSize);
 
             var countS = string.Format(@"select count( Temp1.Id ) from {0} Temp1", targetQuery);
 

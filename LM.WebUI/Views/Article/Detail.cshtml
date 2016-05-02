@@ -1,0 +1,47 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@{
+    ViewBag.Title = "Detail";
+    var info = (ViewBag.Article as ArticleModel) ?? new ArticleModel();
+}
+
+@Html.RenderCss("/Content/css/信息阅览.css")
+
+
+<div class="bg">
+    <div class="about_main">
+        <div class="about_left">
+            <h3>@info.Title</h3>
+            <div style="display: inline;color: #787878; margin-bottom: 30px; margin-top: -15px;">@info.SaveAt.ToString("yyyy-MM-dd HH:mm:ss")</div>&nbsp;&nbsp;
+            <div style="display: inline;color: #787878; margin-bottom: 30px; margin-top: -15px;">来源：@info.Origin</div>&nbsp;&nbsp;
+            <div style="display: inline;color: #787878; margin-bottom: 30px; margin-top: -15px;">作者：@info.Author</div>&nbsp;&nbsp;
+            <div style="display: inline;color: #787878; margin-bottom: 30px; margin-top: -15px;">浏览：@info.Hits</div>&nbsp;&nbsp;
+            <div>
+                <p style="color: #6a6a6a; margin-top: 10px; width: 500px; min-height: 25px; margin: 10px auto; text-align: left; padding: 10px 20px; border: 1px solid #ccc">
+                    <span style="color: #333333;">【摘要】&nbsp;</span>
+                    @(!string.IsNullOrEmpty(info.Brief) && info.Brief.Length > 80 ? info.Brief.Substring(0, 77) + "..." : info.Brief)
+                </p>
+            </div>
+
+            @Html.Raw(info.Content)
+        </div>
+
+        <div class="about_right">
+            <div class="show">
+                <img src="/Content/images/zanwu.jpg" width="90%" height="90%" />
+            </div>
+
+            <div class="show">
+                <img src="/Content/images/zanwu.jpg" width="90%" height="90%" />
+            </div>
+
+            <div class="show">
+                <img src="/Content/images/zanwu.jpg" width="90%" height="90%" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

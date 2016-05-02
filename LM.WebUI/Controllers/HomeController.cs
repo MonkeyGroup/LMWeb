@@ -27,6 +27,7 @@ namespace LM.WebUI.Controllers
                 if (!svs.Status)
                 {
                     CurrentContext.Set("HomePageConfig", new HomePageConfigModel());
+                    ViewBag.Message = "未读取到如何首页配置信息！";
                     return View("Error");
                 }
 

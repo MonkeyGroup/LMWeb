@@ -80,7 +80,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                             Id = entity.Id,
                             Title = entity.Title,
                             Type = entity.Type,
-                            Author = CurrentUser.UserName,
+                            Author = entity.Author,
                             Origin = entity.Origin,
                             Hits = entity.Hits,
                             Keywords = entity.Keywords,

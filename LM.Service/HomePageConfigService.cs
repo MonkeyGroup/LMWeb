@@ -58,7 +58,7 @@ namespace LM.Service
         {
             try
             {
-                var configs = QueryManage.GetList<HomePageConfigModel>("select * from [HomePageConfig] where id >100 order by [Id] desc;");
+                var configs = QueryManage.GetList<HomePageConfigModel>("select * from [HomePageConfig] order by [Id] desc;");
                 return configs.Count > 0 ? new ServiceResult(true) { Data = configs.FirstOrDefault() } : new ServiceResult(false) { Message = "无数据" };
             }
             catch (Exception e)

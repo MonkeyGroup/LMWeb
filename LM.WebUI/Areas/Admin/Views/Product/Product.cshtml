@@ -4,11 +4,108 @@
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
     ViewBag.Title = "Company";
+
     var model = ViewBag.Product as ProductModel;
+    var catList = ViewBag.CatList as List<CategoryModel>;
 }
+@Html.RenderCss("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.css")
+
+@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/kindeditor.js")
+@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/lang/zh_CN.js")
+@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.js")
 @Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/swfobject.js")
 @Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/jquery.uploadify.v2.1.0.min.js")
 
+<!-- KindEditor -->
+<script type="text/javascript">
+    var editor1, editor2, editor3;
+    KindEditor.ready(function (K) {
+        editor1 = K.create('#description1', {
+            //上传管理
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //uploadJson: '/Areas/Admin/Content/js/kindeditor/asp.net/upload_json.ashx',
+            //文件管理
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
+            allowFileManager: true,
+            //上传文件后执行的回调函数,获取上传图片的路径
+            afterUpload: function (url) {
+            },
+            //编辑器高度
+            width: '600px',
+            //编辑器宽度
+            height: '500px;',
+            //配置编辑器的工具栏
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+                'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'
+            ]
+        });
+        prettyPrint();
+
+        editor2 = K.create('#description2', {
+            //上传管理
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //uploadJson: '/Areas/Admin/Content/js/kindeditor/asp.net/upload_json.ashx',
+            //文件管理
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
+            allowFileManager: true,
+            //上传文件后执行的回调函数,获取上传图片的路径
+            afterUpload: function (url) {
+            },
+            //编辑器高度
+            width: '600px',
+            //编辑器宽度
+            height: '500px;',
+            //配置编辑器的工具栏
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+                'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'
+            ]
+        });
+        prettyPrint();
+
+        editor3 = K.create('#description3', {
+            //上传管理
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //uploadJson: '/Areas/Admin/Content/js/kindeditor/asp.net/upload_json.ashx',
+            //文件管理
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
+            allowFileManager: true,
+            //上传文件后执行的回调函数,获取上传图片的路径
+            afterUpload: function (url) {
+            },
+            //编辑器高度
+            width: '600px',
+            //编辑器宽度
+            height: '500px;',
+            //配置编辑器的工具栏
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+                'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'
+            ]
+        });
+        prettyPrint();
+    });
+</script>
+<!-- /KindEditor -->
 <!--logo上传-->
 <script>
     $(document).ready(function () {
@@ -51,14 +148,27 @@
         var model = {
             Id: $('#id').val(),
             Type: $('#type').val(),
+            TypeName: $('#type').find("option:selected").text(),
             Name: $('#name').val(),
             ImgSrc: $('#imgSrc').val(),
-            Company1: $('#company1').val(),
-            Description1: $('#description1').val(),
-            Company2: $('#company2').val(),
-            Description2: $('#description2').val(),
-            Company3: $('#company3').val(),
-            Description3: $('#description3').val(),
+            Company1Name: $('#company1Name').val(),
+            Company1Phone: $('#company1Phone').val(),
+            Company1Fax: $('#company1Fax').val(),
+            Company1Email: $('#company1Email').val(),
+            Company1Linkman: $('#company1Linkman').val(),
+            Company2Name: $('#company2Name').val(),
+            Company2Phone: $('#company2Phone').val(),
+            Company2Fax: $('#company2Fax').val(),
+            Company2Email: $('#company2Email').val(),
+            Company2Linkman: $('#company2Linkman').val(),
+            Company3Name: $('#company3Name').val(),
+            Company3Phone: $('#company3Phone').val(),
+            Company3Fax: $('#company3Fax').val(),
+            Company3Email: $('#company3Email').val(),
+            Company3Linkman: $('#company3Linkman').val(),
+            Description1: editor1.html(),
+            Description2: editor2.html(),
+            Description3: editor3.html(),
         }
         // 封装数据
         var ajax = {
@@ -86,22 +196,30 @@
     }
 
     function checkNull() {
-        var ok = true;
+        clearMsgs();
+
         if ($('#name').val() === '') {
             $('#msg0').text('请填写产品名称！');
-            ok = false;
+            alert('请填写产品名称！');
+            return false;
         }
         if ($('#imgSrc').val() === '') {
             $('#msg1').text('请上传产品图片！');
-            ok = false;
+            alert('请上传产品图片！');
+            return false;
         }
-        ok && clearMsgs();
-        return ok;
+        if ($('#company1Name').val() === '') {
+            $('#msg2').text('请填写生产企业！');
+            alert('请填写生产企业！');
+            return false;
+        }
+        return true;
     }
 
     function clearMsgs() {
         $('#msg0').text("");
         $('#msg1').text("");
+        $('#msg2').text("");
     }
 </script>
 
@@ -120,11 +238,15 @@
                 <td align="right">产品分类</td>
                 <td>
                     <select id="type" name="type">
-                        <option value="@((int)ProductType.特种气体)" @(model.Type == ProductType.特种气体 ? "selected" : "")> @ProductType.特种气体.ToString()</option>
-                        <option value="@((int)ProductType.混电子化学品)" @(model.Type == ProductType.混电子化学品 ? "selected" : "")> @ProductType.混电子化学品.ToString()</option>
-                        <option value="@((int)ProductType.封装材料)" @(model.Type == ProductType.封装材料 ? "selected" : "")> @ProductType.封装材料.ToString()</option>
-                        <option value="@((int)ProductType.树脂)" @(model.Type == ProductType.树脂 ? "selected" : "")> @ProductType.树脂.ToString()</option>
-                        <option value="@((int)ProductType.其他)" @(model.Type == ProductType.其他 ? "selected" : "")> @ProductType.其他.ToString()</option>
+                        @*<option value="@((int)ProductType.特种气体)" @(model.Type == ProductType.特种气体 ? "selected" : "")> @ProductType.特种气体.ToString()</option>
+                            <option value="@((int)ProductType.混电子化学品)" @(model.Type == ProductType.混电子化学品 ? "selected" : "")> @ProductType.混电子化学品.ToString()</option>
+                            <option value="@((int)ProductType.封装材料)" @(model.Type == ProductType.封装材料 ? "selected" : "")> @ProductType.封装材料.ToString()</option>
+                            <option value="@((int)ProductType.树脂)" @(model.Type == ProductType.树脂 ? "selected" : "")> @ProductType.树脂.ToString()</option>
+                            <option value="@((int)ProductType.其他)" @(model.Type == ProductType.其他 ? "selected" : "")> @ProductType.其他.ToString()</option>*@
+                        @foreach (var cat in catList)
+                        {
+                            <option value="@cat.Id" @(model.Type == cat.Id ? "selected" : "")>@cat.Name</option>
+                        }
                     </select>
                 </td>
             </tr>
@@ -146,39 +268,117 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" valign="top">生产企业1</td>
+                <td align="right" align="right" rowspan="5">生产企业1</td>
                 <td>
-                    <input id="company1" name="type" class="inpMain" value="@(model.Company1)" size="80" placeholder="必填" />
+                    名&emsp;称：
+                    <input id="company1Name" name="type" class="inpMain" value="@(model.Company1Name)" size="80" placeholder="必填" />
+                    <font class="prompt" color="red">*</font><span id="msg2" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    电&emsp;话：
+                    <input id="company1Phone" name="type" class="inpMain" value="@(model.Company1Phone)" size="80" placeholder="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    传&emsp;真：
+                    <input id="company1Fax" name="type" class="inpMain" value="@(model.Company1Fax)" size="80" placeholder="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    邮&emsp;箱：
+                    <input id="company1Email" name="type" class="inpMain" value="@(model.Company1Email)" size="80" placeholder="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    联系人：
+                    <input id="company1Linkman" name="type" class="inpMain" value="@(model.Company1Linkman)" size="80" placeholder="" />
                 </td>
             </tr>
             <tr>
                 <td align="right" valign="top">企业产品描述1</td>
                 <td>
-                    <textarea name="container" id="description1" class="inpMain" style="width: 800px; height: 300px;">@(model.Description1 ?? "")</textarea>
+                    <textarea name="container" id="description1" class="inpMain" style="width: 800px; height: 300px;">@Html.Raw(model.Description1 ?? "")</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right" align="right" rowspan="5">生产企业2</td>
+                <td>
+                    名&emsp;称：
+                    <input id="company2Name" name="type" class="inpMain" value="@(model.Company2Name)" size="80" placeholder="" />
                 </td>
             </tr>
             <tr>
-                <td align="right" valign="top">生产企业2</td>
                 <td>
-                    <input id="company1" name="type" class="inpMain" value="@(model.Company2)" size="80" placeholder="选填" />
+                    电&emsp;话：
+                    <input id="company2Phone" name="type" class="inpMain" value="@(model.Company2Phone)" size="80" placeholder="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    传&emsp;真：
+                    <input id="company2Fax" name="type" class="inpMain" value="@(model.Company2Fax)" size="80" placeholder="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    邮&emsp;箱：
+                    <input id="company2Email" name="type" class="inpMain" value="@(model.Company2Email)" size="80" placeholder="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    联系人：
+                    <input id="company2Linkman" name="type" class="inpMain" value="@(model.Company2Linkman)" size="80" placeholder="" />
                 </td>
             </tr>
             <tr>
                 <td align="right" valign="top">企业产品描述2</td>
                 <td>
-                    <textarea name="container" id="description2" class="inpMain" style="width: 800px; height: 300px;">@(model.Description2 ?? "")</textarea>
+                    <textarea name="container" id="description2" class="inpMain" style="width: 800px; height: 300px;">@Html.Raw(model.Description2 ?? "")</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right" align="right" rowspan="5">生产企业3</td>
+                <td>
+                    名&emsp;称：
+                    <input id="company3Name" name="type" class="inpMain" value="@(model.Company3Name)" size="80" placeholder="" />
                 </td>
             </tr>
             <tr>
-                <td align="right" valign="top">生产企业3</td>
                 <td>
-                    <input id="company1" name="type" class="inpMain" value="@(model.Company3)" size="80" placeholder="选填" />
+                    电&emsp;话：
+                    <input id="company3Phone" name="type" class="inpMain" value="@(model.Company3Phone)" size="80" placeholder="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    传&emsp;真：
+                    <input id="company3Fax" name="type" class="inpMain" value="@(model.Company3Fax)" size="80" placeholder="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    邮&emsp;箱：
+                    <input id="company3Email" name="type" class="inpMain" value="@(model.Company3Email)" size="80" placeholder="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    联系人：
+                    <input id="company3Linkman" name="type" class="inpMain" value="@(model.Company3Linkman)" size="80" placeholder="" />
                 </td>
             </tr>
             <tr>
                 <td align="right" valign="top">企业产品描述3</td>
                 <td>
-                    <textarea name="container" id="description3" class="inpMain" style="width: 800px; height: 300px;">@(model.Description3 ?? "")</textarea>
+                    <textarea name="container" id="description3" class="inpMain" style="width: 800px; height: 300px;">@Html.Raw(model.Description3 ?? "")</textarea>
                 </td>
             </tr>
 

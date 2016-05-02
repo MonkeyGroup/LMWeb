@@ -2,8 +2,8 @@
 @using LM.Service.Security
 @{
     Layout = null; /* 此句必须加，不然默认布局页为_Layout页，会造成死循环 */
-    ViewBag.Title = "Header"; 
-    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel;
+    ViewBag.Title = "Header";
+    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
 }
 
 <!--1. Top-->
@@ -46,19 +46,19 @@
             <a href="/Home/About" title="关于联盟">关于联盟</a>
         </li>
         <li>
-            <a href="/Trend/Index" title="联盟动态">联盟动态</a>
+            <a href="/Article/InfoList" title="联盟动态">联盟动态</a>
         </li>
         <li>
-            <a href="/Member/Index" title="联盟成员">联盟成员</a>
+            <a href="/Company/List" title="联盟成员">联盟成员</a>
         </li>
         <li>
-            <a href="/Committee/Index" title="专家委员会">专家委员会</a>
+            <a href="/Expert/List" title="专家委员会">专家委员会</a>
         </li>
         <li>
-            <a href="/Product/Index" title="产品展示">产品展示</a>
+            <a href="/Product/List" title="产品展示">产品展示</a>
         </li>
         <li>
-            <a href="/Outcome/Index" title="联盟成果">科研与合作</a>
+            <a href="/Article/InfoList?type=科技成果" title="科技成果">科研与合作</a>
         </li>
         <li>
             <a href="/Home/Contact" title="联系我们">联系我们</a>

@@ -1,20 +1,102 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using LM.Model.Entity;
+using LM.Model.Model;
+using LM.Service;
+using LM.WebUI.Areas.Admin.Models;
 
 namespace LM.WebUI.Controllers
 {
     public class ArticleController : BaseController
     {
-        //
-        // GET: /Article/
-
         public ActionResult Index()
         {
+            return RedirectToAction("InfoList");
+        }
+
+        #region 联盟动态 & 行业信息 | 科技成果 & 寻求合作
+
+        /// <summary>
+        ///  文章列表。默认类型为“联盟动态”。
+        /// 条件：
+        /// 1. 非隐藏；
+        /// 2. 类型为“联盟动态”；
+        /// 排序优先级：
+        /// 1. 编辑日期倒序；
+        /// 2. 推荐与否；
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult InfoList(string type = "联盟动态", int pindex = 1)
+        {
+            List<ArticleModel> models;
+            int itemCount, psize;
+
+            using (var articleService = ResolveService<ArticleService>())
+            {
+                psize = 15;
+                var query = string.Format(@"(select a.Id, a.Type, a.Title, a.SaveAt, a.IsRecommend from [Article] a Where a.IsHide = 0 and a.Type = '{0}')", type);
+                var orderby = "SaveAt desc, IsRecommend desc";
+                var rs = articleService.GetByPage(query, orderby, pindex, psize, out itemCount);
+                models = rs.Status ? rs.Data as List<ArticleModel> : new List<ArticleModel>();
+            }
+
+            ViewBag.Type = type;
+            ViewBag.Models = models;
+            ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
+
+            if (type == "科技成果" || type == "寻求合作")
+            {
+                return View("PerfomList");
+            }
             return View();
         }
+
+
+        /// <summary>
+        ///  文章详情页，联盟动态 和 科研合作通用。
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Detail(int id)
+        {
+            ArticleModel model;
+            using (var articleService = ResolveService<ArticleService>())
+            {
+                var rs = articleService.GetById(id);
+                if (rs.Status && rs.Data != null)
+                {
+                    var entity = rs.Data as Article;
+                    model = new ArticleModel
+                    {
+                        Id = entity.Id,
+                        Title = entity.Title,
+                        Type = entity.Type,
+                        Author = entity.Author,
+                        Origin = entity.Origin,
+                        Hits = entity.Hits,
+                        Keywords = entity.Keywords,
+                        Brief = entity.Brief,
+                        Content = entity.Content,
+                        IsRecommend = entity.IsRecommend,
+                        IsFocus = entity.IsFocus,
+                        IsHide = entity.IsHide,
+                        SaveAt = DateTime.Now,
+                        ImgSrc = entity.ImgSrc
+                    };
+                }
+                else
+                {
+                    model = new ArticleModel();
+                }
+            }
+
+            ViewBag.Article = model;
+            return View();
+        }
+
+        #endregion
+
 
     }
 }

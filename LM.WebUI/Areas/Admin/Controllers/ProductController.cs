@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using LM.Model.Common;
 using LM.Model.Entity;
 using LM.Model.Model;
 using LM.Service;
@@ -26,6 +27,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         public ActionResult Product(int id = 0)
         {
             var model = new ProductModel();
+            var catList = new List<CategoryModel>();
 
             // Id > 0 是编辑；Id = 0 是新建
             if (id > 0)
@@ -40,10 +42,26 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         {
                             Id = entity.Id,
                             Type = entity.Type,
+                            TypeName = entity.TypeName,
                             Name = entity.Name,
-                            Company1 = entity.Company1,
-                            Company2 = entity.Company2,
-                            Company3 = entity.Company3,
+                            Company1Name = entity.Company1Name,
+                            Company1Phone = entity.Company1Phone,
+                            Company1Fax = entity.Company1Fax,
+                            Company1Email = entity.Company1Email,
+                            Company1Linkman = entity.Company1Linkman,
+
+                            Company2Name = entity.Company2Name,
+                            Company2Phone = entity.Company2Phone,
+                            Company2Fax = entity.Company2Fax,
+                            Company2Email = entity.Company2Email,
+                            Company2Linkman = entity.Company2Linkman,
+
+                            Company3Name = entity.Company3Name,
+                            Company3Phone = entity.Company3Phone,
+                            Company3Fax = entity.Company3Fax,
+                            Company3Email = entity.Company3Email,
+                            Company3Linkman = entity.Company3Linkman,
+
                             Description1 = entity.Description1,
                             Description2 = entity.Description2,
                             Description3 = entity.Description3,
@@ -54,7 +72,18 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 }
             }
 
+            // 获取分类下拉框数据
+            using (var categoryService = ResolveService<CategoryService>())
+            {
+                var rs = categoryService.GetByTarget(target: CategoryTarget.产品分类.ToString());
+                if (rs.Status && rs.Data != null)
+                {
+                    catList = rs.Data as List<CategoryModel>;
+                }
+            }
+
             ViewBag.Product = model;
+            ViewBag.CatList = catList;
             ViewBag.Nav = "ProductList";
             return View();
         }
@@ -62,18 +91,19 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
         [HttpGet]
         [Authentication]
-        public ActionResult List(string type, string keys, int pindex = 1, int psize = 2)
+        public ActionResult List(string keys, int type = 0, int pindex = 1, int psize = 2)
         {
             List<ProductModel> models;
+            var catList = new List<CategoryModel>();
             int itemCount;
 
             using (var productService = ResolveService<ProductService>())
             {
                 // 按条件查询 sql
                 var where = " where 1=1 ";
-                if (!string.IsNullOrEmpty(type))
+                if (type > 0)
                 {
-                    where += string.Format(" and a.Type = '{0}' ", type);
+                    where += string.Format(" and a.Type = {0} ", type);
                 }
                 if (!string.IsNullOrEmpty(keys))
                 {
@@ -91,9 +121,20 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 productService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Status ? "查询成功！" : "查询失败！", "产品列表页") });
             }
 
+            // 获取分类下拉框数据
+            using (var categoryService = ResolveService<CategoryService>())
+            {
+                var rs = categoryService.GetByTarget(target: CategoryTarget.产品分类.ToString());
+                if (rs.Status && rs.Data != null)
+                {
+                    catList = rs.Data as List<CategoryModel>;
+                }
+            }
+
             ViewBag.Keys = keys;
             ViewBag.Type = type;
             ViewBag.Products = models;
+            ViewBag.CatList = catList;
             ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
             ViewBag.Nav = "ProductList";
             return View();
@@ -115,10 +156,26 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     {
                         Id = model.Id,
                         Type = model.Type,
+                        TypeName = model.TypeName,
                         Name = model.Name,
-                        Company1 = model.Company1,
-                        Company2 = model.Company2,
-                        Company3 = model.Company3,
+                        Company1Name = model.Company1Name,
+                        Company1Phone = model.Company1Phone,
+                        Company1Fax = model.Company1Fax,
+                        Company1Email = model.Company1Email,
+                        Company1Linkman = model.Company1Linkman,
+
+                        Company2Name = model.Company2Name,
+                        Company2Phone = model.Company2Phone,
+                        Company2Fax = model.Company2Fax,
+                        Company2Email = model.Company2Email,
+                        Company2Linkman = model.Company2Linkman,
+
+                        Company3Name = model.Company3Name,
+                        Company3Phone = model.Company3Phone,
+                        Company3Fax = model.Company3Fax,
+                        Company3Email = model.Company3Email,
+                        Company3Linkman = model.Company3Linkman,
+
                         Description1 = model.Description1,
                         Description2 = model.Description2,
                         Description3 = model.Description3,
@@ -134,10 +191,26 @@ namespace LM.WebUI.Areas.Admin.Controllers
                     {
                         Id = model.Id,
                         Type = model.Type,
+                        TypeName = model.TypeName,
                         Name = model.Name,
-                        Company1 = model.Company1,
-                        Company2 = model.Company2,
-                        Company3 = model.Company3,
+                        Company1Name = model.Company1Name,
+                        Company1Phone = model.Company1Phone,
+                        Company1Fax = model.Company1Fax,
+                        Company1Email = model.Company1Email,
+                        Company1Linkman = model.Company1Linkman,
+
+                        Company2Name = model.Company2Name,
+                        Company2Phone = model.Company2Phone,
+                        Company2Fax = model.Company2Fax,
+                        Company2Email = model.Company2Email,
+                        Company2Linkman = model.Company2Linkman,
+
+                        Company3Name = model.Company3Name,
+                        Company3Phone = model.Company3Phone,
+                        Company3Fax = model.Company3Fax,
+                        Company3Email = model.Company3Email,
+                        Company3Linkman = model.Company3Linkman,
+
                         Description1 = model.Description1,
                         Description2 = model.Description2,
                         Description3 = model.Description3,
@@ -155,7 +228,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
         [HttpGet]
         [Authentication]
-        public ActionResult Delete(string ids, string type, string keys)
+        public ActionResult Delete(string ids, int type, string keys)
         {
             using (var productService = ResolveService<ProductService>())
             {

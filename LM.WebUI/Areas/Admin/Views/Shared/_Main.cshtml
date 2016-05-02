@@ -32,7 +32,8 @@
                         <li class="M">
                             <a href="JavaScript:void(0);" class="topAdd">新建</a>
                             <div class="drop mTopad">
-                                <a href="/Admin/Product/Product">商品</a>
+                                <a href="/Admin/Category/Category">分类</a>
+                                <a href="/Admin/Product/Product">产品</a>
                                 <a href="/Admin/Article/Article">文章</a>
                                 <a href="/Admin/Home/BriefList">联盟简报</a>
                                 <a href="/Admin/Company/Company">成员企业</a>
@@ -69,7 +70,9 @@
                         <li @Html.Raw("Process".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Process"><i class="page"></i><em>申请流程</em></a></li>*@
                 </ul>
                 <ul>
-                    @*<li @Html.Raw("ProductCategory".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Product/Category"><i class="productCat"></i><em>产品分类</em></a></li>*@
+                    <li @Html.Raw("CategoryList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Category/List"><i class="productCat"></i><em>分类列表</em></a></li>
+                 </ul>
+                <ul>
                     <li @Html.Raw("ProductList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Product/List"><i class="product"></i><em>产品列表</em></a></li>
                 </ul>
                 <ul>

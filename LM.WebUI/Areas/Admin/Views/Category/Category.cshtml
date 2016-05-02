@@ -1,0 +1,125 @@
+﻿@using LM.Model.Model
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
+    ViewBag.Title = "Category";
+    var model = ViewBag.Category as CategoryModel;
+}
+
+
+<script type="text/javascript">
+    var commitFlag = true;
+    function submitIt() {
+        // 判空
+        if (!checkNull()) {
+            commitFlag = true;
+            return;
+        }
+        commitFlag = false;
+
+        var model = {
+            Id: $('#id').val(),
+            Target: $('#target').val(),
+            Name: $('#name').val(),
+            Index: $('#index').val(),
+            Description: $('#description').val(),
+        }
+        // 封装数据
+        var ajax = {
+            url: '/Admin/Category/Save',
+            data: JSON.stringify(model),
+            type: 'Post',
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (resp) {
+                if (resp.status) {
+                    alert(resp.message);
+                    window.location.href = '/Admin/Category/List?target=' + $('#target').val();
+                } else {
+                    alert(resp.message);
+                    commitFlag = true;
+                }
+            },
+            error: function () {
+                alert('系统故障，请联系管理员！');
+                commitFlag = true;
+            }
+        }
+        $.ajax(ajax);
+    }
+
+    function checkNull() {
+        clearMsgs();
+
+        if ($('#name').val() === '') {
+            $('#msg0').text('请填写分类名称！');
+            alert('请填写分类名称！');
+            return false;
+        }
+        return true;
+    }
+
+    function clearMsgs() {
+        $('#msg0').text("");
+    }
+</script>
+
+<!--3. Main-->
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">
+        后台管理中心<b>></b><strong>添加分类</strong>
+    </div>
+
+    <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><a href="/Admin/Category/List" class="actionBtn">分类列表</a>添加分类</h3>
+        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+
+            <tr>
+                <td align="right">分类对象</td>
+                <td>
+                    <select id="target" name="target">
+                        <option value="产品分类" @("产品分类".Equals(model.Target) ? "selected" : "")>产品分类</option>
+                        <option value="成员企业分类" @("成员企业分类".Equals(model.Target) ? "selected" : "")>成员企业分类</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">分类名称</td>
+                <td>
+                    <input type="text" id="name" value="@(model.Name ?? "")" size="50" class="inpMain" />
+                    <font class="prompt" color="red">*</font><span id="msg0" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" valign="top">分类简述</td>
+                <td>
+                    <textarea name="container" id="description" class="inpMain" style="width: 400px; height: 100px;">@(model.Description)</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">显示优先级</td>
+                <td>
+                    <input type="text" id="index" value="@(model.Index)" size="5" class="inpMain" placeholder="" />
+                    （数值越大，优先级越高）
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <input type="hidden" id="id" name="id" value="@(model.Id)">
+                    <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="提交" onclick="return submitIt() && false;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+
+
+

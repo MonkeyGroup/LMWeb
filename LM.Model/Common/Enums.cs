@@ -45,5 +45,14 @@
         其他 = 5
     }
 
+    /// <summary>
+    ///  分类对象，如：产品、成员企业等
+    /// </summary>
+    public enum CategoryTarget
+    {
+        产品分类 = 1,
+        成员企业分类 = 2,
+    }
+
 }
 

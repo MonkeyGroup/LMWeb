@@ -7,11 +7,12 @@
     ViewBag.Title = "List";
 
     var models = ViewBag.Companies as List<CompanyModel>;
+    var catList = ViewBag.CatList as List<CategoryModel>;
     var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
 
     var index = 1;
     var type = ViewBag.Type ?? "";
-    var range = ViewBag.Range ?? "";
+    var range = ViewBag.Range;
     var keys = ViewBag.Keys ?? "";
 }
 @Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
@@ -23,7 +24,7 @@
             cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
             pages: '@pageInfo.PageCount', //总页数
             curr: '@pageInfo.PageIndex', // 当前页
-            groups: 6, //连续显示分页数
+            groups: 3, //连续显示分页数
             skin: '#0072C6',
             jump: function (e, first) {
                 // 第一次的事件必须要判断
@@ -92,18 +93,18 @@
             <form method="post">
                 <select id="type" name="type">
                     <option value=""> 未分类</option>
-                    <option value="@((int) MemberType.上游企业)" @((int) MemberType.上游企业 + "" == type ? "selected" : "")> @MemberType.上游企业</option>
-                    <option value="@((int) MemberType.下游企业)" @((int) MemberType.下游企业 + "" == type ? "selected" : "")> @MemberType.下游企业</option>
-                    <option value="@((int) MemberType.科研院所协会)" @((int) MemberType.科研院所协会 + "" == type ? "selected" : "")> @MemberType.科研院所协会</option>
+                    <option value="@((int) MemberType.上游企业)" @((int)MemberType.上游企业 + "" == type ? "selected" : "")> @MemberType.上游企业</option>
+                    <option value="@((int) MemberType.下游企业)" @((int)MemberType.下游企业 + "" == type ? "selected" : "")> @MemberType.下游企业</option>
+                    <option value="@((int) MemberType.科研院所协会)" @((int)MemberType.科研院所协会 + "" == type ? "selected" : "")> @MemberType.科研院所协会</option>
                 </select>
-                <select id="range" name="type">
-                    <option value=""> 未分类</option>
-                    <option value="@((int)MemberRange.理事长单位)" @((int)MemberRange.理事长单位 + "" == range ? "selected" : "")> @MemberRange.理事长单位</option>
-                    <option value="@((int)MemberRange.副理事长单位)" @((int)MemberRange.副理事长单位 + "" == range ? "selected" : "")> @MemberRange.副理事长单位</option>
-                    <option value="@((int)MemberRange.常务理事单位)" @((int)MemberRange.常务理事单位 + "" == range ? "selected" : "")> @MemberRange.常务理事单位</option>
-                    <option value="@((int)MemberRange.理事单位)" @((int)MemberRange.理事单位 + "" == range ? "selected" : "")> @MemberRange.理事单位</option>
+                <select id="range" name="range">
+                    <option value="0"> 未分类</option>
+                    @foreach (var cat in catList)
+                    {
+                        <option value="@cat.Id" @(cat.Id == range ? "selected" : "")>@cat.Name</option>
+                    }
                 </select>
-                <input id="keys" name="keys" type="text" class="inpMain" value="@keys" size="20" />
+                <input id="keys" name="keys" type="text" class="inpMain" value="@keys" size="20" placeholder="输入成员名称关键字" />
                 <input name="submit" class="btnGray" type="button" value="筛选" onclick="return search() && false;" />
             </form>
         </div>
@@ -119,7 +120,9 @@
                             <th width="40" align="center">编号</th>
                             <th align="center">成员名称</th>
                             <th width="120" align="center">官网地址</th>
-                            <th width="110" align="center">Logo 路径</th>
+                            <th width="120" align="center">Logo 路径</th>
+                            <th width="100" align="center">成员分类</th>
+                            <th width="100" align="center">成员头衔</th>
                             <th width="100" align="center">保存时间</th>
                             <th width="80" align="center">操作</th>
                         </tr>
@@ -137,11 +140,17 @@
                                     <a href="/Admin/Company/Company?id=@(model.Id)">@(model.Name)</a>
                                 </td>
                                 <td align="center">
-                                    <a href="@(!string.IsNullOrEmpty(model.Site) ? string.Format(@"javascript:window.open('http://{0}')", model.Site.Substring(model.Site.IndexOf("http://", StringComparison.Ordinal) > 0 ? 7 : 0)) : "#")" 
+                                    <a href="@(!string.IsNullOrEmpty(model.Site) ? string.Format(@"javascript:window.open('http://{0}')", model.Site.Substring(model.Site.IndexOf("http://", StringComparison.Ordinal) > 0 ? 7 : 0)) : "#")"
                                        target="_blank">@(model.Site)</a>
                                 </td>
                                 <td align="center">
                                     @(model.LogoSrc)
+                                </td>
+                                <td align="center">
+                                    @(model.Type.ToString())
+                                </td>
+                                <td align="center">
+                                    @(model.RangeName)
                                 </td>
                                 <td align="center">
                                     @(model.SaveAt.ToString("yyyy-MM-dd HH:mm:ss"))

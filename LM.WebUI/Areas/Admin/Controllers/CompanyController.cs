@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using LM.Model.Common;
 using LM.Model.Entity;
 using LM.Model.Model;
 using LM.Service;
@@ -25,6 +26,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         public ActionResult Company(int id = 0)
         {
             var company = new CompanyModel();
+            var catList = new List<CategoryModel>();
 
             // Id > 0 是编辑；Id = 0 是新建
             if (id > 0)
@@ -44,13 +46,25 @@ namespace LM.WebUI.Areas.Admin.Controllers
                             LogoSrc = entity.LogoSrc,
                             Description = entity.Description,
                             SaveAt = DateTime.Now,
-                            Range = entity.Range
+                            Range = entity.Range,
+                            RangeName = entity.RangeName
                         };
                     }
                 }
             }
 
+            // 获取分类下拉框数据
+            using (var categoryService = ResolveService<CategoryService>())
+            {
+                var rs = categoryService.GetByTarget(target: CategoryTarget.成员企业分类.ToString());
+                if (rs.Status && rs.Data != null)
+                {
+                    catList = rs.Data as List<CategoryModel>;
+                }
+            }
+
             ViewBag.Company = company;
+            ViewBag.CatList = catList;
             ViewBag.Nav = "CompanyList";
             return View();
         }
@@ -75,7 +89,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         LogoSrc = model.LogoSrc,
                         Description = model.Description,
                         SaveAt = DateTime.Now,
-                        Range = model.Range
+                        Range = model.Range,
+                        RangeName = model.RangeName
                     });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "修改成功！" : "修改失败！" };
                     companyService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "修改成功！" : "修改失败！", "成员修改页") });
@@ -91,7 +106,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         LogoSrc = model.LogoSrc,
                         Description = model.Description,
                         SaveAt = DateTime.Now,
-                        Range = model.Range
+                        Range = model.Range,
+                        RangeName = model.RangeName
                     });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "新建成功！" : "新建失败！" };
                     companyService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "新建成功！" : "新建失败！", "成员新建页") });
@@ -100,10 +116,10 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 return Json(respModel);
             }
         }
-        
+
         [HttpGet]
         [Authentication]
-        public ActionResult Delete(string ids, string type, string range, string keys)
+        public ActionResult Delete(string ids, string type, int range, string keys)
         {
             using (var companyService = ResolveService<CompanyService>())
             {
@@ -115,9 +131,10 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
         [HttpGet]
         [Authentication]
-        public ActionResult List(string type, string range, string keys, int pindex = 1, int psize = 2)
+        public ActionResult List(string type, string keys, int range = 0, int pindex = 1, int psize = 2)
         {
             List<CompanyModel> models;
+            var catList = new List<CategoryModel>();
             int itemCount;
 
             using (var companyService = ResolveService<CompanyService>())
@@ -128,9 +145,9 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 {
                     where += string.Format(" and a.Type = '{0}' ", type);
                 }
-                if (!string.IsNullOrEmpty(range))
+                if (range > 0)
                 {
-                    where += string.Format(" and a.Range = '{0}' ", range);
+                    where += string.Format(" and a.Range = {0} ", range);
                 }
                 if (!string.IsNullOrEmpty(keys))
                 {
@@ -147,10 +164,21 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 companyService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Status ? "查询成功！" : "查询失败！", "成员列表页") });
             }
 
+            // 获取分类下拉框数据
+            using (var categoryService = ResolveService<CategoryService>())
+            {
+                var rs = categoryService.GetByTarget(target: CategoryTarget.成员企业分类.ToString());
+                if (rs.Status && rs.Data != null)
+                {
+                    catList = rs.Data as List<CategoryModel>;
+                }
+            }
+
             ViewBag.Keys = keys;
-            ViewBag.Range = range;
-            ViewBag.Type = type;
+            ViewBag.Range = range; // 可增减类型
+            ViewBag.Type = type; // 固定类型
             ViewBag.Companies = models;
+            ViewBag.CatList = catList;
             ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
             ViewBag.Nav = "CompanyList";
             return View();

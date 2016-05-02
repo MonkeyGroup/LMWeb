@@ -5,6 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
     ViewBag.Title = "Company";
     var model = ViewBag.Company as CompanyModel;
+    var catList = ViewBag.CatList as List<CategoryModel>;
 }
 @Html.RenderCss("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.css")
 
@@ -96,6 +97,7 @@
             Site: $('#site').val(),
             LogoSrc: $('#logoSrc').val(),
             Range: $('#range').val(),
+            RangeName:$('#range').find("option:selected").text(),
             Description: editor.html()
         }
         // 封装数据
@@ -187,7 +189,7 @@
                 <td width="90" align="right">成员官网 Logo</td>
                 <td>
                     <input id="logoSrc" type="text" name="LogoSrc" class="inpMain" size="60"
-                           value="@(model.Site)" />
+                           value="@(model.LogoSrc)" />
                     <div id="fileQueue1" style="display: none;"></div>
                     <input id="logoUploadify" type="file" name="uploadify" />
                     <font class="prompt" color="red">*</font><span id="msg2" class="prompt"></span>
@@ -197,10 +199,10 @@
                 <td width="90" align="right">成员头衔</td>
                 <td>
                     <select id="range" name="range">
-                        <option value="@((int)MemberRange.理事长单位)" @(model.Range == MemberRange.理事长单位 ? "selected" : "")> @MemberRange.理事长单位.ToString()</option>
-                        <option value="@((int)MemberRange.副理事长单位)" @(model.Range == MemberRange.副理事长单位 ? "selected" : "")> @MemberRange.副理事长单位.ToString()</option>
-                        <option value="@((int)MemberRange.常务理事单位)" @(model.Range == MemberRange.理事单位 ? "selected" : "")> @MemberRange.常务理事单位.ToString()</option>
-                        <option value="@((int)MemberRange.理事单位)" @(model.Range == MemberRange.常务理事单位 ? "selected" : "")> @MemberRange.理事单位.ToString()</option>
+                        @foreach (var cat in catList)
+                        {
+                            <option value="@cat.Id" @(model.Range == cat.Id ? "selected" : "")>@cat.Name</option>
+                        }
                     </select>
                 </td>
             </tr>

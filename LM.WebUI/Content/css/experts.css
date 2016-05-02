@@ -5,7 +5,7 @@ a:hover{ color:#f17100; cursor:pointer;}
 img{ border:0px;}
 ui{ list-style:none;}
 clen{ clear:both;}
-li{ padding-top:15px}
+/*li{ padding-top:15px}*/
 
 .mt20{margin-top:20px;}
 
@@ -13,7 +13,7 @@ li{ padding-top:15px}
 .about_main {width:850px; height:570px; margin:0 auto; background-color:#fff; margin-top:10px;}
 .about_left {width:636px; border:1px solid #ccc; max-height:600px; float:left;}
 
-.experts_right p{text-align:center; font-family:Arial,'Microsoft YaHei'; font-size:23px; color: #070707; line-height: 40px; margin-top: 4%; margin-left:20px; }
+.experts_right p{text-align:center; font-family:Arial,'Microsoft YaHei'; font-size:23px; color: #070707; line-height: 40px; margin-top: 0%; margin-left:20px; }
 .about_mishu{width:560px; margin:30px auto; height:160px; border:1px solid #ccc; border-radius:5px;}
 .about_mishu table{font-size:12px; line-height:20px;margin-top:10px;}
 .about_mishu table td{/*text-align:center;*/}
@@ -35,7 +35,7 @@ li{ padding-top:15px}
 
 .experts_right{border: 1px solid #CCC; width:630px;float:right;height:652px;}
 .experts_right .experts_tit{ overflow:hidden; width:100%; line-height:40px; margin-bottom:10px;}
-.experts_right dl{ overflow:hidden; width:500px; height:auto; margin-left:30px; margin-bottom:10px;}
+.experts_right dl{ overflow:hidden; width:500px; height:auto; margin-left:40px; margin-bottom:10px;}
 .experts_right dl dt{float:left; width:150px; margin-right:20px; margin-top:3px;}
 .experts_right dl dt p{ height:auto; text-align:center; line-height:30px; border:1px solid #09F; border-radius:15px; font-size:14px; font-family:'微软雅黑';  color:#09F;}
 .experts_right dl dd{float:left; width:200px; height:auto; text-align:center; line-height:30px; border:1px solid #ccc; border-radius:10px; font-size:14px; font-family:'微软雅黑';  margin-top:10px;}

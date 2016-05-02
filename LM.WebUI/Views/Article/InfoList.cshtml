@@ -1,0 +1,86 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@using LM.WebUI.Areas.Admin.Models
+@{
+    ViewBag.Title = "InfoList";
+    var type = ViewBag.Type;
+
+    var list = ViewBag.Models as List<ArticleModel>;
+    var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
+}
+
+@Html.RenderCss("/Content/css/dynamic.css")
+@Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
+
+@section partialScriptCss{
+    <script>
+        $(function () {
+            /* 分页使用异步 */
+            laypage({
+                cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
+                pages: '@pageInfo.PageCount', //总页数
+                curr: '@pageInfo.PageIndex', // 当前页
+                groups: 3, //连续显示分页数
+                skin: '#0072C6',
+                jump: function (e, first) {
+                    // 第一次的事件必须要判断
+                    if (!first) {
+                        var type = $('#type').val();
+                        window.location.href = '/Article/InfoList?&pindex=' + e.curr + (type !== '' ? '&type=' + type : '');
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+
+<div class="bg">
+    <div class="about_main">
+        <div class="aboutleft">
+            <div class="ab_t mt20">
+                <span class="ab_t01 pl10">联盟动态</span>
+                <br />
+                <span class="ab_t02 pl10">Dynamic Alliance</span>
+            </div>
+            <div class="ab_c mt20">
+                <ul>
+                    <li><a href="/Article/InfoList">联盟动态</a></li>
+                    <li><a href="/Article/InfoList?type=行业信息">行业信息</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="aboutright">
+            <div class="weizi">
+                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Article/InfoList">联盟动态</a> &gt; <a href="/Article/InfoList?type=@type">@type</a>
+            </div>
+            <p class="p0">联盟动态</p>
+            <div class="" style="width: 96%; height: 600px; float: left; margin-right: 10px; text-align: left; padding: 0px 10px 0px 15px;">
+                @if (list != null && list.Count > 0)
+                {
+                    foreach (var item in list)
+                    {
+                        <p style="font-size: 12px; line-height: 24px; padding-left: 15px; text-indent: 0; background: url(/Content/images/li.jpg) 0 5px no-repeat;">
+                            <a href="/Article/Detail?id=@item.Id">@(item.Title.Length <= 30 ? item.Title : item.Title.Substring(0, 27) + "...")</a>
+                            <span style="float: right;">[&nbsp;@item.SaveAt.ToString("yyyy-MM-dd")&nbsp;]</span>
+                        </p>
+                    }
+                }
+                else
+                {
+                    <div>无数据！</div>
+                }
+            </div>
+            <!--分页-->
+            <div class="pageDiv1" id="pageDiv1"></div>
+        </div>
+
+
+    </div>
+</div>
+
+<input type="hidden" id="type" value="@type" />
+
+
+

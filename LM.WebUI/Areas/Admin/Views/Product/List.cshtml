@@ -7,6 +7,7 @@
     ViewBag.Title = "List";
 
     var models = ViewBag.Products as List<ProductModel>;
+    var catList = ViewBag.CatList as List<CategoryModel>;
     var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
 
     var index = 1;
@@ -22,7 +23,7 @@
             cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
             pages: '@pageInfo.PageCount', //总页数
             curr: '@pageInfo.PageIndex', // 当前页
-            groups: 6, //连续显示分页数
+            groups: 3, //连续显示分页数
             skin: '#0072C6',
             jump: function (e, first) {
                 // 第一次的事件必须要判断
@@ -86,12 +87,16 @@
         <div class="filter">
             <form method="post">
                 <select id="type" name="type">
-                    <option value=""> 未分类</option>
-                    <option value="@((int) ProductType.特种气体)" @((int)ProductType.特种气体 + "" == type ? "selected" : "")> @ProductType.特种气体</option>
+                    <option value="0"> 未分类</option>
+                    @*<option value="@((int) ProductType.特种气体)" @((int)ProductType.特种气体 + "" == type ? "selected" : "")> @ProductType.特种气体</option>
                     <option value="@((int) ProductType.混电子化学品)" @((int)ProductType.混电子化学品 + "" == type ? "selected" : "")> @ProductType.混电子化学品</option>
                     <option value="@((int) ProductType.封装材料)" @((int)ProductType.封装材料 + "" == type ? "selected" : "")> @ProductType.封装材料</option>
                     <option value="@((int) ProductType.树脂)" @((int)ProductType.树脂 + "" == type ? "selected" : "")> @ProductType.树脂</option>
-                    <option value="@((int) ProductType.其他)" @((int)ProductType.其他 + "" == type ? "selected" : "")> @ProductType.其他</option>
+                    <option value="@((int) ProductType.其他)" @((int)ProductType.其他 + "" == type ? "selected" : "")> @ProductType.其他</option>*@
+                    @foreach (var cat in catList)
+                    {
+                        <option value="@cat.Id" @(cat.Id == type ? "selected" : "")>@cat.Name</option>
+                    }
                 </select>
                 <input id="keys" name="keys" type="text" class="inpMain" value="@keys" size="20" />
                 <input name="submit" class="btnGray" type="button" value="筛选" onclick="return search() && false;" />
@@ -125,7 +130,7 @@
                                     @(model.Name)
                                 </td>
                                 <td align="center">
-                                    @(model.Type)
+                                    @(model.TypeName)
                                 </td>
                                 <td align="center">
                                     @(model.ImgSrc)

@@ -43,6 +43,7 @@
     <Compile Include="Entity\Article.cs" />
     <Compile Include="Entity\BaseInfo.cs" />
     <Compile Include="Entity\Brief.cs" />
+    <Compile Include="Entity\Category.cs" />
     <Compile Include="Entity\Company.cs" />
     <Compile Include="Entity\Expert.cs" />
     <Compile Include="Entity\HomePageConfig.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Model\ArticleModel.cs" />
     <Compile Include="Model\BaseInfoModel.cs" />
     <Compile Include="Model\BriefModelcs.cs" />
+    <Compile Include="Model\CategoryModel.cs" />
     <Compile Include="Model\CompanyModel.cs" />
     <Compile Include="Model\ExpertModel.cs" />
     <Compile Include="Model\HomePageConfigModel.cs" />

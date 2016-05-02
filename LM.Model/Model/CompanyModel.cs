@@ -21,11 +21,15 @@ namespace LM.Model.Model
         public string Description { get; set; }
 
         /// <summary>
-        ///  成员等级：理事长企业、理事企业等
+        ///  成员分类：理事长企业、理事企业等。
+        ///  数据取自 Category 的 Id
         /// </summary>
-        public MemberRange Range { get; set; }
+        public int Range { get; set; }
+
+        public string RangeName { get; set; }
 
         public DateTime SaveAt { get; set; }
+
 
     }
 

@@ -2,7 +2,7 @@
 @using LM.Service.Security
 @using LM.Utility
 @{
-    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel;
+    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
 }
 <html>
 <head>
