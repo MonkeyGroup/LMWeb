@@ -1,11 +1,15 @@
 
 // 幻灯片
-function slide(imglist) {
+function slide(imglist, typeList) {
     // 自动跳转事件
     var currInd = 0; // 起始下标
     window.setInterval(function () {
         currInd = currInd % imglist.length;
         $("#aa img").attr("src", imglist[currInd]).fadeOut(100).fadeIn(1000);
+        $("#aa img").attr("target", '_blank');
+        $("#aa img").bind('click', function() {
+            window.location.href = '/Article/InfoList?type=' + typeList[currInd];
+        });
         $("#aa_index").find("li").removeClass("active");
         $("#aa #aa_index li:eq(" + currInd + ")").addClass("active");
         currInd++;
@@ -16,6 +20,10 @@ function slide(imglist) {
 		var $this = $(this);
 		currInd = $this.text() - 1;
 		$("#aa img").attr("src", imglist[currInd]).fadeOut(100).fadeIn(1000);
+		$("#aa img").attr("target", '_blank');
+		$("#aa img").bind('click', function () {
+		    window.location.href = '/Article/InfoList?type=' + typeList[currInd];
+		});
 		$("#aa_index").find("li").removeClass("active");
 		$this.addClass("active");
 	});

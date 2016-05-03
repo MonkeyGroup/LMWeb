@@ -58,4 +58,6 @@ namespace LM.Model.Model
         /// </summary>
         public string ImgSrc { get; set; }
     }
+
+
 }

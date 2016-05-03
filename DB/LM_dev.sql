@@ -66,7 +66,7 @@ WHERE TABLE_NAME = 'User'
 
 -- * 查询哪些表有用到此字段
 SELECT distinct TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS
-WHERE COLUMN_NAME = 'SaveAt'
+WHERE COLUMN_NAME like '%Site%'
 
 -- 查询所有表、字段的详细信息
 SELECT 

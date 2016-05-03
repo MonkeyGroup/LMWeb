@@ -5,16 +5,34 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "首页";
+    var index = 0;
+
     var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
+    var slideArticles = ViewBag.SlideArticles as List<ArticleModel>;
+    var briefs = ViewBag.Briefs as List<BriefModel>;
+    var logos = ViewBag.Logos as List<CompanyModel>;
+    var supCompanies = ViewBag.SupCompanies as List<CompanyModel>;
+    var subCompanies = ViewBag.SubCompanies as List<CompanyModel>;
+    var otherCompanies = ViewBag.OtherCompanies as List<CompanyModel>;
+    var dynamicArticles = ViewBag.DynamicArticles as List<ArticleModel>;
+    var industryArticles = ViewBag.IndustryArticles as List<ArticleModel>;
 }
 
 @section partialScriptCss{
     <script type="text/javascript">
+        // 幻灯片
         // 首页加载后执行
         $(document).ready(function () {
-            // 幻灯片
-            var imglist = ["/content/images/11.jpg", "/content/images/22.jpg", "/content/images/33.png"];
-            slide(imglist);
+            // 取隐藏域里面的图片路径
+            var imglist = [], typeList = [];
+            var count = '@slideArticles.Count';
+            for (var i = 0; i < count; i++) {
+                var src = $('#slideSrc' + i).val();
+                imglist.push(src);
+                var type = $('#slideType' + i).val();
+                typeList.push(type);
+            }
+            slide(imglist, typeList);
 
             // Logo 自动滚动
             MoveDiv(window.event);
@@ -26,7 +44,7 @@
 <div style="width: 1004px; height: 260px; margin: 8px auto; margin-bottom: 2px;">
     <!--幻灯片-->
     <div id="aa" class="pic_list" style="width: 331px; float: left; border: 1px solid #ccc; height: 257px; margin-right: 6px;">
-        <img src="/content/images/11.jpg" style="width: 100%; height: 100%;" />
+        <img src="/content/images/11.jpg" style="width: 100%; height: 100%;" onclick="" />
         <style>
             #aa ul {
                 width: 100%;
@@ -116,16 +134,19 @@
                 </p>
             </div>
             <div style="height: 10px;">&nbsp;</div>
-            <p style="font-size: 12px; line-height: 24px; padding-left: 10px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
-                <a href="#">中国电子化工新材料产业联...</a>
-            </p>
-            <p style="font-size: 12px; line-height: 24px; padding-left: 10px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
-                <a href="#">中国电子化工新材料产业联...</a>
-            </p>
-            <p style="font-size: 12px; line-height: 24px; padding-left: 10px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
-                <a href="#">中国电子化工新材料产业联...</a>
-            </p>
-
+            @if (briefs.Count > 0)
+            {
+                foreach (var item in briefs)
+                {
+                    <p style="font-size: 12px; line-height: 24px; text-align: left; padding-left: 15px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
+                        <a href="@item.FilePath">@(item.Name.Length > 13 ? item.Name.Substring(0, 10) + "..." : item.Name)</a>
+                    </p>
+                }
+            }
+            else
+            {
+                <span>暂无数据！</span>
+            }
         </div>
     </div>
 </div>
@@ -148,18 +169,18 @@
                     <tr valign=top>
                         <td valign=top nowrap=noWrap>
                             <div align=right style="width:1004px;">
-                                <div style="width:120px;height:60px;">
-                                    <img width="100%" height="100%" src="/Content/images/juhua.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/zhongxin.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/jingdongfang.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/dinglong.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/duofuduohua.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/guanghua.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/shengquan.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/jianghua.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/tianmahui.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/huahong.jpg" />
-                                    <img width="100%" height="100%" src="/Content/images/huaxing.jpg" />
+                                <div style="width: 120px; height: 60px;">
+                                    @if (logos.Count > 0)
+                                    {
+                                        foreach (var e in logos)
+                                        {
+                                            <img width="100%" height="100%" src="@e.LogoSrc" title="@e.Name" />
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @:暂无数据！
+                                    }
                                 </div>
                             </div>
                         </td>
@@ -182,27 +203,38 @@
             </p>
             <div class="tonggao_content">
                 <ul class="r_upload mbm">
-                    <div id="newlist" style="width:222px; height:130px; overflow:hidden">
-                        <li><a href="#">理事长单位  华烁科技股份有限...</a></li>
-                        <li><a href="/index.php/index/view/aid/265.html">副理事长单位  苏州瑞红电子化...</a></li>
-                        <li><a href="/index.php/index/view/aid/313.html">湖北鼎龙化学股份有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/298.html">南京化学试剂有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/297.html">江阴江化微电子材料股份有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/296.html">常州市尚科特种高分子材料有限公...</a></li>
-                        <li><a href="/index.php/index/view/aid/295.html">苏州晶瑞化学有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/294.html">北京师范大学化学学院</a></li>
-                        <li><a href="/index.php/index/view/aid/293.html">北京海斯迪克新材料有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/292.html">巨化集团公司</a></li>
-                        <li><a href="/index.php/index/view/aid/291.html">中南电子化学材料所</a></li>
-                        <li><a href="/index.php/index/view/aid/290.html">青岛新硕精细化工有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/289.html">昆山瑞和信息材料科技有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/288.html">无锡市化工研究设计院有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/287.html">副理事长单位  中国科学院化学...</a></li>
-                        <li><a href="/index.php/index/view/aid/286.html">副理事长单位  中蓝晨光化工研...</a></li>
-                        <li><a href="/index.php/index/view/aid/312.html">华南理工大学高分子光电材料及器...</a></li>
-                        <li><a href="/index.php/index/view/aid/311.html">广东省石油化工研究院</a></li>
-                        <li><a href="/index.php/index/view/aid/310.html">邯郸开发区立业化工有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/309.html">山东圣泉化工股份有限公司</a></li>
+                    <div id="newlist" style="width: 222px; height: 130px; overflow: hidden">
+                        @if (subCompanies.Count > 0)
+                        {
+                            foreach (var c in subCompanies)
+                            {
+                                <li><a href="@c.Site" target="_blank">@c.Name</a></li>
+                            }
+                        }
+                        else
+                        {
+                            @:暂无数据！
+                        }
+                        @*<li><a href="#">理事长单位  华烁科技股份有限...</a></li>
+                            <li><a href="/index.php/index/view/aid/265.html">副理事长单位  苏州瑞红电子化...</a></li>
+                            <li><a href="/index.php/index/view/aid/313.html">湖北鼎龙化学股份有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/298.html">南京化学试剂有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/297.html">江阴江化微电子材料股份有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/296.html">常州市尚科特种高分子材料有限公...</a></li>
+                            <li><a href="/index.php/index/view/aid/295.html">苏州晶瑞化学有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/294.html">北京师范大学化学学院</a></li>
+                            <li><a href="/index.php/index/view/aid/293.html">北京海斯迪克新材料有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/292.html">巨化集团公司</a></li>
+                            <li><a href="/index.php/index/view/aid/291.html">中南电子化学材料所</a></li>
+                            <li><a href="/index.php/index/view/aid/290.html">青岛新硕精细化工有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/289.html">昆山瑞和信息材料科技有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/288.html">无锡市化工研究设计院有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/287.html">副理事长单位  中国科学院化学...</a></li>
+                            <li><a href="/index.php/index/view/aid/286.html">副理事长单位  中蓝晨光化工研...</a></li>
+                            <li><a href="/index.php/index/view/aid/312.html">华南理工大学高分子光电材料及器...</a></li>
+                            <li><a href="/index.php/index/view/aid/311.html">广东省石油化工研究院</a></li>
+                            <li><a href="/index.php/index/view/aid/310.html">邯郸开发区立业化工有限公司</a></li>
+                            <li><a href="/index.php/index/view/aid/309.html">山东圣泉化工股份有限公司</a></li>*@
                     </div>
                 </ul>
             </div>
@@ -215,27 +247,18 @@
             </p>
             <div class="tonggao_content">
                 <ul class="r_upload mbm">
-                    <div id="newlist1" style="width:222px; height:130px; overflow:hidden">
-                        <li><a href="#">理事长单位  华烁科技股份有限...</a></li>
-                        <li><a href="/index.php/index/view/aid/265.html">副理事长单位  苏州瑞红电子化...</a></li>
-                        <li><a href="/index.php/index/view/aid/313.html">湖北鼎龙化学股份有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/298.html">南京化学试剂有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/297.html">江阴江化微电子材料股份有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/296.html">常州市尚科特种高分子材料有限公...</a></li>
-                        <li><a href="/index.php/index/view/aid/295.html">苏州晶瑞化学有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/294.html">北京师范大学化学学院</a></li>
-                        <li><a href="/index.php/index/view/aid/293.html">北京海斯迪克新材料有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/292.html">巨化集团公司</a></li>
-                        <li><a href="/index.php/index/view/aid/291.html">中南电子化学材料所</a></li>
-                        <li><a href="/index.php/index/view/aid/290.html">青岛新硕精细化工有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/289.html">昆山瑞和信息材料科技有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/288.html">无锡市化工研究设计院有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/287.html">副理事长单位  中国科学院化学...</a></li>
-                        <li><a href="/index.php/index/view/aid/286.html">副理事长单位  中蓝晨光化工研...</a></li>
-                        <li><a href="/index.php/index/view/aid/312.html">华南理工大学高分子光电材料及器...</a></li>
-                        <li><a href="/index.php/index/view/aid/311.html">广东省石油化工研究院</a></li>
-                        <li><a href="/index.php/index/view/aid/310.html">邯郸开发区立业化工有限公司</a></li>
-                        <li><a href="/index.php/index/view/aid/309.html">山东圣泉化工股份有限公司</a></li>
+                    <div id="newlist1" style="width: 222px; height: 130px; overflow: hidden">
+                        @if (supCompanies.Count > 0)
+                        {
+                            foreach (var c in supCompanies)
+                            {
+                                <li><a href="@c.Site" target="_blank">@c.Name</a></li>
+                            }
+                        }
+                        else
+                        {
+                            @:暂无数据！
+                        }
                     </div>
                 </ul>
             </div>
@@ -249,26 +272,17 @@
             <div class="tonggao_content">
                 <ul class="r_upload mbm">
                     <div id="newlist2" style="width:222px; height:130px; overflow:hidden">
-                        <li><a href="#">理事长单位  华烁科技股份有限...</a></li>
-                        <li><a href="#">副理事长单位  苏州瑞红电子化...</a></li>
-                        <li><a href="#">湖北鼎龙化学股份有限公司</a></li>
-                        <li><a href="#">南京化学试剂有限公司</a></li>
-                        <li><a href="#">江阴江化微电子材料股份有限公司</a></li>
-                        <li><a href="#">常州市尚科特种高分子材料有限公...</a></li>
-                        <li><a href="#">苏州晶瑞化学有限公司</a></li>
-                        <li><a href="#">北京师范大学化学学院</a></li>
-                        <li><a href="#">北京海斯迪克新材料有限公司</a></li>
-                        <li><a href="#">巨化集团公司</a></li>
-                        <li><a href="#">中南电子化学材料所</a></li>
-                        <li><a href="#">青岛新硕精细化工有限公司</a></li>
-                        <li><a href="#">昆山瑞和信息材料科技有限公司</a></li>
-                        <li><a href="#">无锡市化工研究设计院有限公司</a></li>
-                        <li><a href="#">副理事长单位  中国科学院化学...</a></li>
-                        <li><a href="#">副理事长单位  中蓝晨光化工研...</a></li>
-                        <li><a href="#">华南理工大学高分子光电材料及器...</a></li>
-                        <li><a href="#">广东省石油化工研究院</a></li>
-                        <li><a href="#">邯郸开发区立业化工有限公司</a></li>
-                        <li><a href="#">山东圣泉化工股份有限公司</a></li>
+                        @if (otherCompanies.Count > 0)
+                        {
+                            foreach (var c in otherCompanies)
+                            {
+                                <li><a href="@c.Site" target="_blank">@c.Name</a></li>
+                            }
+                        }
+                        else
+                        {
+                            @:暂无数据！
+                        }
                     </div>
                 </ul>
             </div>
@@ -283,18 +297,26 @@
             企业产品推荐
         </p>
     </div>
-    <div class="floor2" style="width: 1004px; margin: 0 auto; height: 160px; margin-bottom: 10px;">
+    <div class="floor2" style="width: 1004px; margin: 0 auto; height: 160px;  margin-bottom: 10px;">
         <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 11px;">
-            <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/xinpian1.jpg" /></a>
+            <a href="javascript:window.open('@config.Product1Link');">
+                <img style="width: 241px; height: 158px;" src="@config.Product1Src" />
+            </a>
         </div>
         <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 11px;">
-            <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/dianzu2.jpg" /></a>
+            <a href="javascript:window.open('@config.Product2Link');">
+                <img style="width: 241px; height: 158px;" src="@config.Product2Src" />
+            </a>
         </div>
         <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 10px;">
-            <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/guiding1.jpg" /></a>
+            <a href="javascript:window.open('@config.Product3Link');">
+                <img style="width: 241px; height: 158px;" src="@config.Product3Src" />
+            </a>
         </div>
         <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc;">
-            <a href="#"><img style="width: 241px; height: 158px;" src="/Content/images/yuanjing1.jpg" /></a>
+            <a href="javascript:window.open('@config.Product4Link');">
+                <img style="width: 241px; height: 158px;" src="@config.Product4Src" />
+            </a>
         </div>
     </div>
 
@@ -304,40 +326,50 @@
             <div style="margin-left: -15px; margin-right: -10px; margin-bottom: 15px; padding-top: 0px; height: 30px;">
                 <img height="100%" src="/Content/images/lmdt.png" />
             </div>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">关于参加“跨境电子商务创新..</a>.<span style="float:right;">[ 2015-11-15 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">杭州市2015年电子化工新材...</a><span style="float:right;">[ 2015-09-12 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
-            <p style="text-align: right; padding-right: 10px; margin-top: 5px;">
-                <a href="/Article/InfoList" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">更多<span style="font-size: 12px;">&gt;&gt;</span></a>
-            </p>
+            @if (dynamicArticles.Count > 0)
+            {
+                foreach (var c in dynamicArticles)
+                {
+                    <p style="font-size: 12px; line-height: 24px; padding-left: 15px; background: url(/Content/images/li.jpg) 0 5px no-repeat;">
+                        <a href="#">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[ @c.SaveAt.ToString("yyyy-MM-dd") ]</span>
+                    </p>
+                }
+                <p style="text-align: right; padding-right: 10px; margin-top: 5px;">
+                    <a href="/Article/InfoList" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">更多<span style="font-size: 12px;">&gt;&gt;</span></a>
+                </p>
+            }
+            else
+            {
+                @:暂无数据！
+            }
         </div>
         <div class="" style="width: 346px; height: 318px; float: left; margin-right: 10px; border: 1px solid #ccc;text-align:left;padding:0px 10px 0px 15px;">
             <div style="margin-left: -15px; margin-right: -10px; margin-bottom: 15px; padding-top: 0px; height: 30px;">
                 <img height="100%" src="/Content/images/hyxx.png" />
             </div>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">关于参加“跨境电子商务创新..</a>.<span style="float:right;">[ 2015-11-15 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">杭州市2015年电子化工新材...</a><span style="float:right;">[ 2015-09-12 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">中国电子化工新材料产业联盟...</a><span style="float:right;">[ 2015-11-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
-            <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
-            <p class="pmore" style="text-align: right; padding-right: 10px; margin-top: 5px;">
-                <a href="/Article/InfoList?type=行业信息" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">更多<span style="font-size: 12px;">&gt;&gt;</span></a>
-            </p>
+            @if (industryArticles.Count > 0)
+            {
+                foreach (var c in industryArticles)
+                {
+                    <p style="font-size: 12px; line-height: 24px; padding-left: 15px; background: url(/Content/images/li.jpg) 0 5px no-repeat;">
+                        <a href="#">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[ @c.SaveAt.ToString("yyyy-MM-dd") ]</span>
+                    </p>
+                }
+
+                <p class="pmore" style="text-align: right; padding-right: 10px; margin-top: 5px;">
+                    <a href="/Article/InfoList?type=行业信息" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                        更多
+                        <span style="font-size: 12px;">&gt;&gt;</span>
+                    </a>
+                </p>
+            }
+            else
+            {
+                @:暂无数据！
+            }
         </div>
         <div class="" style="width: 240px; height: 318px; float: left; border: 1px solid #ccc;">
-            <a href="@config.BusinessLink" target="_blank">
+            <a href="javascript:window.open('@config.BusinessLink');" target="_blank">
                 <img width="100%" height="100%" src="@(string.IsNullOrEmpty(config.BusinessSrc) ? "/Content/images/zhaoshang.png" : config.BusinessSrc)" />
             </a>
         </div>
@@ -346,7 +378,12 @@
 </div>
 <!--body2部分end-->
 <!--隐藏域-->
-<input type="hidden" id="Product1Src" value="@config.Product1Src" />
+@foreach (var e in slideArticles)
+{
+    <input type="hidden" id="slideSrc@(index)" value="@e.ImgSrc" />
+    <input type="hidden" id="slideType@(index)" value="@e.Type" />
+    index++;
+}
 
 
 

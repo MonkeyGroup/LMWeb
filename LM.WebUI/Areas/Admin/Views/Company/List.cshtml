@@ -140,7 +140,7 @@
                                     <a href="/Admin/Company/Company?id=@(model.Id)">@(model.Name)</a>
                                 </td>
                                 <td align="center">
-                                    <a href="@(!string.IsNullOrEmpty(model.Site) ? string.Format(@"javascript:window.open('http://{0}')", model.Site.Substring(model.Site.IndexOf("http://", StringComparison.Ordinal) > 0 ? 7 : 0)) : "#")"
+                                    <a href="@(!string.IsNullOrEmpty(model.Site) ? string.Format(@"javascript:window.open('{0}')", model.Site) : "#")"
                                        target="_blank">@(model.Site)</a>
                                 </td>
                                 <td align="center">

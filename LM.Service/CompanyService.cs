@@ -34,6 +34,19 @@ namespace LM.Service
             }
         }
 
+        public ServiceResult GetList(string query, object param = null)
+        {
+            try
+            {
+                var models = QueryManage.GetList<CompanyModel>(query, param);
+                return new ServiceResult(true, ServiceResultCode.正常, "成功", models);
+            }
+            catch (Exception e)
+            {
+                return new ServiceResult(false, ServiceResultCode.服务器异常, e.Message);
+            }
+        }
+
         public ServiceResult GetByPage(string targetQuery, string orderby, int pageIndex, int pageSize, out int itemCount)
         {
             try
