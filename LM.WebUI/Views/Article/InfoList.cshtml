@@ -2,8 +2,8 @@
 @using LM.Utility
 @using LM.WebUI.Areas.Admin.Models
 @{
-    ViewBag.Title = "InfoList";
     var type = ViewBag.Type;
+    ViewBag.Title = type;
 
     var list = ViewBag.Models as List<ArticleModel>;
     var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
@@ -62,7 +62,7 @@
                     foreach (var item in list)
                     {
                         <p style="font-size: 12px; line-height: 24px; padding-left: 15px; text-indent: 0; background: url(/Content/images/li.jpg) 0 5px no-repeat;">
-                            <a href="/Article/Detail?id=@item.Id">@(item.Title.Length <= 30 ? item.Title : item.Title.Substring(0, 27) + "...")</a>
+                            <a href="/Article/Detail?id=@item.Id" target="_blank">@(item.Title.Length <= 30 ? item.Title : item.Title.Substring(0, 27) + "...")</a>
                             <span style="float: right;">[&nbsp;@item.SaveAt.ToString("yyyy-MM-dd")&nbsp;]</span>
                         </p>
                     }

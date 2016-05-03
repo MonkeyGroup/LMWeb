@@ -105,10 +105,10 @@ clen {
 }
 
 .find_content {
-    width: 202px;
+    width: 280px;
     height: 30px;
     float: right;
-    _width: 210px;
+    margin-top: 1px;
 }
 
 .ss {
@@ -124,11 +124,11 @@ clen {
     }
 
 .ss_ct {
-    width: 145px;
+    width: 230px;
     height: 28px;
     border: #59b2d7 solid 1px;
     float: left;
-    margin-top: 1px;
+    margin-top: 2px;
     text-align: left;
     line-height: 28px;
     color: #ddd;

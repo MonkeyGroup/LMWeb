@@ -13,11 +13,6 @@ namespace LM.WebUI.Controllers
 {
     public class ProductController : BaseController
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
 
         #region 联盟产品
 

@@ -2,7 +2,7 @@
 @using LM.Utility
 @using LM.WebUI.Areas.Admin.Models
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "产品展示";
     var type = ViewBag.Type;
 
     var list = ViewBag.Products as List<ProductModel>;
@@ -58,8 +58,11 @@
             <div class="weizi">
                 <span>当前位置：</span>
                 <a href="/Home/Index">首页</a> &gt;
-                <a href="/Product/List">产品展示</a> &gt;
-                <a href="/Product/List?type=@type">@typeList.FirstOrDefault(t => t.Id == type).Name</a>
+                <a href="/Product/List">产品展示</a>
+                @if (typeList.Count > 0)
+                {
+                    @:&gt;<a href="/Product/List?type=@type">@typeList.FirstOrDefault(t => t.Id == type).Name</a>
+                }
             </div>
 
             <div style="width: 630px; height: 450px; margin: 0px auto;">

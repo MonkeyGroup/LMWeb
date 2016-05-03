@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using LM.Model.Entity;
 using LM.Model.Model;
@@ -140,7 +141,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         Type = model.Type,
                         Author = CurrentUser.UserName,
                         Origin = model.Origin,
-                        Hits = model.Hits,
+                        Hits = model.Hits == 0 ? new Random().Next(10, 500) : model.Hits,
                         Keywords = model.Keywords,
                         Brief = model.Brief,
                         Content = model.Content,

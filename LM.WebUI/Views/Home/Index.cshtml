@@ -1,4 +1,5 @@
-﻿@using LM.Model.Model
+﻿@using LM.Model.Common
+@using LM.Model.Model
 @using LM.Service.Security
 @using LM.Utility
 @{
@@ -12,9 +13,8 @@
         // 首页加载后执行
         $(document).ready(function () {
             // 幻灯片
-            var imglist = ["/content/images/11.jpg", "/content/images/22.jpg", "/content/images/33.png", "/content/images/44.jpg"];
-            var imgIndex = 1;
-            slide(imglist, imgIndex);
+            var imglist = ["/content/images/11.jpg", "/content/images/22.jpg", "/content/images/33.png"];
+            slide(imglist);
 
             // Logo 自动滚动
             MoveDiv(window.event);
@@ -63,7 +63,6 @@
             <li class="li active">1</li>
             <li class="li">2</li>
             <li class="li">3</li>
-            <li class="li">4</li>
         </ul>
     </div>
 
@@ -71,9 +70,9 @@
     <div style="width: 468px; float: left;">
         <div style="height: 127px; border: 1px solid #ccc; margin-bottom: 2px;">
             <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
-                <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #0A33C7; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
+                <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #0DB0F3; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
                     联盟要闻
-                    <a href="11.科研与合作.html" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                    <a href="/Article/InfoList" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
                         更多<span style="font-size: 12px;">&gt;&gt;</span>
                     </a>
                 </p>
@@ -86,9 +85,9 @@
         </div>
         <div style="height: 127px; border: 1px solid #ccc;">
             <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
-                <p style="text-align: left; font-family: '微软简楷体'; font-weight: bold; color: #0A33C7; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
+                <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #0DB0F3; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
                     特别关注
-                    <a href="#" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                    <a href="/Article/InfoList?type=科技成果" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
                         更多<span style="font-size: 12px;">&gt;&gt;</span>
                     </a>
                 </p>
@@ -109,9 +108,9 @@
         </div>
         <div style="height: 121px; border: 1px solid #ccc;">
             <div style="padding-top: 5px; height: 25px; background: url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
-                <p style="text-align: left; font-family: '微软简楷体'; font-weight: bold; color: #0A33C7; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
+                <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #0DB0F3; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
                     联盟简报
-                    <a href="#" style="text-align: right; padding-left: 28%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                    <a href="/Article/InfoList?type=联盟简报" style="text-align: right; padding-left: 28%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
                         更多<span style="font-size: 12px;">&gt;&gt;</span>
                     </a>
                 </p>
@@ -133,7 +132,9 @@
 
 <!--口号栏-->
 <div class="" style="padding-top:6px; width: 1004px;margin: 0 auto">
-    <a href="#"><img width="100%" src="@(string.IsNullOrEmpty(config.SloganSrc)?"/Content/images/20160321143707.jpg":config.SloganSrc)" /></a>
+    <a href="@config.SloganLink" target="_blank">
+        <img width="100%" src="@(string.IsNullOrEmpty(config.SloganSrc) ? "/Content/images/20160321143707.jpg" : config.SloganSrc)" />
+    </a>
 </div>
 
 <!---------------------------------------------分界线---------------------------------------------------------->
@@ -176,7 +177,8 @@
         <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;margin-top:0px; margin-right: 10px; width: 326px; height: 198px; float: left; border: 1px solid #ccc; ">
             <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
                 <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">产业上游联盟理事企业</span>
-                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right; ">更多>></a>
+                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right;"
+                   href="/Company/List?type=@((int)MemberType.上游企业)">更多>></a>
             </p>
             <div class="tonggao_content">
                 <ul class="r_upload mbm">
@@ -208,7 +210,8 @@
         <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;margin-right: 10px; width: 326px; height: 198px; float: left; border: 1px solid #ccc;">
             <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
                 <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">产业下游联盟理事企业</span>
-                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right; ">更多>></a>
+                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right;"
+                   href="/Company/List?type=@((int)MemberType.下游企业)">更多>></a>
             </p>
             <div class="tonggao_content">
                 <ul class="r_upload mbm">
@@ -240,7 +243,8 @@
         <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;width: 326px; height: 198px; float: left; border: 1px solid #ccc;">
             <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
                 <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">科研院所协会理事单位</span>
-                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right; ">更多>></a>
+                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right;"
+                   href="/Company/List?type=@((int)MemberType.科研院所协会)">更多>></a>
             </p>
             <div class="tonggao_content">
                 <ul class="r_upload mbm">
@@ -310,7 +314,9 @@
             <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
             <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
             <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
-            <p style="text-align:right; padding-right:10px; margin-top:5px;"><a href="#" style="font-size:12px; font-family:'宋体'; color:#ADA7A7; cursor:pointer;">更多<span style="font-size:12px;">&gt;&gt;</span></a></p>
+            <p style="text-align: right; padding-right: 10px; margin-top: 5px;">
+                <a href="/Article/InfoList" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">更多<span style="font-size: 12px;">&gt;&gt;</span></a>
+            </p>
         </div>
         <div class="" style="width: 346px; height: 318px; float: left; margin-right: 10px; border: 1px solid #ccc;text-align:left;padding:0px 10px 0px 15px;">
             <div style="margin-left: -15px; margin-right: -10px; margin-bottom: 15px; padding-top: 0px; height: 30px;">
@@ -326,12 +332,23 @@
             <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">大数据创新运用研讨会将在...</a><span style="float:right;">[ 2015-12-14 ]</span></p>
             <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">“互联网+”大潮下的十大创...</a><span style="float:right;">[ 2015-11-13 ]</span></p>
             <p style="font-size:12px; line-height:24px;padding-left: 15px ;background: url(/Content/images/li.jpg) 0 5px no-repeat;"><a href="#">未来已来网络传媒携手中国...</a><span style="float:right;">[ 2015-04-14 ]</span></p>
-            <p class="pmore" style="text-align:right; padding-right:10px; margin-top:5px;"><a href="#" style="font-size:12px; font-family:'宋体'; color:#ADA7A7; cursor:pointer;">更多<span style="font-size:12px;">&gt;&gt;</span></a></p>
+            <p class="pmore" style="text-align: right; padding-right: 10px; margin-top: 5px;">
+                <a href="/Article/InfoList?type=行业信息" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">更多<span style="font-size: 12px;">&gt;&gt;</span></a>
+            </p>
         </div>
         <div class="" style="width: 240px; height: 318px; float: left; border: 1px solid #ccc;">
-            <img width="100%" height="100%" src="@(string.IsNullOrEmpty(config.BusinessSrc)?"/Content/images/zhaoshang.png":config.BusinessSrc)" />
+            <a href="@config.BusinessLink" target="_blank">
+                <img width="100%" height="100%" src="@(string.IsNullOrEmpty(config.BusinessSrc) ? "/Content/images/zhaoshang.png" : config.BusinessSrc)" />
+            </a>
         </div>
     </div>
 
 </div>
 <!--body2部分end-->
+<!--隐藏域-->
+<input type="hidden" id="Product1Src" value="@config.Product1Src" />
+
+
+
+
+<!--/ 隐藏域-->

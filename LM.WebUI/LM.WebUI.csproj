@@ -269,12 +269,14 @@
     <Content Include="Content\images\citycompschool.jpg" />
     <Content Include="Content\images\citykidssite.jpg" />
     <Content Include="Content\images\company_adress.png" />
+    <Content Include="Content\images\download.gif" />
     <Content Include="Content\images\gc-general.jpg" />
     <Content Include="Content\images\groups.jpg" />
     <Content Include="Content\images\list_01.jpg" />
     <Content Include="Content\images\logininfo1.png" />
     <Content Include="Content\images\mayun.jpg" />
     <Content Include="Content\images\membership_seminar.jpg" />
+    <Content Include="Content\images\new.gif" />
     <Content Include="Content\images\newspaper1.jpg" />
     <Content Include="Content\images\newspaper_02.jpg" />
     <Content Include="Content\images\pwpsoftcover.jpg" />
@@ -282,6 +284,7 @@
     <Content Include="Content\images\shouqi.png" />
     <Content Include="Content\images\zanwu.jpg" />
     <Content Include="Content\images\zhankai.png" />
+    <Content Include="Content\js\homePage.js" />
     <Content Include="Views\Home\Chapter.cshtml" />
     <Content Include="Views\Home\Organization.cshtml" />
     <Content Include="Views\Home\Notice.cshtml" />
@@ -1179,8 +1182,6 @@
     <Content Include="Content\js\tab.js" />
     <Content Include="Content\js\xtqh_js.js" />
     <Content Include="Content\swf\flash.swf" />
-    <Content Include="Content\swf\movie.swf" />
-    <Content Include="Content\swf\movie2.swf" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -1296,9 +1297,6 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Product\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Admin\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1309,12 +1307,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Shared\_Main.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Expert\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Company\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\PerfomList.cshtml" />

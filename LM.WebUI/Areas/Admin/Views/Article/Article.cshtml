@@ -24,8 +24,6 @@
             allowFileManager: true,
             //上传文件后执行的回调函数,获取上传图片的路径
             afterUpload: function (url) {
-                // 更改dom值
-                $("#imgSrc").val(url);
             },
             //编辑器高度
             width: '800px',
@@ -70,8 +68,8 @@
             IsRecommend: $('#isRecommend').val(),
             IsFocus: $('#isFocus').val(),
             IsHide: $('#isHide').val(),
-            ImgSrc: $('#imgSrc').val()
-        }
+            ImgSrc: $(window.frames[0].document).find('.ke-content img:eq(0)').attr('src') // 取第一个img路径
+    }
         // 封装数据
         var ajax = {
             url: '/Admin/Article/Save',
@@ -213,7 +211,6 @@
                 <td></td>
                 <td>
                     <input type="hidden" id="id" name="id" value="@(model.Id)">
-                    <input type="hidden" id="imgSrc" name="imgSrc" value="@(model.ImgSrc)">
                     <input type="hidden" id="hits" name="hits" value="@(model.Hits)">
                     <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="提交" onclick="return submitIt() && false;" />
                 </td>

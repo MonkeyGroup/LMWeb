@@ -4,9 +4,9 @@
 @using LM.Utility
 @using LM.WebUI.Areas.Admin.Models
 @{
-    ViewBag.Title = "InfoList";
+    ViewBag.Title = "专家委员会";
 
-    var currExpert = ViewBag.DefExpert as ExpertModel;
+    var currExpert = ViewBag.DefExpert as ExpertModel ?? new ExpertModel();
     var list = ViewBag.Experts as List<ExpertModel>;
     var list1 = new List<ExpertModel>();
     var list2 = new List<ExpertModel>();
@@ -17,8 +17,6 @@
         list2 = list.Where(e => e.Range == ExpertRange.专家组副组长).ToList();
         list3 = list.Where(e => e.Range == ExpertRange.专家组成员).ToList();
     }
-
-    var typeList = ViewBag.TypeList as Dictionary<int, string>;
     var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
 }
 
@@ -78,7 +76,7 @@
             <div class="weizi">
                 <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Expert/List">专家委员会</a>
             </div>
-            <div>
+            <div style="margin-bottom: 30px;">
                 <div class="experts_tit">
                     <p style="margin-left: 0px;">联盟专家组</p>
                 </div>
@@ -121,7 +119,7 @@
                 }
             </div>
             <!--分页块-->
-            <div class="pageDiv1" id="pageDiv1"></div>
+            <div class="pageDiv1" id="pageDiv1" ></div>
         </div>
 
     </div>

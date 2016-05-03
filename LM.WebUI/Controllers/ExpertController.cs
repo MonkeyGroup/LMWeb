@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using LM.Model.Common;
 using LM.Model.Entity;
 using LM.Model.Model;
 using LM.Service;
@@ -14,11 +12,6 @@ namespace LM.WebUI.Controllers
 {
     public class ExpertController : BaseController
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
 
         #region 专家委员会
 
@@ -26,12 +19,6 @@ namespace LM.WebUI.Controllers
         {
             var currExpert = new ExpertModel();
             var models = new List<ExpertModel>();
-            var typeList = new Dictionary<int, string>
-            {
-                {(int)ExpertRange.专家组组长,ExpertRange.专家组组长.ToString()},
-                {(int)ExpertRange.专家组副组长,ExpertRange.专家组副组长.ToString()},
-                {(int)ExpertRange.专家组成员,ExpertRange.专家组成员.ToString()},
-            };
             int itemCount, psize;
 
             // 获取列表数据
@@ -75,7 +62,6 @@ namespace LM.WebUI.Controllers
 
             ViewBag.DefExpert = currExpert;
             ViewBag.Experts = models;
-            ViewBag.TypeList = typeList;
             ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
             return View();
         }

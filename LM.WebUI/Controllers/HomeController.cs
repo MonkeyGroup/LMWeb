@@ -10,8 +10,10 @@ namespace LM.WebUI.Controllers
 {
     public class HomeController : BaseController
     {
+        #region 首页数据
         public ActionResult Index()
         {
+            #region 首页配置数据
             // 首先判断session中有无存储此配置信息
             var conf = CurrentContext.Get("HomePageConfig");
             if (conf != null)
@@ -33,9 +35,16 @@ namespace LM.WebUI.Controllers
 
                 var config = svs.Data as HomePageConfigModel;
                 CurrentContext.Set("HomePageConfig", config);
-                return View();
             }
+            #endregion
+
+
+
+
+            return View();
         }
+
+        #endregion
 
 
         #region 关于联盟 & 加入联盟

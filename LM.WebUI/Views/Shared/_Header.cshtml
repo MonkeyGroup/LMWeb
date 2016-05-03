@@ -11,14 +11,14 @@
 <div class="find">
     <div style="float:left;margin:0 10px;">
         <span class="ding">
-            <a onclick="SetHome(window.location)" href="javascript:void(0)">设为首页</a> |
+            <a onclick="SetHome(this, window.location)">设为首页</a> |
             <a onclick="AddFavorite(window.location, document.title)" href="javascript:void(0)">加入收藏</a> |
             <a href="javascript:window.location.href='/Admin/Home/Index'">登录</a>
         </span>
     </div>
     <span class="find_content">
         <form name='search' id='searchFrm' method='get'>
-            <input style='color:#999; font-size:13px; padding-left:5px;' type="text" id="tbxKeyword" class="ss_ct" rel='search' placeholder="请输入内容" />
+            <input style='color:#999; font-size:13px; padding-left:5px;' type="text" id="tbxKeyword" class="ss_ct" rel='search' size="100" placeholder="文章标题、产品名称、单位名称关键字" />
             <input type='hidden' id="search_Key" name="search_Key" value="" />
             <div class="ss"> <a href="#" onclick='seaSubmit()'></a></div>
             <input type="hidden" name="__hash__" value="" />
@@ -68,7 +68,7 @@
 
 <!--广告栏-->
 <div class="" style="padding-top:10px;margin-bottom: 10px;">
-    <a href="#">
+    <a href="@config.AdLink" target="_blank">
         <img width="1004;" src="@(string.IsNullOrEmpty(config.AdSrc)?"/Content/images/guanggao.gif":config.AdSrc)" alt="" />
     </a>
 </div>

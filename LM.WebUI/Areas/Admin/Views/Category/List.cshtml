@@ -28,7 +28,7 @@
                 if (!first) {
                     var target = $('#target').val();
                     var keys = $('#keys').val();
-                    window.location.href = '/Admin/Category/List?&pindex=' + e.curr + (type !== '' ? '&target=' + target : '') + (keys !== '' ? '&keys=' + keys : '');
+                    window.location.href = '/Admin/Category/List?pindex=' + e.curr + (target !== '' ? '&target=' + target : '') + (keys !== '' ? '&keys=' + keys : '');
                 }
             }
         });
@@ -39,7 +39,7 @@
     function search() {
         var target = $('#target').val();
         var keys = $('#keys').val();
-        window.location.href = '/Admin/Category/List?target=' + target + '&keys=' + keys;
+        window.location.href = '/Admin/Category/List?pindex=1' + (target !== '' ? '&target=' + target : '') + (keys !== '' ? '&keys=' + keys : '');
     }
 
     function delArticle(id) {
@@ -47,7 +47,7 @@
             return;
         var target = $('#target').val();
         var keys = $('#keys').val();
-        window.location.href = '/Admin/Category/Delete?ids=' + id + '&target=' + target + '&keys=' + keys;
+        window.location.href = '/Admin/Category/Delete?ids=' + id + (target !== '' ? '&target=' + target : '') + (keys !== '' ? '&keys=' + keys : '');
     }
 
     function batchDelete(form) {
@@ -65,7 +65,7 @@
         } else {
             var target = $('#target').val();
             var keys = $('#keys').val();
-            window.location.href = '/Admin/Category/Delete?ids=' + ids + '&target=' + target + '&keys=' + keys;
+            window.location.href = '/Admin/Category/Delete?ids=' + ids + (target !== '' ? '&target=' + target : '') + (keys !== '' ? '&keys=' + keys : '');
         }
     }
 
@@ -118,10 +118,10 @@
                                 </td>
                                 <td align="center">@((pageInfo.PageIndex - 1) * pageInfo.PageSize + index++)</td>
                                 <td align="center">
-                                    @(model.Target)
+                                    <a href="/Admin/Category/List?target=@(model.Target)">@(model.Target)</a>
                                 </td>
                                 <td align="center">
-                                    <a href="/Admin/Article/List?type=@(model.Id)">@(model.Name)</a>
+                                    @(model.Name)
                                 </td>
                                 <td title="@(model.Description)">
                                     @(!string.IsNullOrEmpty(model.Description) && model.Description.Length > 30 ? model.Description.Substring(0, 27) + "..." : model.Description)
