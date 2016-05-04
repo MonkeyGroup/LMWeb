@@ -8,6 +8,8 @@
     var index = 0;
 
     var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
+    var oneNews = ViewBag.OneNews as ArticleModel;
+    var oneFocus = ViewBag.OneFocus as ArticleModel;
     var slideArticles = ViewBag.SlideArticles as List<ArticleModel>;
     var briefs = ViewBag.Briefs as List<BriefModel>;
     var logos = ViewBag.Logos as List<CompanyModel>;
@@ -44,7 +46,9 @@
 <div style="width: 1004px; height: 260px; margin: 8px auto; margin-bottom: 2px;">
     <!--幻灯片-->
     <div id="aa" class="pic_list" style="width: 331px; float: left; border: 1px solid #ccc; height: 257px; margin-right: 6px;">
-        <img src="/content/images/11.jpg" style="width: 100%; height: 100%;" onclick="" />
+        <a href="" target="_blank">
+            <img src="@slideArticles[0].ImgSrc" style="width: 100%; height: 100%;" onclick="" />
+        </a>
         <style>
             #aa ul {
                 width: 100%;
@@ -66,10 +70,10 @@
                 cursor: pointer;
             }
 
-                .li:hover {
-                    background: #9fd5fc;
-                    color: #000000;
-                }
+            .li:hover {
+                background: #9fd5fc;
+                color: #000000;
+            }
 
             .active {
                 background: #FF6911;
@@ -78,9 +82,13 @@
             }
         </style>
         <ul id="aa_index">
-            <li class="li active">1</li>
-            <li class="li">2</li>
-            <li class="li">3</li>
+            @for (var i = 0; i < slideArticles.Count; i++)
+            {
+            <li class="li">@(i + 1)</li>
+            }
+            @*<li class="li active">1</li>
+                <li class="li">2</li>
+                <li class="li">3</li>*@
         </ul>
     </div>
 
@@ -88,33 +96,51 @@
     <div style="width: 468px; float: left;">
         <div style="height: 127px; border: 1px solid #ccc; margin-bottom: 2px;">
             <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
-                <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #0DB0F3; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
+                <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #0DB0F3; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
                     联盟要闻
-                    <a href="/Article/InfoList" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                    <a href="/Article/InfoList?type=联盟要闻" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
                         更多<span style="font-size: 12px;">&gt;&gt;</span>
                     </a>
                 </p>
             </div>
-            <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;">拥抱大数据 夺取大胜利</p>
-            <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
-                十三五时期是恩施州打赢脱贫攻坚战、与全省同步全面建成小康社会的决胜阶段。接下来的五年，恩施州将站在新的历史起点，既处于投资的高峰期和多重利好政策叠加的黄金机遇期。
-                <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="#" style="">详情>></a></span>
+            @if (oneNews != null && !string.IsNullOrEmpty(oneNews.Title))
+            {
+            <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;" title="@oneNews.Title">
+                @(oneNews.Title.Length > 20 ? oneNews.Title.Substring(0, 17) + "..." : oneNews.Title)
             </p>
+            <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
+                @(oneNews.Brief.Length > 100 ? oneNews.Brief.Substring(0, 97) + "..." : oneNews.Brief)
+                <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneNews.Id" target="_blank">详情>></a></span>
+            </p>
+            }
+            else
+            {
+            @:暂无数据！
+            }
         </div>
         <div style="height: 127px; border: 1px solid #ccc;">
             <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
                 <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #0DB0F3; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
                     特别关注
-                    <a href="/Article/InfoList?type=科技成果" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                    <a href="/Article/InfoList?type=特别关注" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
                         更多<span style="font-size: 12px;">&gt;&gt;</span>
                     </a>
                 </p>
             </div>
-            <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;">“互联网+”大潮下的十大创业机会</p>
-            <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
-                “互联网+”中的“+”是跨界，就是变革，就是开放，就是重塑融合。敢于跨界了，创新的基础就更坚实；融合协同了，群体智能才会实现，从研发到产业化的路径才会更垂直 ...
-                <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="#" style="">详情>></a></span>
+            @if (oneFocus != null && !string.IsNullOrEmpty(oneFocus.Title))
+            {
+            <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;" title="@oneFocus.Title">
+                @(oneFocus.Title.Length > 20 ? oneFocus.Title.Substring(0, 17) + "..." : oneFocus.Title)
             </p>
+            <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
+                @(oneFocus.Brief.Length > 100 ? oneFocus.Brief.Substring(0, 97) + "..." : oneFocus.Brief)
+                <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneFocus.Id" target="_blank">详情>></a></span>
+            </p>
+            }
+            else
+            {
+            @:暂无数据！
+            }
         </div>
     </div>
     <!--二维码、简报-->
@@ -128,7 +154,7 @@
             <div style="padding-top: 5px; height: 25px; background: url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
                 <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #0DB0F3; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
                     联盟简报
-                    <a href="/Article/InfoList?type=联盟简报" style="text-align: right; padding-left: 28%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                    <a href="/Article/BriefList" style="text-align: right; padding-left: 28%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
                         更多<span style="font-size: 12px;">&gt;&gt;</span>
                     </a>
                 </p>
@@ -138,14 +164,14 @@
             {
                 foreach (var item in briefs)
                 {
-                    <p style="font-size: 12px; line-height: 24px; text-align: left; padding-left: 15px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
-                        <a href="@item.FilePath">@(item.Name.Length > 13 ? item.Name.Substring(0, 10) + "..." : item.Name)</a>
-                    </p>
+            <p style="font-size: 12px; line-height: 24px; text-align: left; padding-left: 15px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
+                <a href="@item.FilePath">@(item.Name.Length > 13 ? item.Name.Substring(0, 10) + "..." : item.Name)</a>
+            </p>
                 }
             }
             else
             {
-                <span>暂无数据！</span>
+            <span>暂无数据！</span>
             }
         </div>
     </div>
@@ -174,12 +200,14 @@
                                     {
                                         foreach (var e in logos)
                                         {
-                                            <img width="100%" height="100%" src="@e.LogoSrc" title="@e.Name" />
+                                    <a href="@e.Site" target="_blank">
+                                        <img width="100%" height="100%" src="@e.LogoSrc" title="@e.Name" />
+                                    </a>
                                         }
                                     }
                                     else
                                     {
-                                        @:暂无数据！
+                                    @:暂无数据！
                                     }
                                 </div>
                             </div>
@@ -208,33 +236,13 @@
                         {
                             foreach (var c in subCompanies)
                             {
-                                <li><a href="@c.Site" target="_blank">@c.Name</a></li>
+                        <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
                             }
                         }
                         else
                         {
-                            @:暂无数据！
+                        @Html.Raw("暂无数据！")
                         }
-                        @*<li><a href="#">理事长单位  华烁科技股份有限...</a></li>
-                            <li><a href="/index.php/index/view/aid/265.html">副理事长单位  苏州瑞红电子化...</a></li>
-                            <li><a href="/index.php/index/view/aid/313.html">湖北鼎龙化学股份有限公司</a></li>
-                            <li><a href="/index.php/index/view/aid/298.html">南京化学试剂有限公司</a></li>
-                            <li><a href="/index.php/index/view/aid/297.html">江阴江化微电子材料股份有限公司</a></li>
-                            <li><a href="/index.php/index/view/aid/296.html">常州市尚科特种高分子材料有限公...</a></li>
-                            <li><a href="/index.php/index/view/aid/295.html">苏州晶瑞化学有限公司</a></li>
-                            <li><a href="/index.php/index/view/aid/294.html">北京师范大学化学学院</a></li>
-                            <li><a href="/index.php/index/view/aid/293.html">北京海斯迪克新材料有限公司</a></li>
-                            <li><a href="/index.php/index/view/aid/292.html">巨化集团公司</a></li>
-                            <li><a href="/index.php/index/view/aid/291.html">中南电子化学材料所</a></li>
-                            <li><a href="/index.php/index/view/aid/290.html">青岛新硕精细化工有限公司</a></li>
-                            <li><a href="/index.php/index/view/aid/289.html">昆山瑞和信息材料科技有限公司</a></li>
-                            <li><a href="/index.php/index/view/aid/288.html">无锡市化工研究设计院有限公司</a></li>
-                            <li><a href="/index.php/index/view/aid/287.html">副理事长单位  中国科学院化学...</a></li>
-                            <li><a href="/index.php/index/view/aid/286.html">副理事长单位  中蓝晨光化工研...</a></li>
-                            <li><a href="/index.php/index/view/aid/312.html">华南理工大学高分子光电材料及器...</a></li>
-                            <li><a href="/index.php/index/view/aid/311.html">广东省石油化工研究院</a></li>
-                            <li><a href="/index.php/index/view/aid/310.html">邯郸开发区立业化工有限公司</a></li>
-                            <li><a href="/index.php/index/view/aid/309.html">山东圣泉化工股份有限公司</a></li>*@
                     </div>
                 </ul>
             </div>
@@ -252,12 +260,12 @@
                         {
                             foreach (var c in supCompanies)
                             {
-                                <li><a href="@c.Site" target="_blank">@c.Name</a></li>
+                        <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
                             }
                         }
                         else
                         {
-                            @:暂无数据！
+                        @Html.Raw("暂无数据！")
                         }
                     </div>
                 </ul>
@@ -276,12 +284,12 @@
                         {
                             foreach (var c in otherCompanies)
                             {
-                                <li><a href="@c.Site" target="_blank">@c.Name</a></li>
+                        <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
                             }
                         }
                         else
                         {
-                            @:暂无数据！
+                        @Html.Raw("暂无数据！")
                         }
                     </div>
                 </ul>
@@ -289,7 +297,7 @@
         </div>
     </div>
     <!--滚动的js-->
-    @Html.RenderScript("/Content/js/ListScroll.js")
+    @Html.RenderScript("/Content/js/listScroll.js")
 
     <!--企业产品推荐-->
     <div style="padding-top:5px;height:28px;background:url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom:1px solid #ccc;">
@@ -330,8 +338,8 @@
             {
                 foreach (var c in dynamicArticles)
                 {
-                    <p style="font-size: 12px; line-height: 24px; padding-left: 15px; background: url(/Content/images/li.jpg) 0 5px no-repeat;">
-                        <a href="#">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[ @c.SaveAt.ToString("yyyy-MM-dd") ]</span>
+                    <p style="font-size: 12px; line-height: 24px; padding-left: 15px; background: url(/Content/images/li.jpg) 0 5px no-repeat;" title="@c.Title">
+                        <a href="/Article/Detail?id=@c.Id">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[@c.SaveAt.ToString("yyyy-MM-dd")]</span>
                     </p>
                 }
                 <p style="text-align: right; padding-right: 10px; margin-top: 5px;">
@@ -340,7 +348,7 @@
             }
             else
             {
-                @:暂无数据！
+                @Html.Raw("暂无数据！")
             }
         </div>
         <div class="" style="width: 346px; height: 318px; float: left; margin-right: 10px; border: 1px solid #ccc;text-align:left;padding:0px 10px 0px 15px;">
@@ -351,8 +359,8 @@
             {
                 foreach (var c in industryArticles)
                 {
-                    <p style="font-size: 12px; line-height: 24px; padding-left: 15px; background: url(/Content/images/li.jpg) 0 5px no-repeat;">
-                        <a href="#">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[ @c.SaveAt.ToString("yyyy-MM-dd") ]</span>
+                    <p style="font-size: 12px; line-height: 24px; padding-left: 15px; background: url(/Content/images/li.jpg) 0 5px no-repeat;" title="@c.Title">
+                        <a href="/Article/Detail?id=@c.Id">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[@c.SaveAt.ToString("yyyy-MM-dd")]</span>
                     </p>
                 }
 
@@ -365,7 +373,7 @@
             }
             else
             {
-                @:暂无数据！
+                @Html.Raw("暂无数据！")
             }
         </div>
         <div class="" style="width: 240px; height: 318px; float: left; border: 1px solid #ccc;">

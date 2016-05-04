@@ -15,8 +15,10 @@ namespace LM.WebUI.Controllers
         #region 首页数据
         public ActionResult Index()
         {
-            #region 页面所需数据
+            #region ViewModels 页面所需数据
 
+            var oneNews = new ArticleModel();
+            var oneFocus = new ArticleModel();
             var slideArticles = new List<ArticleModel>(); // 幻灯片数据
             var briefs = new List<BriefModel>(); // 3条简报
             var logos = new List<CompanyModel>(); // 10个logo数据
@@ -56,23 +58,35 @@ namespace LM.WebUI.Controllers
             #region 文章数据 Article
             using (var articleService = ResolveService<ArticleService>())
             {
+                // 联盟要闻
+                var rs = articleService.GetList("select top 1 Id,Title,Brief from [Article] where Type = '联盟动态' and IsRecommend = 1 order by Id desc");
+                if (rs.Status && rs.Data != null)
+                {
+                    oneNews = (rs.Data as List<ArticleModel>).FirstOrDefault();
+                }
+                // 特别关注
+                var rs0 = articleService.GetList("select top 1 Id,Title,Brief from [Article] where Type = '行业信息' and IsFocus = 1 order by Id desc");
+                if (rs0.Status && rs0.Data != null)
+                {
+                    oneFocus = (rs0.Data as List<ArticleModel>).FirstOrDefault();
+                }
                 // 幻灯片数据
-                var rs1 = articleService.GetList("select top 4 Id,Type,Title,ImgSrc from [Article] where IsHide = 0 and IsRecommend = 1 and ImgSrc is not null order by SaveAt desc,Title asc");
+                var rs1 = articleService.GetList("select top 4 Id,Type,Title,ImgSrc from [Article] where IsShow = 1 and ImgSrc is not null order by Id desc");
                 if (rs1.Status && rs1.Data != null)
                 {
                     slideArticles = rs1.Data as List<ArticleModel>;
                 }
                 // 联盟动态 
-                var rs2 = articleService.GetList("select top 10 Id,Title from [Article] where IsHide = 0 and Type = '联盟动态' order by SaveAt desc");
+                var rs2 = articleService.GetList("select top 10 Id,Title,SaveAt from [Article] where Type = '联盟动态' order by Id desc");
                 if (rs2.Status && rs2.Data != null)
                 {
-                   dynamicArticles = rs2.Data as List<ArticleModel>;
+                    dynamicArticles = rs2.Data as List<ArticleModel>;
                 }
                 // 行业信息
-                var rs3 = articleService.GetList("select top 10 Id,Title from [Article] where IsHide = 0 and Type = '行业信息' order by SaveAt desc");
+                var rs3 = articleService.GetList("select top 10 Id,Title,SaveAt from [Article] where Type = '行业信息' order by Id desc");
                 if (rs3.Status && rs3.Data != null)
                 {
-                   industryArticles = rs3.Data as List<ArticleModel>;
+                    industryArticles = rs3.Data as List<ArticleModel>;
                 }
             }
 
@@ -89,7 +103,7 @@ namespace LM.WebUI.Controllers
                     logos = rs1.Data as List<CompanyModel>;
                 }
                 // 上下游企业
-                var rs2 = companyService.GetList("select Id,Name,SaveAt from [Company] order by Type asc");
+                var rs2 = companyService.GetList("select Id,Name,Type,Site,SaveAt from [Company] order by Type asc");
                 if (rs2.Status && rs2.Data != null)
                 {
                     var comps = rs2.Data as List<CompanyModel>;
@@ -107,7 +121,7 @@ namespace LM.WebUI.Controllers
             #region 简报数据 Brief，取最新3条
             using (var briefService = ResolveService<BriefService>())
             {
-                var rs = briefService.GetList("select top 3 Id,Name,FilePath from [Brief] where order by SaveAt desc");
+                var rs = briefService.GetList("select top 3 Id,Name,FilePath from [Brief] order by SaveAt desc");
                 if (rs.Status && rs.Data != null)
                 {
                     briefs = rs.Data as List<BriefModel>;
@@ -116,6 +130,8 @@ namespace LM.WebUI.Controllers
             #endregion
 
 
+            ViewBag.OneNews = oneNews;
+            ViewBag.OneFocus = oneFocus;
             ViewBag.SlideArticles = slideArticles;
             ViewBag.Briefs = briefs;
             ViewBag.Logos = logos;

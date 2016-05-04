@@ -46,10 +46,9 @@ namespace LM.Model.Model
         public bool IsFocus { get; set; }
 
         /// <summary>
-        ///  是否显示，跟删除没有关系。
-        /// 暂时不想显示的文章可以标记此字段
+        ///  是否在幻灯片处显示。
         /// </summary>
-        public bool IsHide { get; set; }
+        public bool IsShow { get; set; }
 
         public DateTime SaveAt { get; set; }
 

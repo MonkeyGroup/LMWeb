@@ -67,7 +67,7 @@
             Content: editor.html(),
             IsRecommend: $('#isRecommend').val(),
             IsFocus: $('#isFocus').val(),
-            IsHide: $('#isHide').val(),
+            IsShow: $('#isShow').val(),
             ImgSrc: $(window.frames[0].document).find('.ke-content img:eq(0)').attr('src') // 取第一个img路径
     }
         // 封装数据
@@ -198,11 +198,11 @@
                 </td>
             </tr>
             <tr>
-                <td align="right">是否隐藏</td>
+                <td align="right">是否展示</td>
                 <td>
-                    <select name="isHide" id="isHide">
-                        <option value="false" @(model.IsHide ? "" : "selected")> 否</option>
-                        <option value="true" @(model.IsHide ? "selected" : "")> 是</option>
+                    <select name="isShow" id="isShow">
+                        <option value="false" @(model.IsShow ? "" : "selected")> 否</option>
+                        <option value="true" @(model.IsShow ? "selected" : "")> 是</option>
                     </select>
                 </td>
             </tr>

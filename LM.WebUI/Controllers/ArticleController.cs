@@ -15,10 +15,12 @@ namespace LM.WebUI.Controllers
             return RedirectToAction("InfoList");
         }
 
-        #region 联盟动态 & 行业信息 | 科技成果 & 寻求合作
+
+        #region 联盟动态 & 行业信息 | 科技成果 & 寻求合作 | 联盟简报
 
         /// <summary>
         ///  文章列表。默认类型为“联盟动态”。
+        ///  类型有：“联盟动态”、“行业信息”、“科技成果”、“寻求合作”，“联盟要闻”、“特别关注”。
         /// 条件：
         /// 1. 非隐藏；
         /// 2. 类型为“联盟动态”；
@@ -31,11 +33,24 @@ namespace LM.WebUI.Controllers
         {
             List<ArticleModel> models;
             int itemCount, psize;
+            var where = "where 1=1 ";
+            if ("联盟要闻".Equals(type))
+            {
+                where += @" and a.Type = '联盟动态' and a.IsRecommend = 1";
+            }
+            else if ("特别关注".Equals(type))
+            {
+                where += @" and a.Type = '行业信息' and a.IsFocus = 1";
+            }
+            else
+            {
+                where += string.Format(" and a.Type = '{0}'", type);
+            }
 
             using (var articleService = ResolveService<ArticleService>())
             {
                 psize = 15;
-                var query = string.Format(@"(select a.Id, a.Type, a.Title, a.SaveAt, a.IsRecommend from [Article] a Where a.IsHide = 0 and a.Type = '{0}')", type);
+                var query = string.Format(@"(select a.Id, a.Type, a.Title, a.SaveAt, a.IsRecommend from [Article] a {0})", where);
                 var orderby = "SaveAt desc, IsRecommend desc";
                 var rs = articleService.GetByPage(query, orderby, pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<ArticleModel> : new List<ArticleModel>();
@@ -52,6 +67,31 @@ namespace LM.WebUI.Controllers
             return View();
         }
 
+        /// <summary>
+        ///  联盟简报列表
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="pindex"></param>
+        /// <returns></returns>
+        public ActionResult BriefList(string type = "联盟动态", int pindex = 1)
+        {
+            var models = new List<BriefModel>();
+            int itemCount, psize;
+
+            using (var briefService = ResolveService<BriefService>())
+            {
+                psize = 15;
+                var query = string.Format(@"(select a.Id, a.FilePath, a.Name, a.SaveAt from [Brief] a)");
+                var orderby = "SaveAt desc, Id desc";
+                var rs = briefService.GetByPage(query, orderby, pindex, psize, out itemCount);
+                models = rs.Status ? rs.Data as List<BriefModel> : models;
+            }
+
+            ViewBag.Models = models;
+            ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
+
+            return View();
+        }
 
         /// <summary>
         ///  文章详情页，联盟动态 和 科研合作通用。
@@ -80,7 +120,7 @@ namespace LM.WebUI.Controllers
                         Content = entity.Content,
                         IsRecommend = entity.IsRecommend,
                         IsFocus = entity.IsFocus,
-                        IsHide = entity.IsHide,
+                        IsShow = entity.IsShow,
                         SaveAt = DateTime.Now,
                         ImgSrc = entity.ImgSrc
                     };

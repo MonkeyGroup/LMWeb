@@ -55,7 +55,7 @@ lor: #CCCCCC;
 .about_left {
     float: left;
     border: 1px solid #C7C6C6;
-    width: 700px;
+    width: 849px;
     height: auto !important;
     min-height: 800px;
     padding-bottom: 20px;
@@ -71,7 +71,7 @@ lor: #CCCCCC;
     }
 
     .about_left p {
-        width: 620px;
+        width: 75%;
         margin: 0 auto;
         font-family: '宋体';
         text-align: left;

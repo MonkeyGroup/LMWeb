@@ -11,11 +11,6 @@ namespace LM.WebUI.Controllers
 {
     public class CompanyController : BaseController
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
 
         #region 联盟成员
 

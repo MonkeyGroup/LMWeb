@@ -35,8 +35,11 @@
             <div class="weizi">
                 <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Home/About">关于联盟</a> &gt; <a href="/Home/Organization">联盟组织</a>
             </div>
+            <p class="p0">@ViewBag.Title</p>
 
-            @Html.Raw(content)
+            <div class="mycontent">
+                @Html.Raw(content)
+            </div>
         </div>
 
     </div>

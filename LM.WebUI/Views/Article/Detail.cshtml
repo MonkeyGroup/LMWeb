@@ -23,10 +23,12 @@
                 </p>
             </div>
 
-            @Html.Raw(info.Content)
+            <div class="mycontent">
+                @Html.Raw(info.Content)
+            </div>
         </div>
 
-        <div class="about_right">
+        <div class="about_right" style="display: none">
             <div class="show">
                 <img src="/Content/images/zanwu.jpg" width="90%" height="90%" />
             </div>

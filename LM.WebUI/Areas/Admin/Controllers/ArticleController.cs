@@ -89,7 +89,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                             Content = entity.Content,
                             IsRecommend = entity.IsRecommend,
                             IsFocus = entity.IsFocus,
-                            IsHide = entity.IsHide,
+                            IsShow = entity.IsShow,
                             SaveAt = DateTime.Now,
                             ImgSrc = entity.ImgSrc
                         };
@@ -126,7 +126,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         Content = model.Content,
                         IsRecommend = model.IsRecommend,
                         IsFocus = model.IsFocus,
-                        IsHide = model.IsHide,
+                        IsShow = model.IsShow,
                         SaveAt = DateTime.Now,
                         ImgSrc = model.ImgSrc
                     });
@@ -147,7 +147,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         Content = model.Content,
                         IsRecommend = model.IsRecommend,
                         IsFocus = model.IsFocus,
-                        IsHide = model.IsHide,
+                        IsShow = model.IsShow,
                         SaveAt = DateTime.Now,
                         ImgSrc = model.ImgSrc
                     });

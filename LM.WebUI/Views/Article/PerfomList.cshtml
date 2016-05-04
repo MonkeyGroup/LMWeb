@@ -54,15 +54,15 @@
             <div class="weizi">
                 <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Article/InfoList?type=科技成果">科研与合作</a> &gt; <a href="/Article/InfoList?type=@type">@type</a>
             </div>
-            <p class="p0">联盟动态</p>
+            <p class="p0">@type</p>
             <div class="" style="width: 96%; height: 600px; float: left; margin-right: 10px; text-align: left; padding: 0px 10px 0px 15px;">
                 @if (list != null && list.Count > 0)
                 {
                     foreach (var item in list)
                     {
-                        <p style="font-size: 12px; line-height: 24px; padding-left: 15px; text-indent: 0; background: url(/Content/images/dot.png) 0 10px no-repeat;">
+                        <p style="font-size: 12px; line-height: 24px; padding-left: 15px; text-indent: 0; background: url(/Content/images/dot.png) 0 10px no-repeat;" title="@item.Title">
                             <a href="/Article/Detail?id=@item.Id" target="_blank">@(item.Title.Length <= 30 ? item.Title : item.Title.Substring(0, 27) + "...")</a>
-                            <span style="float: right;">[&nbsp;@item.SaveAt.ToString("yyyy-MM-dd")&nbsp;]</span>
+                            <span style="float: right;">[@item.SaveAt.ToString("yyyy-MM-dd")]</span>
                         </p>
                     }
                 }

@@ -1130,6 +1130,7 @@ a:hover #jrwz {
         margin-right: auto;
     }
 
+
 /*关于联盟页的 内容详情页*/
 .aboutright {
     width: 630px;
@@ -1151,8 +1152,34 @@ a:hover #jrwz {
     }
 
     .aboutright img {
-        width: 400px;
+        width: 90%;
         height: auto;
         margin: auto auto;
         margin-top: 15px;
     }
+
+/****所有涉及文本的页面，需要对：图片img、表格table（word表格、excel等）***/
+.mycontent p {
+    width: 560px;
+    margin: 0 auto;
+    font-size: 14px;
+    font-family: Arial,'Microsoft YaHei';
+    line-height: 24px;
+    text-align: left;
+    text-indent: 2em;
+    margin-top: 15px;
+}
+/*图片*/
+.mycontent img {
+    max-width: 90%;
+    height: auto;
+    margin: auto auto;
+    margin-top: 15px;
+}
+/*表格table（word表格、excel等）*/
+.mycontent table {
+    max-width: 600px;
+    height: auto;
+    margin: auto auto;
+    margin-top: 15px;
+}

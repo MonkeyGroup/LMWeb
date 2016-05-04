@@ -23,7 +23,7 @@ clen{ clear:both;}
 .about_adress{width:400px; margin:0 auto; height:400px; border:1px solid #ccc; text-align:center;}
 
 .pl10{padding-left:10px; overflow:hidden;}
-.aboutleft{width:208px; height:652px; float:left;padding-bottom:0;  text-align:left; border:1px solid #ccc;}
+.aboutleft{width:208px; /*height:652px;*/ float:left;padding-bottom:0;  text-align:left; border:1px solid #ccc;}
 .ab_t01{color:#0093cf;font-size:18px; font-weight:bold;}
 .ab_t02{color:#999;}
 .ab_c li{height:18px; line-height:37px; background:url(../images/list_01.jpg) 10px 13px no-repeat;    border-bottom: 1px dashed #ddd;}
