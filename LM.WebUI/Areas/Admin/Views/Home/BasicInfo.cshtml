@@ -12,6 +12,8 @@
 @Html.RenderScript("/Areas/Admin/content/js/kindeditor/lang/zh_CN.js")
 @Html.RenderScript("/Areas/Admin/content/js/kindeditor/plugins/code/prettify.js")
 @Html.RenderScript("/Areas/Admin/content/js/jquery.tab.js")
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/swfobject.js")
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/jquery.uploadify.v2.1.0.min.js")
 
 <script type="text/javascript">
     $(function () { $(".idTabs").idTabs('@currTab'); });
@@ -180,6 +182,32 @@
 <!-- /KindEditor -->
 
 <script>
+    $(function () {
+        // 申请材料上传
+        $("#applyUploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            queueID: 'fileQueue1',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#applyFilePath').val(rs.FilePath);
+                    alert('上传成功！');
+                } else {
+                    alert(rs.Message);
+                }
+            },
+            uploadifyCancel: function () {
+            }
+        });
+    })
+</script>
+
+<script>
     var commitFlag = true;
     function submitIt(type) {
         // 判空
@@ -220,6 +248,7 @@
         if (type === 'process') {
             baseInfo.id = $('#id').val();
             baseInfo.process = procEditor.html();
+            baseInfo.applyFilePath = $('#applyFilePath').val();
         }
 
         var data = JSON.stringify({ type: type, infoModel: baseInfo });
@@ -233,11 +262,10 @@
             contentType: "application/json; charset=utf-8",
             success: function (resp) {
                 if (resp.status) {
-                    alert(resp.message);
                 } else {
-                    alert(resp.message);
                     commitFlag = true;
                 }
+                alert(resp.message);
             },
             error: function (data, textStatus) {
                 alert('系统故障，请联系管理员！');
@@ -251,7 +279,7 @@
         var ok = true;
         if (type === 'contract') {
             if ($('#address').val() === '' || $('#telphone').val() === '' || $('#fax').val() === '' || $('#site').val() === '' ||
-                    $('#email').val() === '' || mapEditor.html() === '') {
+                $('#email').val() === '' || mapEditor.html() === '') {
                 ok = false;
             }
         }
@@ -436,6 +464,14 @@
                                 <td align="right">申请流程</td>
                                 <td>
                                     <textarea name="process" id="procDiv" style="width: 800px; height: 500px;">@(baseInfo.Process ?? "")</textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">申请材料</td>
+                                <td>
+                                    <input id="applyFilePath" type="text" name="applyFilePath" class="inpMain" size="80" value="@baseInfo.ApplyFilePath" />
+                                    <div id="fileQueue1" style="display: none;"></div>
+                                    <input id="applyUploadify" type="file" name="uploadify" />
                                 </td>
                             </tr>
                             <tr>

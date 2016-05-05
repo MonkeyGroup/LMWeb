@@ -51,7 +51,7 @@ namespace LM.Utility
                 {
                     newFileName = new Random().Next(10000000, 99999999) + fileExt;
                     file.SaveAs(directory + "/" + newFileName);
-                    return new FileUploadModel { Status = true, FilePath = fileFolder.Substring(1) + "/" + DateTime.Now.ToString("yyyyMMdd") + "/" + newFileName };
+                    return new FileUploadModel { Status = true, Message = "上传成功！", FilePath = fileFolder.Substring(1) + "/" + DateTime.Now.ToString("yyyyMMdd") + "/" + newFileName };
                 }
 
                 // 非随机数命名
@@ -64,7 +64,7 @@ namespace LM.Utility
                     filePath = directory + "/" + newFileName;
                 }
                 file.SaveAs(filePath);
-                return new FileUploadModel { Status = true, FilePath = fileFolder.Substring(1) + "/" + DateTime.Now.ToString("yyyyMMdd") + "/" + newFileName };
+                return new FileUploadModel { Status = true, Message = "上传成功！", FilePath = fileFolder.Substring(1) + "/" + DateTime.Now.ToString("yyyyMMdd") + "/" + newFileName };
 
             }
             catch (Exception e)

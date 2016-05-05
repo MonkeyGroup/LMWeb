@@ -10,228 +10,238 @@
 @Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/jquery.uploadify.v2.1.0.min.js")
 
 <script type="text/javascript">
-        $(document).ready(function() {
-            // Logo 上传
-            $("#logoUploadify").uploadify({
-                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
-                buttonText: 'Upload',
-                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
-                script: '/Admin/Common/FileUpload',
-                folder: 'upload/images',
-                queueID: 'fileQueue1',
-                auto: true,
-                multi: false,
-                onComplete: function(even, queueId, fileObj, response, data) {
-                    var rs = JSON.parse(response);
-                    if (rs.Status) {
-                        $('#LogoSrc').val(rs.FilePath);
-                        $('#msg1').text("");
-                    } else {
-                        $('#msg1').text(rs.Message);
-                    }
-                },
-                uploadifyCancel: function() {
+    $(document).ready(function () {
+        // Logo 上传
+        $("#logoUploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue1',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#LogoSrc').val(rs.FilePath);
+                    $('#msg1').text("");
+                } else {
+                    $('#msg1').text(rs.Message);
                 }
-            });
-            // Flash 上传
-            $("#flashUploadify").uploadify({
-                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
-                buttonText: 'Upload',
-                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
-                script: '/Admin/Common/FileUpload',
-                folder: 'upload/swf',
-                queueID: 'fileQueue2',
-                auto: true,
-                multi: false,
-                onComplete: function(even, queueId, fileObj, response, data) {
-                    var rs = JSON.parse(response);
-                    if (rs.Status) {
-                        $('#FlashSrc').val(rs.FilePath);
-                        $('#msg2').text("");
-                    } else {
-                        $('#msg2').text(rs.Message);
-                    }
-                },
-                uploadifyCancel: function() {
-                }
-            });
-            // AD 上传
-            $("#adUploadify").uploadify({
-                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
-                buttonText: 'Upload',
-                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
-                script: '/Admin/Common/FileUpload',
-                folder: 'upload/images',
-                queueID: 'fileQueue3',
-                auto: true,
-                multi: false,
-                onComplete: function(even, queueId, fileObj, response, data) {
-                    var rs = JSON.parse(response);
-                    if (rs.Status) {
-                        $('#AdSrc').val(rs.FilePath);
-                        $('#msg3').text("");
-                    } else {
-                        $('#msg3').text(rs.Message);
-                    }
-                },
-                uploadifyCancel: function() {
-                }
-            });
-            // Slogan 上传
-            $("#sloganUploadify").uploadify({
-                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
-                buttonText: 'Upload',
-                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
-                script: '/Admin/Common/FileUpload',
-                folder: 'upload/images',
-                queueID: 'fileQueue4',
-                auto: true,
-                multi: false,
-                onComplete: function(even, queueId, fileObj, response, data) {
-                    var rs = JSON.parse(response);
-                    if (rs.Status) {
-                        $('#SloganSrc').val(rs.FilePath);
-                        $('#msg4').text("");
-                    } else {
-                        $('#msg4').text(rs.Message);
-                    }
-                },
-                uploadifyCancel: function() {
-                }
-            });
-            // Qr 上传
-            $("#qrUploadify").uploadify({
-                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
-                buttonText: 'Upload',
-                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
-                script: '/Admin/Common/FileUpload',
-                folder: 'upload/images',
-                queueID: 'fileQueue5',
-                auto: true,
-                multi: false,
-                onComplete: function(even, queueId, fileObj, response, data) {
-                    var rs = JSON.parse(response);
-                    if (rs.Status) {
-                        $('#QrSrc').val(rs.FilePath);
-                        $('#msg5').text("");
-                    } else {
-                        $('#msg5').text(rs.Message);
-                    }
-                },
-                uploadifyCancel: function() {
-                }
-            });
-            // 推荐产品1 上传
-            $("#product1Uploadify").uploadify({
-                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
-                buttonText: 'Upload',
-                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
-                script: '/Admin/Common/FileUpload',
-                folder: 'upload/images',
-                queueID: 'fileQueue6',
-                auto: true,
-                multi: false,
-                onComplete: function(even, queueId, fileObj, response, data) {
-                    var rs = JSON.parse(response);
-                    if (rs.Status) {
-                        $('#Product1Src').val(rs.FilePath);
-                        $('#msg6').text("");
-                    } else {
-                        $('#msg6').text(rs.Message);
-                    }
-                },
-                uploadifyCancel: function() {
-                }
-            });
-            // 推荐产品2 上传
-            $("#product2Uploadify").uploadify({
-                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
-                buttonText: 'Upload',
-                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
-                script: '/Admin/Common/FileUpload',
-                folder: 'upload/images',
-                queueID: 'fileQueue7',
-                auto: true,
-                multi: false,
-                onComplete: function(even, queueId, fileObj, response, data) {
-                    var rs = JSON.parse(response);
-                    if (rs.Status) {
-                        $('#Product2Src').val(rs.FilePath);
-                        $('#msg7').text("");
-                    } else {
-                        $('#msg7').text(rs.Message);
-                    }
-                },
-                uploadifyCancel: function() {
-                }
-            });
-            // 推荐产品3 上传
-            $("#product3Uploadify").uploadify({
-                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
-                buttonText: 'Upload',
-                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
-                script: '/Admin/Common/FileUpload',
-                folder: 'upload/images',
-                queueID: 'fileQueue8',
-                auto: true,
-                multi: false,
-                onComplete: function(even, queueId, fileObj, response, data) {
-                    var rs = JSON.parse(response);
-                    if (rs.Status) {
-                        $('#Product3Src').val(rs.FilePath);
-                        $('#msg8').text("");
-                    } else {
-                        $('#msg8').text(rs.Message);
-                    }
-                },
-                uploadifyCancel: function() {
-                }
-            });
-            // 推荐产品4 上传
-            $("#product4Uploadify").uploadify({
-                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
-                buttonText: 'Upload',
-                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
-                script: '/Admin/Common/FileUpload',
-                folder: 'upload/images',
-                queueID: 'fileQueue9',
-                auto: true,
-                multi: false,
-                onComplete: function(even, queueId, fileObj, response, data) {
-                    var rs = JSON.parse(response);
-                    if (rs.Status) {
-                        $('#Product4Src').val(rs.FilePath);
-                        $('#msg9').text("");
-                    } else {
-                        $('#msg9').text(rs.Message);
-                    }
-                },
-                uploadifyCancel: function() {
-                }
-            });
-            // Business 上传
-            $("#businessUploadify").uploadify({
-                uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
-                buttonText: 'Upload',
-                cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
-                script: '/Admin/Common/FileUpload',
-                folder: 'upload/images',
-                queueID: 'fileQueue10',
-                auto: true,
-                multi: false,
-                onComplete: function(even, queueId, fileObj, response, data) {
-                    var rs = JSON.parse(response);
-                    if (rs.Status) {
-                        $('#BusinessSrc').val(rs.FilePath);
-                        $('#msg10').text("");
-                    } else {
-                        $('#msg10').text(rs.Message);
-                    }
-                },
-                uploadifyCancel: function() {
-                }
-            });
+                alert(rs.Message);
+            },
+            uploadifyCancel: function () {
+            }
         });
+        // Flash 上传
+        $("#flashUploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/swf',
+            queueID: 'fileQueue2',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#FlashSrc').val(rs.FilePath);
+                    $('#msg2').text("");
+                } else {
+                    $('#msg2').text(rs.Message);
+                }
+                alert(rs.Message);
+            },
+            uploadifyCancel: function () {
+            }
+        });
+        // AD 上传
+        $("#adUploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue3',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#AdSrc').val(rs.FilePath);
+                    $('#msg3').text("");
+                } else {
+                    $('#msg3').text(rs.Message);
+                }
+                alert(rs.Message);
+            },
+            uploadifyCancel: function () {
+            }
+        });
+        // Slogan 上传
+        $("#sloganUploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue4',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#SloganSrc').val(rs.FilePath);
+                    $('#msg4').text("");
+                } else {
+                    $('#msg4').text(rs.Message);
+                }
+                alert(rs.Message);
+            },
+            uploadifyCancel: function () {
+            }
+        });
+        // Qr 上传
+        $("#qrUploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue5',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#QrSrc').val(rs.FilePath);
+                    $('#msg5').text("");
+                } else {
+                    $('#msg5').text(rs.Message);
+                }
+                alert(rs.Message);
+            },
+            uploadifyCancel: function () {
+            }
+        });
+        // 推荐产品1 上传
+        $("#product1Uploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue6',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#Product1Src').val(rs.FilePath);
+                    $('#msg6').text("");
+                } else {
+                    $('#msg6').text(rs.Message);
+                }
+                alert(rs.Message);
+            },
+            uploadifyCancel: function () {
+            }
+        });
+        // 推荐产品2 上传
+        $("#product2Uploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue7',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#Product2Src').val(rs.FilePath);
+                    $('#msg7').text("");
+                } else {
+                    $('#msg7').text(rs.Message);
+                }
+                alert(rs.Message);
+            },
+            uploadifyCancel: function () {
+            }
+        });
+        // 推荐产品3 上传
+        $("#product3Uploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue8',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#Product3Src').val(rs.FilePath);
+                    $('#msg8').text("");
+                } else {
+                    $('#msg8').text(rs.Message);
+                }
+                alert(rs.Message);
+            },
+            uploadifyCancel: function () {
+            }
+        });
+        // 推荐产品4 上传
+        $("#product4Uploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue9',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#Product4Src').val(rs.FilePath);
+                    $('#msg9').text("");
+                } else {
+                    $('#msg9').text(rs.Message);
+                }
+                alert(rs.Message);
+            },
+            uploadifyCancel: function () {
+            }
+        });
+        // Business 上传
+        $("#businessUploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue10',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#BusinessSrc').val(rs.FilePath);
+                    $('#msg10').text("");
+                } else {
+                    $('#msg10').text(rs.Message);
+                }
+                alert(rs.Message);
+            },
+            uploadifyCancel: function () {
+            }
+        });
+    });
 </script>
 
 <script type="text/javascript">

@@ -49,8 +49,8 @@ namespace LM.Model.Model
         public DateTime SaveAt { get; set; }
 
         ///// <summary>
-        /////  上传的相关文件的绝对路径
+        /////  申请材料的绝对路径
         ///// </summary>
-        //public string FilePath { get; set; }
+        public string ApplyFilePath { get; set; }
     }
 }

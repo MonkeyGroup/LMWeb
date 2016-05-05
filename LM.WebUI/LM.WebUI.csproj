@@ -297,6 +297,7 @@
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Expert\List.cshtml" />
     <Content Include="Views\Article\BriefList.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Content\css\base.css" />

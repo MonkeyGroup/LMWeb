@@ -6,6 +6,17 @@
     var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
 }
 
+<script>
+    function seaSubmit() {
+        var key = $('#searchKey').val();
+        if (key === '') {
+            alert('请输入关键字');
+            return;
+        }
+        window.open("/Home/Search?key=" + key);
+    }
+</script>
+
 <!--1. Top-->
 <!--search-->
 <div class="find">
@@ -17,12 +28,8 @@
         </span>
     </div>
     <span class="find_content">
-        <form name='search' id='searchFrm' method='get'>
-            <input style='color:#999; font-size:13px; padding-left:5px;' type="text" id="tbxKeyword" class="ss_ct" rel='search' size="100" placeholder="文章标题、产品名称、单位名称关键字" />
-            <input type='hidden' id="search_Key" name="search_Key" value="" />
-            <div class="ss"> <a href="#" onclick='seaSubmit()'></a></div>
-            <input type="hidden" name="__hash__" value="" />
-        </form>
+        <input style='color:#999; font-size:13px; padding-left:5px;' type="text" id="searchKey" class="ss_ct" rel='search' size="100" placeholder="文章标题、产品名称、单位名称关键字" />
+        <div class="ss"> <a href="#" onclick='seaSubmit()'></a></div>
     </span>
 </div>
 <!--end Top-->

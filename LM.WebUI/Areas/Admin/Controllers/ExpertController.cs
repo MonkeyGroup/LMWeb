@@ -14,13 +14,6 @@ namespace LM.WebUI.Areas.Admin.Controllers
 {
     public class ExpertController : BaseController
     {
-        [Authentication]
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-
         [HttpGet]
         [Authentication]
         public ActionResult Expert(int id = 0)

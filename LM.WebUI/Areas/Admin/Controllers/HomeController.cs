@@ -259,7 +259,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                             state = baseInfoService.Update(new { Id = infoModel.Id, Notice = infoModel.Notice, SaveAt = DateTime.Now }).Status;
                             break;
                         case "process":
-                            state = baseInfoService.Update(new { Id = infoModel.Id, Process = infoModel.Process, SaveAt = DateTime.Now }).Status;
+                            state = baseInfoService.Update(new { Id = infoModel.Id, Process = infoModel.Process, ApplyFilePath = infoModel.ApplyFilePath, SaveAt = DateTime.Now }).Status;
                             break;
                         default:
                             state = baseInfoService.Update(new { }).Status;
@@ -299,7 +299,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                             baseInfo = new BaseInfo { Id = infoModel.Id, Notice = infoModel.Notice, SaveAt = DateTime.Now };
                             break;
                         case "process":
-                            baseInfo = new BaseInfo { Id = infoModel.Id, Process = infoModel.Process, SaveAt = DateTime.Now };
+                            baseInfo = new BaseInfo { Id = infoModel.Id, Process = infoModel.Process, ApplyFilePath = infoModel.ApplyFilePath, SaveAt = DateTime.Now };
                             break;
                         default:
                             baseInfo = new BaseInfo();

@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "入盟须知";
     var content = ViewBag.Notice;
+    var applyFilePath = ViewBag.ApplyFilePath;
 }
 
 @Html.RenderCss("/Content/css/入盟申请.css")
@@ -23,7 +24,7 @@
                 <ul>
                     <li><a href="/Home/Notice">入盟须知</a></li>
                     <li><a href="/Home/Process">申请流程</a></li>
-                    <li><a href="">申请材料下载</a></li>
+                    <li><a href="@applyFilePath">申请材料下载</a></li>
                 </ul>
             </div>
         </div>

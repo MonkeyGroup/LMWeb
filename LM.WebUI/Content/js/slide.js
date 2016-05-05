@@ -1,6 +1,6 @@
 
 // ª√µ∆∆¨
-function slide(imgList, typeList) {
+function slide(imgList, idList) {
     // ≥ı ºªØ
     $("#aa #aa_index li:eq(0)").addClass("active");
 
@@ -10,7 +10,7 @@ function slide(imgList, typeList) {
         currInd = ++currInd % imgList.length;
         $("#aa img").attr("src", imgList[currInd]).fadeOut(100).fadeIn(1000);
         $("#aa img").bind('click', function() {
-            window.open('/Article/InfoList?type=' + typeList[currInd]);
+            window.open('/Article/Detail?id=' + idList[currInd]);
         });
         $("#aa_index").find("li").removeClass("active");
         $("#aa #aa_index li:eq(" + currInd + ")").addClass("active");
@@ -23,7 +23,7 @@ function slide(imgList, typeList) {
 		$("#aa img").attr("src", imgList[currInd]).fadeOut(100).fadeIn(1000);
 		$("#aa img").bind('click', function () {
 		    //window.location.href = '/Article/InfoList?type=' + typeList[currInd];
-		    window.open('/Article/InfoList?type=' + typeList[currInd]);
+		    window.open('/Article/Detail?id=' + idList[currInd]);
 		});
 		$("#aa_index").find("li").removeClass("active");
 		$this.addClass("active");

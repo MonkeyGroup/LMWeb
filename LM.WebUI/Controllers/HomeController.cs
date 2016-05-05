@@ -146,6 +146,68 @@ namespace LM.WebUI.Controllers
         #endregion
 
 
+        #region 搜索
+
+        public ActionResult Search(string key)
+        {
+            #region 返回数据
+
+            var articles = new List<ArticleModel>();
+            var companies = new List<CompanyModel>();
+            var products = new List<ProductModel>();
+
+            #endregion
+
+
+            #region 查找文章
+            using (var articleService = ResolveService<ArticleService>())
+            {
+                var query = string.Format(@"select top 10 Id,T from [Article] where CHARINDEX('{0}',Title)>0 order by SaveAt desc", key);
+                var rs = articleService.GetList(query);
+                if (rs.Status && rs.Data != null)
+                {
+                    articles = rs.Data as List<ArticleModel>;
+                }
+            }
+            #endregion
+
+
+            #region 查找单位
+
+            using (var companyService = ResolveService<CompanyService>())
+            {
+                var query = string.Format(@"select top 10 from [Company] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
+                var rs = companyService.GetList(query);
+                if (rs.Status && rs.Data != null)
+                {
+                    companies = rs.Data as List<CompanyModel>;
+                }
+            }
+            #endregion
+
+
+            #region 查找产品
+
+            using (var productService = ResolveService<ProductService>())
+            {
+                var query = string.Format(@"select top 10 from [Product] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
+                var rs = productService.GetList(query);
+                if (rs.Status && rs.Data != null)
+                {
+                    products = rs.Data as List<ProductModel>;
+                }
+            }
+            #endregion
+
+
+            ViewBag.Articles = articles;
+            ViewBag.Companies = companies;
+            ViewBag.Products = products;
+            return View();
+        }
+        #endregion
+
+
         #region 关于联盟 & 加入联盟
 
         public ActionResult About()
@@ -184,6 +246,7 @@ namespace LM.WebUI.Controllers
             {
                 var baseInfo = baseInfoService.GetLast().Data as BaseInfoModel;
                 ViewBag.Notice = baseInfo.Notice;
+                ViewBag.ApplyFilePath = baseInfo.ApplyFilePath;
                 return View();
             }
         }
@@ -194,6 +257,7 @@ namespace LM.WebUI.Controllers
             {
                 var baseInfo = baseInfoService.GetLast().Data as BaseInfoModel;
                 ViewBag.Process = baseInfo.Process;
+                ViewBag.ApplyFilePath = baseInfo.ApplyFilePath;
                 return View();
             }
         }

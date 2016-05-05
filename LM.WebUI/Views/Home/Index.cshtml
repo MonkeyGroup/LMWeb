@@ -26,15 +26,15 @@
         // 首页加载后执行
         $(document).ready(function () {
             // 取隐藏域里面的图片路径
-            var imglist = [], typeList = [];
+            var imglist = [], idlist = [];
             var count = '@slideArticles.Count';
             for (var i = 0; i < count; i++) {
                 var src = $('#slideSrc' + i).val();
                 imglist.push(src);
-                var type = $('#slideType' + i).val();
-                typeList.push(type);
+                var id = $('#slideId' + i).val();
+                idlist.push(id);
             }
-            slide(imglist, typeList);
+            slide(imglist, idlist);
 
             // Logo 自动滚动
             MoveDiv(window.event);
@@ -84,11 +84,8 @@
         <ul id="aa_index">
             @for (var i = 0; i < slideArticles.Count; i++)
             {
-            <li class="li">@(i + 1)</li>
+                <li class="li">@(i + 1)</li>
             }
-            @*<li class="li active">1</li>
-                <li class="li">2</li>
-                <li class="li">3</li>*@
         </ul>
     </div>
 
@@ -105,17 +102,17 @@
             </div>
             @if (oneNews != null && !string.IsNullOrEmpty(oneNews.Title))
             {
-            <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;" title="@oneNews.Title">
-                @(oneNews.Title.Length > 20 ? oneNews.Title.Substring(0, 17) + "..." : oneNews.Title)
-            </p>
-            <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
-                @(oneNews.Brief.Length > 100 ? oneNews.Brief.Substring(0, 97) + "..." : oneNews.Brief)
-                <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneNews.Id" target="_blank">详情>></a></span>
-            </p>
+                <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;" title="@oneNews.Title">
+                    @(oneNews.Title.Length > 20 ? oneNews.Title.Substring(0, 17) + "..." : oneNews.Title)
+                </p>
+                <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
+                    @(oneNews.Brief.Length > 100 ? oneNews.Brief.Substring(0, 97) + "..." : oneNews.Brief)
+                    <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneNews.Id" target="_blank">详情>></a></span>
+                </p>
             }
             else
             {
-            @:暂无数据！
+                @:暂无数据！
             }
         </div>
         <div style="height: 127px; border: 1px solid #ccc;">
@@ -129,17 +126,17 @@
             </div>
             @if (oneFocus != null && !string.IsNullOrEmpty(oneFocus.Title))
             {
-            <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;" title="@oneFocus.Title">
-                @(oneFocus.Title.Length > 20 ? oneFocus.Title.Substring(0, 17) + "..." : oneFocus.Title)
-            </p>
-            <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
-                @(oneFocus.Brief.Length > 100 ? oneFocus.Brief.Substring(0, 97) + "..." : oneFocus.Brief)
-                <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneFocus.Id" target="_blank">详情>></a></span>
-            </p>
+                <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;" title="@oneFocus.Title">
+                    @(oneFocus.Title.Length > 20 ? oneFocus.Title.Substring(0, 17) + "..." : oneFocus.Title)
+                </p>
+                <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
+                    @(oneFocus.Brief.Length > 100 ? oneFocus.Brief.Substring(0, 97) + "..." : oneFocus.Brief)
+                    <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneFocus.Id" target="_blank">详情>></a></span>
+                </p>
             }
             else
             {
-            @:暂无数据！
+                @:暂无数据！
             }
         </div>
     </div>
@@ -164,14 +161,14 @@
             {
                 foreach (var item in briefs)
                 {
-            <p style="font-size: 12px; line-height: 24px; text-align: left; padding-left: 15px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
-                <a href="@item.FilePath">@(item.Name.Length > 13 ? item.Name.Substring(0, 10) + "..." : item.Name)</a>
-            </p>
+                    <p style="font-size: 12px; line-height: 24px; text-align: left; padding-left: 15px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
+                        <a href="@item.FilePath">@(item.Name.Length > 13 ? item.Name.Substring(0, 10) + "..." : item.Name)</a>
+                    </p>
                 }
             }
             else
             {
-            <span>暂无数据！</span>
+                <span>暂无数据！</span>
             }
         </div>
     </div>
@@ -200,14 +197,14 @@
                                     {
                                         foreach (var e in logos)
                                         {
-                                    <a href="@e.Site" target="_blank">
-                                        <img width="100%" height="100%" src="@e.LogoSrc" title="@e.Name" />
-                                    </a>
+                                            <a href="@e.Site" target="_blank">
+                                                <img width="100%" height="100%" src="@e.LogoSrc" title="@e.Name" />
+                                            </a>
                                         }
                                     }
                                     else
                                     {
-                                    @:暂无数据！
+                                        @:暂无数据！
                                     }
                                 </div>
                             </div>
@@ -236,12 +233,12 @@
                         {
                             foreach (var c in subCompanies)
                             {
-                        <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
+                                <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
                             }
                         }
                         else
                         {
-                        @Html.Raw("暂无数据！")
+                            @Html.Raw("暂无数据！")
                         }
                     </div>
                 </ul>
@@ -260,12 +257,12 @@
                         {
                             foreach (var c in supCompanies)
                             {
-                        <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
+                                <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
                             }
                         }
                         else
                         {
-                        @Html.Raw("暂无数据！")
+                            @Html.Raw("暂无数据！")
                         }
                     </div>
                 </ul>
@@ -284,12 +281,12 @@
                         {
                             foreach (var c in otherCompanies)
                             {
-                        <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
+                                <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
                             }
                         }
                         else
                         {
-                        @Html.Raw("暂无数据！")
+                            @Html.Raw("暂无数据！")
                         }
                     </div>
                 </ul>
@@ -300,7 +297,7 @@
     @Html.RenderScript("/Content/js/listScroll.js")
 
     <!--企业产品推荐-->
-    <div style="padding-top:5px;height:28px;background:url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom:1px solid #ccc;">
+    <div style="padding-top:5px;height:28px;background:url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom:0px solid #ccc;">
         <p style="text-align: left; font-family: '微软简楷体'; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
             企业产品推荐
         </p>
@@ -389,7 +386,7 @@
 @foreach (var e in slideArticles)
 {
     <input type="hidden" id="slideSrc@(index)" value="@e.ImgSrc" />
-    <input type="hidden" id="slideType@(index)" value="@e.Type" />
+    <input type="hidden" id="slideId@(index)" value="@e.Id" />
     index++;
 }
 

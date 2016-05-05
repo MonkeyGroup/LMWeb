@@ -1590,6 +1590,6 @@ span .prompt {
 #logoUploadifyUploader, #flashUploadifyUploader, #adUploadifyUploader,
 #sloganUploadifyUploader, #qrUploadifyUploader, #businessUploadifyUploader,
 #product1UploadifyUploader, #product2UploadifyUploader, #product3UploadifyUploader, #product4UploadifyUploader,
-#briefUploadifyUploader {
+#briefUploadifyUploader,#applyUploadifyUploader {
     vertical-align: middle;
 }

@@ -69,7 +69,7 @@
             IsFocus: $('#isFocus').val(),
             IsShow: $('#isShow').val(),
             ImgSrc: $(window.frames[0].document).find('.ke-content img:eq(0)').attr('src') // 取第一个img路径
-    }
+        }
         // 封装数据
         var ajax = {
             url: '/Admin/Article/Save',
@@ -151,13 +151,12 @@
                     <span id="msg2" class="prompt"></span>
                 </td>
             </tr>
-            @*<tr>
-                    <td width="90" align="right">点击量</td>
-                    <td>
-                        <input type="text" id="hits" value="@(model.Hits)" size="80" class="inpMain" placeholder="请输入正整数" readonly="readonly"/>
-                        <span id="msg3" class="prompt">由系统自动生成</span>
-                    </td>
-                </tr>*@
+            <tr>
+                <td width="90" align="right">作者</td>
+                <td>
+                    <input type="text" id="author" value="@(model.Author)" size="80" class="inpMain" placeholder="" />
+                </td>
+            </tr>
             <tr>
                 <td width="90" align="right">关键词</td>
                 <td>
