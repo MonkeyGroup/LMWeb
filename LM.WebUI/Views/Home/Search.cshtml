@@ -1,5 +1,88 @@
-﻿@{
-    ViewBag.Title = "Search";
+﻿@using LM.Model.Model
+@using LM.Utility
+@{
+    ViewBag.Title = "搜索结果";
+
+    var articles = ViewBag.Articles as List<ArticleModel>;
+    var companies = ViewBag.Companies as List<CompanyModel>;
+    var products = ViewBag.Products as List<ProductModel>;
 }
 
-<h2>Search</h2>
+@Html.RenderCss("/Content/css/style.css")
+
+<style>
+    .bg {
+        width: 1004px;
+        margin: 0 auto;
+        height: auto;
+    }
+
+    .searchmain {
+        width: 70%;
+        margin: 20px auto;
+        text-align: left;
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+    }
+
+        .searchmain li {
+            height: auto;
+            line-height: 37px;
+            /*background: url(/Content/images/list_01.jpg) 10px 13px no-repeat;*/
+            border-bottom: 1px dashed #ddd;
+        }
+
+            .searchmain li a {
+                height: auto;
+                line-height: 37px;
+                display: block;
+                padding-left: 25px;
+                font-family: "微软雅黑","新宋体","宋体";
+                font-size: 14px;
+            }
+
+                .searchmain li a:hover {
+                    height: auto;
+                    line-height: 37px;
+                    display: block;
+                    padding-left: 25px;
+                    background-color: #D7F3FF;
+                    color: #0586BB;
+                    font-family: "微软雅黑","新宋体","宋体";
+                    font-size: 16px;
+                }
+</style>
+
+<div class="bg">
+    <div style="margin-top:20px;margin-left:13%;font-size:14px;text-align:left;">查找结果：</div>
+    <div class="searchmain">
+        @foreach (var item in articles)
+        {
+            <li>
+                <a href="/Article/Detail?id=@item.Id">
+                    <font style="font-size:15px;font-weight:bold">@item.Title</font>
+                    <span style="font-weight:normal">【内容摘要】@item.Brief</span>
+                </a>
+            </li>
+        }
+        @foreach (var item in companies)
+        {
+            <li>
+                <a href="/Company/Detail?id=@item.Id">
+                    <font style="font-size:15px;font-weight:bold">@item.Name</font>
+                    <span style="font-weight:normal">【企业详情】@Html.Raw(item.Description.Length > 100 ? item.Description.Substring(0, 97) + "..." : item.Description)</span>
+                </a>
+            </li>
+        }
+        @foreach (var item in products)
+        {
+            <li>
+                <a href="/Product/Detail?id=@item.Id">
+                    <font style="font-size:15px;font-weight:bold">@item.Name</font>
+                    <span style="font-weight:normal">【产品详情】@Html.Raw(item.Description1.Length > 100 ? item.Description1.Substring(0, 97) + "..." : item.Description1)</span>
+                </a>
+            </li>
+        }
+    </div>
+</div>

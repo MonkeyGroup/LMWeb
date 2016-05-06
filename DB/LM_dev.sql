@@ -22,7 +22,7 @@ where A.rownumber > 3*8
 
 -- 3. Ìõ¼þ²éÑ¯£ºCharIndex¡¢PatIndex¡¢like 
 select a.SaveAt,a.*,PATINDEX('%°¡%',a.title) from [Article] a
-where CHARINDEX('°¡',a.title)>0
+where CHARINDEX('°¡',a.title)>0 
 
 
 

@@ -65,6 +65,7 @@
     <Compile Include="BriefService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="CompanyService.cs" />
+    <Compile Include="DbProcessService.cs" />
     <Compile Include="ExpertService.cs" />
     <Compile Include="Filter\ExceptionFilter.cs" />
     <Compile Include="HomePageConfigService.cs" />

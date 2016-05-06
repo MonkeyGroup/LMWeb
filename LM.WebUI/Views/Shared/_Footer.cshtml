@@ -1,7 +1,11 @@
-﻿@{
+﻿@using LM.Model.Model
+@using LM.Service.Security
+@{
     Layout = null; /* 此句必须加，不然默认布局页为_Layout页，会造成死循环 */
     ViewBag.Title = "Footer";
-    
+
+    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
+    var footerModel = CurrentContext.Get("FooterModel") as FooterModel ?? new FooterModel();
 }
 
 <!--footer-->
@@ -38,56 +42,20 @@
             <div class="yqlj1">
                 <select name="url" onchange="if(value !== ''){window.open(this.options[this.selectedIndex].value);}else{return(false);}">
                     <option value="" selected="selected">联盟理事成员单位</option>
-                    <option value="http://www.cast.org.cn/">巨化集团公司（理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">中芯国际集成电路制造有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">京东方科技集团股份有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">多氟多化工股份公司(（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">湖北鼎龙化学股份有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">广东光华科技股份有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">山东圣泉新材料股份有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">江阴江化微电子材料股份有限公司（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">中国电子材料行业协会（副理事长单位）</option>
-                    <option value="http://www.cast.org.cn/">深圳市华星光电技术有限公司</option>
-                    <option value="http://www.cast.org.cn/">天马微电子集团</option>
-                    <option value="http://www.cast.org.cn/">上海先进半导体制造股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">广东生益科技股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">广东风华高科技股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">佛山市华特气体有限公司</option>
-                    <option value="http://www.cast.org.cn/">杭州格林达化学有限公司</option>
-                    <option value="http://www.cast.org.cn/">华烁科技股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">苏州晶瑞化学股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">江阴润玛电子材料股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">江苏广信感光新材料股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">西安宏星电子浆料有限公司</option>
-                    <option value="http://www.cast.org.cn/">清华大学化学系</option>
-                    <option value="http://www.cast.org.cn/">中科院化学所</option>
-                    <option value="http://www.cast.org.cn/">中蓝晨光化工研究设计院有限公司</option>
-                    <option value="http://www.cast.org.cn/">南通星辰合成材料有限公司</option>
-                    <option value="http://www.cast.org.cn/">浙江金瑞泓科技股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">北京鼎材科技有限公司</option>
-                    <option value="http://www.cast.org.cn/">苏州瑞红电子化学品有限公司</option>
-                    <option value="http://www.cast.org.cn/">大连保税区科利德化工科技开发有限公司</option>
-                    <option value="http://www.cast.org.cn/">合肥正帆电子材料有限公司</option>
-                    <option value="http://www.cast.org.cn/">湖南利德电子浆料股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">浙江东氟塑料科技有限公司</option>
-                    <option value="http://www.cast.org.cn/">绿菱电子材料（天津）有限公司</option>
-                    <option value="http://www.cast.org.cn/">浙江省化工研究院有限公司（中化蓝天）  </option>
-                    <option value="http://www.cast.org.cn/">中昊光明化工研究设计院</option>
-                    <option value="http://www.cast.org.cn/">黎明化工研究设计院</option>
-                    <option value="http://www.cast.org.cn/">北京化工大学</option>
-                    <option value="http://www.cast.org.cn/">华东理工大学</option>
-                    <option value="http://www.cast.org.cn/">北京华通瑞驰材料科技有限公司</option>
-                    <option value="http://www.cast.org.cn/">湖北卓熙氟化股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">济南泰星精细化工有限公司</option>
-                    <option value="http://www.cast.org.cn/">江苏雅克科技股份有限公司</option>
-                    <option value="http://www.cast.org.cn/">宇瑞(上海)化学有限公司</option>
+                    @if (footerModel.companies != null && footerModel.companies.Count > 0)
+                    {
+                        foreach (var item in footerModel.companies)
+                        {
+                            <option value="@item.Site">@item.Name</option>
+                        }
+                    }
                 </select>
             </div>
             <div class="info">
                 <div class="db">
                     <p>
-                        主办方：中国电子材料行业协会&nbsp;&nbsp;&nbsp;&nbsp;地址：武汉市洪山区光谷街30号&nbsp;&nbsp;&nbsp;&nbsp;E-mail： ECMA2010@126.com<br />
-                        CopyRight@2013 中国电子化工新材料产业联盟&nbsp;&nbsp;&nbsp;&nbsp;邮编：430074&nbsp;&nbsp;&nbsp;&nbsp;技术支持：NWDesign
+                        主办方：中国电子材料行业协会&nbsp;&nbsp;&nbsp;&nbsp;地址：@(footerModel.Address)&nbsp;&nbsp;&nbsp;&nbsp;E-mail：@(footerModel.Email)<br />
+                        Copyright@2016 @(config.SiteName)&nbsp;&nbsp;&nbsp;&nbsp;电话：@(footerModel.Telphone)&nbsp;&nbsp;&nbsp;&nbsp;邮编：430074&nbsp;&nbsp;&nbsp;&nbsp;技术支持：NWDesign
                     </p>
                 </div>
             </div>

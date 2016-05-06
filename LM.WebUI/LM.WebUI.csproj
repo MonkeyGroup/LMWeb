@@ -211,6 +211,7 @@
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommonController.cs" />
     <Compile Include="Areas\Admin\Controllers\CompanyController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DbProcessController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExpertController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
@@ -235,6 +236,7 @@
     <Content Include="Areas\Admin\Views\Home\BriefList.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Category.cshtml" />
     <Content Include="Areas\Admin\Views\Category\List.cshtml" />
+    <Content Include="Areas\Admin\Views\DbProcess\Index.cshtml" />
     <None Include="log4net.config">
       <SubType>Designer</SubType>
     </None>

@@ -15,8 +15,6 @@ namespace LM.WebUI.Controllers
         /// <returns></returns>
         public ActionResult Header()
         {
-            var conf = DiMySession.Get<HomePageConfigModel>("HomePageConfig");
-            ViewBag.HomePageConfig = conf ?? new HomePageConfigModel();
             return View("_Header");
         }
 

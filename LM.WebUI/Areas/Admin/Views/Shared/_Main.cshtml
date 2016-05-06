@@ -71,7 +71,7 @@
                 </ul>
                 <ul>
                     <li @Html.Raw("CategoryList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Category/List"><i class="productCat"></i><em>分类列表</em></a></li>
-                 </ul>
+                </ul>
                 <ul>
                     <li @Html.Raw("ProductList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Product/List"><i class="product"></i><em>产品列表</em></a></li>
                 </ul>
@@ -91,6 +91,12 @@
                 <ul>
                     <li @Html.Raw("UserList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/UserList"><i class="manager"></i><em>网站管理员</em></a></li>
                 </ul>
+                @if ("admin".Equals(currUser.UserName.ToLower()))
+                {
+                    <ul>
+                        <li @Html.Raw("UserList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/DbProcess/Index"><i class="system"></i><em>数据备份与还原</em></a></li>
+                    </ul>
+                }
                 <ul class="bot">
                     <li @Html.Raw("OpLogList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/OpLogList"><i class="managerLog"></i><em>操作记录</em></a></li>
                 </ul>

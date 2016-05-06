@@ -1,0 +1,84 @@
+﻿@using LM.Model.Model
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
+    ViewBag.Title = "数据库操作";
+    var model = ViewBag.Category as CategoryModel;
+}
+
+
+<script type="text/javascript">
+    var commitFlag = true;
+    function restore() {
+        commitFlag = false;
+
+        // 封装数据
+        var ajax = {
+            url: '/Admin/DbProcess/RestoreDb',
+            type: 'Post',
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (resp) {
+                commitFlag = true;
+                alert(resp.message);
+            },
+            error: function () {
+                alert('系统故障，请联系管理员！');
+                commitFlag = true;
+            }
+        }
+        $.ajax(ajax);
+    }
+
+
+    var commitFlag2 = true;
+    function backup() {
+        commitFlag2 = false;
+
+        // 封装数据
+        var ajax = {
+            url: '/Admin/DbProcess/BackupDb',
+            type: 'Post',
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (resp) {
+                commitFlag2 = true;
+                alert(resp.message);
+            },
+            error: function () {
+                alert('系统故障，请联系管理员！');
+                commitFlag2 = true;
+            }
+        }
+        $.ajax(ajax);
+    }
+</script>
+
+<!--3. Main-->
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">
+        后台管理中心<b>></b><strong>添加分类</strong>
+    </div>
+
+    <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><a href="/Admin/Category/List" class="actionBtn">分类列表</a>添加分类</h3>
+        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            <tr>
+                <td>
+                    <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="数据库备份" onclick="return restore() && false;" />
+                    <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="数据库恢复" onclick="return restore() && false;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+
+
+

@@ -55,6 +55,38 @@ namespace LM.WebUI.Controllers
             #endregion
 
 
+            #region Footer 数据
+            var footerModel = CurrentContext.Get("FooterModel");
+            if (footerModel == null)
+            {
+                var model = new FooterModel();
+
+                using (var baseInfoService = ResolveService<BaseInfoService>())
+                {
+                    var rs = baseInfoService.GetLast();
+                    if (rs.Status && rs.Data != null)
+                    {
+                        var info = rs.Data as BaseInfoModel;
+                        model.Address = info.Address;
+                        model.Email = info.Email;
+                        model.Telphone = info.Telphone;
+                    }
+                }
+
+                using (var companyService = ResolveService<CompanyService>())
+                {
+                    var rs = companyService.GetList("select Id,Name,RangeName,Site from [Company] order by Range asc,Id asc");
+                    if (rs.Status && rs.Data != null)
+                    {
+                        model.companies = rs.Data as List<CompanyModel>;
+                    }
+                }
+
+                CurrentContext.Set("FooterModel", model);
+            }
+            #endregion
+
+
             #region 文章数据 Article
             using (var articleService = ResolveService<ArticleService>())
             {
@@ -162,7 +194,7 @@ namespace LM.WebUI.Controllers
             #region 查找文章
             using (var articleService = ResolveService<ArticleService>())
             {
-                var query = string.Format(@"select top 10 Id,T from [Article] where CHARINDEX('{0}',Title)>0 order by SaveAt desc", key);
+                var query = string.Format(@"select top 5 Id,Title,Brief from [Article] where CHARINDEX('{0}',Title)>0 order by SaveAt desc", key);
                 var rs = articleService.GetList(query);
                 if (rs.Status && rs.Data != null)
                 {
@@ -172,11 +204,11 @@ namespace LM.WebUI.Controllers
             #endregion
 
 
-            #region 查找单位
+            #region 查找企业
 
             using (var companyService = ResolveService<CompanyService>())
             {
-                var query = string.Format(@"select top 10 from [Company] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
+                var query = string.Format(@"select top 5 Id,Name,Description from [Company] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
                 var rs = companyService.GetList(query);
                 if (rs.Status && rs.Data != null)
                 {
@@ -190,7 +222,7 @@ namespace LM.WebUI.Controllers
 
             using (var productService = ResolveService<ProductService>())
             {
-                var query = string.Format(@"select top 10 from [Product] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
+                var query = string.Format(@"select top 5 Id,Name,Description1 from [Product] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
                 var rs = productService.GetList(query);
                 if (rs.Status && rs.Data != null)
                 {
