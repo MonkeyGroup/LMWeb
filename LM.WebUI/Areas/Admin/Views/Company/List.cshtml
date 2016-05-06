@@ -117,14 +117,14 @@
                             <th width="22" align="center">
                                 <input name='chkall' type='checkbox' id='chkall' onclick='selectcheckbox(this.form)' value='check'>
                             </th>
-                            <th width="40" align="center">编号</th>
-                            <th align="center">成员名称</th>
-                            <th width="120" align="center">官网地址</th>
-                            <th width="120" align="center">Logo 路径</th>
-                            <th width="100" align="center">成员分类</th>
-                            <th width="100" align="center">成员头衔</th>
-                            <th width="100" align="center">保存时间</th>
-                            <th width="80" align="center">操作</th>
+                            <th width="5%" align="center">编号</th>
+                            <th width="20%" align="center">成员名称</th>
+                            <th align="center">官网地址</th>
+                            <th align="center">Logo 路径</th>
+                            <th width="10%" align="center">成员分类</th>
+                            <th width="12%" align="center">成员头衔</th>
+                            <th width="14%" align="center">保存时间</th>
+                            <th width="10%" align="center">操作</th>
                         </tr>
 
                         foreach (var model in models)
@@ -143,8 +143,8 @@
                                     <a href="@(!string.IsNullOrEmpty(model.Site) ? string.Format(@"javascript:window.open('{0}')", model.Site) : "#")"
                                        target="_blank">@(model.Site)</a>
                                 </td>
-                                <td align="center">
-                                    @(model.LogoSrc)
+                                <td align="center" title="@(model.LogoSrc)">
+                                    @(model.LogoSrc.Length > 30 ? model.LogoSrc.Substring(0, 27) + "..." : model.LogoSrc)
                                 </td>
                                 <td align="center">
                                     @(model.Type.ToString())
