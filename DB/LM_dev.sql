@@ -60,6 +60,22 @@ ALTER DATABASE test
 SET MULTI_USER;
 GO
 
+
+USE master;
+ALTER DATABASE test
+SET SINGLE_USER
+WITH ROLLBACK IMMEDIATE;
+ALTER DATABASE test 
+SET READ_ONLY;
+
+use master restore database test from disk='D://test.bak' with REPLACE;
+
+ALTER DATABASE test
+SET MULTI_USER;
+go
+
+
+
 ---------------------------- 获取数据库信息 --------------------------
 -- 所有数据库
 SELECT Name FROM Master..SysDatabases 
