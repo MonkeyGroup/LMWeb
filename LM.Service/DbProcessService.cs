@@ -12,32 +12,25 @@ namespace LM.Service
     {
         public DbProcessService(DbSession dbSession) : base(dbSession) { }
 
-        public bool RestoreDb(string dbName, string filePath)
+        public void RestoreDb(string dbName, string filePath)
         {
-            try
-            {
-                var query = string.Format(@"use master restore database {0} from disk ='{1}' with Recovery", dbName, filePath);
-                var rs = QueryManage.GetExecuteNoQuery(query);
-                return rs > 0;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
+            var query = string.Format(@"
+USE master;
+ALTER DATABASE {0}
+SET SINGLE_USER
+WITH ROLLBACK IMMEDIATE;
+ALTER DATABASE {0}
+SET READ_ONLY;
+use master restore database {0} from disk='{1}' with REPLACE;
+ALTER DATABASE {0}
+SET MULTI_USER", dbName, filePath);
+            QueryManage.GetExecuteNoQuery(query);
         }
 
-        public bool BackupDb(string dbName, string filePath)
+        public void BackupDb(string dbName, string filePath)
         {
-            try
-            {
-                var query = string.Format(@"use master backup database {0} To disk='{1}' With init", dbName, filePath);
-                QueryManage.GetExecuteNoQuery(query);
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
+            var query = string.Format(@"use master backup database {0} To disk='{1}' With init", dbName, filePath);
+            QueryManage.GetExecuteNoQuery(query);
         }
 
     }

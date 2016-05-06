@@ -36,6 +36,29 @@ WHERE
    NAME='LM'
 )
 
+---------------------------- 数据库备份&还原 --------------------------
+-- 1. 备份（read）
+use master backup database test To disk='D://test.bak' With init
+
+-- 2. 还原（write），需要获取独占权：设置独占权 -> 操作 -> 释放独占权
+USE master;
+GO
+
+ALTER DATABASE test
+SET SINGLE_USER
+WITH ROLLBACK IMMEDIATE;
+GO
+
+ALTER DATABASE test
+SET READ_ONLY;
+GO
+
+use master restore database test from disk='D://test.bak' with REPLACE;
+go
+
+ALTER DATABASE test
+SET MULTI_USER;
+GO
 
 ---------------------------- 获取数据库信息 --------------------------
 -- 所有数据库

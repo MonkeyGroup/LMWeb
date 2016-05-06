@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System;
-using System.IO;
 using LM.Service;
 using LM.Service.Base;
 using LM.Utility;
-using LM.Model.Model;
 using LM.Service.Security;
 
 namespace LM.WebUI.Areas.Admin.Controllers
@@ -20,7 +15,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         }
 
         /// <summary>
-        ///  数据库还原
+        ///  数据库还原，还原必须要存在备份源。
         /// </summary>
         /// <returns></returns>
         [Authentication]
@@ -32,13 +27,13 @@ namespace LM.WebUI.Areas.Admin.Controllers
             {
                 if (!System.IO.File.Exists(filePath))
                 {
-                    return Json(new JsonRespModel { status = false, message = "备份文件不存在，请联系系统管理员！" });
+                    return Json(new JsonRespModel { status = false, message = "数据备份文件不存在，请先备份数据库！" });
                 }
 
                 using (var dbService = ResolveService<DbProcessService>())
                 {
-                    var rs = dbService.RestoreDb(dbName, filePath);
-                    return Json(new JsonRespModel { status = rs, message = rs ? "数据库全部以还原！" : "数据还原出现异常！" });
+                    dbService.RestoreDb(dbName, filePath);
+                    return Json(new JsonRespModel { status = true, message = "数据库已还原！" });
                 }
             }
             catch (Exception e)
@@ -49,7 +44,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 
 
         /// <summary>
-        ///  数据库备份
+        ///  数据库备份，备份会新建或者覆盖原文件。
         /// </summary>
         /// <returns></returns>
         [Authentication]
@@ -59,15 +54,10 @@ namespace LM.WebUI.Areas.Admin.Controllers
             var filePath = AppSettingHelper.GetString("DbBackupFilePath");
             try
             {
-                if (!System.IO.File.Exists(filePath))
-                {
-                    return Json(new JsonRespModel { status = false, message = "备份文件不存在，请联系系统管理员！" });
-                }
-
                 using (var dbService = ResolveService<DbProcessService>())
                 {
-                    var rs = dbService.BackupDb(dbName, filePath);
-                    return Json(new JsonRespModel { status = rs, message = rs ? "数据库全部以还原！" : "数据还原出现异常！" });
+                    dbService.BackupDb(dbName, filePath);
+                    return Json(new JsonRespModel { status = true, message = "数据库已备份！" });
                 }
             }
             catch (Exception e)
