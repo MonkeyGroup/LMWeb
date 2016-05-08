@@ -60,7 +60,7 @@
         @foreach (var item in articles)
         {
             <li>
-                <a href="/Article/Detail?id=@item.Id">
+                <a href="/Article/Detail?id=@item.Id" target="_blank">
                     <font style="font-size:15px;font-weight:bold">@item.Title</font>
                     <span style="font-weight:normal">【内容摘要】@item.Brief</span>
                 </a>
@@ -69,7 +69,7 @@
         @foreach (var item in companies)
         {
             <li>
-                <a href="/Company/Detail?id=@item.Id">
+                <a href="/Company/Detail?id=@item.Id" target="_blank">
                     <font style="font-size:15px;font-weight:bold">@item.Name</font>
                     <span style="font-weight:normal">【企业详情】@Html.Raw(item.Description.Length > 100 ? item.Description.Substring(0, 97) + "..." : item.Description)</span>
                 </a>
@@ -78,9 +78,9 @@
         @foreach (var item in products)
         {
             <li>
-                <a href="/Product/Detail?id=@item.Id">
+                <a href="/Product/Detail?id=@item.Id" target="_blank">
                     <font style="font-size:15px;font-weight:bold">@item.Name</font>
-                    <span style="font-weight:normal">【产品详情】@Html.Raw(item.Description1.Length > 100 ? item.Description1.Substring(0, 97) + "..." : item.Description1)</span>
+                    <span style="font-weight:normal">【产品详情】@Html.Raw(!string.IsNullOrEmpty(item.Description1) && item.Description1.Length > 100 ? item.Description1.Substring(0, 97) + "..." : item.Description1)</span>
                 </a>
             </li>
         }

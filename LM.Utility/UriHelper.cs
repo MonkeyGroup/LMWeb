@@ -58,5 +58,58 @@ namespace LM.Utility
 
             return path;
         }
+
+
+
+        /// <summary>
+        ///  读取网站文件
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="savePath"></param>
+        /// <returns></returns>
+        public static bool ReadUri(string uri, string savePath)
+        {
+            try
+            {
+                // 读取 Oss 文件
+                var request = (HttpWebRequest)WebRequest.Create(uri);
+                var response = (HttpWebResponse)request.GetResponse();
+                var stream = response.GetResponseStream();
+
+                // 写文件
+                var fileStream = File.Create(savePath);
+                var buffer = new byte[1024];
+                var numReadByte = 0;
+                while (stream != null && (numReadByte = stream.Read(buffer, 0, 1024)) != 0)
+                {
+                    fileStream.Write(buffer, 0, numReadByte);
+                }
+                fileStream.Close();
+                if (stream != null) stream.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
+        }
+
+        //private void downLoad(string filename)
+        //{
+        //    string path = Server.MapPath("download/") + filename;
+        //    FileInfo fi = new FileInfo(path);
+        //    if (fi.Exists)
+        //    {
+        //        Response.Clear();
+        //        Response.AddHeader("Content-Disposition", "attachment;filename=" + Server.UrlEncode(filename));
+        //        Response.AddHeader("Content-Length", fi.Length.ToString());
+        //        Response.ContentType = "application/octet-stream;charset=gb2321";
+        //        Response.WriteFile(fi.FullName);
+        //        Response.Flush();
+        //        Response.Close();
+        //    }
+        //}
+
     }
 }

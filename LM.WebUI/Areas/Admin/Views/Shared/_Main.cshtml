@@ -94,7 +94,7 @@
                 @if ("admin".Equals(currUser.UserName.ToLower()))
                 {
                     <ul>
-                        <li @Html.Raw("UserList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/DbProcess/Index"><i class="system"></i><em>数据备份与还原</em></a></li>
+                        <li @Html.Raw("DbProcess".Equals(nav) ? "class='cur'" : "")><a href="/Admin/DbProcess/Index"><i class="system"></i><em>数据备份与还原</em></a></li>
                     </ul>
                 }
                 <ul class="bot">

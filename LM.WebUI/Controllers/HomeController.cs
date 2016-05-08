@@ -44,7 +44,7 @@ namespace LM.WebUI.Controllers
                     if (!svs.Status)
                     {
                         CurrentContext.Set("HomePageConfig", new HomePageConfigModel());
-                        ViewBag.Message = "未读取到如何首页配置信息！";
+                        ViewBag.Message = "未读取到任何首页配置信息！";
                         return View("Error");
                     }
 
@@ -129,7 +129,7 @@ namespace LM.WebUI.Controllers
             using (var companyService = ResolveService<CompanyService>())
             {
                 // logo
-                var rs1 = companyService.GetList("select 20 Id,Name,LogoSrc,Site,SaveAt from [Company] order by Range asc,Name asc ");
+                var rs1 = companyService.GetList("select top 20 Id,Name,LogoSrc,Site,SaveAt from [Company] order by Range asc,Name asc ");
                 if (rs1.Status && rs1.Data != null)
                 {
                     logos = rs1.Data as List<CompanyModel>;
@@ -194,7 +194,7 @@ namespace LM.WebUI.Controllers
             #region 查找文章
             using (var articleService = ResolveService<ArticleService>())
             {
-                var query = string.Format(@"select top 5 Id,Title,Brief from [Article] where CHARINDEX('{0}',Title)>0 order by SaveAt desc", key);
+                var query = string.Format(@"select top 10 Id,Title,Brief from [Article] where CHARINDEX('{0}',Title)>0 order by SaveAt desc", key);
                 var rs = articleService.GetList(query);
                 if (rs.Status && rs.Data != null)
                 {
@@ -208,7 +208,7 @@ namespace LM.WebUI.Controllers
 
             using (var companyService = ResolveService<CompanyService>())
             {
-                var query = string.Format(@"select top 5 Id,Name,Description from [Company] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
+                var query = string.Format(@"select top 10 Id,Name,Description from [Company] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
                 var rs = companyService.GetList(query);
                 if (rs.Status && rs.Data != null)
                 {
@@ -222,7 +222,7 @@ namespace LM.WebUI.Controllers
 
             using (var productService = ResolveService<ProductService>())
             {
-                var query = string.Format(@"select top 5 Id,Name,Description1 from [Product] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
+                var query = string.Format(@"select top 10 Id,Name,Description1 from [Product] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
                 var rs = productService.GetList(query);
                 if (rs.Status && rs.Data != null)
                 {

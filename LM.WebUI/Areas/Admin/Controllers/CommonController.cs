@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Web.Mvc;
 using LM.Service.Security;
 using LM.Utility;
@@ -26,7 +28,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 {"image", "gif,jpg,jpeg,png,bmp"},
                 {"flash", "swf,flv"},
                 {"media", "swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb"},
-                {"file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2"}
+                {"file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2"},
+                {"dbbackup",",bak"}
             };
 
             var ext = file.FileName.ToLower().Substring(file.FileName.LastIndexOf(".") + 1);
@@ -42,6 +45,10 @@ namespace LM.WebUI.Areas.Admin.Controllers
             else if (extTable["media"].Contains(ext))
             {
                 model = UploadHelper.FileUploadHandler(file, UploadFileTye.Media);
+            }
+            else if (extTable["dbbackup"].Contains(ext))
+            {
+                model = UploadHelper.FileUploadHandler(file, UploadFileTye.Bk);
             }
             else
             {
@@ -111,6 +118,43 @@ namespace LM.WebUI.Areas.Admin.Controllers
             }
             var model = UploadHelper.FileUploadHandler(file, UploadFileTye.Other, false);
             return Json(model);
+        }
+
+
+        [HttpPost]
+        [Authentication]
+        public JsonResult DbBackupUpload()
+        {
+            try
+            {
+                var file = HttpContext.Request.Files[0]; // 默认传单个文件
+                if (file == null || file.InputStream == null || string.IsNullOrEmpty(file.FileName))
+                {
+                    return Json(new FileUploadModel { Status = false, Message = "请选择文件！" });
+                }
+
+                var fileFolder = "~/DbBackup";
+                var directory = HttpContext.Server.MapPath(fileFolder);
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                var filePath = directory + "/LM_DB.bak";
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+
+                file.SaveAs(filePath);
+                var model = new FileUploadModel { Status = true, Message = "上传成功！", FilePath = fileFolder.Substring(1) + "/LM_DB.bak" };
+                return Json(model);
+            }
+            catch (Exception e)
+            {
+                LogHelper.WriteLogByIo(e.Message, "D://log4up");
+                return Json(new FileUploadModel { Status = false, Message = "系统异常！" });
+            }
         }
 
         #endregion
