@@ -107,7 +107,7 @@
                 </p>
                 <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
                     @(!string.IsNullOrEmpty(oneNews.Brief) && oneNews.Brief.Length > 100 ? oneNews.Brief.Substring(0, 97) + "..." : oneNews.Brief)
-                    <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneNews.Id" target="_blank">详情>></a></span>
+                    <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneNews.Id" target="_blank">[详情]</a></span>
                 </p>
             }
             else
@@ -131,7 +131,7 @@
                 </p>
                 <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
                     @(!string.IsNullOrEmpty(oneFocus.Brief) && oneFocus.Brief.Length > 100 ? oneFocus.Brief.Substring(0, 97) + "..." : oneFocus.Brief)
-                    <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneFocus.Id" target="_blank">详情>></a></span>
+                    <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneFocus.Id" target="_blank">[详情]</a></span>
                 </p>
             }
             else
@@ -305,22 +305,22 @@
     <div class="floor2" style="width: 1004px; margin: 0 auto; height: 160px;  margin-bottom: 10px;">
         <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 11px;">
             <a href="javascript:window.open('@config.Product1Link');">
-                <img style="width: 241px; height: 158px;" src="@config.Product1Src" />
+                <img style="width: 241px; height: 158px;" src="@(string.IsNullOrEmpty(config.Product1Src) ? "/content/images/zanwu.jpg" : config.Product1Src)" />
             </a>
         </div>
         <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 11px;">
             <a href="javascript:window.open('@config.Product2Link');">
-                <img style="width: 241px; height: 158px;" src="@config.Product2Src" />
+                <img style="width: 241px; height: 158px;" src="@(string.IsNullOrEmpty(config.Product2Src) ? "/content/images/zanwu.jpg" : config.Product2Src)" />
             </a>
         </div>
         <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 10px;">
             <a href="javascript:window.open('@config.Product3Link');">
-                <img style="width: 241px; height: 158px;" src="@config.Product3Src" />
+                <img style="width: 241px; height: 158px;" src="@(string.IsNullOrEmpty(config.Product3Src) ? "/content/images/zanwu.jpg" : config.Product3Src)" />
             </a>
         </div>
         <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc;">
             <a href="javascript:window.open('@config.Product4Link');">
-                <img style="width: 241px; height: 158px;" src="@config.Product4Src" />
+                <img style="width: 241px; height: 158px;" src="@(string.IsNullOrEmpty(config.Product4Src) ? "/content/images/zanwu.jpg" : config.Product4Src)" />
             </a>
         </div>
     </div>

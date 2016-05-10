@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using LM.Model.Entity;
 using LM.Model.Model;
 using LM.Service;
@@ -16,6 +14,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
 {
     public class HomeController : BaseController
     {
+
         #region 登录登出
         [Authentication]
         public ActionResult Index()
@@ -33,7 +32,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         public JsonResult Login(string userName, string userPwd)
         {
             var status = false;
-            var loginMsg = "";
+            string loginMsg;
             if (string.IsNullOrEmpty(userName) && string.IsNullOrEmpty(userPwd))
             {
                 loginMsg = "请输入用户名和密码！";

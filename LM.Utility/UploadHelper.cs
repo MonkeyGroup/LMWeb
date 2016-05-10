@@ -30,6 +30,8 @@ namespace LM.Utility
                     fileFolder = "~/Upload/swf"; break;
                 case UploadFileTye.Media:
                     fileFolder = "~/Upload/media"; break;
+                case UploadFileTye.Bk:
+                    fileFolder = "~/DbBackup"; break;
                 case UploadFileTye.Other:
                     fileFolder = "~/Upload/other"; break;
                 default:
@@ -86,6 +88,7 @@ namespace LM.Utility
         //Word = 3,
         //Pdf = 4,
         Media = 5,
+        Bk = 6,
         Other = 99
     }
 

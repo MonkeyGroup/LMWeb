@@ -1,13 +1,46 @@
 ﻿@using LM.Model.Model
+@using LM.Utility
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
     ViewBag.Title = "数据备份与还原";
-}
 
+    var bakPath = ViewBag.BakPath;
+}
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/swfobject.js")
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/jquery.uploadify.v2.1.0.min.js")
+
+<script>
+    $(document).ready(function () {
+        // bak 文件上传
+        $("#bakUploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/DbBackupUpload',
+            queueID: 'fileQueue1',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#bakPath').val(rs.FilePath);
+                }
+                alert(rs.Message);
+            },
+            uploadifyCancel: function () {
+            }
+        });
+    });
+</script>
 
 <script type="text/javascript">
     var commitFlag = true;
     function restore() {
+        // check null
+        if ($('#bakPath').val() === null || $('#bakPath').val() === '') {
+            alert('请先上传备份文件！');
+            return;
+        }
         if (!confirm('此操作将使数据库的数据还原到您上次备份的时刻，您确定要进行这样的不可逆操作吗？')) {
             return;
         }
@@ -35,6 +68,10 @@
 
     var commitFlag2 = true;
     function backup() {
+        if ($('#downloadPath').val() === '') {
+            alert('请先备份数据库！');
+            return;
+        }
         commitFlag2 = false;
 
         // 封装数据
@@ -45,6 +82,7 @@
             cache: false,
             contentType: "application/json; charset=utf-8",
             success: function (resp) {
+                filePath = resp.data;
                 commitFlag2 = true;
                 alert(resp.message);
             },
@@ -54,6 +92,15 @@
             }
         }
         $.ajax(ajax);
+    }
+
+    var filePath = '@bakPath';
+    function download() {
+        if (filePath === '') {
+            alert('请先备份数据库！');
+            return;
+        }
+        window.location.href = filePath;
     }
 </script>
 
@@ -69,8 +116,17 @@
         <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
             <tr>
                 <td>
-                    <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="数据库备份" onclick="return backup() && false;" />
-                    <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="数据库恢复" onclick="return restore() && false;" />
+                    <input name="submit" style="margin-left: 20%;" class="btn" type="button" value="数据库备份" onclick="return backup() && false;" />
+                    <input style="margin-left: 0px; cursor: pointer; background-color: #40e0d0;" class="btn" type="button" value="下载备份文件"
+                           id="dnbtn" onclick="download();"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input name="submit" style="margin-left: 20%;" class="btn" type="button" value="数据库还原" onclick="return restore() && false;" />
+                    <input id="bakPath" type="text" name="bakPath" class="inpMain" size="60" placeholder="请上传备份文件" />
+                    <div id="fileQueue1" style="display: none;"></div>
+                    <input id="bakUploadify" type="file" name="uploadify" />
                 </td>
             </tr>
         </table>

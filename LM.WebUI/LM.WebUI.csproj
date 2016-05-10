@@ -237,6 +237,7 @@
     <Content Include="Areas\Admin\Views\Category\Category.cshtml" />
     <Content Include="Areas\Admin\Views\Category\List.cshtml" />
     <Content Include="Areas\Admin\Views\DbProcess\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Preview.cshtml" />
     <None Include="log4net.config">
       <SubType>Designer</SubType>
     </None>
@@ -1265,6 +1266,7 @@
     <Folder Include="Areas\Admin\Content\js\jquery.uploadify-v2.1.0\example\uploads\" />
     <Folder Include="Areas\Admin\Content\js\kindeditor\attached\" />
     <Folder Include="Areas\Admin\Content\js\UEditor\upload\image\" />
+    <Folder Include="DbBackup\" />
     <Folder Include="Upload\images\" />
     <Folder Include="Upload\swf\" />
     <Folder Include="Upload\word\" />
@@ -1386,9 +1388,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Common\Preview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Shared\_Preview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Home\BasicInfo.cshtml" />
