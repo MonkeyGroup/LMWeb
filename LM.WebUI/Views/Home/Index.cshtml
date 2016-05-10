@@ -46,7 +46,7 @@
 <div style="width: 1004px; height: 260px; margin: 8px auto; margin-bottom: 2px;">
     <!--幻灯片-->
     <div id="aa" class="pic_list" style="width: 331px; float: left; border: 1px solid #ccc; height: 257px; margin-right: 6px;">
-        <a href="" target="_blank">
+        <a href="@(slideArticles.Count > 0 ? "/Article/Detail?id=" + slideArticles[0].Id : "")" target="_blank">
             <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc:"")" style="width: 100%; height: 100%;" onclick="" />
         </a>
         <style>
@@ -89,13 +89,13 @@
         </ul>
     </div>
 
-    <!--联盟成就、特别关注-->
+    <!--联盟要闻、特别关注-->
     <div style="width: 468px; float: left;">
         <div style="height: 127px; border: 1px solid #ccc; margin-bottom: 2px;">
             <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
                 <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #0DB0F3; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
                     联盟要闻
-                    <a href="/Article/InfoList?type=联盟要闻" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                    <a href="/Article/InfoList?type=联盟要闻" target="_blank" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
                         更多<span style="font-size: 12px;">&gt;&gt;</span>
                     </a>
                 </p>
@@ -103,7 +103,7 @@
             @if (oneNews != null && !string.IsNullOrEmpty(oneNews.Title))
             {
                 <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;" title="@oneNews.Title">
-                    @(oneNews.Title.Length > 20 ? oneNews.Title.Substring(0, 17) + "..." : oneNews.Title)
+                    @(oneNews.Title.Length > 28 ? oneNews.Title.Substring(0, 25) + "..." : oneNews.Title)
                 </p>
                 <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
                     @(!string.IsNullOrEmpty(oneNews.Brief) && oneNews.Brief.Length > 100 ? oneNews.Brief.Substring(0, 97) + "..." : oneNews.Brief)
@@ -119,7 +119,7 @@
             <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
                 <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #0DB0F3; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
                     特别关注
-                    <a href="/Article/InfoList?type=特别关注" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                    <a href="/Article/InfoList?type=特别关注" target="_blank" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
                         更多<span style="font-size: 12px;">&gt;&gt;</span>
                     </a>
                 </p>
@@ -127,7 +127,7 @@
             @if (oneFocus != null && !string.IsNullOrEmpty(oneFocus.Title))
             {
                 <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;" title="@oneFocus.Title">
-                    @(oneFocus.Title.Length > 20 ? oneFocus.Title.Substring(0, 17) + "..." : oneFocus.Title)
+                    @(oneFocus.Title.Length > 28 ? oneFocus.Title.Substring(0, 25) + "..." : oneFocus.Title)
                 </p>
                 <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
                     @(!string.IsNullOrEmpty(oneFocus.Brief) && oneFocus.Brief.Length > 100 ? oneFocus.Brief.Substring(0, 97) + "..." : oneFocus.Brief)
@@ -151,7 +151,7 @@
             <div style="padding-top: 5px; height: 25px; background: url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
                 <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #0DB0F3; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
                     联盟简报
-                    <a href="/Article/BriefList" style="text-align: right; padding-left: 28%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                    <a href="/Article/BriefList" target="_blank" style="text-align: right; padding-left: 28%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
                         更多<span style="font-size: 12px;">&gt;&gt;</span>
                     </a>
                 </p>
@@ -224,7 +224,7 @@
             <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
                 <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">产业上游联盟理事企业</span>
                 <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right;"
-                   href="/Company/List?type=@((int)MemberType.上游企业)">更多>></a>
+                   href="/Company/List?type=@((int)MemberType.上游企业)" target="_blank">更多>></a>
             </p>
             <div class="tonggao_content">
                 <ul class="r_upload mbm">
@@ -248,7 +248,7 @@
             <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
                 <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">产业下游联盟理事企业</span>
                 <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right;"
-                   href="/Company/List?type=@((int)MemberType.下游企业)">更多>></a>
+                   href="/Company/List?type=@((int)MemberType.下游企业)" target="_blank">更多>></a>
             </p>
             <div class="tonggao_content">
                 <ul class="r_upload mbm">
@@ -272,7 +272,7 @@
             <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
                 <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">科研院所协会理事单位</span>
                 <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right;"
-                   href="/Company/List?type=@((int)MemberType.科研院所协会)">更多>></a>
+                   href="/Company/List?type=@((int)MemberType.科研院所协会)" target="_blank">更多>></a>
             </p>
             <div class="tonggao_content">
                 <ul class="r_upload mbm">
@@ -336,11 +336,14 @@
                 foreach (var c in dynamicArticles)
                 {
                     <p style="font-size: 12px; line-height: 24px; padding-left: 15px; background: url(/Content/images/li.jpg) 0 5px no-repeat;" title="@c.Title">
-                        <a href="/Article/Detail?id=@c.Id">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[@c.SaveAt.ToString("yyyy-MM-dd")]</span>
+                        <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[@c.SaveAt.ToString("yyyy-MM-dd")]</span>
                     </p>
                 }
                 <p style="text-align: right; padding-right: 10px; margin-top: 5px;">
-                    <a href="/Article/InfoList" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">更多<span style="font-size: 12px;">&gt;&gt;</span></a>
+                    <a href="/Article/InfoList" target="_blank" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                        更多
+                        <span style="font-size: 12px;">&gt;&gt;</span>
+                    </a>
                 </p>
             }
             else
@@ -357,12 +360,12 @@
                 foreach (var c in industryArticles)
                 {
                     <p style="font-size: 12px; line-height: 24px; padding-left: 15px; background: url(/Content/images/li.jpg) 0 5px no-repeat;" title="@c.Title">
-                        <a href="/Article/Detail?id=@c.Id">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[@c.SaveAt.ToString("yyyy-MM-dd")]</span>
+                        <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[@c.SaveAt.ToString("yyyy-MM-dd")]</span>
                     </p>
                 }
 
                 <p class="pmore" style="text-align: right; padding-right: 10px; margin-top: 5px;">
-                    <a href="/Article/InfoList?type=行业信息" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
+                    <a href="/Article/InfoList?type=行业信息" target="_blank" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
                         更多
                         <span style="font-size: 12px;">&gt;&gt;</span>
                     </a>

@@ -15,13 +15,6 @@ namespace LM.WebUI.Areas.Admin.Controllers
 {
     public class ProductController : BaseController
     {
-        [Authentication]
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-
         [HttpGet]
         [Authentication]
         public ActionResult Product(int id = 0)

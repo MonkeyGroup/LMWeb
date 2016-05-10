@@ -159,7 +159,6 @@ namespace LM.WebUI.Areas.Admin.Controllers
             }
         }
 
-        [HttpPost]
         [Authentication]
         public ActionResult Delete(string ids, string type, string keys)
         {

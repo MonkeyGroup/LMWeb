@@ -28,29 +28,31 @@
 
         .searchmain li {
             height: auto;
-            line-height: 37px;
+            /*line-height: 37px;*/
             /*background: url(/Content/images/list_01.jpg) 10px 13px no-repeat;*/
             border-bottom: 1px dashed #ddd;
         }
 
             .searchmain li a {
                 height: auto;
-                line-height: 37px;
+                /*line-height: 37px;*/
                 display: block;
-                padding-left: 25px;
+                padding-left: 15px;
+                padding-right: 15px;
                 font-family: "微软雅黑","新宋体","宋体";
                 font-size: 14px;
             }
 
                 .searchmain li a:hover {
                     height: auto;
-                    line-height: 37px;
+                    /*line-height: 37px;*/
                     display: block;
-                    padding-left: 25px;
+                    padding-left: 15px;
+                    padding-right: 15px;
                     background-color: #D7F3FF;
                     color: #0586BB;
                     font-family: "微软雅黑","新宋体","宋体";
-                    font-size: 16px;
+                    font-size: 14px;
                 }
 </style>
 
@@ -61,7 +63,7 @@
         {
             <li>
                 <a href="/Article/Detail?id=@item.Id">
-                    <font style="font-size:15px;font-weight:bold">@item.Title</font>
+                    <font style="font-size:15px; font-weight: bold; padding-left: 20px;">@item.Title</font>
                     <span style="font-weight:normal">【内容摘要】@item.Brief</span>
                 </a>
             </li>
@@ -70,7 +72,7 @@
         {
             <li>
                 <a href="/Company/Detail?id=@item.Id">
-                    <font style="font-size:15px;font-weight:bold">@item.Name</font>
+                    <font style="font-size:15px;font-weight:bold; padding-left: 20px;">@item.Name</font>
                     <span style="font-weight:normal">【企业详情】@Html.Raw(item.Description.Length > 100 ? item.Description.Substring(0, 97) + "..." : item.Description)</span>
                 </a>
             </li>
@@ -79,7 +81,7 @@
         {
             <li>
                 <a href="/Product/Detail?id=@item.Id">
-                    <font style="font-size:15px;font-weight:bold">@item.Name</font>
+                    <font style="font-size:15px;font-weight:bold; padding-left: 20px;">@item.Name</font>
                     <span style="font-weight:normal">【产品详情】@Html.Raw(item.Description1.Length > 100 ? item.Description1.Substring(0, 97) + "..." : item.Description1)</span>
                 </a>
             </li>
