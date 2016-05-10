@@ -70,7 +70,7 @@
                             @foreach (var item in list)
                             {
                                 <div class="pane_goods">
-                                    <a href="/Company/Detail?id=@item.Id"  title="@item.Name">
+                                    <a href="/Company/Detail?id=@item.Id" title="@item.Name" target="_blank">
                                         <img src="@item.LogoSrc" />
                                         <p>@(item.Name.Length > 24 ? item.Name.Substring(0, 21) + "...." : item.Name)</p>
                                     </a>
