@@ -90,7 +90,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                             IsRecommend = entity.IsRecommend,
                             IsFocus = entity.IsFocus,
                             IsShow = entity.IsShow,
-                            SaveAt = DateTime.Now,
+                            SaveAt = entity.SaveAt,
                             ImgSrc = entity.ImgSrc
                         };
                     }
@@ -127,7 +127,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         IsRecommend = model.IsRecommend,
                         IsFocus = model.IsFocus,
                         IsShow = model.IsShow,
-                        SaveAt = DateTime.Now,
+                        SaveAt = model.SaveAt.ToString("yyyy-MM-dd").Equals("0001-01-01") ? DateTime.Now : model.SaveAt,
                         ImgSrc = model.ImgSrc
                     });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "修改成功！" : "修改失败！" };
@@ -148,7 +148,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         IsRecommend = model.IsRecommend,
                         IsFocus = model.IsFocus,
                         IsShow = model.IsShow,
-                        SaveAt = DateTime.Now,
+                        SaveAt = model.SaveAt.ToString("yyyy-MM-dd").Equals("0001-01-01") ? DateTime.Now : model.SaveAt,
                         ImgSrc = model.ImgSrc
                     });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "新建成功！" : "新建失败！" };

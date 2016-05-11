@@ -10,6 +10,7 @@
 @Html.RenderScript("/Areas/Admin/Content/js/kindeditor/kindeditor.js")
 @Html.RenderScript("/Areas/Admin/Content/js/kindeditor/lang/zh_CN.js")
 @Html.RenderScript("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.js")
+@Html.RenderScript("/Areas/Admin/Content/js/My97DatePicker/WdatePicker.js")
 
 <!-- KindEditor -->
 <script type="text/javascript">
@@ -61,6 +62,7 @@
             Title: $('#title').val(),
             Type: $('#type').val(),
             Author: $('#author').val(),
+            SaveAt: $('#saveAt').val(),
             Origin: $('#origin').val(),
             Keywords: $('#keywords').val(),
             Brief: $('#brief').val(),
@@ -149,6 +151,13 @@
                 <td>
                     <input type="text" id="origin" value="@(model.Origin ?? "")" size="80" class="inpMain" />
                     <span id="msg2" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">发表时间</td>
+                <td>
+                    <input type="text" id="saveAt" value="@(model.SaveAt.ToString("yyyy-MM-dd").Equals("0001-01-01") ? "" : model.SaveAt.ToString("yyyy-MM-dd"))"
+                           size="20" class="Wdate" onclick="WdatePicker()" readonly="readonly"/>
                 </td>
             </tr>
             <tr>

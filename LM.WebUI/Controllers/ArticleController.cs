@@ -121,7 +121,7 @@ namespace LM.WebUI.Controllers
                         IsRecommend = entity.IsRecommend,
                         IsFocus = entity.IsFocus,
                         IsShow = entity.IsShow,
-                        SaveAt = DateTime.Now,
+                        SaveAt = entity.SaveAt,
                         ImgSrc = entity.ImgSrc
                     };
                 }
