@@ -34,10 +34,10 @@ namespace LM.Service.Security
 
 
         #region 通用方法
-        public static void Set(string key, object model)
+        public static void Set(string key, object model, int defaultExpireMinutes = 30)
         {
             var mySession = UnityBootStrapper.Instance.UnityContainer.Resolve<ISession>();
-            mySession.Set(key, model);
+            mySession.Set(key, model, defaultExpireMinutes);
         }
 
         public static object Get(string key)

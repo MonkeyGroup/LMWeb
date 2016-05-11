@@ -11,13 +11,14 @@ namespace LM.Utility.Util
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void Set<T>(string key, T value)
+        /// <param name="defaultExpireMinutes"></param>
+        public void Set<T>(string key, T value, int defaultExpireMinutes = 30)
         {
             var expire = ConfigurationManager.AppSettings["SessionExpires"];
-            int expireHours;
-            expireHours = int.TryParse(expire, out expireHours) ? expireHours : 30;
+            int expireMinutes;
+            expireMinutes = int.TryParse(expire, out expireMinutes) ? expireMinutes : defaultExpireMinutes;
             HttpContext.Current.Session[key] = value;
-            HttpContext.Current.Session.Timeout = expireHours;
+            HttpContext.Current.Session.Timeout = expireMinutes;
         }
 
         public T Get<T>(string key)

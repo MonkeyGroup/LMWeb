@@ -43,13 +43,13 @@ namespace LM.WebUI.Controllers
 
                     if (!svs.Status)
                     {
-                        CurrentContext.Set("HomePageConfig", new HomePageConfigModel());
+                        CurrentContext.Set("HomePageConfig", new HomePageConfigModel(), 120);
                         ViewBag.Message = "未读取到任何首页配置信息！";
                         return View("Error");
                     }
 
                     var config = svs.Data as HomePageConfigModel;
-                    CurrentContext.Set("HomePageConfig", config);
+                    CurrentContext.Set("HomePageConfig", config, 120);
                 }
             }
             #endregion
@@ -82,7 +82,7 @@ namespace LM.WebUI.Controllers
                     }
                 }
 
-                CurrentContext.Set("FooterModel", model);
+                CurrentContext.Set("FooterModel", model, 120);
             }
             #endregion
 

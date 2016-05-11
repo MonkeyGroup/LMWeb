@@ -32,6 +32,16 @@
                 }
             });
         });
+
+        // div 变换
+        function toggleShadow(dom) {
+            var claz = $(dom).attr('class');
+            if (claz === 'pane_goods') {
+                $(dom).addClass('shadow');
+                return;
+            }
+            $(dom).removeClass('shadow');
+        }
     </script>
 }
 
@@ -69,7 +79,7 @@
                         <div class="pane" style="display: block;">
                             @foreach (var item in list)
                             {
-                                <div class="pane_goods">
+                                <div class="pane_goods" onmouseover="toggleShadow(this);" onmouseout="toggleShadow(this);">
                                     <a href="/Company/Detail?id=@item.Id" title="@item.Name" target="_blank">
                                         <img src="@item.LogoSrc" />
                                         <p>@(item.Name.Length > 24 ? item.Name.Substring(0, 21) + "...." : item.Name)</p>

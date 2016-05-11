@@ -271,12 +271,29 @@ ul {
         margin: 8px 12px;
         padding: 5px;
     }
+    
+    .pane .shadow {
+        border: 1px solid #ccc;
+        width: 151px;
+        height: 151px;
+        float: left;
+        margin: 5px 9px;
+        padding: 5px;
+        background-color: #D7F3FF;
+        -moz-box-shadow: 3px 3px 4px #D7F3FF;
+        -webkit-box-shadow: 3px 3px 4px #D7F3FF;
+        box-shadow: 3px 3px 4px #D7F3FF;
+        /* For IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#D7F3FF')";
+        /* For IE 5.5 - 7 */
+        filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#D7F3FF');
+    }
 
-        .pane .pane_goods img {
-            width: 140px;
-            height: 100px;
-            border: 0px solid #ccc;
-        }
+    .pane .pane_goods img {
+        width: 140px;
+        height: 100px;
+        border: 0px solid #ccc;
+    }
 
 
 #jrwz {

@@ -1421,7 +1421,6 @@
     <Content Include="Areas\Admin\Views\Company\List.cshtml" />
     <Content Include="Areas\Admin\Views\Company\Company.cshtml" />
     <Content Include="Areas\Admin\Views\Home\OpLogList.cshtml" />
-    <None Include="Properties\PublishProfiles\LMweb.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -9,7 +9,8 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        void Set<T>(string key, T value);
+        /// <param name="defaultExpireMinutes"></param>
+        void Set<T>(string key, T value, int defaultExpireMinutes = 30);
 
         /// <summary>
         /// 获取项
