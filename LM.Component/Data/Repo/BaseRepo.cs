@@ -17,7 +17,7 @@ namespace LM.Component.Data.Repo
         }
 
 
-        #region CRUD methods for this table. 
+        #region CRUD methods for single-table. 
         public int Insert(T entity)
         {
             return DbSession.Connection.Insert<T>(entity);

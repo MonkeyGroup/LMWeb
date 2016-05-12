@@ -22,7 +22,7 @@ namespace LM.Component.Data
             {
                 Connection.Close();
             }
-            // 注：connection 的 Dispose 方法会清空connectionString，但是不会是否 connection 内存，
+            // 注：connection 的 Dispose 方法会清空connectionString，但是不会释放 connection 内存，
             //          所以只能 Close，而不能 Dispose
             //Connection.Dispose();
         }
