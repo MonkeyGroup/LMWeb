@@ -19,16 +19,31 @@
                 var html2 = '<font color="#60C6F1">▼</font> 收起';
                 $(this).html($(this).text() === '▼ 收起' ? html1 : html2);
             });
+
+            // 处理复制的表格的自带宽高
+            $('table').each(function () {
+                $(this).removeAttr('style');
+                $(this).find('tr').each(function () {
+                    $(this).removeAttr('width').removeAttr('height');
+                });
+                $(this).find('td').each(function () {
+                    $(this).removeAttr('width').removeAttr('height');
+                });
+                $(this).find('p').each(function () {
+                    $(this).css('width', 'auto');
+                    //$(this).css('max-width', '50px');
+                });
+            });
         });
     </script>
 }
 
 
 <div class="bg">
-    <div class="about_main" style="height:550px;">
+    <div class="about_main" style="height: 550px;">
         <div class="about_left">
             <div class="about_left1">
-                <img src="@info.ImgSrc" width="80%" height="140px" style="margin:10px auto;" />
+                <img src="@info.ImgSrc" width="80%" height="140px" style="margin: 10px auto;" />
                 <p>@info.Name</p>
             </div>
 
@@ -104,7 +119,9 @@
                             <a href="javascript:;" class="open"> <font color="#60C6F1">▶</font> 更多产品信息</a>
                         </div>
                         <div style="text-align: left; padding: 10px; border-top: 1px solid #e1dbdb; line-height: 25px; display: none;">
-                            @Html.Raw(info.Description2)
+                            <div class="mycontent">
+                                @Html.Raw(info.Description2)
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,12 +140,15 @@
                             <a href="javascript:;" class="open"> <font color="#60C6F1">▶</font> 更多产品信息</a>
                         </div>
                         <div style="text-align: left; padding: 10px; border-top: 1px solid #e1dbdb; line-height: 25px; display: none;">
-                            @Html.Raw(info.Description3)
+                            <div class="mycontent">
+                                @Html.Raw(info.Description3)
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div style="clear:both;"></div>
+    <div style="clear: both;"></div>
 </div>
+

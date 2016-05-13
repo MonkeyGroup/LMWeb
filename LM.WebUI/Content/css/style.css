@@ -1158,7 +1158,7 @@ a:hover #jrwz {
         margin-top: 15px;
     }
 
-/****所有涉及文本的页面，需要对：图片img、表格table（word表格、excel等）***/
+/****所有详情页面，需要对：图片img、表格table（word表格、excel等）***/
 .mycontent p {
     width: 560px;
     margin: 0 auto;
@@ -1183,3 +1183,19 @@ a:hover #jrwz {
     margin: auto auto;
     margin-top: 15px;
 }
+
+
+/****产品页面，需要对：图片img、表格table（word表格、excel等）***/
+.ptable {
+    max-width: 400px;
+    height: auto;
+    margin: auto auto;
+    margin-top: 15px;
+}
+
+
+
+
+
+
+
