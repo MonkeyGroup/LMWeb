@@ -68,6 +68,7 @@
     <Compile Include="DbProcessService.cs" />
     <Compile Include="ExpertService.cs" />
     <Compile Include="Filter\ExceptionFilter.cs" />
+    <Compile Include="FruitsService.cs" />
     <Compile Include="HomePageConfigService.cs" />
     <Compile Include="OperationLogService.cs" />
     <Compile Include="ProductService.cs" />

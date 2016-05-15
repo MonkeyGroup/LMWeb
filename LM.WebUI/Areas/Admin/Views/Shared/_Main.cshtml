@@ -35,6 +35,7 @@
                                 <a href="/Admin/Category/Category">分类</a>
                                 <a href="/Admin/Product/Product">产品</a>
                                 <a href="/Admin/Article/Article">文章</a>
+                                <a href="/Admin/Fruits/Fruits">科研成果</a>
                                 <a href="/Admin/Home/BriefList">联盟简报</a>
                                 <a href="/Admin/Company/Company">成员企业</a>
                                 <a href="/Admin/Expert/Expert">专家成员</a>
@@ -49,6 +50,7 @@
                                 <a href="/Admin/Home/User?id=@currUser.UserId">编辑我的个人资料</a>
                             </div>
                         </li>
+                        <li class="noRight"><a href="/Home/Index">返回官网</a></li>
                         <li class="noRight"><a href="/Admin/Home/Logout">退出</a></li>
                     </ul>
                 </div>
@@ -78,6 +80,9 @@
                 <ul>
                     @*<li @Html.Raw("ArticleCategory".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Article/Category"><i class="articleCat"></i><em>文章分类</em></a></li>*@
                     <li @Html.Raw("ArticleList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Article/List"><i class="article"></i><em>文章列表</em></a></li>
+                </ul>
+                <ul>
+                    <li @Html.Raw("BriefList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Fruits/List"><i class="articleCat"></i><em>科研成果列表</em></a></li>
                 </ul>
                 <ul>
                     <li @Html.Raw("BriefList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/BriefList"><i class="articleCat"></i><em>联盟简报列表</em></a></li>

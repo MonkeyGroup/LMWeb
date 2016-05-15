@@ -45,6 +45,7 @@
     <Compile Include="CategoryRepo.cs" />
     <Compile Include="CompanyRepo.cs" />
     <Compile Include="ExpertRepo.cs" />
+    <Compile Include="FruitsRepo.cs" />
     <Compile Include="HomePageConfigRepo.cs" />
     <Compile Include="OperationLogRepo.cs" />
     <Compile Include="ProductRepo.cs" />

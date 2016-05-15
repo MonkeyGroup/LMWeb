@@ -88,8 +88,8 @@
                     <option value=""> 未分类</option>
                     <option value="联盟动态" @(type.Equals("联盟动态") ? "selected" : "")> 联盟动态</option>
                     <option value="行业信息" @(type.Equals("行业信息") ? "selected" : "")> 行业信息</option>
-                    <option value="科技成果" @(type.Equals("科技成果") ? "selected" : "")> 科技成果</option>
-                    <option value="寻求合作" @(type.Equals("寻求合作") ? "selected" : "")> 寻求合作</option>
+                    @*<option value="科技成果" @(type.Equals("科技成果") ? "selected" : "")> 科技成果</option>
+                    <option value="寻求合作" @(type.Equals("寻求合作") ? "selected" : "")> 寻求合作</option>*@
                 </select>
                 <input id="keys" name="keys" type="text" class="inpMain" value="@keys" size="20" />
                 <input name="submit" class="btnGray" type="button" value="筛选" onclick="return search() && false;" />

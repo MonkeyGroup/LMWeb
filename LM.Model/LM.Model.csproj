@@ -46,6 +46,7 @@
     <Compile Include="Entity\Category.cs" />
     <Compile Include="Entity\Company.cs" />
     <Compile Include="Entity\Expert.cs" />
+    <Compile Include="Entity\Fruits.cs" />
     <Compile Include="Entity\HomePageConfig.cs" />
     <Compile Include="Entity\OperationLog.cs" />
     <Compile Include="Entity\Product.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Model\CompanyModel.cs" />
     <Compile Include="Model\ExpertModel.cs" />
     <Compile Include="Model\FooterModel.cs" />
+    <Compile Include="Model\FruitsModel.cs" />
     <Compile Include="Model\HomePageConfigModel.cs" />
     <Compile Include="Model\OperationLogModel.cs" />
     <Compile Include="Model\UserModel.cs" />

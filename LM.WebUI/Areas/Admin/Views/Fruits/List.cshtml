@@ -1,0 +1,177 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@using LM.WebUI.Areas.Admin.Models
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
+    ViewBag.Title = "List";
+
+    var models = ViewBag.Fruits as List<FruitsModel>;
+    var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
+
+    var index = 1;
+    var keys = ViewBag.Keys ?? "";
+}
+@Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
+
+<script>
+    $(function () {
+        /* 分页使用异步 */
+        laypage({
+            cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
+            pages: '@pageInfo.PageCount', //总页数
+            curr: '@pageInfo.PageIndex', // 当前页
+            groups: 3, //连续显示分页数
+            skin: '#0072C6',
+            jump: function (e, first) {
+                // 第一次的事件必须要判断
+                if (!first) {
+                    var keys = $('#keys').val();
+                    window.location.href = '/Admin/Fruits/List?&pindex=' + e.curr+ (keys !== '' ? '&keys=' + keys : '');
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    function search() {
+        var keys = $('#keys').val();
+        window.location.href = '/Admin/Fruits/List?keys=' + keys;
+    }
+
+    function delArticle(id) {
+        if (!confirm('确定删除吗？'))
+            return;
+        var keys = $('#keys').val();
+        window.location.href = '/Admin/Fruits/Delete?ids=' + id + '&keys=' + keys;
+    }
+
+    function batchDelete(form) {
+        if (!confirm('确定删除吗？'))
+            return;
+        var ids = [];
+        for (var i = 0; i < form.elements.length; i++) {
+            var e = form.elements[i];
+            if (e.name !== "chkall" && e.type !== "button" && e.disabled !== true && e.checked) {
+                e.value != null && ids.push(Number(e.value));
+            }
+        }
+        if (ids.length === 0) {
+            alert('请勾选删除项！');
+        } else {
+            var keys = $('#keys').val();
+            window.location.href = '/Admin/Fruits/Delete?ids=' + ids + '&keys=' + keys;
+        }
+    }
+
+</script>
+
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">
+        后台管理中心<b>></b><strong>科研成果列表</strong>
+    </div>
+
+    <div class="mainBox" style="height: auto !important; height: 550px; min-height: 550px;">
+        <h3>
+            <a href="/Admin/Fruits/Fruits" class="actionBtn add">添加科研成果</a>科研成果列表
+        </h3>
+        <div class="filter">
+            <form method="post">
+                <input id="keys" name="keys" type="text" class="inpMain" value="@keys" size="20" />
+                <input name="submit" class="btnGray" type="button" value="筛选" onclick="return search() && false;" />
+            </form>
+        </div>
+        <div id="list">
+            <form name="action">
+                <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                    @if (models != null && models.Count > 0)
+                    {
+                        <tr>
+                            <th width="22" align="center">
+                                <input name='chkall' type='checkbox' id='chkall' onclick='selectcheckbox(this.form)' value='check'>
+                            </th>
+                            <th width="40" align="center">编号</th>
+                            <th align="center">成果名称</th>
+                            <th width="150" align="center">成果类别</th>
+                            <th width="80" align="center">研发企业</th>
+                            <th width="80" align="center">项目负责人</th>
+                            <th width="80" align="center">应用情况</th>
+                            <th width="80" align="center">录入时间</th>
+                            <th width="80" align="center">操作</th>
+                        </tr>
+
+                        foreach (var model in models)
+                        {
+                            <tr>
+                                <td align="center">
+                                    <input type="checkbox" name="checkbox" value="@(model.Id)" />
+                                </td>
+                                <td align="center">@((pageInfo.PageIndex - 1) * pageInfo.PageSize + index++)</td>
+                                <td>
+                                    <a href="/Admin/Fruits/Fruits?id=@(model.Id)">@(model.Name)</a>
+                                </td>
+                                <td align="center">
+                                    @(model.Type)
+                                </td>
+                                <td align="center">
+                                    @(model.Company)
+                                </td>
+                                <td align="center">
+                                    @(model.Leader)
+                                </td>
+                                <td align="center">
+                                    @(model.Application)
+                                </td>
+                                <td align="center">
+                                    @(model.SaveAt.ToString("yyyy-MM-dd HH:mm:ss"))
+                                </td>
+                                <td align="center">
+                                    <a href="/Admin/Fruits/Fruits?id=@(model.Id)">编辑</a> | <a href="#" onclick="return delArticle('@(model.Id)') && false;">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <th width="22" align="center">
+                                <span style="text-align: center;">无数据！</span>
+                            </th>
+                        </tr>
+                    }
+                </table>
+
+                <div class="action" style="@(models != null && models.Count > 0 ? "" : "display:none;")">
+                    <button name="" class="btn" type="button" value="删除" onclick="return batchDelete(this.form) && false;">删除</button>
+                    <!--分页-->
+                    <div class="pageDiv" id="pageDiv1" style="float: right;"></div>
+                </div>
+            </form>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    onload = function () {
+        document.forms['action'].reset();
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

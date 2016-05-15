@@ -56,7 +56,7 @@ clen {
 /* nav */
 .top1 {
     width: auto;
-    height: 49px;
+    /*height: 49px;*/
 }
 
 .nav {
@@ -689,7 +689,7 @@ h3 {
     width: 1004px;
     height: 125px;
     margin: 12px auto;
-    background: url(../images/yqlj_bg.jpg) top left repeat-x;
+    background: url(../images/foot3.png) top left repeat-x;
 }
 
 .content {

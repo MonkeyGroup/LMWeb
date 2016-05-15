@@ -1,0 +1,209 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
+    ViewBag.Title = "Fruits";
+    var model = ViewBag.Fruits as FruitsModel;
+}
+@Html.RenderCss("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.css")
+
+@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/kindeditor.js")
+@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/lang/zh_CN.js")
+@Html.RenderScript("/Areas/Admin/Content/js/kindeditor/plugins/code/prettify.js")
+@Html.RenderScript("/Areas/Admin/Content/js/My97DatePicker/WdatePicker.js")
+
+<!-- KindEditor -->
+<script type="text/javascript">
+    var editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('#container', {
+            //上传管理
+            uploadJson: '/Admin/Common/EditorFileUpload',
+            //uploadJson: '/Areas/Admin/Content/js/kindeditor/asp.net/upload_json.ashx',
+            //文件管理
+            fileManagerJson: '/Areas/Common/EditorFileUpload',
+            allowFileManager: true,
+            //上传文件后执行的回调函数,获取上传图片的路径
+            afterUpload: function (url) {
+            },
+            //编辑器高度
+            width: '800px',
+            //编辑器宽度
+            height: '500px;',
+            //配置编辑器的工具栏
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+                'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'
+            ]
+        });
+        prettyPrint();
+    });
+</script>
+<!-- /KindEditor -->
+
+<script type="text/javascript">
+    var commitFlag = true;
+    function submitIt() {
+        // 判空
+        if (!checkNull()) {
+            commitFlag = true;
+            return;
+        }
+        commitFlag = false;
+
+        var article = {
+            Id: $('#id').val(),
+            Name: $('#name').val(),
+            Type: $('#type').val(),
+            Company: $('#company').val(),
+            SaveAt: $('#saveAt').val(),
+            Leader: $('#leader').val(),
+            Patent: $('#patent').val(),
+            Rights: $('#rights').val(),
+            Description: editor.html(),
+            Awards: $('#awards').val(),
+            Application: $('#application').val()
+        }
+        // 封装数据
+        var ajax = {
+            url: '/Admin/Fruits/Save',
+            data: JSON.stringify(article),
+            type: 'Post',
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (resp) {
+                if (resp.status) {
+                    alert(resp.message);
+                    window.location.href = '/Admin/Fruits/List';
+                } else {
+                    alert(resp.message);
+                    commitFlag = true;
+                }
+            },
+            error: function () {
+                alert('系统故障，请联系管理员！');
+                commitFlag = true;
+            }
+        }
+        $.ajax(ajax);
+    }
+
+    function checkNull() {
+        var ok = true;
+        if ($('#name').val() === '') {
+            $('#msg0').text('请选择文章类型！');
+            ok = false;
+        }
+        ok && clearMsgs();
+        return ok;
+    }
+
+    function clearMsgs() {
+        $('#msg0').text("");
+    }
+</script>
+
+<!--3. Main-->
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">
+        后台管理中心<b>></b><strong>添加科研成果</strong>
+    </div>
+
+    <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><a href="/Admin/Fruits/List" class="actionBtn">科研成果列表</a>添加科研成果</h3>
+        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+
+            <tr>
+                <td width="90" align="right">成果名称</td>
+                <td>
+                    <input type="text" id="name" value="@(model.Name ?? "")" size="80" class="inpMain" />
+                    <font class="prompt" color="red">*</font><span id="msg0" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">成果类别</td>
+                <td>
+                    <input type="text" id="type" value="@(model.Type ?? "")" size="80" class="inpMain" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">研发企业</td>
+                <td>
+                    <input type="text" id="company" value="@(model.Company ?? "")" size="80" class="inpMain" />
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">项目负责人</td>
+                <td>
+                    <input type="text" id="leader" value="@(model.Leader ?? "")" size="80" class="inpMain" />
+                    <span id="msg2" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">专利情况</td>
+                <td>
+                    <input type="text" id="patent" value="@(model.Patent ?? "")" size="80" class="inpMain" />
+                    <span id="msg2" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">知识产权</td>
+                <td>
+                    <input type="text" id="rights" value="@(model.Rights ?? "")" size="80" class="inpMain" />
+                    <span id="msg2" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">获奖信息</td>
+                <td>
+                    <input type="text" id="awards" value="@(model.Awards ?? "")" size="80" class="inpMain" />
+                    <span id="msg2" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">项目负责人</td>
+                <td>
+                    <input type="text" id="origin" value="@(model.Leader ?? "")" size="80" class="inpMain" />
+                    <span id="msg2" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">应用情况</td>
+                <td>
+                    <input type="text" id="application" value="@(model.Application ?? "")" size="80" class="inpMain" />
+                    <span id="msg2" class="prompt"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">发布时间</td>
+                <td>
+                    <input type="text" id="saveAt" value="@(model.SaveAt.ToString("yyyy-MM-dd").Equals("0001-01-01") ? "" : model.SaveAt.ToString("yyyy-MM-dd"))"
+                           size="20" class="Wdate" onclick="WdatePicker()" readonly="readonly" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right" valign="top">详细内容</td>
+                <td>
+                    <textarea name="container" id="container" style="width: 800px; height: 300px;">@(model.Description ?? "")</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <input type="hidden" id="id" name="id" value="@(model.Id)">
+                    <input name="submit" style="margin-left: 30%;" class="btn" type="button" value="提交" onclick="return submitIt() && false;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>

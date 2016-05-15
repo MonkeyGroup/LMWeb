@@ -64,6 +64,7 @@ namespace LM.Service.BootStrapIoC
             UnityContainer.RegisterType<BriefService>(new InjectionConstructor(UnityContainer.Resolve<DbSession>("WriteDbSession")));
             UnityContainer.RegisterType<CategoryService>(new InjectionConstructor(UnityContainer.Resolve<DbSession>("WriteDbSession")));
             UnityContainer.RegisterType<DbProcessService>(new InjectionConstructor(UnityContainer.Resolve<DbSession>("WriteDbSession")));
+            UnityContainer.RegisterType<FruitsService>(new InjectionConstructor(UnityContainer.Resolve<DbSession>("WriteDbSession")));
 
             #endregion
 

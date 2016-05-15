@@ -213,6 +213,7 @@
     <Compile Include="Areas\Admin\Controllers\CompanyController.cs" />
     <Compile Include="Areas\Admin\Controllers\DbProcessController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExpertController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FruitsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Models\PageInfo.cs" />
@@ -250,6 +251,8 @@
     <Content Include="Areas\Admin\Views\Category\List.cshtml" />
     <Content Include="Areas\Admin\Views\DbProcess\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Preview.cshtml" />
+    <Content Include="Areas\Admin\Views\Fruits\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Fruits\Fruits.cshtml" />
     <None Include="log4net.config">
       <SubType>Designer</SubType>
     </None>
@@ -266,31 +269,19 @@
     <Content Include="Content\css\联盟成果.css" />
     <Content Include="Content\css\联盟简报.css" />
     <Content Include="Content\css\联系我们.css" />
-    <Content Include="Content\images\20130929094813_32394.jpg" />
-    <Content Include="Content\images\20130929095024_72706.jpg" />
-    <Content Include="Content\images\20130929095031_47500.jpg" />
-    <Content Include="Content\images\20130929095202_80033.jpg" />
-    <Content Include="Content\images\20130929095413_80224.jpg" />
-    <Content Include="Content\images\20130929095433_17256.jpg" />
-    <Content Include="Content\images\20130929095632_36995.jpg" />
-    <Content Include="Content\images\20130929095639_90135.jpg" />
-    <Content Include="Content\images\20130929095750_16260.jpg" />
-    <Content Include="Content\images\20130929095757_76723.jpg" />
-    <Content Include="Content\images\20131011152757_25781.jpg" />
-    <Content Include="Content\images\20131021141721_50326.jpg" />
-    <Content Include="Content\images\20131022100757_47882.jpg" />
-    <Content Include="Content\images\20131223095649_54043.jpg" />
-    <Content Include="Content\images\20150608154821_36425.jpg" />
     <Content Include="Content\images\citycompschool.jpg" />
     <Content Include="Content\images\citykidssite.jpg" />
     <Content Include="Content\images\company_adress.png" />
     <Content Include="Content\images\download.gif" />
+    <Content Include="Content\images\foot2.png" />
+    <Content Include="Content\images\foot3.png" />
     <Content Include="Content\images\gc-general.jpg" />
     <Content Include="Content\images\groups.jpg" />
     <Content Include="Content\images\list_01.jpg" />
     <Content Include="Content\images\logininfo1.png" />
     <Content Include="Content\images\mayun.jpg" />
     <Content Include="Content\images\membership_seminar.jpg" />
+    <Content Include="Content\images\navbg2.png" />
     <Content Include="Content\images\new.gif" />
     <Content Include="Content\images\newspaper1.jpg" />
     <Content Include="Content\images\newspaper_02.jpg" />
@@ -1116,13 +1107,6 @@
     <Content Include="Content\css\tb.css" />
     <Content Include="Content\css\tpqh.css" />
     <Content Include="Content\images\11.jpg" />
-    <Content Include="Content\images\20130924152922_87930.jpg" />
-    <Content Include="Content\images\20131008095253_65406.jpg" />
-    <Content Include="Content\images\20131008095452_44568.jpg" />
-    <Content Include="Content\images\20131008095812_63264.jpg" />
-    <Content Include="Content\images\20131008100000_29028.jpg" />
-    <Content Include="Content\images\20131017095551_94466.jpg" />
-    <Content Include="Content\images\20140117110513_33614.jpg" />
     <Content Include="Content\images\20160321143707.jpg" />
     <Content Include="Content\images\2118b59.jpg" />
     <Content Include="Content\images\22.jpg" />
@@ -1171,7 +1155,7 @@
     <Content Include="Content\images\nav02.jpg" />
     <Content Include="Content\images\nav03.gif" />
     <Content Include="Content\images\nav04.png" />
-    <Content Include="Content\images\navbg.jpg" />
+    <Content Include="Content\images\navbg.png" />
     <Content Include="Content\images\nav_ah.jpg" />
     <Content Include="Content\images\nav_ah.png" />
     <Content Include="Content\images\nav_yj.png" />
@@ -1188,7 +1172,7 @@
     <Content Include="Content\images\traks_classes.jpg" />
     <Content Include="Content\images\weizi.jpg" />
     <Content Include="Content\images\xinpian1.jpg" />
-    <Content Include="Content\images\yqlj_bg.jpg" />
+    <Content Include="Content\images\foot.png" />
     <Content Include="Content\images\yuanjing1.jpg" />
     <Content Include="Content\images\zhaoshang.png" />
     <Content Include="Content\images\zhongxin.jpg" />

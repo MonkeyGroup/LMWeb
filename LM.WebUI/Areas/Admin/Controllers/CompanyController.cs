@@ -15,12 +15,6 @@ namespace LM.WebUI.Areas.Admin.Controllers
 {
     public class CompanyController : BaseController
     {
-        [Authentication]
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         [Authentication]
         public ActionResult Company(int id = 0)

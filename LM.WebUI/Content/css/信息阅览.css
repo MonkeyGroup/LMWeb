@@ -26,8 +26,6 @@ clen {
     clear: both;
 }
 
-lor: #CCCCCC;
-}
 /*li {
 	padding-top: 15px
 }*/ p {
@@ -63,11 +61,13 @@ lor: #CCCCCC;
 
     .about_left h3 {
         color: #333;
-        font-family: 'Microsoft YaHei';
-        font-size: 16px;
-        font-weight: normal;
-        margin-top: 30px;
+        font-family: Verdana, Arial, Tahoma;
+        font-weight: bold;
+        font-size: 1.5em;
+        margin-top: 40px;
         margin-bottom: 25px;
+        margin-left: 150px;
+        margin-right: 150px;
     }
 
     .about_left p {

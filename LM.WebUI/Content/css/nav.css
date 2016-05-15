@@ -2,7 +2,7 @@
 /* CSS Document */
 ul#navmenu { 
 width:1004px; height:40px; 
-background:url(../images/navbg.jpg) repeat-x top;
+background:url(../images/navbg2.png) repeat-x top;
 margin:auto;
  /*For KHTML*/ 
 list-style: none; 
@@ -64,7 +64,8 @@ ul#navmenu li:hover a,
 ul#navmenu li.iehover a { 
 font-family:"微软雅黑"; 
 font-size:14px; 
-color:#1fa5dc; 
+/*color:#1fa5dc;*/ 
+color:#2872D6; 
 line-height:40px; 
 font-weight:bold; 
 background:url(../images/nav04.png) center no-repeat; 
