@@ -103,6 +103,10 @@
             alert('请填写成果名称！');
             return false;
         }
+        if (editor.html() === '') {
+            alert('请填写成果详细内容！');
+            return false;
+        }
         return true;
     }
 

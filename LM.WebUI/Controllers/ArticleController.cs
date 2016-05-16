@@ -124,6 +124,8 @@ namespace LM.WebUI.Controllers
                         SaveAt = entity.SaveAt,
                         ImgSrc = entity.ImgSrc
                     };
+                    // 浏览量+1
+                    articleService.Update(new { Id = entity.Id, Hits = entity.Hits + 1 });
                 }
                 else
                 {
