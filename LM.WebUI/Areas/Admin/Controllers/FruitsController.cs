@@ -132,7 +132,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         Patent = model.Patent,
                         Awards = model.Awards,
                         Application = model.Application,
-                        Description = model.Description,
+                        Description = model.Description.StartsWith("<p>") ? model.Description : string.Format("{0}{1}{2}", "<p>", model.Description, "</p>"),
                         SaveAt = model.SaveAt.ToString("yyyy-MM-dd").Equals("0001-01-01") ? DateTime.Now : model.SaveAt
                     });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "新建成功！" : "新建失败！" };

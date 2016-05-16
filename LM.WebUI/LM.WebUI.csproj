@@ -222,6 +222,7 @@
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ExpertController.cs" />
+    <Compile Include="Controllers\FruitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
@@ -305,6 +306,8 @@
     <Content Include="Views\Article\BriefList.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <None Include="Properties\PublishProfiles\LMWeb.pubxml" />
+    <Content Include="Views\Fruits\List.cshtml" />
+    <Content Include="Views\Fruits\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Content\css\base.css" />

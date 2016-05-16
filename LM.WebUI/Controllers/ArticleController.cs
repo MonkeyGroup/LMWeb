@@ -16,11 +16,11 @@ namespace LM.WebUI.Controllers
         }
 
 
-        #region 联盟动态 & 行业信息 | 科技成果 & 寻求合作 | 联盟简报
+        #region 联盟动态 & 行业信息 | 联盟简报
 
         /// <summary>
         ///  文章列表。默认类型为“联盟动态”。
-        ///  类型有：“联盟动态”、“行业信息”、“科技成果”、“寻求合作”，“联盟要闻”、“特别关注”。
+        ///  类型有：“联盟动态”、“行业信息”、“联盟要闻”、“特别关注”。
         /// 条件：
         /// 1. 非隐藏；
         /// 2. 类型为“联盟动态”；
@@ -60,10 +60,10 @@ namespace LM.WebUI.Controllers
             ViewBag.Models = models;
             ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
 
-            if (type == "科技成果" || type == "寻求合作")
-            {
-                return View("PerfomList");
-            }
+            //if (type == "科技成果" || type == "寻求合作")
+            //{
+            //    return View("PerfomList");
+            //}
             return View();
         }
 
@@ -81,7 +81,7 @@ namespace LM.WebUI.Controllers
             using (var briefService = ResolveService<BriefService>())
             {
                 psize = 15;
-                var query = string.Format(@"(select a.Id, a.FilePath, a.Name, a.SaveAt from [Brief] a)");
+                var query = @"(select a.Id, a.FilePath, a.Name, a.SaveAt from [Brief] a)";
                 var orderby = "SaveAt desc, Id desc";
                 var rs = briefService.GetByPage(query, orderby, pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<BriefModel> : models;
