@@ -97,7 +97,7 @@
             Site: $('#site').val(),
             LogoSrc: $('#logoSrc').val(),
             Range: $('#range').val(),
-            RangeName:$('#range').find("option:selected").text(),
+            RangeName: $('#range').find("option:selected").text(),
             Description: editor.html()
         }
         // 封装数据
@@ -126,21 +126,24 @@
     }
 
     function checkNull() {
-        var ok = true;
+        clearMsgs();
+
         if ($('#name').val() === '') {
             $('#msg0').text('请填写成员名称！');
-            ok = false;
+            alert('请填写成员名称！');
+            return false;
         }
         if ($('#site').val() === '') {
             $('#msg1').text('请填写成员官网地址！');
-            ok = false;
+            alert('请填写成员官网地址！');
+            return false;
         }
         if ($('#logoSrc').val() === '') {
             $('#msg2').text('请上传成员官网Logo！');
-            ok = false;
+            alert('请上传成员官网Logo！');
+            return false;
         }
-        ok && clearMsgs();
-        return ok;
+        return true;
     }
 
     function clearMsgs() {

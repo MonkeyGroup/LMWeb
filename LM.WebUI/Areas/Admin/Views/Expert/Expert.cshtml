@@ -82,17 +82,19 @@
     }
 
     function checkNull() {
-        var ok = true;
+        clearMsgs();
+
         if ($('#name').val() === '') {
             $('#msg0').text('请填写专家姓名！');
-            ok = false;
+            alert('请填写专家姓名！');
+            return false;
         }
         if ($('#imgSrc').val() === '') {
             $('#msg1').text('请上传专家展示图片！');
-            ok = false;
+            alert('请上传专家展示图片！');
+            return false;
         }
-        ok && clearMsgs();
-        return ok;
+        return true;
     }
 
     function clearMsgs() {
@@ -148,7 +150,7 @@
             <tr>
                 <td width="90" align="right">专家著作</td>
                 <td>
-                    <input type="text" id="books" value="@(model.Name ?? "")" size="80" class="inpMain" placeholder="选填"/>
+                    <input type="text" id="books" value="@(model.Name ?? "")" size="80" class="inpMain" placeholder="选填" />
                 </td>
             </tr>
 
