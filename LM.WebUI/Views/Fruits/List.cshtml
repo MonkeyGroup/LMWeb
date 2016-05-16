@@ -1,0 +1,106 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@using LM.WebUI.Areas.Admin.Models
+@{
+    ViewBag.Title = "科研成果";
+
+    var list = ViewBag.Models as List<FruitsModel>;
+    var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
+
+    var index = 1;
+}
+
+@Html.RenderCss("/Content/css/dynamic.css")
+@Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
+
+@section partialScriptCss{
+    <script>
+        $(function () {
+            /* 分页使用异步 */
+            laypage({
+                cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
+                pages: '@pageInfo.PageCount', //总页数
+                curr: '@pageInfo.PageIndex', // 当前页
+                groups: 3, //连续显示分页数
+                skin: '#0072C6',
+                jump: function (e, first) {
+                    // 第一次的事件必须要判断
+                    if (!first) {
+                        window.location.href = '/Fruits/List?&pindex=' + e.curr;
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+
+<div class="bg">
+    <div class="about_main">
+        <div class="aboutleft">
+            <div class="ab_t mt20">
+                <span class="ab_t01 pl10">科研成果</span><br />
+                <span class="ab_t02 pl10">Achievements</span>
+            </div>
+            <div class="ab_c mt20">
+                <ul>
+                    <li><a href="/Fruits/List">科研成果</a></li>
+                    @*<li><a href="/Article/InfoList?type=寻求合作">寻求合作</a></li>*@
+                </ul>
+            </div>
+        </div>
+
+        <div class="aboutright">
+            <div class="weizi">
+                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Fruits/List">科研成果</a> &gt; <a href="/Fruits/List">科研成果</a>
+            </div>
+
+            <table width="90%" border="0" cellpadding="1" cellspacing="0" class="tableBasic1" style="margin: auto; border-width: 1px; border-spacing: 30px 20px; ">
+                @if (list != null && list.Count > 0)
+                {
+                    <tr>
+                        <th align="center">科研成果名称</th>
+                        <th width="150" align="center">成果类别</th>
+                        <th width="80" align="center">研发企业</th>
+                        <th width="80" align="center">负责人</th>
+                    </tr>
+
+                    foreach (var model in list)
+                    {
+                        <tr>
+                            <td>
+                                <a href="/Fruits/Detail?id=@(model.Id)">@(model.Name)</a>
+                            </td>
+                            <td align="center">
+                                @(model.Type)
+                            </td>
+                            <td align="center">
+                                @(model.Company)
+                            </td>
+                            <td align="center">
+                                @(model.Leader)
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <th width="22" align="center">
+                            <span style="text-align: center;">无数据！</span>
+                        </th>
+                    </tr>
+                }
+            </table>
+
+        </div>
+        <!--分页-->
+        <div class="pageDiv1" id="pageDiv1"></div>
+    </div>
+
+
+</div>
+
+
+
+

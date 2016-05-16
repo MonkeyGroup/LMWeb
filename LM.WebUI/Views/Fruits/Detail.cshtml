@@ -1,0 +1,65 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@{
+    ViewBag.Title = "文章详情";
+    var info = ViewBag.Fruits as FruitsModel ?? new FruitsModel();
+}
+
+@Html.RenderCss("/Content/css/信息阅览.css")
+
+
+<div class="bg">
+    <div class="about_main">
+        <div class="about_left">
+            <table style="margin: auto; margin-top: 50px; width: 80%; border-spacing: 20px 10px;font-size: 14px;">
+                <tr>
+                    <td colspan="2">
+                        <h4 style="text-align: center; font-family: 宋体; margin-bottom: 0px; font-size: 18px; padding: 40px;">@info.Name</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>成果类别：@info.Type</td>
+                    <td>项目负责人：@info.Leader</td>
+                </tr>
+                <tr>
+                    <td>专利情况：@info.Patent</td>
+                    <td>知识产权：@info.Rights</td>
+                </tr>
+                <tr>
+                    <td>获奖信息：@info.Awards</td>
+                    <td>应用情况：@info.Application</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        详细描述：
+                    </td>
+                </tr>
+            </table>
+
+            <div class="mycontent">
+                <style>
+                    p{padding: 0 0;margin-top: 0px;}
+                </style>
+                @Html.Raw(info.Description)
+            </div>
+        </div>
+
+        <div class="about_right" style="display: none">
+            <div class="show">
+                <img src="/Content/images/zanwu.jpg" width="90%" height="90%" />
+            </div>
+
+            <div class="show">
+                <img src="/Content/images/zanwu.jpg" width="90%" height="90%" />
+            </div>
+
+            <div class="show">
+                <img src="/Content/images/zanwu.jpg" width="90%" height="90%" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
