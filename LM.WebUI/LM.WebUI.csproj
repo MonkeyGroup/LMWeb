@@ -269,9 +269,6 @@
     <Content Include="Content\css\联盟成果.css" />
     <Content Include="Content\css\联盟简报.css" />
     <Content Include="Content\css\联系我们.css" />
-    <Content Include="Content\images\citycompschool.jpg" />
-    <Content Include="Content\images\citykidssite.jpg" />
-    <Content Include="Content\images\company_adress.png" />
     <Content Include="Content\images\download.gif" />
     <Content Include="Content\images\foot2.png" />
     <Content Include="Content\images\foot3.png" />
@@ -280,7 +277,6 @@
     <Content Include="Content\images\list_01.jpg" />
     <Content Include="Content\images\logininfo1.png" />
     <Content Include="Content\images\mayun.jpg" />
-    <Content Include="Content\images\membership_seminar.jpg" />
     <Content Include="Content\images\navbg2.png" />
     <Content Include="Content\images\new.gif" />
     <Content Include="Content\images\newspaper1.jpg" />
@@ -1106,12 +1102,8 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\tb.css" />
     <Content Include="Content\css\tpqh.css" />
-    <Content Include="Content\images\11.jpg" />
     <Content Include="Content\images\20160321143707.jpg" />
     <Content Include="Content\images\2118b59.jpg" />
-    <Content Include="Content\images\22.jpg" />
-    <Content Include="Content\images\33.png" />
-    <Content Include="Content\images\44.jpg" />
     <Content Include="Content\images\barbg01.png" />
     <Content Include="Content\images\barbg02.png" />
     <Content Include="Content\images\bg.jpg" />
@@ -1156,9 +1148,6 @@
     <Content Include="Content\images\nav03.gif" />
     <Content Include="Content\images\nav04.png" />
     <Content Include="Content\images\navbg.png" />
-    <Content Include="Content\images\nav_ah.jpg" />
-    <Content Include="Content\images\nav_ah.png" />
-    <Content Include="Content\images\nav_yj.png" />
     <Content Include="Content\images\news_icon.jpg" />
     <Content Include="Content\images\noselectbg.jpg" />
     <Content Include="Content\images\right_jiantou.jpg" />

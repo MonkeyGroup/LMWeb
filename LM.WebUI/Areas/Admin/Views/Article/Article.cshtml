@@ -98,17 +98,19 @@
     }
 
     function checkNull() {
-        var ok = true;
+        clearMsgs();
+
         if ($('#type').val() === '') {
             $('#msg0').text('请选择文章类型！');
-            ok = false;
+            alert('请选择文章类型！');
+            return false;
         }
         if ($('#title').val() === '') {
             $('#msg1').text('请填写文章标题！');
-            ok = false;
+            alert('请填写文章标题！');
+            return false;
         }
-        ok && clearMsgs();
-        return ok;
+        return true;
     }
 
     function clearMsgs() {
@@ -135,7 +137,7 @@
                         <option value="联盟动态" @(model.Type != null && model.Type.Equals("联盟动态") ? "selected" : "")> 联盟动态</option>
                         <option value="行业信息" @(model.Type != null && model.Type.Equals("行业信息") ? "selected" : "")> 行业信息</option>
                         @*<option value="科技成果" @(model.Type != null && model.Type.Equals("科技成果") ? "selected" : "")> 科技成果</option>
-                        <option value="寻求合作" @(model.Type != null && model.Type.Equals("寻求合作") ? "selected" : "")> 寻求合作</option>*@
+                            <option value="寻求合作" @(model.Type != null && model.Type.Equals("寻求合作") ? "selected" : "")> 寻求合作</option>*@
                     </select>
                 </td>
             </tr>
@@ -157,7 +159,7 @@
                 <td width="90" align="right">发表时间</td>
                 <td>
                     <input type="text" id="saveAt" value="@(model.SaveAt.ToString("yyyy-MM-dd").Equals("0001-01-01") ? "" : model.SaveAt.ToString("yyyy-MM-dd"))"
-                           size="20" class="Wdate" onclick="WdatePicker()" readonly="readonly"/>
+                           size="20" class="Wdate" onclick="WdatePicker()" readonly="readonly" />
                 </td>
             </tr>
             <tr>

@@ -57,7 +57,7 @@
         }
         commitFlag = false;
 
-        var article = {
+        var fruits = {
             Id: $('#id').val(),
             Name: $('#name').val(),
             Type: $('#type').val(),
@@ -73,7 +73,7 @@
         // 封装数据
         var ajax = {
             url: '/Admin/Fruits/Save',
-            data: JSON.stringify(article),
+            data: JSON.stringify(fruits),
             type: 'Post',
             dataType: 'json',
             cache: false,
@@ -96,13 +96,14 @@
     }
 
     function checkNull() {
-        var ok = true;
+        clearMsgs();
+
         if ($('#name').val() === '') {
-            $('#msg0').text('请选择文章类型！');
-            ok = false;
+            $('#msg0').text('请填写成果名称！');
+            alert('请填写成果名称！');
+            return false;
         }
-        ok && clearMsgs();
-        return ok;
+        return true;
     }
 
     function clearMsgs() {
