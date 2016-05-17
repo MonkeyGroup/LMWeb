@@ -50,7 +50,7 @@ namespace LM.WebUI.Controllers
             ViewBag.Products = models;
             ViewBag.TypeList = typeList;
             ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
-            return View();
+            return View("List2");
         }
 
         public ActionResult Detail(int id)
@@ -101,7 +101,7 @@ namespace LM.WebUI.Controllers
             }
 
             ViewBag.Product = model;
-            return View();
+            return View("Detail2");
         }
 
         #endregion

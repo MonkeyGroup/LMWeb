@@ -304,6 +304,8 @@
     <None Include="Properties\PublishProfiles\LMWeb.pubxml" />
     <Content Include="Views\Fruits\List.cshtml" />
     <Content Include="Views\Fruits\Detail.cshtml" />
+    <Content Include="Views\Product\List2.cshtml" />
+    <Content Include="Views\Product\Detail2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Content\css\base.css" />
