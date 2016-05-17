@@ -1,0 +1,165 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@using LM.WebUI.Areas.Admin.Models
+@{
+    ViewBag.Title = "产品展示";
+    var type = ViewBag.Type;
+
+    var list = ViewBag.Products as List<ProductModel>;
+    var typeList = ViewBag.TypeList as List<CategoryModel>;
+    var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
+}
+
+@Html.RenderCss("/Content/css/联盟成员.css")
+@Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
+
+@section partialScriptCss{
+    <script>
+        $(function () {
+            /* 分页使用异步 */
+            laypage({
+                cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
+                pages: '@pageInfo.PageCount', //总页数
+                curr: '@pageInfo.PageIndex', // 当前页
+                groups: 3, //连续显示分页数
+                skin: '#0072C6',
+                jump: function (e, first) {
+                    // 第一次的事件必须要判断
+                    if (!first) {
+                        var type = $('#type').val();
+                        window.location.href = '/Product/List?&pindex=' + e.curr + (type !== '' ? '&type=' + type : '');
+                    }
+                }
+            });
+        });
+
+        // div 变换
+        function toggleShadow(dom) {
+            var claz = $(dom).attr('class');
+            if (claz === 'pane_goods') {
+                $(dom).addClass('shadow');
+                return;
+            }
+            $(dom).removeClass('shadow');
+        }
+    </script>
+}
+
+<div class="bg">
+    <div class="about_main">
+        <div class="aboutleft">
+            <!-- left -->
+            <div class="ab_t mt20">
+                <span class="ab_t01 pl10">产品展示</span>
+                <br />
+                <span class="ab_t02 pl10">Alliance Products</span>
+            </div>
+            <div class="ab_c mt20">
+                <ul>
+                    @foreach (var item in typeList)
+                    {
+                        <li><a href="/Product/List?type=@item.Id">@item.Name</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="about_right">
+            <div class="weizi">
+                <span>当前位置：</span>
+                <a href="/Home/Index">首页</a> &gt;
+                <a href="/Product/List">产品展示</a>
+                @if (typeList.Count > 0)
+                {
+                    @:&gt;<a href="/Product/List?type=@type">@typeList.FirstOrDefault(t => t.Id == type).Name</a>
+                }
+            </div>
+
+            <div style="width: 630px; height: auto; margin: 0px auto;">
+                @if (list != null && list.Count > 0)
+                {
+                    <div class="panes">
+                        <div class="pane" style="display: block;">
+                            <style>
+                                .prodlist {
+                                    width: 520px;
+                                    overflow: hidden;
+                                    border-bottom: #086DFD 1px dashed;
+                                    clear: both;
+                                    margin-top: 13px;
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                }
+
+                                .prodimg {
+                                    width: 125px;
+                                    height: 129px;
+                                    float: left;
+                                }
+
+                                    .prodimg img {
+                                        border: 0px;
+                                        margin: 0px;
+                                        padding: 0px;
+                                        width: 122px;
+                                        height: 111px;
+                                    }
+
+                                .prodinfos {
+                                    width: 370px;
+                                    overflow: hidden;
+                                    float: left;
+                                    margin-left: 20px;
+                                    line-height: 22px;
+                                    font-size: 12px;
+                                    color: #123d5f;
+                                }
+                            </style>
+                            @foreach (var item in list)
+                            {
+                                <li class="prodlist">
+                                    <div class="prodimg">
+                                        <a href="/Product/Detail?id=@item.Id">
+                                            <img src="@(string.IsNullOrEmpty(item.ImgSrc)?"/Content/images/zanwu.jpg":item.ImgSrc)">
+                                        </a>
+                                    </div>
+                                    <div class="prodinfos">
+                                        <table style="font-size: 14px; color: #474747;line-height: 25px;">
+                                            <tr>
+                                                <td>名称：<a href="/Product/Detail?id=@item.Id" class="title">@item.Name</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>级别：aaa</td>
+                                            </tr>
+                                            <tr>
+                                                <td>状体：aaa</td>
+                                            </tr>
+                                            <tr>
+                                                <td>应用：aaa</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </li>
+                            }
+                        </div>
+                        <!--分页-->
+                        <div class="pageDiv" id="pageDiv1" style="margin: 20px auto;"></div>
+                    </div>
+                }
+                else
+                {
+                    <div>无数据！</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="type" value="@type" />
+
+
+
+
+<div class="pageleft">
+
+</div>
