@@ -3,41 +3,83 @@
 @{
     ViewBag.Title = "产品详情";
     var info = ViewBag.Product as ProductModel;
+    var comps = ViewBag.Companies as List<CompanyModel> ?? new List<CompanyModel>();
 }
 
+@Html.RenderCss("/Content/css/product_show1.css")
+@Html.RenderScript("/Content/js/jquery.kxbdmarquee.js")
+
+@section partialScriptCss{
+    <script>
+        $(function () {
+            $('.about_leftb table').css('width', '100%');
+        });
+    </script>
+}
 
 <div class="bg">
     <div class="about_main">
-        <div class="aboutleft">
-            <div class="ab_t mt20">
-                <span class="ab_t01 pl10">联盟动态</span>
-                <br />
-                <span class="ab_t02 pl10">Alliance Dynamics</span>
-            </div>
-            <div class="ab_c mt20">
-                <ul>
-                    <li><a href="/Article/InfoList">联盟动态</a></li>
-                    <li><a href="/Article/InfoList?type=行业信息">行业信息</a></li>
-                    <li><a href="/Article/InfoList?type=联盟要闻">联盟要闻</a></li>
-                    <li><a href="/Article/InfoList?type=特别关注">特别关注</a></li>
-                    <li><a href="/Article/BriefList">联盟简报</a></li>
-                </ul>
+        <div class="about_left">
+            <div style="width: 640px; height: 450px; margin: 0px auto;">
+
+                <div class="mycontent1">
+                    <div id="proimg" style="margin: 20px; width: 150px; height: 150px; float: left; display: inline">
+                        <img width="100%" height="100%" src="@(string.IsNullOrEmpty(info.ImgSrc) ? "/Content/images/zanwu.jpg" : info.ImgSrc)"/>
+                    </div>
+                    <div style="margin: 20px; width: 150px; height: 150px;">
+                        @info.Name
+                        <br/>
+                        @info.Level
+                    </div>
+                </div>
+                <div class="mycontent">
+                    @Html.Raw(info.Description)
+                </div>
             </div>
         </div>
+        <div class="about_right" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;">
+            <div>
+                <div class="about_right_tit">
+                    <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; margin: 20px 15px;">
+                        联盟理事会成员企业
+                    </span>
+                </div>
+                <div class="about_right_main" id="element_id">
+                    <style>
+                        #element_id ul li {
+                            font-family: "微软雅黑";
+                            float: left;
+                            width: 222px;
+                            height: 24px;
+                            line-height: 24px;
+                            overflow: hidden;
+                            font-size: 12px;
+                            background: url(/Content/images/news_icon.jpg) left no-repeat;
+                            padding-left: 15px;
+                            text-align: left;
+                        }
+                    </style>
+                    <ul style="height: 1584px; width: 80%; margin: 10%;">
+                        @foreach (var c in comps)
+                        {
+                            <li title="@c.Name"><a href="/Company/Detail?id=@c.Id">@(c.Name.Length > 14 ? c.Name.Substring(0, 11) + "..." : c.Name)</a></li>
+                        }
+                    </ul>
 
-        <div class="aboutright">
-            <div class="weizi">
-                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Product/List">产品展示</a> &gt; <a href="/Product/Detail?id=">产品详情</a>
-            </div>
-            <div class="" style="width: 96%; height: 600px; float: left; margin-right: 10px; text-align: left; padding: 0px 10px 0px 15px;">
-                
+                </div>
             </div>
         </div>
-
-
     </div>
 </div>
 
-
-
-
+<script>
+    $(function () {
+        $("#element_id").kxbdMarquee({
+            direction: "up",
+            isEqual: false,
+            loop: 0,
+            scrollAmount: 1,
+            scrollDelay: 50
+        });
+    });
+</script>

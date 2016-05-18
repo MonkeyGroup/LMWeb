@@ -254,6 +254,8 @@
     <Content Include="Areas\Admin\Views\Shared\_Preview.cshtml" />
     <Content Include="Areas\Admin\Views\Fruits\List.cshtml" />
     <Content Include="Areas\Admin\Views\Fruits\Fruits.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Product2.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\List2.cshtml" />
     <None Include="log4net.config">
       <SubType>Designer</SubType>
     </None>
@@ -287,7 +289,9 @@
     <Content Include="Content\images\shouqi.png" />
     <Content Include="Content\images\zanwu.jpg" />
     <Content Include="Content\images\zhankai.png" />
+    <Content Include="Content\js\forTable.js" />
     <Content Include="Content\js\homePage.js" />
+    <Content Include="Content\js\jquery.kxbdmarquee.js" />
     <Content Include="Views\Home\Chapter.cshtml" />
     <Content Include="Views\Home\Organization.cshtml" />
     <Content Include="Views\Home\Notice.cshtml" />

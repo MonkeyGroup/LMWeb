@@ -19,9 +19,9 @@ namespace LM.WebUI.Controllers
             var models = new List<CompanyModel>();
             var typeList = new List<CategoryModel>
             {
-                new CategoryModel{Id = (int)MemberType.上游企业, Name = MemberType.上游企业.ToString()},
-                new CategoryModel{Id = (int)MemberType.下游企业, Name = MemberType.下游企业.ToString()},
-                new CategoryModel{Id = (int)MemberType.科研院所协会, Name = MemberType.科研院所协会.ToString()},
+                new CategoryModel{Id = (int)MemberType.材料领域企业, Name = MemberType.材料领域企业.ToString()},
+                new CategoryModel{Id = (int)MemberType.应用领域企业, Name = MemberType.应用领域企业.ToString()},
+                new CategoryModel{Id = (int)MemberType.科研协会理事单位, Name = MemberType.科研协会理事单位.ToString()},
             };
             int itemCount, psize;
 
@@ -29,7 +29,7 @@ namespace LM.WebUI.Controllers
             using (var companyService = ResolveService<CompanyService>())
             {
                 psize = 6;
-                type = type == 0 ? (int)MemberType.上游企业 : type;
+                type = type == 0 ? (int)MemberType.材料领域企业 : type;
                 var query = string.Format(@"(select a.Id, a.Name, a.LogoSrc, a.Site, a.SaveAt from [Company] a Where a.Type = {0})", type);
                 var orderby = "SaveAt desc";
                 var rs = companyService.GetByPage(query, orderby, pindex, psize, out itemCount);

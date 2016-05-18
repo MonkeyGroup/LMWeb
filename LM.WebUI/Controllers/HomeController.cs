@@ -141,9 +141,9 @@ namespace LM.WebUI.Controllers
                     var comps = rs2.Data as List<CompanyModel>;
                     if (comps.Count > 0)
                     {
-                        subCompanies = comps.Where(c => c.Type == MemberType.上游企业).ToList();
-                        supCompanies = comps.Where(c => c.Type == MemberType.下游企业).ToList();
-                        otherCompanies = comps.Where(c => c.Type == MemberType.科研院所协会).ToList();
+                        subCompanies = comps.Where(c => c.Type == MemberType.材料领域企业).ToList();
+                        supCompanies = comps.Where(c => c.Type == MemberType.应用领域企业).ToList();
+                        otherCompanies = comps.Where(c => c.Type == MemberType.科研协会理事单位).ToList();
                     }
                 }
             }

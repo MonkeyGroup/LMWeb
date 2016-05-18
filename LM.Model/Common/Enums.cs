@@ -24,9 +24,9 @@
     /// </summary>
     public enum MemberType
     {
-        上游企业 = 1,
-        下游企业 = 2,
-        科研院所协会 = 3
+        材料领域企业 = 1,
+        应用领域企业 = 2,
+        科研协会理事单位 = 3
     }
 
     public enum ExpertRange

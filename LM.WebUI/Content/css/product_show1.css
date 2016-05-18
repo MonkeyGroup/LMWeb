@@ -57,9 +57,10 @@ span {
 }
 
 .about_left {
-    width: 640px; /*border:1px solid #ccc;*/
-    height: 450px;
+    width: 639px; /*border:1px solid #ccc;*/
+    height: 500px;
     float: left;
+    border: 1px solid #ccc;
 }
 
 .about_right {
@@ -269,3 +270,13 @@ h2 {
     border: solid 1px #666666;
 }
 /*分页 end*/
+
+.p0 {
+    text-align: center;
+    font-family: Arial,'Microsoft YaHei';
+    font-size: 20px;
+    color: #070707;
+    line-height: 40px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}

@@ -56,6 +56,8 @@ namespace LM.WebUI.Controllers
         public ActionResult Detail(int id)
         {
             ProductModel model;
+            List<CompanyModel> comps;
+
             using (var productService = ResolveService<ProductService>())
             {
                 var rs = productService.GetById(id);
@@ -69,27 +71,33 @@ namespace LM.WebUI.Controllers
                         TypeName = entity.TypeName,
                         Name = entity.Name,
 
-                        Company1Name = entity.Company1Name,
-                        Company1Phone = entity.Company1Phone,
-                        Company1Fax = entity.Company1Fax,
-                        Company1Email = entity.Company1Email,
-                        Company1Linkman = entity.Company1Linkman,
+                        Level = entity.Level,
+                        State = entity.State,
+                        Application = entity.Application,
+                        Company = entity.Company,
+                        Description = entity.Description,
 
-                        Company2Name = entity.Company2Name,
-                        Company2Phone = entity.Company2Phone,
-                        Company2Fax = entity.Company2Fax,
-                        Company2Email = entity.Company2Email,
-                        Company2Linkman = entity.Company2Linkman,
+                        //Company1Name = entity.Company1Name,
+                        //Company1Phone = entity.Company1Phone,
+                        //Company1Fax = entity.Company1Fax,
+                        //Company1Email = entity.Company1Email,
+                        //Company1Linkman = entity.Company1Linkman,
 
-                        Company3Name = entity.Company3Name,
-                        Company3Phone = entity.Company3Phone,
-                        Company3Fax = entity.Company3Fax,
-                        Company3Email = entity.Company3Email,
-                        Company3Linkman = entity.Company3Linkman,
+                        //Company2Name = entity.Company2Name,
+                        //Company2Phone = entity.Company2Phone,
+                        //Company2Fax = entity.Company2Fax,
+                        //Company2Email = entity.Company2Email,
+                        //Company2Linkman = entity.Company2Linkman,
 
-                        Description1 = entity.Description1,
-                        Description2 = entity.Description2,
-                        Description3 = entity.Description3,
+                        //Company3Name = entity.Company3Name,
+                        //Company3Phone = entity.Company3Phone,
+                        //Company3Fax = entity.Company3Fax,
+                        //Company3Email = entity.Company3Email,
+                        //Company3Linkman = entity.Company3Linkman,
+
+                        //Description1 = entity.Description1,
+                        //Description2 = entity.Description2,
+                        //Description3 = entity.Description3,
                         SaveAt = DateTime.Now,
                         ImgSrc = entity.ImgSrc
                     };
@@ -100,7 +108,22 @@ namespace LM.WebUI.Controllers
                 }
             }
 
+            using (var companyService = ResolveService<CompanyService>())
+            {
+                // 上下游企业
+                var rs = companyService.GetList("select top 20 Id,Name from [Company] order by Type asc");
+                if (rs.Status && rs.Data != null)
+                {
+                    comps = rs.Data as List<CompanyModel>;
+                }
+                else
+                {
+                    comps = new List<CompanyModel>();
+                }
+            }
+
             ViewBag.Product = model;
+            ViewBag.Companies = comps;
             return View("Detail2");
         }
 
