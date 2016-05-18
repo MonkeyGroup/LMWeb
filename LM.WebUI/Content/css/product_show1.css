@@ -34,7 +34,7 @@ clen {
 span {
     padding-left: 0%;
     font-size: 15px;
-    font-weight: bold;
+    /*font-weight: bold;*/
     color: #CCCCCC;
 }
 /*li{ padding-top:15px}*/
@@ -58,9 +58,10 @@ span {
 
 .about_left {
     width: 639px; /*border:1px solid #ccc;*/
-    height: 500px;
+    height: auto;
     float: left;
     border: 1px solid #ccc;
+    margin-bottom: 30px;
 }
 
 .about_right {
