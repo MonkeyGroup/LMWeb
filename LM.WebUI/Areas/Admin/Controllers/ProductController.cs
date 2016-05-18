@@ -163,7 +163,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         State = model.State,
                         Application = model.Application,
                         Company = model.Company,
-                        Description = model.Description.StartsWith("<p>") ? model.Description : string.Format("{0}{1}{2}", "<p>", model.Description, "</p>"),
+                        Description = model.Description.StartsWith("<") ? model.Description : string.Format("{0}{1}{2}", "<p>", model.Description, "</p>"),
 
                         //Company1Name = model.Company1Name,
                         //Company1Phone = model.Company1Phone,
@@ -205,7 +205,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         State = model.State,
                         Application = model.Application,
                         Company = model.Company,
-                        Description = model.Description.StartsWith("<p>") ? model.Description : string.Format("{0}{1}{2}", "<p>", model.Description, "</p>"),
+                        Description = model.Description.StartsWith("<") ? model.Description : string.Format("{0}{1}{2}", "<p>", model.Description, "</p>"),
 
                         //Company1Name = model.Company1Name,
                         //Company1Phone = model.Company1Phone,

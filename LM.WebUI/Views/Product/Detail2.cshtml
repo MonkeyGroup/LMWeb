@@ -62,7 +62,7 @@
                     <ul style="height: 1584px; width: 80%; margin: 10%;">
                         @foreach (var c in comps)
                         {
-                            <li title="@c.Name"><a href="/Company/Detail?id=@c.Id">@(c.Name.Length > 14 ? c.Name.Substring(0, 11) + "..." : c.Name)</a></li>
+                            <li title="@c.Name"><a href="/Company/Detail?id=@c.Id">@(c.Name.Length > 13 ? c.Name.Substring(0, 11) + "..." : c.Name)</a></li>
                         }
                     </ul>
 

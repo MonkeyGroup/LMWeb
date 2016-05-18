@@ -31,7 +31,7 @@ clen {
 }*/ p {
     text-align: center;
     font-size: 15px;
-    padding: 3% 0;
+    padding: 0 0;
 }
 
 .bg {
@@ -71,7 +71,7 @@ clen {
     }
 
     .about_left p {
-        width: 75%;
+        width: 90%;
         margin: 0 auto;
         font-family: '宋体';
         text-align: left;
@@ -80,8 +80,7 @@ clen {
         font-size: 14px;
         line-height: 24px;
         color: #333333;
-        margin-top: 15px;
-        margin-bottom: 24px;
+        margin-bottom: 10px;
     }
 
     .about_left .p1 {

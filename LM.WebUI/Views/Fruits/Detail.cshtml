@@ -11,14 +11,29 @@
 <div class="bg">
     <div class="about_main">
         <div class="about_left">
-            <table style="margin: auto; margin-top: 50px; width: 80%; border-spacing: 20px 10px;font-size: 14px;">
+            <style>
+                table {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    border-left: 1px solid #888;
+                    border-top: 1px solid #888;
+                    background: rgb(240, 249, 254);
+                }
+
+                th, td {
+                    border-right: 1px solid #888;
+                    border-bottom: 1px solid #888;
+                    padding: 5px 5px;
+                }
+            </style>
+            <table style="margin: auto; margin-top: 50px; width: 80%; border-spacing: 20px 10px; font-size: 14px;">
                 <tr>
                     <td colspan="2">
-                        <h4 style="text-align: center; font-family: 宋体; margin-bottom: 0px; font-size: 18px; padding: 40px;">@info.Name</h4>
+                        <h4 style="text-align: center; font-family: 宋体; margin-bottom: 0px; font-size: 18px; padding: 20px;">@info.Name</h4>
                     </td>
                 </tr>
                 <tr>
-                    <td>成果类别：@info.Type</td>
+                    <td style="width: 50%;">成果类别：@info.Type</td>
                     <td>项目负责人：@info.Leader</td>
                 </tr>
                 <tr>
@@ -34,14 +49,21 @@
                         详细描述：
                     </td>
                 </tr>
+                <tr>
+                    <td colspan ="2">
+                        <div class="mycontent">
+                            <style>
+                                p {
+                                    padding: 0 0;
+                                    margin-top: 0px;
+                                }
+                            </style>
+                            @Html.Raw(info.Description)
+                        </div>
+                        </td>
+</tr>
             </table>
 
-            <div class="mycontent">
-                <style>
-                    p{padding: 0 0;margin-top: 0px;}
-                </style>
-                @Html.Raw(info.Description)
-            </div>
         </div>
 
         <div class="about_right" style="display: none">
@@ -59,7 +81,3 @@
         </div>
     </div>
 </div>
-
-
-
-

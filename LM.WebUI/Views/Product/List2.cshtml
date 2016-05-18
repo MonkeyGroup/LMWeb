@@ -58,7 +58,7 @@
                 <ul>
                     @foreach (var item in typeList)
                     {
-                        <li><a href="/Product/List?type=@item.Id">@item.Name</a></li>
+                        <li><a href="/Product/List?type=@item.Id" target="_blank">@item.Name</a></li>
                     }
                 </ul>
             </div>
@@ -71,7 +71,7 @@
                 <a href="/Product/List">产品展示</a>
                 @if (typeList.Count > 0)
                 {
-                    @:&gt;<a href="/Product/List?type=@type">@typeList.FirstOrDefault(t => t.Id == type).Name</a>
+                    @:&gt;<a href="/Product/List?type=@type" target="_blank">@typeList.FirstOrDefault(t => t.Id == type).Name</a>
                 }
             </div>
 
@@ -119,14 +119,14 @@
                             {
                                 <li class="prodlist">
                                     <div class="prodimg">
-                                        <a href="/Product/Detail?id=@item.Id">
+                                        <a href="/Product/Detail?id=@item.Id" target="_blank">
                                             <img src="@(string.IsNullOrEmpty(item.ImgSrc)?"/Content/images/zanwu.jpg":item.ImgSrc)">
                                         </a>
                                     </div>
                                     <div class="prodinfos">
                                         <table style="font-size: 14px; color: #474747;line-height: 25px;">
                                             <tr>
-                                                <td>名称：<a href="/Product/Detail?id=@item.Id" class="title">@item.Name</a></td>
+                                                <td>名称：<a href="/Product/Detail?id=@item.Id" class="title" target="_blank">@item.Name</a></td>
                                             </tr>
                                             <tr>
                                                 <td>级别：aaa</td>

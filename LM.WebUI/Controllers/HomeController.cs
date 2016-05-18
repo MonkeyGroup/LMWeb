@@ -222,7 +222,7 @@ namespace LM.WebUI.Controllers
 
             using (var productService = ResolveService<ProductService>())
             {
-                var query = string.Format(@"select top 10 Id,Name,Description1 from [Product] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
+                var query = string.Format(@"select top 10 Id,Name,Description from [Product] where CHARINDEX('{0}',Name)>0 order by SaveAt desc", key);
                 var rs = productService.GetList(query);
                 if (rs.Status && rs.Data != null)
                 {
