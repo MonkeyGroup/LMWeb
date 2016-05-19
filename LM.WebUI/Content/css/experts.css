@@ -59,9 +59,9 @@ clen{ clear:both;}
 .exportinfo .headimg{ padding-top:10px;}
 .exportinfo .headimg img{width:150px; height:auto; margin-left:85px;}
 .exportinfo .headimg p{border:none; text-align:center; line-height:30px;}
-.exportinfo .intro p{ text-indent:2em; font-size:12px; line-height:24px; margin-left:5px; margin-right:5px;} 
+.exportinfo .intro p{ text-indent:2em; font-size:12px; line-height:24px; margin-left:15px; margin-right:15px;} 
 .exportinfo .intro span{font-family:'黑体';font-size:14px; line-height:24px; margin-left:5px; }
-.exportinfo .books p{ margin-left:5px; margin-right:5px; font-size:12px; line-height:24px; text-indent: 2em;}
+.exportinfo .books p{ margin-left:15px; margin-right:15px; font-size:12px; line-height:24px; text-indent: 2em;}
 .exportinfo .books span{font-family:'黑体';font-size:14px; line-height:24px; margin-left:5px;}
 
 .pageDiv{margin-top:100px;}

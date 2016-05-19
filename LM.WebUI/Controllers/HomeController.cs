@@ -91,31 +91,31 @@ namespace LM.WebUI.Controllers
             using (var articleService = ResolveService<ArticleService>())
             {
                 // 联盟要闻
-                var rs = articleService.GetList("select top 1 Id,Title,Brief from [Article] where Type = '联盟动态' and IsRecommend = 1 order by Id desc");
+                var rs = articleService.GetList("select top 1 Id,Title,Brief from [Article] where Type = '联盟动态' and IsRecommend = 1 order by SaveAt desc,Id desc");
                 if (rs.Status && rs.Data != null)
                 {
                     oneNews = (rs.Data as List<ArticleModel>).FirstOrDefault();
                 }
                 // 特别关注
-                var rs0 = articleService.GetList("select top 1 Id,Title,Brief from [Article] where Type = '行业信息' and IsFocus = 1 order by Id desc");
+                var rs0 = articleService.GetList("select top 1 Id,Title,Brief from [Article] where Type = '行业信息' and IsFocus = 1 order by  SaveAt desc,Id desc");
                 if (rs0.Status && rs0.Data != null)
                 {
                     oneFocus = (rs0.Data as List<ArticleModel>).FirstOrDefault();
                 }
                 // 幻灯片数据
-                var rs1 = articleService.GetList("select top 4 Id,Type,Title,ImgSrc from [Article] where IsShow = 1 and ImgSrc is not null order by Id desc");
+                var rs1 = articleService.GetList("select top 4 Id,Type,Title,ImgSrc from [Article] where IsShow = 1 and ImgSrc is not null order by SaveAt desc, Id desc");
                 if (rs1.Status && rs1.Data != null)
                 {
                     slideArticles = rs1.Data as List<ArticleModel>;
                 }
                 // 联盟动态 
-                var rs2 = articleService.GetList("select top 10 Id,Title,SaveAt from [Article] where Type = '联盟动态' order by Id desc");
+                var rs2 = articleService.GetList("select top 10 Id,Title,SaveAt from [Article] where Type = '联盟动态' order by  SaveAt desc,Id desc");
                 if (rs2.Status && rs2.Data != null)
                 {
                     dynamicArticles = rs2.Data as List<ArticleModel>;
                 }
                 // 行业信息
-                var rs3 = articleService.GetList("select top 10 Id,Title,SaveAt from [Article] where Type = '行业信息' order by Id desc");
+                var rs3 = articleService.GetList("select top 10 Id,Title,SaveAt from [Article] where Type = '行业信息' order by SaveAt desc, Id desc");
                 if (rs3.Status && rs3.Data != null)
                 {
                     industryArticles = rs3.Data as List<ArticleModel>;
