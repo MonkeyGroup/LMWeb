@@ -1177,7 +1177,6 @@
     <Content Include="Content\js\createAd.js" />
     <Content Include="Content\js\jquery-1.9.1.js" />
     <Content Include="Content\js\listScroll.js" />
-    <Content Include="Content\js\logoRoll.js" />
     <Content Include="Content\js\slide.js" />
     <Content Include="Content\js\tab.js" />
     <Content Include="Content\js\xtqh_js.js" />

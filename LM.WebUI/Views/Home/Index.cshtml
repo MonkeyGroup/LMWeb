@@ -20,6 +20,9 @@
     var industryArticles = ViewBag.IndustryArticles as List<ArticleModel>;
 }
 
+@Html.RenderScript("/Content/js/jquery.kxbdmarquee.js")
+@Html.RenderScript("/Content/js/listScroll.js")
+
 @section partialScriptCss{
     <script type="text/javascript">
         // 幻灯片
@@ -37,7 +40,7 @@
             slide(imglist, idlist);
 
             // Logo 自动滚动
-            MoveDiv(window.event);
+            //MoveDiv(window.event);
         });
     </script>
 }
@@ -185,37 +188,31 @@
 <!--body2部分begin-->
 <div style="width:1004px;margin:0 auto; padding-top:0px;">
     <!---联盟会员LOGO--->
-    <div id="demo" style="OVERFLOW: hidden; WIDTH: 1004px; margin:10px auto; COLOR: #ffffff; HEIGHT: 60px; border-radius:10px; border:1px solid #f1f1f1;" onmousemove="MoveDiv(event);" onmouseout="MoveOutDiv();">
-        <div id="demo1" style="width:100%;">
-            <table cellspacing=0 cellpadding=0>
-                <tbody>
-                    <tr valign=top>
-                        <td valign=top nowrap=noWrap>
-                            <div align=right style="width:1004px;">
-                                <div style="width: 120px; height: 60px;">
-                                    @if (logos.Count > 0)
-                                    {
-                                        foreach (var e in logos)
-                                        {
-                                            <a href="@e.Site" target="_blank">
-                                                <img width="100%" height="100%" src="@e.LogoSrc" title="@e.Name" />
-                                            </a>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        @:暂无数据！
-                                    }
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <td width="0">
-                <div id="demo2" style="width:100%;"></div>
-            </td>
-        </div>
+    <div id="logoScroll2" style="border: 1px #ccc solid; margin-bottom: 10px;margin-top: 10px;width: 1002px; height: 66px; overflow: hidden">
+        <style>
+            #logoScroll2 ul li {
+                font-family: "微软雅黑";
+                float: left;
+                width: 120px;
+                margin-top: 3px;
+                height: 60px;
+                line-height: 60px;
+                overflow: hidden;
+                font-size: 12px;
+                padding-left: 3px;
+                text-align: left;
+            }
+        </style>
+        <ul>
+            @foreach (var e in logos)
+            {
+                <li title="@e.Name">
+                    <a href="@e.Site" target="_blank">
+                        <img width="100%" height="100%" src="@e.LogoSrc" title="@e.Name" />
+                    </a>
+                </li>
+            }
+        </ul>
     </div>
 
     <!--3组企业名称自下而上自动滚动-->
@@ -227,8 +224,8 @@
                    href="/Company/List?type=@((int)MemberType.材料领域企业)" target="_blank">更多>></a>
             </p>
             <div class="tonggao_content">
-                <ul class="r_upload mbm">
-                    <div id="newlist" style="width: 222px; height: 130px; overflow: hidden">
+                <div id="newlist1" style="width: 222px; height: 130px; overflow: hidden">
+                    <ul class="r_upload mbm">
                         @if (subCompanies.Count > 0)
                         {
                             foreach (var c in subCompanies)
@@ -240,8 +237,8 @@
                         {
                             @Html.Raw("暂无数据！")
                         }
-                    </div>
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;margin-right: 10px; width: 326px; height: 198px; float: left; border: 1px solid #ccc;">
@@ -251,8 +248,8 @@
                    href="/Company/List?type=@((int)MemberType.应用领域企业)" target="_blank">更多>></a>
             </p>
             <div class="tonggao_content">
-                <ul class="r_upload mbm">
-                    <div id="newlist1" style="width: 222px; height: 130px; overflow: hidden">
+                <div id="newlist2" style="width: 222px; height: 130px; overflow: hidden">
+                    <ul class="r_upload mbm">
                         @if (supCompanies.Count > 0)
                         {
                             foreach (var c in supCompanies)
@@ -264,8 +261,8 @@
                         {
                             @Html.Raw("暂无数据！")
                         }
-                    </div>
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;width: 326px; height: 198px; float: left; border: 1px solid #ccc;">
@@ -275,8 +272,8 @@
                    href="/Company/List?type=@((int)MemberType.科研协会理事单位)" target="_blank">更多>></a>
             </p>
             <div class="tonggao_content">
-                <ul class="r_upload mbm">
-                    <div id="newlist2" style="width:222px; height:130px; overflow:hidden">
+                <div id="newlist3" style="width:222px; height:130px; overflow:hidden">
+                    <ul class="r_upload mbm">
                         @if (otherCompanies.Count > 0)
                         {
                             foreach (var c in otherCompanies)
@@ -288,13 +285,12 @@
                         {
                             @Html.Raw("暂无数据！")
                         }
-                    </div>
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
     <!--滚动的js-->
-    @Html.RenderScript("/Content/js/listScroll.js")
 
     <!--企业产品推荐-->
     <div style="padding-top:5px;height:28px;background:url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom:0px solid #ccc;">

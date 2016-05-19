@@ -82,7 +82,7 @@ namespace LM.WebUI.Controllers
                     }
                 }
 
-                CurrentContext.Set("FooterModel", model, 120);
+                CurrentContext.Set("FooterModel", model, 720);
             }
             #endregion
 

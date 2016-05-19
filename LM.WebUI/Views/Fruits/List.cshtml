@@ -16,6 +16,10 @@
 @section partialScriptCss{
     <script>
         $(function () {
+            // 表格交替颜色
+            $(".class tr:odd").css('background-color', 'lightblue');
+            $("table tr:even").css('background-color', 'rgba(212, 219, 236, 0.909804)');
+            $(".th1").css('background-color', 'rgba(179, 185, 199, 0.91)');
             /* 分页使用异步 */
             laypage({
                 cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
@@ -45,7 +49,6 @@
             <div class="ab_c mt20">
                 <ul>
                     <li><a href="/Fruits/List">科研成果</a></li>
-                    @*<li><a href="/Article/InfoList?type=寻求合作">寻求合作</a></li>*@
                 </ul>
             </div>
         </div>
@@ -54,30 +57,44 @@
             <div class="weizi">
                 <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Fruits/List">科研成果</a> &gt; <a href="/Fruits/List">科研成果</a>
             </div>
+            <style>
+                table {
+                    border-collapse: collapse;
+                    border-spacing: 3px;
+                    border-left: 2px solid #fff;
+                    border-top: 2px solid #fff;
+                    background: rgb(240, 249, 254);
+                }
 
-            <table width="90%" border="0" cellpadding="1" cellspacing="0" class="tableBasic1" style="margin: auto; border-width: 1px; border-spacing: 30px 20px; ">
+                th, td{
+                    border-right: 2px solid #fff;
+                    border-bottom: 2px solid #fff;
+                    padding: 5px 5px;
+                }
+            </style>
+            <table width="90%" border="0" cellpadding="1" cellspacing="2" class="tableBasic1" style="margin: auto; border-width: 0px; border-spacing: 30px 20px; ">
                 @if (list != null && list.Count > 0)
                 {
-                    <tr>
+                    <tr class="th1" style="background-color: rgba(179, 185, 199, 0.91); font-family: 'Microsoft Yahei';color: #2D5696">
                         <th align="center">科研成果名称</th>
-                        <th width="150" align="center">成果类别</th>
-                        <th width="80" align="center">研发企业</th>
-                        <th width="80" align="center">负责人</th>
+                        <th align="center">成果类别</th>
+                        <th align="center">研发企业</th>
+                        <th align="center">负责人</th>
                     </tr>
 
                     foreach (var model in list)
                     {
                         <tr>
-                            <td>
+                            <td style="width: 280px;">
                                 <a href="/Fruits/Detail?id=@(model.Id)" target="_blank">@(model.Name)</a>
                             </td>
-                            <td align="center">
+                            <td align="center" style="width: 150px;">
                                 @(model.Type)
                             </td>
-                            <td align="center">
+                            <td align="center" style="width: 230px;">
                                 @(model.Company)
                             </td>
-                            <td align="center">
+                            <td align="center" style="width: 80px;">
                                 @(model.Leader)
                             </td>
                         </tr>
