@@ -1,0 +1,66 @@
+﻿@using LM.Model.Model
+@using LM.Service.Security
+@{
+    Layout = null; /* 此句必须加，不然默认布局页为_Layout页，会造成死循环 */
+    ViewBag.Title = "Header";
+    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
+}
+
+<script>
+    function seaSubmit() {
+        var key = $('#searchKey').val();
+        if (key === '') {
+            alert('请输入关键字');
+            return;
+        }
+        window.open("/Home/Search?key=" + key);
+    }
+</script>
+
+
+<div class="top_Menu">
+    <div class="section">
+        <div class="left">
+            &nbsp;&nbsp;欢迎进入中国电子化工新材料产业联盟！
+        </div>
+        <div class="right">
+            <span class="showhover"><a>登录</a></span>
+            <!--<span class="showhover"><a>注册</a></span>-->
+            <span class="showhover"><a>设为首页</a></span>
+            <span class="showhover"><a>加入收藏</a></span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="top_Logo">
+    <div class="section">
+        <div class="left">
+            <div class="logo">
+                <img src="/Content/images2/home_logo.png" height="80" />
+            </div>
+        </div>
+        <div class="right" style="min-height:80px;line-height:80px;">
+            <input type="text" class="input_text" placeholder="请输入关键字" style="margin-top: 23px;" /><button type="button" class="button bg-blue">搜索</button>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="Menu bg-blue">
+    <div class="section">
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">关于联盟</a></li>
+            <li><a href="#">联盟动态</a></li>
+            <li><a href="#">联盟成员</a></li>
+            <li><a href="#">专家委员会</a></li>
+            <li><a href="#">产品展示</a></li>
+            <li><a href="#">科研成果</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="banner">
+    <img src="/Content/images2/flash.png" width="100%" /><div class="clear">
+    </div>
+</div>

@@ -172,7 +172,7 @@ namespace LM.WebUI.Controllers
             ViewBag.OtherCompanies = otherCompanies;
             ViewBag.DynamicArticles = dynamicArticles;
             ViewBag.IndustryArticles = industryArticles;
-            return View();
+            return View("Index2");
         }
 
         #endregion

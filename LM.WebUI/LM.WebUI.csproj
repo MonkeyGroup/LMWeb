@@ -262,6 +262,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Content\css\dynamic.css" />
     <Content Include="Content\css\experts.css" />
+    <Content Include="Content\css\imgSlide.css" />
     <Content Include="Content\css\members.css" />
     <Content Include="Content\css\product_show1.css" />
     <Content Include="Content\css\product_show2.css" />
@@ -272,6 +273,37 @@
     <Content Include="Content\css\联盟成果.css" />
     <Content Include="Content\css\联盟简报.css" />
     <Content Include="Content\css\联系我们.css" />
+    <Content Include="Content\images2\2118b59.jpg" />
+    <Content Include="Content\images2\flash.png" />
+    <Content Include="Content\images2\home_cptj_01.jpg" />
+    <Content Include="Content\images2\home_cptj_02.jpg" />
+    <Content Include="Content\images2\home_cptj_03.jpg" />
+    <Content Include="Content\images2\home_cptj_04.jpg" />
+    <Content Include="Content\images2\home_cptj_05.jpg" />
+    <Content Include="Content\images2\home_gg_01.jpg" />
+    <Content Include="Content\images2\home_gg_02.jpg" />
+    <Content Include="Content\images2\home_gg_03.jpg" />
+    <Content Include="Content\images2\home_logo.png" />
+    <Content Include="Content\images2\home_search.png" />
+    <Content Include="Content\images2\home_产品推荐.png" />
+    <Content Include="Content\images2\home_右按钮.png" />
+    <Content Include="Content\images2\home_合作企业.png" />
+    <Content Include="Content\images2\home_圆点.png" />
+    <Content Include="Content\images2\home_左按钮.png" />
+    <Content Include="Content\images2\home_新闻图片.jpg" />
+    <Content Include="Content\images2\home_特别关注.png" />
+    <Content Include="Content\images2\home_联盟动态.png" />
+    <Content Include="Content\images2\home_联盟动态_灰色.png" />
+    <Content Include="Content\images2\home_联盟应用领域企业.png" />
+    <Content Include="Content\images2\home_联盟材料领域企业.png" />
+    <Content Include="Content\images2\home_联盟科研协会.png" />
+    <Content Include="Content\images2\home_联盟要闻.png" />
+    <Content Include="Content\images2\home_行业信息.png" />
+    <Content Include="Content\images2\home_行业信息_灰色.png" />
+    <Content Include="Content\images2\home_轮播圆点.png" />
+    <Content Include="Content\images2\home_轮播圆点蓝色.png" />
+    <Content Include="Content\images2\首页_产品推荐分割线.png" />
+    <Content Include="Content\images2\首页_分割线.png" />
     <Content Include="Content\images\download.gif" />
     <Content Include="Content\images\foot2.png" />
     <Content Include="Content\images\foot3.png" />
@@ -291,7 +323,9 @@
     <Content Include="Content\images\zhankai.png" />
     <Content Include="Content\js\forTable.js" />
     <Content Include="Content\js\homePage.js" />
+    <Content Include="Content\js\imgSlide.js" />
     <Content Include="Content\js\jquery.kxbdmarquee.js" />
+    <Content Include="Content\js\utility.js" />
     <Content Include="Views\Home\Chapter.cshtml" />
     <Content Include="Views\Home\Organization.cshtml" />
     <Content Include="Views\Home\Notice.cshtml" />
@@ -310,6 +344,10 @@
     <Content Include="Views\Fruits\Detail.cshtml" />
     <Content Include="Views\Product\List2.cshtml" />
     <Content Include="Views\Product\Detail2.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Shared\_Header2.cshtml" />
+    <Content Include="Views\Shared\_Footer2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Content\css\base.css" />

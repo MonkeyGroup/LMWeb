@@ -1,0 +1,20 @@
+﻿@using LM.Model.Model
+@using LM.Service.Security
+@{
+    Layout = null; /* 此句必须加，不然默认布局页为_Layout页，会造成死循环 */
+    ViewBag.Title = "Footer";
+
+    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
+    var footerModel = CurrentContext.Get("FooterModel") as FooterModel ?? new FooterModel();
+}
+
+
+<div class="center_foot">
+    主办方：中国电子材料行业协会
+    <span class="text_padding-left"></span>
+    地址：北京朝阳区2号院5号楼金基业大厦716室
+    <span class="text_padding-left"></span>
+    E-mail:********@@16.com
+    <br />
+
+</div>

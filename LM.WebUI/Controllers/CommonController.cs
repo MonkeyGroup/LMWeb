@@ -15,7 +15,7 @@ namespace LM.WebUI.Controllers
         /// <returns></returns>
         public ActionResult Header()
         {
-            return View("_Header");
+            return View("_Header2");
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace LM.WebUI.Controllers
         /// <returns></returns>
         public ActionResult Footer()
         {
-            return View("_Footer");
+            return View("_Footer2");
         }
 
     }
