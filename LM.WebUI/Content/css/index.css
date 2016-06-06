@@ -360,8 +360,8 @@ body ul li {
 .p2 {
     font-size: 15px;
     padding-left: 15px;
-    text-indent: 1.8em;
-    line-height: 28px;
+    text-indent: 2em;
+    line-height: 1.8em;
 }
 
 .item_new {
@@ -476,11 +476,72 @@ body ul li {
 }
 
 .center_link {
-    height: 60px;
+    min-height: 60px;
     line-height: 60px;
     /*padding-left: 20px;*/
-    color: #fff;
-    margin: 20px 0px;
+    /*color: #fff;*/
+    margin: 25px 0px;
+}
+
+    .center_link .top {
+        color: #6F6A6A;
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        overflow: hidden;
+        text-align: center;
+        border-bottom: 1px solid #7bc0f9;
+    }
+
+        .center_link .top .companyleft {
+            width: 11%;
+            background: #0872CA;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .center_link .top .companyleft {
+            display: block;
+            height: 40px;
+            line-height: 40px;
+            overflow: hidden;
+            text-align: center;
+            border-bottom: 1px solid #7bc0f9;
+            margin-bottom: 15px;
+        }
+
+    .center_link table a {
+        color: #6F6A6A;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .center_link table a:hover {
+            color: #0872CA;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+    .center_link tr {
+        height: 60px;
+        line-height: 1.8em;
+    }
+
+
+.link_title .title_li1 {
+    float: left;
+    width: 150px;
+    margin-left: 5px;
+    font-weight: bold;
+    color: #6F6A6A;
+    font-size: 16px;
+}
+
+.link_title .title_li2 {
+    float: left;
+    margin-left: 3em;
+    color: #6F6A6A;
+    font-size: 15px;
 }
 
 .center_foot {
@@ -488,7 +549,8 @@ body ul li {
     /*width: 100%;*/
     height: 80px;
     text-align: center;
-    color: #cfcdcd;
+    color: #909192;
+    font-size: 13px;
 }
 
 .text_padding-left {
