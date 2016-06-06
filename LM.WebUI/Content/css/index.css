@@ -127,7 +127,7 @@ body ul li {
 .banner {
     max-height: 150px;
     /*min-height: 150px;*/
-    margin-top: 5px;
+    margin-top: 2px;
     border: 0px solid #cfcdcd;
 }
 
@@ -320,6 +320,7 @@ body ul li {
     height: 36px;
     border-bottom: 1px solid #7bc0f9;
     list-style: none;
+    margin-bottom: 5px;
 }
 
 .tab_ul_li {
