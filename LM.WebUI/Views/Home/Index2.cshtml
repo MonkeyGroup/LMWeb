@@ -52,49 +52,113 @@
 <div class="section">
     <div class="center_top">
         <div class="item1">
-            <img src="/Content/images2/home_新闻图片.jpg" width="100%" height="100%" />
+            @*<img src="/Content/images2/home_新闻图片.jpg" width="100%" height="100%" />*@
+            <!--幻灯片-->
+            <style>
+                .pic_list {
+                    width: 286px;
+                    height: 216px;
+                    border: #FFF solid 1px;
+                }
+
+                #aa ul {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    position: relative;
+                    left: 175px;
+                    top: -35px;
+                }
+
+                .li {
+                    color: #ffffff;
+                    background: #0872CA;
+                    padding: 3px 7px;
+                    float: left;
+                    margin: 3px;
+                    border-radius: 10px;
+                    list-style: none;
+                    cursor: pointer;
+                }
+
+                    .li:hover {
+                        background: #9fd5fc;
+                        color: #000000;
+                    }
+
+                .active {
+                    background: #FF6911;
+                    color: #000000;
+                    font-weight: bold;
+                }
+            </style>
+
+            <div id="aa" class="pic_list" style="width: 320px;height: 270px;float: left; border: 1px solid #ccc; margin-right: 6px;">
+                <a href="@(slideArticles.Count > 0 ? "/Article/Detail?id=" + slideArticles[0].Id : "")" target="_blank">
+                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc:"")" style="width: 100%; height: 100%;" onclick="" />
+                </a>
+                <ul id="aa_index">
+                    @for (var i = 0; i < slideArticles.Count; i++)
+                    {
+                    <li class="li">@(i + 1)</li>
+                    }
+                </ul>
+            </div>
+
         </div>
         <div class="item2">
             <ul class="tab_ul">
                 <li id="tabs_1" class="tab_ul_li hit" onmouseover="toggleTabs(this,'over')">联盟要闻</li>
                 <li id="tabs_2" class="tab_ul_li" onmouseover="toggleTabs(this,'over')">特别关注</li>
-                <li class="li_more"><a class="more">更多>></a></li>
+                <li class="li_more"><a class="more" onclick="showMoreArticle('ywgz')">更多>></a></li>
             </ul>
             <div id="tabs_1_content" class="tabs show">
-                <p class="p1">要闻：电子化工新材料:国产化突破正当时</p>
-                <p class="p2">
-                    十三五时期是恩施州打赢脱贫攻坚战、与全省同步全面建成小康社会的决胜阶段。接下来的五年，恩施州将站在新的历史起点，既处于投资的高峰期和多重利好政策叠加的黄金机遇期。
-                    <span style=" color: #505050;cursor: pointer;">
-                        <a href="#">[详情]</a>
+                @if (oneNews != null && !string.IsNullOrEmpty(oneNews.Title))
+                {
+                <p class="p_title" title="@oneNews.Title">
+                    @(oneNews.Title.Length > 22 ? oneNews.Title.Substring(0, 19) + "..." : oneNews.Title)
+                </p>
+                <p class="p_brief">
+                    @(!string.IsNullOrEmpty(oneNews.Brief) && oneNews.Brief.Length > 100 ? oneNews.Brief.Substring(0, 97) + "..." : oneNews.Brief)
+                    <span style="color: #505050; cursor: pointer;">
+                        <a href="/Article/Detail?id=@oneNews.Id" target="_blank">[详情]</a>
                     </span>
                 </p>
+                }
             </div>
             <div id="tabs_2_content" class="tabs">
-                <p class="p1">关注：电子化工新材料:国产化突破正当时</p>
-                <p class="p2">
-                    适得府君书简答了，世纪东方会计师论文。四大金刚两居室的服了人，圣诞节副书记的范围。涉及到管理局二季度是。时间到了福建省。
-                    <span style=" color: #505050;cursor: pointer;">
-                        <a href="#">[详情]</a>
+                @if (oneFocus != null && !string.IsNullOrEmpty(oneFocus.Title))
+                {
+                <p class="p_title" title="@oneFocus.Title">
+                    @(oneFocus.Title.Length > 22 ? oneFocus.Title.Substring(0, 19) + "..." : oneFocus.Title)
+                </p>
+                <p class="p_brief">
+                    @(!string.IsNullOrEmpty(oneFocus.Brief) && oneFocus.Brief.Length > 100 ? oneFocus.Brief.Substring(0, 97) + "..." : oneFocus.Brief)
+                    <span style="color: #505050; cursor: pointer;">
+                        <a href="/Article/Detail?id=@oneFocus.Id" target="_blank">[详情]</a>
                     </span>
                 </p>
+                }
             </div>
         </div>
         <div class="item3">
             <div style="height: 120px; width: 120px; margin: 0 auto;margin-top: -5px;">
-                <img src="/Content/images2/2118b59.jpg" width="100%" height="100%" />
+                <img src="@(string.IsNullOrEmpty(config.QrSrc)?"/Content/images/2118b59.jpg":config.QrSrc)" width="100%" height="100%" />
             </div>
             <ul class="tab_ul">
                 <li class="tab_ul_li hit">联盟简报</li>
             </ul>
-            <p class="jianbao">
-                <img src="/Content/images2/home_圆点.png" /><a href="#">联盟简报第一期</a>
+            @if (briefs.Count > 0)
+            {
+                foreach (var item in briefs)
+                {
+            <p class="jianbao" title="@(item.Name)">
+                <img src="/Content/images2/home_圆点.png" />
+                <a href="@item.FilePath">@(item.Name.Length > 10 ? item.Name.Substring(0, 7) + "..." : item.Name)</a>
             </p>
-            <p class="jianbao">
-                <img src="/Content/images2/home_圆点.png" /><a href="#">联盟简报第二期</a>
-            </p>
-            <p class="jianbao">
-                <img src="/Content/images2/home_圆点.png" /><a href="#">联盟简报第三期</a>
-            </p>
+                }
+            }
+
         </div>
         <div class="clear"></div>
     </div>
@@ -103,90 +167,66 @@
         <div id="item1">
             <div class="new1">
                 <div class="left newleft">联盟动态</div>
-                <a class="more lmdt" href="#">更多>></a>
+                <a class="more lmdt" href="#" onclick="showMoreArticle('lmdt')">更多>></a>
             </div>
             <div>
-                <ul style="list-style:none;">
-                    <li class="newTitle"><a href="#">电子化工新材料：国产化突破正当时</a></li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
+                <ul style="list-style: none;">
+                    @if (dynamicArticles.Count > 0)
+                    {
+                        var i = 1;
+                        foreach (var c in dynamicArticles)
+                        {
+                            if (i++ == 1)
+                            {
+                    <li class="newTitle" title="@c.Title">
+                        <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 24 ? c.Title.Substring(0, 21) + "..." : c.Title)</a>
                     </li>
+                            }
+                            else
+                            {
                     <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
+                        <div class="new2" title="@c.Title">
+                            <img src="/Content/images2/home_圆点.png" />
+                            <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a>
+                        </div>
+                        <div class="news">[@c.SaveAt.ToString("yyyy-MM-dd")]</div>
                     </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
+                            }
+                        }
+                    }
                 </ul>
             </div>
         </div>
         <div id="item2">
             <div class="new1">
                 <div class="left newleft">行业新闻</div>
-                <a class="more hyxw" href="#">更多>></a>
+                <a class="more hyxw" href="#" onclick="showMoreArticle('hyxw')">更多>></a>
             </div>
             <div>
-                <ul style="list-style:none;">
-                    <li class="newTitle"><a href="#">电子化工新材料：国产化突破正当时</a></li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
+                <ul style="list-style: none;">
+                    @if (industryArticles.Count > 0)
+                    {
+                        var i = 1;
+                        foreach (var c in industryArticles)
+                        {
+                            if (i++ == 1)
+                            {
+                    <li class="newTitle" title="@c.Title">
+                        <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 24 ? c.Title.Substring(0, 21) + "..." : c.Title)</a>
                     </li>
+                            }
+                            else
+                            {
                     <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
+                        <div class="new2" title="@c.Title">
+                            <img src="/Content/images2/home_圆点.png" />
+                            <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a>
+                        </div>
+                        <div class="news">[@c.SaveAt.ToString("yyyy-MM-dd")]</div>
                     </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
-                    <li>
-                        <div class="new2"><img src="/Content/images2/home_圆点.png" /><a href="#">电子化工新材料：国产化突破正当时</a></div>
-                        <div class="news">[2015-02-02]</div>
-                    </li>
+                            }
+                        }
+                    }
                 </ul>
             </div>
         </div>
@@ -226,19 +266,21 @@
                 联盟材料领域企业
             </div>
             <div class="itemright">
-                <a class="more qy" href="#">更多>></a>
+                <a class="more qy" href="#" onclick="showMoreCompany('clly')">更多>></a>
             </div>
             <div class="clear"></div>
             <div class="center1">
                 <ul>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
+                    @if (subCompanies.Count > 0)
+                    {
+                        var i = 1;
+                        foreach (var c in subCompanies.TakeWhile(c => i++ <= 8))
+                        {
+                    <li class="centerli" title="@c.Name">
+                        <a href="@c.Site" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
+                    </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
@@ -247,17 +289,21 @@
                 联盟应用领域企业
             </div>
             <div class="itemright">
-                <a class="more qy" href="#">更多>></a>
+                <a class="more qy" href="#" onclick="showMoreCompany('yyly')">更多>></a>
             </div>
             <div class="clear"></div>
             <div class="center2">
                 <ul>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
+                    @if (supCompanies.Count > 0)
+                    {
+                        var i = 1;
+                        foreach (var c in supCompanies.TakeWhile(c => i++ <= 8))
+                        {
+                    <li class="centerli" title="@c.Name">
+                        <a href="@c.Site" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
+                    </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
@@ -266,18 +312,21 @@
                 联盟科研协会理事单位
             </div>
             <div class="itemright">
-                <a class="more qy" href="#">更多>></a>
+                <a class="more qy" href="#" onclick="showMoreCompany('kyxh')">更多>></a>
             </div>
             <div class="clear"></div>
             <div class="center3">
                 <ul>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
-                    <li class="centerli"><a href="#">多氟多化工股份公司</a></li>
+                    @if (otherCompanies.Count > 0)
+                    {
+                        var i = 1;
+                        foreach (var c in otherCompanies.TakeWhile(c => i++ <= 8))
+                        {
+                    <li class="centerli" title="@c.Name">
+                        <a href="@c.Site" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
+                    </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
@@ -289,56 +338,15 @@
                 <div class="productleft">合作企业</div>
             </div>
             <div class="panes">
-                <div class="pane_goods">
-                    <a href="/Company/Detail?id=7" title="巨化设计费老师的发生企业" target="_blank">
-                        <img src="/Content/images2/home_cptj_01.jpg">
-                    </a>
-                </div>
-                <div class="pane_goods">
-                    <a href="/Company/Detail?id=7" title="巨化设计费老师的发生企业" target="_blank">
-                        <img src="/Content/images2/home_cptj_01.jpg">
-                    </a>
-                </div>
-                <div class="pane_goods">
-                    <a href="/Company/Detail?id=7" title="巨化设计费老师的发生企业" target="_blank">
-                        <img src="/Content/images2/home_cptj_01.jpg">
-                    </a>
-                </div>
-                <div class="pane_goods">
-                    <a href="/Company/Detail?id=7" title="巨化设计费老师的发生企业" target="_blank">
-                        <img src="/Content/images2/home_cptj_01.jpg">
-                    </a>
-                </div>
-                <div class="pane_goods">
-                    <a href="/Company/Detail?id=7" title="巨化设计费老师的发生企业" target="_blank">
-                        <img src="/Content/images2/home_cptj_01.jpg">
-                    </a>
-                </div>
-                <div class="pane_goods">
-                    <a href="/Company/Detail?id=7" title="巨化设计费老师的发生企业" target="_blank">
-                        <img src="/Content/images2/home_cptj_01.jpg">
-                    </a>
-                </div>
-                <div class="pane_goods">
-                    <a href="/Company/Detail?id=7" title="巨化设计费老师的发生企业" target="_blank">
-                        <img src="/Content/images2/home_cptj_01.jpg">
-                    </a>
-                </div>
-                <div class="pane_goods">
-                    <a href="/Company/Detail?id=7" title="巨化设计费老师的发生企业" target="_blank">
-                        <img src="/Content/images2/home_cptj_01.jpg">
-                    </a>
-                </div>
-                <div class="pane_goods">
-                    <a href="/Company/Detail?id=7" title="巨化设计费老师的发生企业" target="_blank">
-                        <img src="/Content/images2/home_cptj_01.jpg">
-                    </a>
-                </div>
-                <div class="pane_goods">
-                    <a href="/Company/Detail?id=7" title="巨化设计费老师的发生企业" target="_blank">
-                        <img src="/Content/images2/home_cptj_01.jpg">
-                    </a>
-                </div>
+                @foreach (var e in logos)
+                {
+
+                    <div class="pane_goods">
+                        <a href="@e.Site" target="_blank" title="@e.Name">
+                            <img src="@e.LogoSrc">
+                        </a>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -351,69 +359,28 @@
             <div class="link_title">
                 <table>
                     <tr>
-                        <td style="width: 160px;">
-                            <div class="title_li1">政府企业</div>
+                        <td style="width: 140px;">
+                            <div class="title_li1 title">政府部门</div>
                         </td>
                         <td>
-                            <div class="title_li2"><a href="#">中国电子材料协会</a></div>
-                            <div class="title_li2"><a href="#">中国电子材料网</a></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="title_li1">相关协会</div>
-                        </td>
-                        <td>
-                            <div class="title_li2"><a href="#">中国电子材料行业协会</a></div>
-                            <div class="title_li2"><a href="#">中国氟硅有机材料工业协会</a></div>
-                            <div class="title_li2"><a href="#">国家电子功能及辅助材料质量监督检验中心</a></div>
-                            <div class="title_li2"><a href="#">石化联合会化工新材料专委会</a></div>
-                            <div class="title_li2"><a href="#">中国合成树脂协会</a></div>
+                            <div class="title_li2"><a href="http://www.miit.gov.cn" target="_blank">中华人民共和国工业和信息化部</a></div>
+                            <div class="title_li2" style="margin-left: 40px;"><a href="http://www.most.gov.cn" target="_blank">中华人民共和国科学技术部</a></div>
+                            <div class="title_li2" style="margin-left: 50px;"><a href="http://www.sdpc.gov.cn" target="_blank">国家发展和改革委员会</a></div><br />
+                            <div class="title_li2" style="margin-left: 0px;"><a href="http://www.customs.gov.cn" target="_blank">中华人民共和国海关总署</a></div>
+                            <div class="title_li2" style="margin-left: 85px;"><a href="http://www.mofcom.gov.cn" target="_blank">中华人民共和国商务部</a></div>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div class="title_li1">中央部门</div>
+                            <div class="title_li1 title">其他站点</div>
                         </td>
                         <td>
-                            <div class="title_li2"><a href="#">工业和信息化部</a></div>
-                            <div class="title_li2"><a href="#">科学技术部</a></div>
-                            <div class="title_li2"><a href="#">发展与改革委员会</a></div>
-                            <div class="title_li2"><a href="#">商务部</a></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="title_li1">联盟理事成员单位</div>
-                        </td>
-                        <td>
-                            <div class="title_li2">
-                                <a href="#">中国电子材料协会</a>
-                            </div>
-                            <div class="title_li2">
-                                <a href="#">中国电子材料协会</a>
-                            </div>
-                            <div class="title_li2">
-                                <a href="#">中国电子材料协会</a>
-                            </div>
-                            <div class="title_li2">
-                                <a href="#">中国电子材料协会</a>
-                            </div>
-                            <div class="title_li2">
-                                <a href="#">中国电子材料协会</a>
-                            </div>
-                            <div class="title_li2">
-                                <a href="#">中国电子材料协会</a>
-                            </div>
-                            <div class="title_li2">
-                                <a href="#">中国电子材料协会</a>
-                            </div>
-                            <div class="title_li2">
-                                <a href="#">中国电子材料协会</a>
-                            </div>
-                            <div class="title_li2">
-                                <a href="#">中国电子材料协会</a>
-                            </div>
+                            <div class="title_li2"><a href="http://www.cemia.org.cn" target="_blank">中国电子材料行业协会</a></div>
+                            <div class="title_li2" style="margin-left: 99px;"><a href="http://www.cpcia.org.cn" target="_blank">中国石油和化学工业联合会</a></div>
+                            <div class="title_li2" style="margin-left: 50px"><a href="http://www.sif.org.cn" target="_blank">中国氟硅有机材料工业协会</a></div>
+                            <div class="title_li2" style="margin-left: 50px;"><a href="http://www.ic-ceca.org.cn" target="_blank">中国电子元件行业协会</a></div>
+                            <div class="title_li2" style="margin-left: 0px;"><a href="http://www.csra.org.cn" target="_blank">中国合成树脂协会</a></div>
+                            <div class="title_li2" style="margin-left: 128px;"><a href="http://www.semi.org.cn" target="_blank">国际半导体设备与材料协会</a></div>
                         </td>
                     </tr>
                 </table>
@@ -422,4 +389,3 @@
     </div>
     <div class="clear"></div>
 </div>
-

@@ -14,8 +14,13 @@ function toggleTabs(dom) {
 
 }
 
+function showMoreArticle(target) {
+    alert(target);
+}
 
-
+function showMoreCompany(target) {
+    alert(target);
+}
 
 
 

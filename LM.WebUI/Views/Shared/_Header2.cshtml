@@ -24,10 +24,9 @@
             &nbsp;&nbsp;欢迎进入中国电子化工新材料产业联盟！
         </div>
         <div class="right">
-            <span class="showhover"><a>登录</a></span>
-            <!--<span class="showhover"><a>注册</a></span>-->
-            <span class="showhover"><a>设为首页</a></span>
-            <span class="showhover"><a>加入收藏</a></span>
+            <span class="showhover"><a href="javascript:window.location.href='/Admin/Home/Index'" target="_blank">登录</a></span>
+            <span class="showhover"><a onclick="SetHome(this, window.location)" href="javascript:void(0)">设为首页</a></span>
+            <span class="showhover"><a onclick="AddFavorite(window.location, document.title)" href="javascript:void(0)">加入收藏</a></span>
         </div>
         <div class="clear"></div>
     </div>
@@ -40,7 +39,7 @@
             </div>
         </div>
         <div class="right" style="min-height:80px;line-height:80px;">
-            <input type="text" class="input_text" placeholder="请输入关键字" style="margin-top: 23px;" /><button type="button" class="button bg-blue">搜索</button>
+            <input type="text" class="input_text" placeholder="请输入关键字" style="margin-top: 23px;" /><button type="button" class="button bg-blue" onclick='seaSubmit()'>搜索</button>
         </div>
         <div class="clear"></div>
     </div>

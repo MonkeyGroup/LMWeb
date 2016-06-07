@@ -18,6 +18,14 @@ a {
         text-decoration: underline;
     }
 
+.showhover a {
+    text-decoration: none;
+    color: #505050;
+}
+    .showhover a:hover {
+        text-decoration: underline;
+    }
+
 body ul li {
     font-family: '微软雅黑';
     font-size: 12px;
@@ -144,6 +152,11 @@ body ul li {
         float: left;
     }
 
+        .center_top .item1 img {
+            height: 270px;
+            width: 320px;
+        }
+
     .center_top .item2 {
         margin-right: 10px;
         padding: 10px;
@@ -175,7 +188,7 @@ body ul li {
 }
 
     .jianbao img {
-        padding-right: 8px;
+        padding-right: 2px;
     }
 
 
@@ -185,7 +198,7 @@ body ul li {
 
     .center_news #item1 {
         width: 49.5%;
-        height: 380px;
+        height: 350px;
         float: left;
         /*border: 1px solid #000;*/
         box-sizing: border-box;
@@ -273,7 +286,7 @@ body ul li {
 .center_news #item2 {
     margin-left: 1%;
     width: 49.5%;
-    height: 380px;
+    height: 350px;
     float: left;
     /*border: 1px solid #000;*/
     box-sizing: border-box;
@@ -347,7 +360,7 @@ body ul li {
     background: #0872CA;
 }
 
-.p1 {
+.p_title {
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 20px;
@@ -357,7 +370,7 @@ body ul li {
     text-align: center;
 }
 
-.p2 {
+.p_brief {
     font-size: 15px;
     padding-left: 15px;
     text-indent: 2em;
@@ -383,7 +396,7 @@ body ul li {
 
     .center_news #item3 .center1 {
         border: 1px solid #7bc0f9;
-        background: #ecebeb;
+        background: #F6F4F7;
         font-size: 15px;
         height: 220px;
         padding: 10px;
@@ -419,7 +432,7 @@ body ul li {
 
     .center_news #item4 .center2 {
         border: 1px solid #7bc0f9;
-        background: #ecebeb;
+        background: #F6F4F7;
         font-size: 15px;
         height: 220px;
         padding: 10px;
@@ -437,7 +450,7 @@ body ul li {
 
     .center_news #item5 .center3 {
         border: 1px solid #7bc0f9;
-        background: #ecebeb;
+        background: #F6F4F7;
         font-size: 15px;
         height: 220px;
         padding: 10px;
@@ -510,27 +523,32 @@ body ul li {
             margin-bottom: 15px;
         }
 
-    .center_link table a {
-        color: #6F6A6A;
-        text-decoration: none;
-        cursor: pointer;
+    .center_link table {
+        border-collapse: collapse;
     }
 
-        .center_link table a:hover {
-            color: #0872CA;
-            text-decoration: underline;
+        .center_link table a {
+            color: #6F6A6A;
+            text-decoration: none;
             cursor: pointer;
         }
 
+            .center_link table a:hover {
+                color: #0872CA;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
     .center_link tr {
-        height: 60px;
-        line-height: 1.8em;
+        height: 100px;
+        line-height: 2em;
+        border-bottom: 1px solid #E3E2E0;
     }
 
 
 .link_title .title_li1 {
     float: left;
-    width: 150px;
+    /*width: 150px;*/
     margin-left: 5px;
     font-weight: bold;
     color: #6F6A6A;
@@ -539,10 +557,15 @@ body ul li {
 
 .link_title .title_li2 {
     float: left;
-    margin-left: 3em;
+    /*margin-left: 3em;*/
     color: #6F6A6A;
     font-size: 15px;
 }
+
+.link_title .title {
+    margin-top: -33px;
+}
+
 
 .center_foot {
     /*max-width: 1100px;*/
@@ -629,7 +652,7 @@ body ul li {
 }
 
 .pane_goods {
-    width: 150px;
+    width: 149px;
     height: 75px;
     float: left;
     margin: 5px 10px;
