@@ -81,7 +81,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         #endregion
 
 
-        #region 首页配置
+        #region 首页配置。*注：此接口废除！2016.06.08
         [HttpGet]
         [Authentication]
         public ActionResult HomeConfig()

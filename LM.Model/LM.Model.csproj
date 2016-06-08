@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Enums.cs" />
+    <Compile Include="Entity\Ad.cs" />
     <Compile Include="Entity\Article.cs" />
     <Compile Include="Entity\BaseInfo.cs" />
     <Compile Include="Entity\Brief.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Entity\OperationLog.cs" />
     <Compile Include="Entity\Product.cs" />
     <Compile Include="Entity\User.cs" />
+    <Compile Include="Model\AdModel.cs" />
     <Compile Include="Model\ArticleModel.cs" />
     <Compile Include="Model\BaseInfoModel.cs" />
     <Compile Include="Model\BriefModelcs.cs" />

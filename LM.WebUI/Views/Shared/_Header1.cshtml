@@ -1,0 +1,82 @@
+﻿@using LM.Model.Model
+@using LM.Service.Security
+@{
+    Layout = null; /* 此句必须加，不然默认布局页为_Layout页，会造成死循环 */
+    ViewBag.Title = "Header";
+    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
+}
+
+<script>
+    function seaSubmit() {
+        var key = $('#searchKey').val();
+        if (key === '') {
+            alert('请输入关键字');
+            return;
+        }
+        window.open("/Home/Search?key=" + key);
+    }
+</script>
+
+<!--1. Top-->
+<!--search-->
+<div class="find">
+    <div style="float:left;margin:0 10px;">
+        <span class="ding">
+            <a onclick="SetHome(this, window.location)">设为首页</a> |
+            <a onclick="AddFavorite(window.location, document.title)" href="javascript:void(0)">加入收藏</a> |
+            <a href="javascript:window.location.href='/Admin/Home/Index'">登录</a>
+        </span>
+    </div>
+    <span class="find_content">
+        <input style='color:#999; font-size:13px; padding-left:5px;' type="text" id="searchKey" class="ss_ct" rel='search' size="100" placeholder="文章标题、产品名称、单位名称关键字" />
+        <div class="ss"> <a href="#" onclick='seaSubmit()'></a></div>
+    </span>
+</div>
+<!--end Top-->
+<!--flash-->
+<div class="top">
+    <div class="flash">
+        <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="1004" height="181">
+            <param name="movie" value="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/swf/flash.swf" : config.FlashSrc)" />
+            <param name="quality" value="high" />
+            <param name="wmode" value="opaque" />
+            <embed src="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/swf/flash.swf" : config.FlashSrc)" quality="high" wmode="opaque" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="1004" height="181" />
+        </object>
+    </div>
+</div>
+
+<!--nav-->
+<div class="top1">
+    <ul id="navmenu">
+        <li><a href="/Home/Index" title="首页">首页</a></li>
+        <li>
+            <a href="/Home/About" title="关于联盟">关于联盟</a>
+        </li>
+        <li>
+            <a href="/Article/InfoList" title="联盟动态">联盟动态</a>
+        </li>
+        <li>
+            <a href="/Company/List" title="联盟成员">联盟成员</a>
+        </li>
+        <li>
+            <a href="/Expert/List" title="专家委员会">专家委员会</a>
+        </li>
+        <li>
+            <a href="/Product/List" title="产品展示">产品展示</a>
+        </li>
+        <li>
+            <a href="/Fruits/List" title="科研成果">科研成果</a>
+        </li>
+        <li>
+            <a href="/Home/Contact" title="联系我们">联系我们</a>
+        </li>
+    </ul>
+</div>
+
+<!--广告栏-->
+<div class="" style="padding-top:10px;margin-bottom: 10px;">
+    <a href="@config.AdLink" target="_blank">
+        <img width="1004;" src="@(string.IsNullOrEmpty(config.AdSrc)?"/Content/images/guanggao.gif":config.AdSrc)" alt="" />
+    </a>
+</div>
+

@@ -1,5 +1,4 @@
-﻿@using LM.Model.Common
-@using LM.Model.Model
+﻿@using LM.Model.Model
 @using LM.Service.Security
 @using LM.Utility
 @{
@@ -19,13 +18,15 @@
     var industryArticles = ViewBag.IndustryArticles as List<ArticleModel>;
 }
 
+@Html.RenderCss("/Content/css/imgSlide.css")
+
 @Html.RenderScript("/Content/js/jquery.kxbdmarquee.js")
 @Html.RenderScript("/Content/js/listScroll.js")
+@Html.RenderScript("/Content/js/imgSlide.js")
+@Html.RenderScript("/Content/js/utility.js")
 
 @section partialScriptCss{
     <script type="text/javascript">
-        // 幻灯片
-        // 首页加载后执行
         $(document).ready(function () {
             // 取隐藏域里面的图片路径
             var imglist = [], idlist = [];
@@ -40,355 +41,350 @@
 
             // Logo 自动滚动
             //MoveDiv(window.event);
+            slide_init(); // 运行图片滚动函数
+            $("#tabs").tabs();
         });
     </script>
 }
 
-<!--body1-->
-<div style="width: 1004px; height: 260px; margin: 8px auto; margin-bottom: 2px;">
-    <!--幻灯片-->
-    <div id="aa" class="pic_list" style="width: 331px; float: left; border: 1px solid #ccc; height: 257px; margin-right: 6px;">
-        <a href="@(slideArticles.Count > 0 ? "/Article/Detail?id=" + slideArticles[0].Id : "")" target="_blank">
-            <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc:"")" style="width: 100%; height: 100%;" onclick="" />
-        </a>
-        <style>
-            #aa ul {
-                width: 100%;
-                margin: 0;
-                padding: 0;
-                position: relative;
-                left: 175px;
-                top: -35px;
-            }
 
-            .li {
-                color: #ffffff;
-                background: #003271;
-                padding: 3px 7px;
-                float: left;
-                margin: 3px;
-                border-radius: 10px;
-                list-style: none;
-                cursor: pointer;
-            }
-
-                .li:hover {
-                    background: #9fd5fc;
-                    color: #000000;
+<div class="section">
+    <div class="center_top">
+        <div class="item1">
+            @*<img src="/Content/images2/home_新闻图片.jpg" width="100%" height="100%" />*@
+            <!--幻灯片-->
+            <style>
+                .pic_list {
+                    width: 286px;
+                    height: 216px;
+                    border: #FFF solid 1px;
                 }
 
-            .active {
-                background: #FF6911;
-                color: #000000;
-                font-weight: bold;
-            }
-        </style>
-        <ul id="aa_index">
-            @for (var i = 0; i < slideArticles.Count; i++)
-            {
-                <li class="li">@(i + 1)</li>
-            }
-        </ul>
-    </div>
+                #aa ul {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    position: relative;
+                    left: 175px;
+                    top: -35px;
+                }
 
-    <!--联盟要闻、特别关注-->
-    <div style="width: 468px; float: left;">
-        <div style="height: 127px; border: 1px solid #ccc; margin-bottom: 2px;">
-            <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
-                <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #0DB0F3; color: #2872D6; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
-                    联盟要闻
-                    <a href="/Article/InfoList?type=联盟要闻" target="_blank" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
-                        更多<span style="font-size: 12px;">&gt;&gt;</span>
-                    </a>
-                </p>
+                .li {
+                    color: #ffffff;
+                    background: #0872CA;
+                    padding: 3px 7px;
+                    float: left;
+                    margin: 3px;
+                    border-radius: 10px;
+                    list-style: none;
+                    cursor: pointer;
+                }
+
+                    .li:hover {
+                        background: #9fd5fc;
+                        color: #000000;
+                    }
+
+                .active {
+                    background: #FF6911;
+                    color: #000000;
+                    font-weight: bold;
+                }
+            </style>
+
+            <div id="aa" class="pic_list" style="width: 320px;height: 270px;float: left; border: 1px solid #ccc; margin-right: 6px;">
+                <a href="@(slideArticles.Count > 0 ? "/Article/Detail?id=" + slideArticles[0].Id : "")" target="_blank">
+                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc:"")" style="width: 100%; height: 100%;" onclick="" />
+                </a>
+                <ul id="aa_index">
+                    @for (var i = 0; i < slideArticles.Count; i++)
+                    {
+                    <li class="li">@(i + 1)</li>
+                    }
+                </ul>
             </div>
-            @if (oneNews != null && !string.IsNullOrEmpty(oneNews.Title))
-            {
-                <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;" title="@oneNews.Title">
-                    @(oneNews.Title.Length > 28 ? oneNews.Title.Substring(0, 25) + "..." : oneNews.Title)
+
+        </div>
+        <div class="item2">
+            <ul class="tab_ul">
+                <li id="tabs_1" class="tab_ul_li hit" onmouseover="toggleTabs(this,'over')">联盟要闻</li>
+                <li id="tabs_2" class="tab_ul_li" onmouseover="toggleTabs(this,'over')">特别关注</li>
+                <li class="li_more"><a class="more" onclick="showMoreArticle('ywgz')">更多>></a></li>
+            </ul>
+            <div id="tabs_1_content" class="tabs show">
+                @if (oneNews != null && !string.IsNullOrEmpty(oneNews.Title))
+                {
+                <p class="p_title" title="@oneNews.Title">
+                    @(oneNews.Title.Length > 22 ? oneNews.Title.Substring(0, 19) + "..." : oneNews.Title)
                 </p>
-                <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
+                <p class="p_brief">
                     @(!string.IsNullOrEmpty(oneNews.Brief) && oneNews.Brief.Length > 100 ? oneNews.Brief.Substring(0, 97) + "..." : oneNews.Brief)
-                    <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneNews.Id" target="_blank">[详情]</a></span>
+                    <span style="color: #505050; cursor: pointer;">
+                        <a href="/Article/Detail?id=@oneNews.Id" target="_blank">[详情]</a>
+                    </span>
                 </p>
-            }
-            else
-            {
-                @:暂无数据！
-            }
-        </div>
-        <div style="height: 127px; border: 1px solid #ccc;">
-            <div style="padding-top: 5px; height: 25px; background: url(/content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
-                <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #2872D6; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px; ">
-                    特别关注
-                    <a href="/Article/InfoList?type=特别关注" target="_blank" style="text-align: right; padding-left: 72%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
-                        更多<span style="font-size: 12px;">&gt;&gt;</span>
-                    </a>
-                </p>
+                }
             </div>
-            @if (oneFocus != null && !string.IsNullOrEmpty(oneFocus.Title))
-            {
-                <p style="font-size: 16px; line-height: 30px; font-weight: bold; color: #666; text-align: center;" title="@oneFocus.Title">
-                    @(oneFocus.Title.Length > 28 ? oneFocus.Title.Substring(0, 25) + "..." : oneFocus.Title)
+            <div id="tabs_2_content" class="tabs">
+                @if (oneFocus != null && !string.IsNullOrEmpty(oneFocus.Title))
+                {
+                <p class="p_title" title="@oneFocus.Title">
+                    @(oneFocus.Title.Length > 22 ? oneFocus.Title.Substring(0, 19) + "..." : oneFocus.Title)
                 </p>
-                <p style="height: 80px; overflow: hidden; padding-left: 15px; padding-right: 15px; text-indent: 20px; text-align: left; line-height: 20px;">
+                <p class="p_brief">
                     @(!string.IsNullOrEmpty(oneFocus.Brief) && oneFocus.Brief.Length > 100 ? oneFocus.Brief.Substring(0, 97) + "..." : oneFocus.Brief)
-                    <span style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;"><a href="/Article/Detail?id=@oneFocus.Id" target="_blank">[详情]</a></span>
+                    <span style="color: #505050; cursor: pointer;">
+                        <a href="/Article/Detail?id=@oneFocus.Id" target="_blank">[详情]</a>
+                    </span>
                 </p>
-            }
-            else
-            {
-                @:暂无数据！
-            }
-        </div>
-    </div>
-    <!--二维码、简报-->
-    <div style="float: left; width: 190px; padding-left: 6px; border: 1px;">
-        <div style="height: 130px; padding: 3px 3px 0 3px; border: 1px solid #ccc; margin-bottom: 2px;">
-            <p>
-                <img style="width: 137px; height: 125px;" src="@(string.IsNullOrEmpty(config.QrSrc)?"/Content/images/2118b59.jpg":config.QrSrc)" />
-            </p>
-        </div>
-        <div style="height: 121px; border: 1px solid #ccc;">
-            <div style="padding-top: 5px; height: 25px; background: url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom: 1px solid #ccc;">
-                <p style="text-align: left; font-family: 'Microsoft YaHei'; font-weight: bold; color: #2872D6; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
-                    联盟简报
-                    <a href="/Article/BriefList" target="_blank" style="text-align: right; padding-left: 28%; font-weight: normal; font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
-                        更多<span style="font-size: 12px;">&gt;&gt;</span>
-                    </a>
-                </p>
+                }
             </div>
-            <div style="height: 10px;">&nbsp;</div>
+        </div>
+        <div class="item3">
+            <div style="height: 120px; width: 120px; margin: 0 auto;margin-top: -5px;">
+                <img src="@(string.IsNullOrEmpty(config.QrSrc)?"/Content/images/2118b59.jpg":config.QrSrc)" width="100%" height="100%" />
+            </div>
+            <ul class="tab_ul">
+                <li class="tab_ul_li hit">联盟简报</li>
+            </ul>
             @if (briefs.Count > 0)
             {
                 foreach (var item in briefs)
                 {
-                    <p style="font-size: 12px; line-height: 24px; text-align: left; padding-left: 15px; background: url(/Content/images/dot.png) 5px 10px no-repeat;">
-                        <a href="@item.FilePath">@(item.Name.Length > 13 ? item.Name.Substring(0, 10) + "..." : item.Name)</a>
-                    </p>
+            <p class="jianbao" title="@(item.Name)">
+                <img src="/Content/images2/home_圆点.png" />
+                <a href="@item.FilePath">@(item.Name.Length > 10 ? item.Name.Substring(0, 7) + "..." : item.Name)</a>
+            </p>
                 }
             }
-            else
-            {
-                <span>暂无数据！</span>
-            }
+
         </div>
+        <div class="clear"></div>
     </div>
-</div>
-
-<!--口号栏-->
-<div class="" style="padding-top:6px; width: 1004px;margin: 0 auto">
-    <a href="@config.SloganLink" target="_blank">
-        <img width="100%" src="@(string.IsNullOrEmpty(config.SloganSrc) ? "/Content/images/20160321143707.jpg" : config.SloganSrc)" />
-    </a>
-</div>
-
-<!---------------------------------------------分界线---------------------------------------------------------->
-<!--body2部分begin-->
-<div style="width:1004px;margin:0 auto; padding-top:0px;">
-    <!---联盟会员LOGO--->
-    <div id="logoScroll2" style="border: 1px #ccc solid; margin-bottom: 10px;margin-top: 10px;width: 1002px; height: 66px; overflow: hidden">
-        <style>
-            #logoScroll2 ul li {
-                font-family: "微软雅黑";
-                float: left;
-                width: 120px;
-                margin-top: 3px;
-                height: 60px;
-                line-height: 60px;
-                overflow: hidden;
-                font-size: 12px;
-                padding-left: 3px;
-                text-align: left;
-            }
-        </style>
-        <ul>
-            @foreach (var e in logos)
-            {
-                <li title="@e.Name">
-                    <a href="@e.Site" target="_blank">
-                        <img width="100%" height="100%" src="@e.LogoSrc" title="@e.Name" />
-                    </a>
-                </li>
-            }
-        </ul>
-    </div>
-
-    <!--3组企业名称自下而上自动滚动-->
-    <div class="floor1" style="width:1004px; margin:0 auto;height:200px;margin-bottom:8px;">
-        <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;margin-top:0px; margin-right: 10px; width: 326px; height: 198px; float: left; border: 1px solid #ccc; ">
-            <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
-                <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">联盟材料领域企业</span>
-                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right;"
-                   href="/Company/List?type=@((int)MemberType.材料领域企业)" target="_blank">更多>></a>
-            </p>
-            <div class="tonggao_content">
-                <div id="newlist1" style="width: 222px; height: 130px; overflow: hidden">
-                    <ul class="r_upload mbm">
-                        @if (subCompanies.Count > 0)
+    <div class="clear"></div>
+    <div class="center_news">
+        <div id="item1">
+            <div class="new1">
+                <div class="left newleft">联盟动态</div>
+                <a class="more lmdt" href="#" onclick="showMoreArticle('lmdt')">更多>></a>
+            </div>
+            <div>
+                <ul style="list-style: none;">
+                    @if (dynamicArticles.Count > 0)
+                    {
+                        var i = 1;
+                        foreach (var c in dynamicArticles)
                         {
-                            foreach (var c in subCompanies)
+                            if (i++ == 1)
                             {
-                                <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
+                    <li class="newTitle" title="@c.Title">
+                        <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 24 ? c.Title.Substring(0, 21) + "..." : c.Title)</a>
+                    </li>
+                            }
+                            else
+                            {
+                    <li>
+                        <div class="new2" title="@c.Title">
+                            <img src="/Content/images2/home_圆点.png" />
+                            <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a>
+                        </div>
+                        <div class="news">[@c.SaveAt.ToString("yyyy-MM-dd")]</div>
+                    </li>
                             }
                         }
-                        else
-                        {
-                            @Html.Raw("暂无数据！")
-                        }
-                    </ul>
-                </div>
+                    }
+                </ul>
             </div>
         </div>
-        <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;margin-right: 10px; width: 326px; height: 198px; float: left; border: 1px solid #ccc;">
-            <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
-                <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">联盟应用领域企业</span>
-                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right;"
-                   href="/Company/List?type=@((int)MemberType.应用领域企业)" target="_blank">更多>></a>
-            </p>
-            <div class="tonggao_content">
-                <div id="newlist2" style="width: 222px; height: 130px; overflow: hidden">
-                    <ul class="r_upload mbm">
-                        @if (supCompanies.Count > 0)
+        <div id="item2">
+            <div class="new1">
+                <div class="left newleft">行业新闻</div>
+                <a class="more hyxw" href="#" onclick="showMoreArticle('hyxw')">更多>></a>
+            </div>
+            <div>
+                <ul style="list-style: none;">
+                    @if (industryArticles.Count > 0)
+                    {
+                        var i = 1;
+                        foreach (var c in industryArticles)
                         {
-                            foreach (var c in supCompanies)
+                            if (i++ == 1)
                             {
-                                <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
+                    <li class="newTitle" title="@c.Title">
+                        <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 24 ? c.Title.Substring(0, 21) + "..." : c.Title)</a>
+                    </li>
+                            }
+                            else
+                            {
+                    <li>
+                        <div class="new2" title="@c.Title">
+                            <img src="/Content/images2/home_圆点.png" />
+                            <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a>
+                        </div>
+                        <div class="news">[@c.SaveAt.ToString("yyyy-MM-dd")]</div>
+                    </li>
                             }
                         }
-                        else
-                        {
-                            @Html.Raw("暂无数据！")
-                        }
-                    </ul>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="center_product">
+        <div class="top">
+            <div class="productleft">产品推荐</div>
+        </div>
+        <div>
+            <div class="imgSlide">
+                <a class="LeftBotton" style="background: url(/Content/images2/home_左按钮.png) no-repeat;" onmousedown="ISL_GoDown_1()" onmouseup="ISL_StopDown_1()" onmouseout="ISL_StopDown_1()"
+                   href="javascript:void(0);" target="_self"></a>
+                <div class="pcont" id="ISL_Cont_1">
+                    <div class="ScrCont">
+                        <div id="List1_1" class="imgpane">
+                            <a class="pl" href="#" title="aaa"><img src="/Content/images2/home_cptj_01.jpg" alt="模板王" /></a>
+                            <a class="pl" href="#"><img src="/Content/images2/home_cptj_02.jpg" alt="模板王" /></a>
+                            <a class="pl" href="#"><img src="/Content/images2/home_cptj_03.jpg" alt="模板王" /></a>
+                            <a class="pl" href="#"><img src="/Content/images2/home_cptj_04.jpg" alt="模板王" /></a>
+                            <a class="pl" href="#"><img src="/Content/images2/home_cptj_05.jpg" alt="模板王" /></a>
+                            <a class="pl" href="#"><img src="/Content/images2/home_cptj_04.jpg" alt="模板王" /></a>
+                            <a class="pl" href="#"><img src="/Content/images2/home_cptj_05.jpg" alt="模板王" /></a>
+                            <!-- piclist end -->
+                        </div>
+                        <div id="List2_1" class="imgpane"></div>
+                    </div>
                 </div>
+                <a class="RightBotton" style="background: url(/Content/images2/home_右按钮.png) no-repeat;" onmousedown="ISL_GoUp_1()" onmouseup="ISL_StopUp_1()" onmouseout="ISL_StopUp_1()"
+                   href="javascript:void(0);" target="_self"></a>
             </div>
         </div>
-        <div class="" style="background: url(/Content/images/syqy.png) 0 0 no-repeat;width: 326px; height: 198px; float: left; border: 1px solid #ccc;">
-            <p style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 40px; padding-left: 16px; margin-top: 15px;">
-                <span style="text-align: left; font-family: 微软简楷体; font-weight: bold; color: #22A9E0; font-size: 18px;margin:20px 15px;">联盟科研协会理事单位</span>
-                <a style="text-align: left; font-family: 微软简楷体; font-weight: normal; color: #ADA7A7; font-size: 12px; margin-right: 15px; float: right;"
-                   href="/Company/List?type=@((int)MemberType.科研协会理事单位)" target="_blank">更多>></a>
-            </p>
-            <div class="tonggao_content">
-                <div id="newlist3" style="width:222px; height:130px; overflow:hidden">
-                    <ul class="r_upload mbm">
-                        @if (otherCompanies.Count > 0)
+    </div>
+    <div class="center_news">
+        <div id="item3">
+            <div class="itemtopleft">
+                联盟材料领域企业
+            </div>
+            <div class="itemright">
+                <a class="more qy" href="#" onclick="showMoreCompany('clly')">更多>></a>
+            </div>
+            <div class="clear"></div>
+            <div class="center1">
+                <ul>
+                    @if (subCompanies.Count > 0)
+                    {
+                        var i = 1;
+                        foreach (var c in subCompanies.TakeWhile(c => i++ <= 8))
                         {
-                            foreach (var c in otherCompanies)
-                            {
-                                <li><a href="@c.Site" target="_blank">@(c.Name.Length > 17 ? c.Name.Substring(0, 14) + "..." : c.Name)</a></li>
-                            }
+                    <li class="centerli" title="@c.Name">
+                        <a href="@c.Site" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
+                    </li>
                         }
-                        else
+                    }
+                </ul>
+            </div>
+        </div>
+        <div id="item4">
+            <div class="itemtopleft">
+                联盟应用领域企业
+            </div>
+            <div class="itemright">
+                <a class="more qy" href="#" onclick="showMoreCompany('yyly')">更多>></a>
+            </div>
+            <div class="clear"></div>
+            <div class="center2">
+                <ul>
+                    @if (supCompanies.Count > 0)
+                    {
+                        var i = 1;
+                        foreach (var c in supCompanies.TakeWhile(c => i++ <= 8))
                         {
-                            @Html.Raw("暂无数据！")
+                    <li class="centerli" title="@c.Name">
+                        <a href="@c.Site" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
+                    </li>
                         }
-                    </ul>
-                </div>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div id="item5">
+            <div class="itemtopleft">
+                联盟科研协会理事单位
+            </div>
+            <div class="itemright">
+                <a class="more qy" href="#" onclick="showMoreCompany('kyxh')">更多>></a>
+            </div>
+            <div class="clear"></div>
+            <div class="center3">
+                <ul>
+                    @if (otherCompanies.Count > 0)
+                    {
+                        var i = 1;
+                        foreach (var c in otherCompanies.TakeWhile(c => i++ <= 8))
+                        {
+                    <li class="centerli" title="@c.Name">
+                        <a href="@c.Site" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
+                    </li>
+                        }
+                    }
+                </ul>
             </div>
         </div>
     </div>
-    <!--滚动的js-->
-
-    <!--企业产品推荐-->
-    <div style="padding-top:5px;height:28px;background:url(/Content/images/noselectbg.jpg) top repeat-x; border-bottom:0px solid #ccc;">
-        <p style="text-align: left; font-family: '微软简楷体'; font-weight: bold; color: #22A9E0; font-size: 18px; line-height: 20px; padding-left: 5px; margin-top: 0px;">
-            企业产品推荐
-        </p>
-    </div>
-    <div class="floor2" style="width: 1004px; margin: 0 auto; height: 160px;  margin-bottom: 10px;">
-        <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 11px;">
-            <a href="javascript:window.open('@config.Product1Link');">
-                <img style="width: 241px; height: 158px;" src="@(string.IsNullOrEmpty(config.Product1Src) ? "/content/images/zanwu.jpg" : config.Product1Src)" />
-            </a>
-        </div>
-        <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 11px;">
-            <a href="javascript:window.open('@config.Product2Link');">
-                <img style="width: 241px; height: 158px;" src="@(string.IsNullOrEmpty(config.Product2Src) ? "/content/images/zanwu.jpg" : config.Product2Src)" />
-            </a>
-        </div>
-        <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc; margin-right: 10px;">
-            <a href="javascript:window.open('@config.Product3Link');">
-                <img style="width: 241px; height: 158px;" src="@(string.IsNullOrEmpty(config.Product3Src) ? "/content/images/zanwu.jpg" : config.Product3Src)" />
-            </a>
-        </div>
-        <div class="" style="width: 241px; height: 158px; float: left; border: 1px solid #ccc;">
-            <a href="javascript:window.open('@config.Product4Link');">
-                <img style="width: 241px; height: 158px;" src="@(string.IsNullOrEmpty(config.Product4Src) ? "/content/images/zanwu.jpg" : config.Product4Src)" />
-            </a>
-        </div>
-    </div>
-
-    <!--联盟动态、行业信息、广告位-->
-    <div class="floor3" style="width:1004px; margin:0 auto;height:320px;margin-bottom:10px; ">
-        <div class="" style="width: 342px; height: 318px; float: left; margin-right: 10px; border: 1px solid #ccc; text-align:left;padding:0px 10px 0px 15px;">
-            <div style="margin-left: -15px; margin-right: -10px; margin-bottom: 15px; padding-top: 0px; height: 30px;">
-                <img height="100%" src="/Content/images/lmdt.png" />
+    <div class="clear"></div>
+    <div class="center_hz">
+        <div class="center_product">
+            <div class="top">
+                <div class="productleft">合作企业</div>
             </div>
-            @if (dynamicArticles.Count > 0)
-            {
-                foreach (var c in dynamicArticles)
+            <div class="panes">
+                @foreach (var e in logos)
                 {
-                    <p style="font-size: 12px; line-height: 24px; padding-left: 15px; background: url(/Content/images/li.jpg) 0 5px no-repeat;" title="@c.Title">
-                        <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[@c.SaveAt.ToString("yyyy-MM-dd")]</span>
-                    </p>
-                }
-                <p style="text-align: right; padding-right: 10px; margin-top: 5px;">
-                    <a href="/Article/InfoList" target="_blank" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
-                        更多
-                        <span style="font-size: 12px;">&gt;&gt;</span>
-                    </a>
-                </p>
-            }
-            else
-            {
-                @Html.Raw("暂无数据！")
-            }
-        </div>
-        <div class="" style="width: 346px; height: 318px; float: left; margin-right: 10px; border: 1px solid #ccc;text-align:left;padding:0px 10px 0px 15px;">
-            <div style="margin-left: -15px; margin-right: -10px; margin-bottom: 15px; padding-top: 0px; height: 30px;">
-                <img height="100%" src="/Content/images/hyxx.png" />
-            </div>
-            @if (industryArticles.Count > 0)
-            {
-                foreach (var c in industryArticles)
-                {
-                    <p style="font-size: 12px; line-height: 24px; padding-left: 15px; background: url(/Content/images/li.jpg) 0 5px no-repeat;" title="@c.Title">
-                        <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a><span style="float: right;">[@c.SaveAt.ToString("yyyy-MM-dd")]</span>
-                    </p>
-                }
 
-                <p class="pmore" style="text-align: right; padding-right: 10px; margin-top: 5px;">
-                    <a href="/Article/InfoList?type=行业信息" target="_blank" style="font-size: 12px; font-family: '宋体'; color: #ADA7A7; cursor: pointer;">
-                        更多
-                        <span style="font-size: 12px;">&gt;&gt;</span>
-                    </a>
-                </p>
-            }
-            else
-            {
-                @Html.Raw("暂无数据！")
-            }
-        </div>
-        <div class="" style="width: 240px; height: 318px; float: left; border: 1px solid #ccc;">
-            <a href="javascript:window.open('@config.BusinessLink');" target="_blank">
-                <img width="100%" height="100%" src="@(string.IsNullOrEmpty(config.BusinessSrc) ? "/Content/images/zhaoshang.png" : config.BusinessSrc)" />
-            </a>
+                    <div class="pane_goods">
+                        <a href="@e.Site" target="_blank" title="@e.Name">
+                            <img src="@e.LogoSrc">
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-
+    <div class="clear"></div>
+    <div class="center_link">
+        <div class="center_company">
+            <div class="top">
+                <div class="companyleft">友情链接</div>
+            </div>
+            <div class="link_title">
+                <table>
+                    <tr>
+                        <td style="width: 140px;">
+                            <div class="title_li1 title">政府部门</div>
+                        </td>
+                        <td>
+                            <div class="title_li2"><a href="http://www.miit.gov.cn" target="_blank">中华人民共和国工业和信息化部</a></div>
+                            <div class="title_li2" style="margin-left: 40px;"><a href="http://www.most.gov.cn" target="_blank">中华人民共和国科学技术部</a></div>
+                            <div class="title_li2" style="margin-left: 51px;"><a href="http://www.sdpc.gov.cn" target="_blank">国家发展和改革委员会</a></div><br />
+                            <div class="title_li2" style="margin-left: 0px;"><a href="http://www.customs.gov.cn" target="_blank">中华人民共和国海关总署</a></div>
+                            <div class="title_li2" style="margin-left: 85px;"><a href="http://www.mofcom.gov.cn" target="_blank">中华人民共和国商务部</a></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="title_li1 title">其他站点</div>
+                        </td>
+                        <td>
+                            <div class="title_li2"><a href="http://www.cemia.org.cn" target="_blank">中国电子材料行业协会</a></div>
+                            <div class="title_li2" style="margin-left: 99px;"><a href="http://www.cpcia.org.cn" target="_blank">中国石油和化学工业联合会</a></div>
+                            <div class="title_li2" style="margin-left: 50px"><a href="http://www.sif.org.cn" target="_blank">中国氟硅有机材料工业协会</a></div>
+                            <div class="title_li2" style="margin-left: 50px;"><a href="http://www.ic-ceca.org.cn" target="_blank">中国电子元件行业协会</a></div>
+                            <div class="title_li2" style="margin-left: 0px;"><a href="http://www.csra.org.cn" target="_blank">中国合成树脂协会</a></div>
+                            <div class="title_li2" style="margin-left: 129px;"><a href="http://www.semi.org.cn" target="_blank">国际半导体设备与材料协会</a></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
 </div>
-<!--body2部分end-->
-<!--隐藏域-->
-@foreach (var e in slideArticles)
-{
-    <input type="hidden" id="slideSrc@(index)" value="@e.ImgSrc" />
-    <input type="hidden" id="slideId@(index)" value="@e.Id" />
-    index++;
-}
-
-
-
-
-<!--/ 隐藏域-->

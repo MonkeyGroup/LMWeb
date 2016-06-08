@@ -22,6 +22,7 @@ a {
     text-decoration: none;
     color: #505050;
 }
+
     .showhover a:hover {
         text-decoration: underline;
     }
@@ -110,7 +111,7 @@ body ul li {
         .Menu ul li {
             font-weight: bold;
             float: left;
-            width: 120px;
+            width: 125px;
         }
 
             .Menu ul li a {
@@ -118,7 +119,7 @@ body ul li {
                 text-decoration: none;
                 font-size: 16px;
                 display: block;
-                width: 100px;
+                width: 125px;
                 text-align: center;
             }
 
@@ -136,7 +137,6 @@ body ul li {
     max-height: 150px;
     /*min-height: 150px;*/
     margin-top: 2px;
-    border: 0px solid #cfcdcd;
 }
 
 .center_top {
@@ -148,7 +148,6 @@ body ul li {
         padding: 0px 0 0 0;
         height: 270px;
         width: 320px;
-        /*border: 1px solid #ccc;*/
         float: left;
     }
 
@@ -647,6 +646,7 @@ body ul li {
 
 .panes {
     /*border: 1px solid #ccc;*/
+    padding: 0 1px;
     margin-left: -10px;
     margin-right: -10px;
 }

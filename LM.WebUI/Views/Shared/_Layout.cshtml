@@ -10,11 +10,13 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title - @(string.IsNullOrEmpty(config.SiteName) ? "中国电子化工新材料产业联盟" : config.SiteName)</title>
     <link href="@(string.IsNullOrEmpty(config.LogoSrc)?"/favicon.ico":config.LogoSrc)" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width" />
-    @Html.RenderCss("/Content/css/tb.css")
-    @Html.RenderCss("/Content/css/tpqh.css")
-    @Html.RenderCss("/Content/css/style.css")
-    @Html.RenderCss("/Content/css/nav.css")
+    <meta name="viewport" content="width=device-width"/>
+    
+    @Html.RenderCss("/Content/css/index.css")
+    @*@Html.RenderCss("/Content/css/tb.css")*@
+    @*@Html.RenderCss("/Content/css/tpqh.css")*@
+    @*@Html.RenderCss("/Content/css/style.css")*@
+    @*@Html.RenderCss("/Content/css/nav.css")*@ 
 
     @Html.RenderScript("/Content/js/jquery-1.9.1.js")
     @Html.RenderScript("/Content/js/homePage.js")
@@ -25,20 +27,6 @@
 
     @RenderSection("partialScriptCss", false)
 
-    @*@{
-            // 加载一个在子页面的定义的“页面区域”，此区域可以做一些页面的处理
-            @RenderSection("");
-            // 将子页面的内容加载进来
-            @RenderBody("");
-            // 将某个页面加载进来
-            @RenderPage("");
-            // 将某个局部的页面（节点）加载进来
-            @Html.Partial("");
-            // 加载某个通过执行action后的页面
-            @Html.RenderAction("");
-            // 类似一个超链接
-            @Html.ActionLink("")
-        }*@
 </head>
 <body>
     <header>
