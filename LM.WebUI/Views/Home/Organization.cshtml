@@ -1,46 +1,53 @@
-﻿@using LM.Utility
+﻿@using LM.Model.Model
+@using LM.Utility
 @{
     ViewBag.Title = "联盟组织";
-    var content = ViewBag.Organize;
+
+    var briefs = ViewBag.Briefs as List<BriefModel>;
 }
 
-@Html.RenderCss("/Content/css/about1.css")
+@Html.RenderCss("/Content/css2/关于联盟.css")
 
-@section partialScriptCss{
+<div class="section" style="margin-bottom:20px;">
+    <div class="section_left">
+        <div class="top">
+            <h3>关于联盟</h3>
+            <h5 accesskey="">About Aliance</h5>
+        </div>
+        <a href="/Home/About"><div class="title_left">联盟介绍&nbsp;<samp>>></samp></div></a>
+        <a href="/Home/Chapter"><div class="title_left">联盟章程&nbsp;<samp>>></samp></div></a>
+        <a href="/Home/Organization"><div class="title_left">联盟组织&nbsp;<samp>>></samp></div></a>
+        <a href="/Home/Process"><div class="title_left">入盟申请&nbsp;<samp>>></samp></div></a>
 
-}
-<!--页面主体内容begin-->
-<div class="bg">
-    <div class="about_main">
-        <div class="aboutleft">
-            <!-- left -->
-            <div class="ab_t mt20">
-                <span class="ab_t01 pl10">关于联盟</span>
-                <br />
-                <span class="ab_t02 pl10">About Alliance</span>
-            </div>
-            <div class="ab_c mt20">
-                <ul>
-                    <li><a href="/Home/About">联盟介绍</a></li>
-                    <li><a href="/Home/Chapter">联盟章程</a></li>
-                    <li><a href="/Home/Organization">联盟组织</a></li>
-                    <li><a href="/Home/Process">入盟申请</a></li>
-                </ul>
+        <div class="slide1">
+            <br />
+            <span class="slide_title">关注联盟微信</span>
+            <div class="slide_qr">
+                <img src="/Content/images2/2118b59.jpg" width="80%" style="margin: auto auto;" />
             </div>
         </div>
 
-        <!-- right  -->
-
-        <div class="aboutright">
-            <div class="weizi">
-                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Home/About">关于联盟</a> &gt; <a href="/Home/Organization">联盟组织</a>
-            </div>
-            <p class="p0">@ViewBag.Title</p>
-
-            <div class="mycontent">
-                @Html.Raw(content)
-            </div>
+        <div class="top">
+            <h3>联盟简报</h3>
         </div>
-
+        <ul class="news_left">
+            @foreach (var b in briefs)
+            {
+                <li>
+                    <a href="@(b.FilePath)">@(b.Name)</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="section_right">
+        <div class="nav">
+            当前位置：首页 > 关于联盟 > 联盟组织
+        </div>
+        <div class="nav_right">
+            <span><img src="/Content/images2/home_轮播圆点蓝色.png" style="padding-right: 15px;">联盟组织</span>
+        </div>
+        <div class="content" style="text-align: center;">
+            <img class="content_mg" src="/Content/images2/关于联盟_联盟组织.png">
+        </div>
     </div>
 </div>

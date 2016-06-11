@@ -6,9 +6,13 @@
 
     var list = ViewBag.Models as List<BriefModel>;
     var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
+
+    var slideArticles = ViewBag.SlideArticles as List<ArticleModel>;
+    var dynamicArticles = ViewBag.DynamicArticles as List<ArticleModel>;
 }
 
-@Html.RenderCss("/Content/css/dynamic.css")
+@Html.RenderCss("/Content/css2/关于联盟.css")
+@*@Html.RenderCss("/Content/css/dynamic.css")*@
 @Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
 
 @section partialScriptCss{
@@ -20,7 +24,7 @@
                 pages: '@pageInfo.PageCount', //总页数
                 curr: '@pageInfo.PageIndex', // 当前页
                 groups: 3, //连续显示分页数
-                skin: '#0072C6',
+                skin: '#6f6a6a',
                 jump: function (e, first) {
                     // 第一次的事件必须要判断
                     if (!first) {
@@ -30,57 +34,131 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // 取隐藏域里面的图片路径
+            var imglist = [], idlist = [];
+            var count = '@slideArticles.Count';
+            for (var i = 0; i < count; i++) {
+                var src = $('#slideSrc' + i).val();
+                imglist.push(src);
+                var id = $('#slideId' + i).val();
+                idlist.push(id);
+            }
+            slide(imglist, idlist);
+
+            // Logo 自动滚动
+            //MoveDiv(window.event);
+            slide_init(); // 运行图片滚动函数
+            $("#tabs").tabs();
+        });
+    </script>
 }
 
+<div class="section" style="margin-bottom:20px;">
+    <div class="section_left">
+        <div class="top">
+            <h3>新闻资讯</h3>
+            <h5 accesskey="">News Information</h5>
+        </div>
+        <a href="/Article/InfoList"><div class="title_left">联盟动态&nbsp;<samp>>></samp></div></a>
+        <a href="/Article/InfoList?type=行业信息"><div class="title_left">行业信息&nbsp;<samp>>></samp></div></a>
+        <a href="/Article/InfoList?type=联盟要闻"><div class="title_left">联盟要闻&nbsp;<samp>>></samp></div></a>
+        <a href="/Article/InfoList?type=特别关注"><div class="title_left">特别关注&nbsp;<samp>>></samp></div></a>
+        <a href="/Article/BriefList"><div class="title_left">联盟简报&nbsp;<samp>>></samp></div></a>
 
-<div class="bg">
-    <div class="about_main">
-        <div class="aboutleft">
-            <div class="ab_t mt20">
-                <span class="ab_t01 pl10">联盟动态</span>
-                <br />
-                <span class="ab_t02 pl10">Alliance Dynamics</span>
-            </div>
-            <div class="ab_c mt20">
-                <ul>
-                    <li><a href="/Article/InfoList">联盟动态</a></li>
-                    <li><a href="/Article/InfoList?type=行业信息">行业信息</a></li>
-                    <li><a href="/Article/InfoList?type=联盟要闻">联盟要闻</a></li>
-                    <li><a href="/Article/InfoList?type=特别关注">特别关注</a></li>
-                    <li><a href="/Article/BriefList">联盟简报</a></li>
+        <div class="slide">
+            @*<img src="/Content/images2/home_新闻图片.jpg" width="100%" style="margin-top: 0px;"/>*@
+            <!--幻灯片-->
+            <style>
+                .pic_list {
+                    width: 286px;
+                    height: 100%;
+                    border: #FFF solid 1px;
+                }
+
+                #aa ul {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    position: relative;
+                    left: 50px;
+                    top: -28px;
+                }
+
+                .li {
+                    color: #ffffff;
+                    background: #0872CA;
+                    padding: 1px 6px;
+                    float: left;
+                    margin: 3px;
+                    border-radius: 10px;
+                    list-style: none;
+                    cursor: pointer;
+                }
+
+                    .li:hover {
+                        background: #9fd5fc;
+                        color: #000000;
+                    }
+
+                .active {
+                    background: #FF6911;
+                    color: #000000;
+                    font-weight: bold;
+                }
+            </style>
+
+            <div id="aa" class="pic_list" style="width: 100%;float: left; border: 1px solid #ccc;">
+                <a href="@(slideArticles.Count > 0 ? "/Article/Detail?id=" + slideArticles[0].Id : "")" target="_blank">
+                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc:"")" style="width: 100%; height:auto;" onclick="" />
+                </a>
+                <ul id="aa_index">
+                    @for (var i = 0; i < slideArticles.Count; i++)
+                    {
+                        <li class="li">@(i + 1)</li>
+                    }
                 </ul>
             </div>
         </div>
 
-        <div class="aboutright">
-            <div class="weizi">
-                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Article/InfoList">联盟动态</a> &gt; <a href="/Article/BriefList">联盟简报</a>
-            </div>
-            <p class="p0">联盟简报</p>
-            <div class="" style="width: 96%; height: 600px; float: left; margin-right: 10px; text-align: left; padding: 0px 10px 0px 15px;">
-                @if (list != null && list.Count > 0)
-                {
-                    foreach (var item in list)
-                    {
-                        <p style="font-size: 12px; line-height: 24px; padding-left: 15px; text-indent: 0; background: url(/Content/images/li.jpg) 0 5px no-repeat;" title="@item.Name">
-                            <a href="@item.FilePath">@(item.Name.Length <= 30 ? item.Name : item.Name.Substring(0, 27) + "...")</a>
-                            <span style="float: right;">[@item.SaveAt.ToString("yyyy-MM-dd")]</span>
-                        </p>
-                    }
-                }
-                else
-                {
-                    <div>无数据！</div>
-                }
-            </div>
-            <!--分页-->
-            <div class="pageDiv1" id="pageDiv1"></div>
+        <div class="top">
+            <h3>联盟动态</h3>
+        </div>
+        <ul class="news_left">
+            @foreach (var a in dynamicArticles)
+            {
+                <li>
+                    <a href="/Article/Detail?id=@a.Id" target="_blank">@(a.Title)</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="section_right">
+        <div class="nav">
+            当前位置：首页 > 新闻资讯 > 联盟简报
+        </div>
+        <div class="nav_right">
+            <span><img src="/Content/images2/home_轮播圆点蓝色.png" style="padding-right: 15px;">联盟简报</span>
         </div>
 
-
+        <div class="mycontent" style="width: 96%; height: 600px; float: left; margin-top: 20px;margin-right: 10px; text-align: left; padding: 0px 10px 0px 15px;">
+            @if (list != null && list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    <p style="font-size: 15px; line-height: 30px; padding: 0 25px; text-indent: 0;" title="@item.Name">
+                        <a href="@item.FilePath">@(item.Name.Length <= 30 ? item.Name : item.Name.Substring(0, 27) + "...")</a>
+                        <span class="time" style="float: right;">[@item.SaveAt.ToString("yyyy-MM-dd")]</span>
+                    </p>
+                }
+            }
+            else
+            {
+                <div>无数据！</div>
+            }
+        </div>
+        <!--分页-->
+        <div class="pageDiv1" id="pageDiv1"></div>
     </div>
 </div>
-
-
-
-

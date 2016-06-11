@@ -6,58 +6,52 @@
 }
 
 @Html.RenderCss("/Content/css/信息阅览.css")
+@Html.RenderCss("/Content/css2/文章详细.css")
 
 
-<div class="bg">
-    <div class="about_main">
-        <div class="about_left">
-            <h3>@info.Title</h3>
-            <div style="display: inline;color: #787878; margin-bottom: 30px; margin-top: -15px;">日期：@info.SaveAt.ToString("yyyy-MM-dd")</div>&nbsp;&nbsp;
-            <div style="display: inline;color: #787878; margin-bottom: 30px; margin-top: -15px;">来源：@info.Origin</div>&nbsp;&nbsp;
-            <div style="display: inline;color: #787878; margin-bottom: 30px; margin-top: -15px;">作者：@info.Author</div>&nbsp;&nbsp;
-            <div style="display: inline;color: #787878; margin-bottom: 30px; margin-top: -15px;">浏览：@info.Hits</div>&nbsp;&nbsp;
-            <div>
-                <p style="color: #6a6a6a; margin-top: 10px; width: 500px; min-height: 25px; margin: 10px auto 30px; text-align: left; padding: 10px 20px; border: 1px solid #ccc">
-                    <span style="color: #333333;">【摘要】&nbsp;</span>
-                    @(!string.IsNullOrEmpty(info.Brief) && info.Brief.Length > 80 ? info.Brief.Substring(0, 77) + "..." : info.Brief)
-                </p>
-            </div>
 
-            <div class="mycontent" style="width: 75%; margin: auto;">
-                <style>
-                    table {
-                        border-collapse: collapse;
-                        border-spacing: 0;
-                        border-left: 1px solid #888;
-                        border-top: 1px solid #888;
-                        background: rgb(240, 249, 254);
-                    }
-
-                    th, td {
-                        border-right: 1px solid #888;
-                        border-bottom: 1px solid #888;
-                        padding: 5px 5px;
-                    }
-                </style>
-                @Html.Raw(info.Content)
-            </div>
-        </div>
-
-        <div class="about_right" style="display: none">
-            <div class="show">
-                <img src="/Content/images/zanwu.jpg" width="90%" height="90%" />
-            </div>
-
-            <div class="show">
-                <img src="/Content/images/zanwu.jpg" width="90%" height="90%" />
-            </div>
-
-            <div class="show">
-                <img src="/Content/images/zanwu.jpg" width="90%" height="90%" />
-            </div>
+<div class="section mycontent">
+    <div class="nav">
+        当前位置：首页 > 文章详情
+    </div>
+    <div class="titlediv">
+        <em class="titledivp"></em>
+        <em class="titledivp">时间：2014-12-12</em>
+        <em class="titledivp">信息来源：电子行业</em>
+        <em class="titledivp">作者：李东</em>
+        <em class="titledivp"> 浏览次数：128</em>
+        <em class="titledivp"></em>
+        <div class="title">@info.Title</div>
+        <div class="titleback">
+            【摘要】@(!string.IsNullOrEmpty(info.Brief) && info.Brief.Length > 200 ? info.Brief.Substring(0, 197) + "..." : info.Brief)
         </div>
     </div>
+
+    <div class="mycontent" style="width: 75%; margin: auto; margin-bottom: 40px;">
+        <style>
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+                border-left: 1px solid #888;
+                border-top: 1px solid #888;
+                background: rgb(240, 249, 254);
+            }
+
+            th, td {
+                border-right: 1px solid #888;
+                border-bottom: 1px solid #888;
+                padding: 5px 5px;
+            }
+        </style>
+        @Html.Raw(info.Content)
+    </div>
+
 </div>
+
+
+
+
+
 
 
 

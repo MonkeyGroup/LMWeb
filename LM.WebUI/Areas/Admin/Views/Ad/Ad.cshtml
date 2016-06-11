@@ -1,0 +1,157 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Main.cshtml";
+    ViewBag.Title = "Ad";
+    var model = ViewBag.Ad as AdModel;
+}
+
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/swfobject.js")
+@Html.RenderScript("/Areas/Admin/content/js/jquery.uploadify-v2.1.0/jquery.uploadify.v2.1.0.min.js")
+
+<script type="text/javascript">
+    var commitFlag = true;
+    function submitIt() {
+        // 判空
+        if (!checkNull()) {
+            commitFlag = true;
+            return;
+        }
+        commitFlag = false;
+
+        var ad = {
+            Id: $('#Id').val(),
+            Name: $('#Name').val(),
+            LinkUrl: $('#LinkUrl').val(),
+            ImgSrc: $('#ImgSrc').val(),
+            Index: $('#Index').val()
+        }
+        // 封装数据
+        var ajax = {
+            url: '/Admin/Ad/Save',
+            data: JSON.stringify(ad),
+            type: 'Post',
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (resp) {
+                if (resp.status) {
+                    alert(resp.message);
+                    window.location.href = '/Admin/Ad/List';
+                } else {
+                    alert(resp.message);
+                    commitFlag = true;
+                }
+            },
+            error: function () {
+                alert('系统故障，请联系管理员！');
+                commitFlag = true;
+            }
+        }
+        $.ajax(ajax);
+    }
+
+    function checkNull() {
+        var ok = true;
+        if ($('#ImgSrc').val() === '') {
+            $('#msg0').text('上传广告图片！');
+            ok = false;
+        }
+        if ($('#LinkUrl').val() === '') {
+            $('#msg1').text('请填写广告链接地址！');
+            ok = false;
+        }
+        return ok;
+    }
+
+    function clearMsgs() {
+        $('#msg0').text("");
+        $('#msg1').text("");
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Logo 上传
+        $("#logoUploadify").uploadify({
+            uploader: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/uploadify.swf',
+            buttonText: 'Upload',
+            cancelImg: '/Areas/Admin/content/js/jquery.uploadify-v2.1.0/cancel.png',
+            script: '/Admin/Common/FileUpload',
+            folder: 'upload/images',
+            queueID: 'fileQueue1',
+            auto: true,
+            multi: false,
+            onComplete: function (even, queueId, fileObj, response, data) {
+                var rs = JSON.parse(response);
+                if (rs.Status) {
+                    $('#ImgSrc').val(rs.FilePath);
+                    $('#msg0').text(rs.Message);
+                } else {
+                    $('#msg0').text(rs.Message);
+                }
+            },
+            uploadifyCancel: function () {
+            }
+        });
+    });
+</script>
+
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">
+        后台管理中心<b>&gt;</b><strong>添加广告</strong>
+    </div>
+
+    <div id="manager" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3>
+            <a href="/Admin/Ad/List" class="actionBtn">返回列表</a>添加广告
+        </h3>
+        <form method="post">
+            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                <tbody>
+                    <tr>
+                        <td width="100" align="right">广告名称</td>
+                        <td>
+                            <input type="text" id="Name" size="40" class="inpMain" value="@(model.Name)">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">广告图片</td>
+                        <td>
+                            <input type="text" id="ImgSrc" size="40" class="inpMain" value="@(model.ImgSrc)">
+                            <div id="fileQueue1" style="display: none;"></div>
+                            <input id="logoUploadify" type="file" name="uploadify" />
+                            <font class="prompt" color="red">*</font><span id="msg0" class="prompt"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">链接地址</td>
+                        <td>
+                            <input type="text" id="LinkUrl" size="40" class="inpMain" value="@(model.LinkUrl)">
+                            <font class="prompt" color="red">*</font><span id="msg1" class="prompt"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100" align="right">显示优先级</td>
+                        <td>
+                            <input type="text" id="Index" size="40" class="inpMain" value="@(model.Index)">
+                            （数值越大显示越靠前）
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="hidden" id="Id" value="@(model.Id)">
+                            <input type="button" name="button" class="btn" value="提交" onclick="submitIt()">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+
+
+

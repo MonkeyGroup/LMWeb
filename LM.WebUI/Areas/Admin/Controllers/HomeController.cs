@@ -19,7 +19,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
         [Authentication]
         public ActionResult Index()
         {
-            return RedirectToAction("HomeConfig");
+            return RedirectToAction("BasicInfo");
         }
 
         [HttpGet]

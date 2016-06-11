@@ -21,6 +21,11 @@ namespace LM.Model.Entity
         /// </summary>
         public string ImgSrc { get; set; }
 
+        /// <summary>
+        ///  显示优先级，数值越大显示越靠前。
+        /// </summary>
+        public int Index { get; set; }
+
         public DateTime SaveAt { get; set; }
     }
 }

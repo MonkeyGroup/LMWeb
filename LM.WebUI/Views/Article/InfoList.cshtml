@@ -7,9 +7,12 @@
 
     var list = ViewBag.Models as List<ArticleModel>;
     var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
+
+    var briefs = ViewBag.Briefs as List<BriefModel>;
 }
 
-@Html.RenderCss("/Content/css/dynamic.css")
+@Html.RenderCss("/Content/css2/关于联盟.css")
+@*@Html.RenderCss("/Content/css/dynamic.css")*@
 @Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
 
 @section partialScriptCss{
@@ -21,7 +24,7 @@
                 pages: '@pageInfo.PageCount', //总页数
                 curr: '@pageInfo.PageIndex', // 当前页
                 groups: 3, //连续显示分页数
-                skin: '#0072C6',
+                skin: '#6f6a6a',
                 jump: function (e, first) {
                     // 第一次的事件必须要判断
                     if (!first) {
@@ -34,56 +37,63 @@
     </script>
 }
 
+<div class="section" style="margin-bottom:20px;">
+    <div class="section_left">
+        <div class="top">
+            <h3>新闻资讯</h3>
+            <h5 accesskey="">News Information</h5>
+        </div>
+        <a href="/Article/InfoList"><div class="title_left">联盟动态&nbsp;<samp>>></samp></div></a>
+        <a href="/Article/InfoList?type=行业信息"><div class="title_left">行业信息&nbsp;<samp>>></samp></div></a>
+        <a href="/Article/InfoList?type=联盟要闻"><div class="title_left">联盟要闻&nbsp;<samp>>></samp></div></a>
+        <a href="/Article/InfoList?type=特别关注"><div class="title_left">特别关注&nbsp;<samp>>></samp></div></a>
+        <a href="/Article/BriefList"><div class="title_left">联盟简报&nbsp;<samp>>></samp></div></a>
 
-<div class="bg">
-    <div class="about_main">
-        <div class="aboutleft">
-            <div class="ab_t mt20">
-                <span class="ab_t01 pl10">联盟动态</span>
-                <br />
-                <span class="ab_t02 pl10">Alliance Dynamics</span>
-            </div>
-            <div class="ab_c mt20">
-                <ul>
-                    <li><a href="/Article/InfoList">联盟动态</a></li>
-                    <li><a href="/Article/InfoList?type=行业信息">行业信息</a></li>
-                    <li><a href="/Article/InfoList?type=联盟要闻">联盟要闻</a></li>
-                    <li><a href="/Article/InfoList?type=特别关注">特别关注</a></li>
-                    <li><a href="/Article/BriefList">联盟简报</a></li>
-                </ul>
+        <div class="slide1">
+            <br />
+            <span class="slide_title">关注联盟微信</span>
+            <div class="slide_qr">
+                <img src="/Content/images2/2118b59.jpg" width="80%" style="margin: auto auto;" />
             </div>
         </div>
 
-        <div class="aboutright">
-            <div class="weizi">
-                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Article/InfoList">联盟动态</a> &gt; <a href="/Article/InfoList?type=@type">@type</a>
-            </div>
-            <p class="p0">@type</p>
-            <div class="" style="width: 96%; height: 600px; float: left; margin-right: 10px; text-align: left; padding: 0px 10px 0px 15px;">
-                @if (list != null && list.Count > 0)
-                {
-                    foreach (var item in list)
-                    {
-                        <p style="font-size: 12px; line-height: 24px; padding-left: 15px; text-indent: 0; background: url(/Content/images/li.jpg) 0 5px no-repeat;" title="@item.Title">
-                            <a href="/Article/Detail?id=@item.Id" target="_blank">@(item.Title.Length <= 30 ? item.Title : item.Title.Substring(0, 27) + "...")</a>
-                            <span style="float: right;">[@item.SaveAt.ToString("yyyy-MM-dd")]</span>
-                        </p>
-                    }
-                }
-                else
-                {
-                    <div>无数据！</div>
-                }
-            </div>
-            <!--分页-->
-            <div class="pageDiv1" id="pageDiv1"></div>
+        <div class="top">
+            <h3>联盟简报</h3>
+        </div>
+        <ul class="news_left">
+            @foreach (var b in briefs)
+            {
+            <li>
+                <a href="@(b.FilePath)">@(b.Name)</a>
+            </li>
+            }
+        </ul>
+    </div>
+    <div class="section_right">
+        <div class="nav">
+            当前位置：首页 > 新闻资讯 > @type
+        </div>
+        <div class="nav_right">
+            <span><img src="/Content/images2/home_轮播圆点蓝色.png" style="padding-right: 15px;">@type</span>
         </div>
 
-
+        <div class="mycontent" style="width: 96%; height: 600px; float: left; margin-top: 20px;margin-right: 10px; text-align: left; padding: 0px 10px 0px 15px;">
+            @if (list != null && list.Count > 0)
+            {
+                foreach (var item in list)
+                {
+                    <p style="font-size: 15px; line-height: 30px; padding:0  25px; text-indent: 0;" title="@item.Title">
+                        <a href="/Article/Detail?id=@item.Id" target="_blank">@(item.Title.Length <= 30 ? item.Title : item.Title.Substring(0, 27) + "...")</a>
+                        <span class="time" style="float: right;">[@item.SaveAt.ToString("yyyy-MM-dd")]</span>
+                    </p>
+                }
+            }
+            else
+            {
+                <div>无数据！</div>
+            }
+        </div>
+        <!--分页-->
+        <div class="pageDiv1" id="pageDiv1"></div>
     </div>
 </div>
-
-<input type="hidden" id="type" value="@type" />
-
-
-

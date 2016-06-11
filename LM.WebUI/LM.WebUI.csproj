@@ -206,6 +206,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdController.cs" />
     <Compile Include="Areas\Admin\Controllers\ArticleController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
@@ -256,10 +257,27 @@
     <Content Include="Areas\Admin\Views\Fruits\Fruits.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Product2.cshtml" />
     <Content Include="Areas\Admin\Views\Product\List2.cshtml" />
+    <Content Include="Areas\Admin\Views\Ad\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Ad\Ad.cshtml" />
     <None Include="log4net.config">
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\css2\imgSlide.css" />
+    <Content Include="Content\css2\index.css" />
+    <Content Include="Content\css2\专家委员会.css" />
+    <Content Include="Content\css2\产品介绍.css" />
+    <Content Include="Content\css2\产品展示.css" />
+    <Content Include="Content\css2\产品展示2.css" />
+    <Content Include="Content\css2\关于联盟.css" />
+    <Content Include="Content\css2\文章详细.css" />
+    <Content Include="Content\css2\科研成果.css" />
+    <Content Include="Content\css2\科研成果内页.css" />
+    <Content Include="Content\css2\联盟动态.css" />
+    <Content Include="Content\css2\联盟成员.css" />
+    <Content Include="Content\css2\联盟成员单位信息.css" />
+    <Content Include="Content\css2\联盟简介.css" />
+    <Content Include="Content\css2\联系我们.css" />
     <Content Include="Content\css\dynamic.css" />
     <Content Include="Content\css\experts.css" />
     <Content Include="Content\css\imgSlide.css" />
@@ -302,6 +320,7 @@
     <Content Include="Content\images2\home_行业信息_灰色.png" />
     <Content Include="Content\images2\home_轮播圆点.png" />
     <Content Include="Content\images2\home_轮播圆点蓝色.png" />
+    <Content Include="Content\images2\关于联盟_联盟组织.png" />
     <Content Include="Content\images2\首页_产品推荐分割线.png" />
     <Content Include="Content\images2\首页_分割线.png" />
     <Content Include="Content\images\download.gif" />
@@ -326,28 +345,39 @@
     <Content Include="Content\js\imgSlide.js" />
     <Content Include="Content\js\jquery.kxbdmarquee.js" />
     <Content Include="Content\js\utility.js" />
-    <Content Include="Views\Home\Chapter.cshtml" />
-    <Content Include="Views\Home\Organization.cshtml" />
+    <Content Include="Views\Home\Chapter1.cshtml" />
+    <Content Include="Views\Home\Organization1.cshtml" />
     <Content Include="Views\Home\Notice.cshtml" />
-    <Content Include="Views\Home\Process.cshtml" />
-    <Content Include="Views\Article\InfoList.cshtml" />
-    <Content Include="Views\Article\Detail.cshtml" />
+    <Content Include="Views\Home\Process1.cshtml" />
+    <Content Include="Views\Article\InfoList1.cshtml" />
+    <Content Include="Views\Article\Detail1.cshtml" />
     <Content Include="Views\Company\List.cshtml" />
     <Content Include="Views\Company\Detail.cshtml" />
     <Content Include="Views\Product\List.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Expert\List.cshtml" />
-    <Content Include="Views\Article\BriefList.cshtml" />
+    <Content Include="Views\Article\BriefList1.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <None Include="Properties\PublishProfiles\LMWeb.pubxml" />
-    <Content Include="Views\Fruits\List.cshtml" />
-    <Content Include="Views\Fruits\Detail.cshtml" />
+    <Content Include="Views\Fruits\List1.cshtml" />
+    <Content Include="Views\Fruits\Detail1.cshtml" />
     <Content Include="Views\Product\List2.cshtml" />
     <Content Include="Views\Product\Detail2.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Chapter.cshtml" />
+    <Content Include="Views\Home\Organization.cshtml" />
+    <Content Include="Views\Home\Process.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Article\BriefList.cshtml" />
+    <Content Include="Views\Article\InfoList.cshtml" />
+    <Content Include="Views\Article\PerfomList.cshtml" />
+    <Content Include="Views\Fruits\List.cshtml" />
+    <Content Include="Views\Article\Detail.cshtml" />
+    <Content Include="Views\Fruits\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Content\css\base.css" />
@@ -1286,8 +1316,8 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\About1.cshtml" />
+    <Content Include="Views\Home\Contact1.cshtml" />
     <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
@@ -1347,7 +1377,7 @@
     <Content Include="Areas\Admin\Views\Shared\_Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Article\PerfomList.cshtml" />
+    <Content Include="Views\Article\PerfomList1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Home\HomeConfig.cshtml" />

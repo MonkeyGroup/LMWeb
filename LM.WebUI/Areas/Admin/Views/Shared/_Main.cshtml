@@ -32,6 +32,7 @@
                         <li class="M">
                             <a href="JavaScript:void(0);" class="topAdd">新建</a>
                             <div class="drop mTopad">
+                                <a href="/Admin/Ad/Ad">广告</a>
                                 <a href="/Admin/Category/Category">分类</a>
                                 <a href="/Admin/Product/Product">产品</a>
                                 <a href="/Admin/Article/Article">文章</a>
@@ -60,38 +61,40 @@
         <!--2. Left-->
         <div id="dcLeft">
             <div id="menu">
-                <ul class="top">
-                    <li @Html.Raw("Index".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Index"><i class="home"></i><em>首页配置</em></a></li>
-                </ul>
-                <ul>
-                    <li @Html.Raw("BasicInfo".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/BasicInfo"><i class="system"></i><em>关于联盟</em></a></li>
-                    @*<li @Html.Raw("Introduce".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Introduce"><i class="page"></i><em>联盟介绍</em></a></li>
+                @*<ul class="top">
+                        <li @Html.Raw("Index".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Index"><i class="home"></i><em>首页配置</em></a></li>
+                        <li @Html.Raw("Introduce".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Introduce"><i class="page"></i><em>联盟介绍</em></a></li>
                         <li @Html.Raw("Constitute".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Constitute"><i class="page"></i><em> 联盟章程</em></a></li>
                         <li @Html.Raw("Organize".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Organize"><i class="page"></i><em>联盟组织</em></a></li>
                         <li @Html.Raw("Notice".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Notice"><i class="page"></i><em>入盟须知</em></a></li>
-                        <li @Html.Raw("Process".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Process"><i class="page"></i><em>申请流程</em></a></li>*@
+                        <li @Html.Raw("Process".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/Process"><i class="page"></i><em>申请流程</em></a></li>
+                    </ul>*@
+                <ul class="top">
+                    <li @Html.Raw("BasicInfo".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/BasicInfo"><i class="system"></i><em>关于联盟</em></a></li>
                 </ul>
                 <ul>
-                    <li @Html.Raw("CategoryList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Category/List"><i class="productCat"></i><em>分类列表</em></a></li>
+                    <li @Html.Raw("AdList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Ad/List"><i class="product"></i><em>广告管理</em></a></li>
                 </ul>
                 <ul>
-                    <li @Html.Raw("ProductList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Product/List"><i class="product"></i><em>产品列表</em></a></li>
+                    <li @Html.Raw("CategoryList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Category/List"><i class="productCat"></i><em>分类管理</em></a></li>
                 </ul>
                 <ul>
-                    @*<li @Html.Raw("ArticleCategory".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Article/Category"><i class="articleCat"></i><em>文章分类</em></a></li>*@
-                    <li @Html.Raw("ArticleList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Article/List"><i class="article"></i><em>文章列表</em></a></li>
+                    <li @Html.Raw("ProductList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Product/List"><i class="product"></i><em>产品管理</em></a></li>
                 </ul>
                 <ul>
-                    <li @Html.Raw("FruitsList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Fruits/List"><i class="articleCat"></i><em>科研成果列表</em></a></li>
+                    <li @Html.Raw("ArticleList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Article/List"><i class="article"></i><em>资讯管理</em></a></li>
                 </ul>
                 <ul>
-                    <li @Html.Raw("BriefList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/BriefList"><i class="articleCat"></i><em>联盟简报列表</em></a></li>
+                    <li @Html.Raw("FruitsList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Fruits/List"><i class="articleCat"></i><em>科研成果管理</em></a></li>
                 </ul>
                 <ul>
-                    <li @Html.Raw("CompanyList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Company/List"><i class="articleCat"></i><em>成员企业列表</em></a></li>
+                    <li @Html.Raw("BriefList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/BriefList"><i class="articleCat"></i><em>联盟简报管理</em></a></li>
                 </ul>
                 <ul>
-                    <li @Html.Raw("ExpertList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Expert/List"><i class="articleCat"></i><em>专家列表</em></a></li>
+                    <li @Html.Raw("CompanyList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Company/List"><i class="articleCat"></i><em>成员企业管理</em></a></li>
+                </ul>
+                <ul>
+                    <li @Html.Raw("ExpertList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Expert/List"><i class="articleCat"></i><em>专家委员会管理</em></a></li>
                 </ul>
                 <ul>
                     <li @Html.Raw("UserList".Equals(nav) ? "class='cur'" : "")><a href="/Admin/Home/UserList"><i class="manager"></i><em>网站管理员</em></a></li>

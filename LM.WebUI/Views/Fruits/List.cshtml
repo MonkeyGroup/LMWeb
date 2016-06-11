@@ -6,27 +6,29 @@
 
     var list = ViewBag.Models as List<FruitsModel>;
     var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
-
-    var index = 1;
+    
+    var slideArticles = ViewBag.SlideArticles as List<ArticleModel>;
+    var dynamicArticles = ViewBag.DynamicArticles as List<ArticleModel>;
 }
 
-@Html.RenderCss("/Content/css/dynamic.css")
+@Html.RenderCss("/Content/css2/关于联盟.css")
+@*@Html.RenderCss("/Content/css/dynamic.css")*@
 @Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
 
 @section partialScriptCss{
     <script>
         $(function () {
             // 表格交替颜色
-            $(".class tr:odd").css('background-color', 'lightblue');
-            $("table tr:even").css('background-color', 'rgba(212, 219, 236, 0.909804)');
-            $(".th1").css('background-color', 'rgba(179, 185, 199, 0.91)');
+            $(".class tr:odd").css('background-color', '#E8E8E8');
+            $("table tr:even").css('background-color', '#E8E8E8');
+            $(".th1").css('background-color', '#559BD6');
             /* 分页使用异步 */
             laypage({
                 cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
                 pages: '@pageInfo.PageCount', //总页数
                 curr: '@pageInfo.PageIndex', // 当前页
                 groups: 3, //连续显示分页数
-                skin: '#0072C6',
+                skin: '#E8E8E8',
                 jump: function (e, first) {
                     // 第一次的事件必须要判断
                     if (!first) {
@@ -36,87 +38,170 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // 取隐藏域里面的图片路径
+            var imglist = [], idlist = [];
+            var count = '@slideArticles.Count';
+            for (var i = 0; i < count; i++) {
+                var src = $('#slideSrc' + i).val();
+                imglist.push(src);
+                var id = $('#slideId' + i).val();
+                idlist.push(id);
+            }
+            slide(imglist, idlist);
+
+            // Logo 自动滚动
+            //MoveDiv(window.event);
+            slide_init(); // 运行图片滚动函数
+            $("#tabs").tabs();
+        });
+    </script>
 }
 
+<div class="section" style="margin-bottom:20px;">
+    <div class="section_left">
+        <div class="top1">
+            <h3>公告</h3>
+        </div>
+        <div style="padding: 20px 20px; border: 1px solid #E8E8E8; background-color: #E8E8E8; ">
+            电子化工新材料产业联盟网络平台，可接受联盟企业事业单位及化工领域单位相关电子化工新产品、新科技成果发布及寻求合作信息。
+            <br />
+            <br />
+            联盟邮箱：
+            <br />
+            cemia@c-e-a.com
+        </div>
 
-<div class="bg">
-    <div class="about_main">
-        <div class="aboutleft">
-            <div class="ab_t mt20">
-                <span class="ab_t01 pl10">科研成果</span><br />
-                <span class="ab_t02 pl10">Achievements</span>
-            </div>
-            <div class="ab_c mt20">
-                <ul>
-                    <li><a href="/Fruits/List">科研成果</a></li>
+        <div class="slide">
+            @*<img src="/Content/images2/home_新闻图片.jpg" width="100%" style="margin-top: 0px;"/>*@
+            <!--幻灯片-->
+            <style>
+                .pic_list {
+                    width: 286px;
+                    height: 100%;
+                    border: #FFF solid 1px;
+                }
+
+                #aa ul {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    position: relative;
+                    left: 50px;
+                    top: -28px;
+                }
+
+                .li {
+                    color: #ffffff;
+                    background: #0872CA;
+                    padding: 1px 6px;
+                    float: left;
+                    margin: 3px;
+                    border-radius: 10px;
+                    list-style: none;
+                    cursor: pointer;
+                }
+
+                    .li:hover {
+                        background: #9fd5fc;
+                        color: #000000;
+                    }
+
+                .active {
+                    background: #FF6911;
+                    color: #000000;
+                    font-weight: bold;
+                }
+            </style>
+
+            <div id="aa" class="pic_list" style="width: 100%;float: left; border: 1px solid #ccc;">
+                <a href="@(slideArticles.Count > 0 ? "/Article/Detail?id=" + slideArticles[0].Id : "")" target="_blank">
+                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc:"")" style="width: 100%; height:auto;" onclick="" />
+                </a>
+                <ul id="aa_index">
+                    @for (var i = 0; i < slideArticles.Count; i++)
+                    {
+                    <li class="li">@(i + 1)</li>
+                    }
                 </ul>
             </div>
         </div>
 
-        <div class="aboutright">
-            <div class="weizi">
-                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Fruits/List">科研成果</a> &gt; <a href="/Fruits/List">科研成果</a>
-            </div>
-            <style>
-                table {
-                    border-collapse: collapse;
-                    border-spacing: 3px;
-                    border-left: 2px solid #fff;
-                    border-top: 2px solid #fff;
-                    background: rgb(240, 249, 254);
-                }
+        <div class="top">
+            <h3>联盟动态</h3>
+        </div>
+        <ul class="news_left">
+            @foreach (var a in dynamicArticles)
+            {
+            <li>
+                <a href="/Article/Detail?id=@a.Id" target="_blank">@(a.Title)</a>
+            </li>
+            }
+        </ul>
+    </div>
+    <div class="section_right">
+        <div class="nav">
+            当前位置：首页 > 科技成果
+        </div>
+        <div class="nav_right">
+            <span><img src="/Content/images2/home_轮播圆点蓝色.png" style="padding-right: 15px;">科技成果</span>
+        </div>
 
-                th, td{
-                    border-right: 2px solid #fff;
-                    border-bottom: 2px solid #fff;
-                    padding: 5px 5px;
-                }
-            </style>
-            <table width="90%" border="0" cellpadding="1" cellspacing="2" class="tableBasic1" style="margin: auto; border-width: 0px; border-spacing: 30px 20px; ">
-                @if (list != null && list.Count > 0)
-                {
-                    <tr class="th1" style="background-color: rgba(179, 185, 199, 0.91); font-family: 'Microsoft Yahei';color: #2D5696">
-                        <th align="center">科研成果名称</th>
-                        <th align="center">成果类别</th>
-                        <th align="center">研发企业</th>
-                        <th align="center">负责人</th>
-                    </tr>
 
-                    foreach (var model in list)
-                    {
-                        <tr>
-                            <td style="width: 280px;">
-                                <a href="/Fruits/Detail?id=@(model.Id)" target="_blank">@(model.Name)</a>
-                            </td>
-                            <td align="center" style="width: 150px;">
-                                @(model.Type)
-                            </td>
-                            <td align="center" style="width: 230px;">
-                                @(model.Company)
-                            </td>
-                            <td align="center" style="width: 80px;">
-                                @(model.Leader)
-                            </td>
-                        </tr>
-                    }
-                }
-                else
+        <style>
+            table {
+                border-collapse: collapse;
+                border-spacing: 3px;
+                border-left: 2px solid #fff;
+                border-top: 2px solid #fff;
+                /*background: rgb(128, 191, 245);*/
+            }
+
+            th, td {
+                border-right: 2px solid #fff;
+                border-bottom: 2px solid #fff;
+                padding: 5px 5px;
+            }
+        </style>
+        <table width="98%" border="0" cellpadding="1" cellspacing="2" class="tableBasic1" style="margin: auto;margin-top: 30px ;border-width: 0px; border-spacing: 30px 20px; ">
+            @if (list != null && list.Count > 0)
+            {
+                <tr class="th1" style="background-color: #559BD6; font-family: 'Microsoft Yahei'; color: #ffffff; ">
+                    <th align="center">科研成果名称</th>
+                    <th align="center">成果类别</th>
+                    <th align="center">研发企业</th>
+                    <th align="center">负责人</th>
+                </tr>
+
+                foreach (var model in list)
                 {
                     <tr>
-                        <th width="22" align="center">
-                            <span style="text-align: center;">无数据！</span>
-                        </th>
+                        <td style="width: 280px;">
+                            <a href="/Fruits/Detail?id=@(model.Id)" target="_blank">@(model.Name)</a>
+                        </td>
+                        <td align="center" style="width: 150px;">
+                            @(model.Type)
+                        </td>
+                        <td align="center" style="width: 230px;">
+                            @(model.Company)
+                        </td>
+                        <td align="center" style="width: 80px;">
+                            @(model.Leader)
+                        </td>
                     </tr>
                 }
-            </table>
-            <!--分页-->
-            <div class="pageDiv1" id="pageDiv1" style="margin:50px;"></div>
-        </div>
+            }
+            else
+            {
+                <tr>
+                    <th width="22" align="center">
+                        <span style="text-align: center;">无数据！</span>
+                    </th>
+                </tr>
+            }
+        </table>
+        <!--分页-->
+        <div class="pageDiv1" id="pageDiv1" style="margin:50px;"></div>
     </div>
-
-
 </div>
-
-
-
-

@@ -1,0 +1,86 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@using LM.WebUI.Areas.Admin.Models
+@{
+    ViewBag.Title = "联盟简报";
+
+    var list = ViewBag.Models as List<BriefModel>;
+    var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
+}
+
+@Html.RenderCss("/Content/css/dynamic.css")
+@Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
+
+@section partialScriptCss{
+    <script>
+        $(function () {
+            /* 分页使用异步 */
+            laypage({
+                cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
+                pages: '@pageInfo.PageCount', //总页数
+                curr: '@pageInfo.PageIndex', // 当前页
+                groups: 3, //连续显示分页数
+                skin: '#0072C6',
+                jump: function (e, first) {
+                    // 第一次的事件必须要判断
+                    if (!first) {
+                        window.location.href = '/Article/BriefList?&pindex=' + e.curr;
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+
+<div class="bg">
+    <div class="about_main">
+        <div class="aboutleft">
+            <div class="ab_t mt20">
+                <span class="ab_t01 pl10">联盟动态</span>
+                <br />
+                <span class="ab_t02 pl10">Alliance Dynamics</span>
+            </div>
+            <div class="ab_c mt20">
+                <ul>
+                    <li><a href="/Article/InfoList">联盟动态</a></li>
+                    <li><a href="/Article/InfoList?type=行业信息">行业信息</a></li>
+                    <li><a href="/Article/InfoList?type=联盟要闻">联盟要闻</a></li>
+                    <li><a href="/Article/InfoList?type=特别关注">特别关注</a></li>
+                    <li><a href="/Article/BriefList">联盟简报</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="aboutright">
+            <div class="weizi">
+                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Article/InfoList">联盟动态</a> &gt; <a href="/Article/BriefList">联盟简报</a>
+            </div>
+            <p class="p0">联盟简报</p>
+            <div class="" style="width: 96%; height: 600px; float: left; margin-right: 10px; text-align: left; padding: 0px 10px 0px 15px;">
+                @if (list != null && list.Count > 0)
+                {
+                    foreach (var item in list)
+                    {
+                        <p style="font-size: 12px; line-height: 24px; padding-left: 15px; text-indent: 0; background: url(/Content/images/li.jpg) 0 5px no-repeat;" title="@item.Name">
+                            <a href="@item.FilePath">@(item.Name.Length <= 30 ? item.Name : item.Name.Substring(0, 27) + "...")</a>
+                            <span style="float: right;">[@item.SaveAt.ToString("yyyy-MM-dd")]</span>
+                        </p>
+                    }
+                }
+                else
+                {
+                    <div>无数据！</div>
+                }
+            </div>
+            <!--分页-->
+            <div class="pageDiv1" id="pageDiv1"></div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+

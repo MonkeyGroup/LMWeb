@@ -1,0 +1,44 @@
+.section_left {
+	width: 20%;
+	min-height: 600px;
+	float: left;
+	border: 1px solid #E4E4E4;
+}
+
+.section_left .top {
+	padding: 20px 20px;
+	text-align: right;
+	background: #454545;
+	color: #ffffff;
+}
+
+.section_right {
+	width: 75%;
+	padding: 10px;
+	min-height: 600px;
+	float: left;
+}
+
+.news_left {}
+
+.news_left li {
+	height: 30px;
+	line-height: 30px;
+	background: url(../images/home_圆点.png) no-repeat;
+	background-position: 5px 11px;
+	padding-left: 20px;
+	overflow: hidden;
+}
+
+.news_left li a {
+	color: #000000;
+	font-size: 14px;
+}
+
+.news_left li a:hover {
+	color: #ff0000;
+}
+
+.content p{
+	padding: 30px;;
+}

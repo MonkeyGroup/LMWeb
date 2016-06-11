@@ -1,0 +1,17 @@
+﻿.titlediv {
+     text-align: center;
+}
+
+.titlediv p{
+        font-size: 60px;
+        padding:2%;
+}
+.titlediv samp{
+    font-size:16px;
+}
+
+.contentnew {
+        font-size:16px;
+        padding:20px;
+}
+

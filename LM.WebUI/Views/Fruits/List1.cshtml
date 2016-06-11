@@ -1,0 +1,122 @@
+﻿@using LM.Model.Model
+@using LM.Utility
+@using LM.WebUI.Areas.Admin.Models
+@{
+    ViewBag.Title = "科研成果";
+
+    var list = ViewBag.Models as List<FruitsModel>;
+    var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
+
+    var index = 1;
+}
+
+@Html.RenderCss("/Content/css/dynamic.css")
+@Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
+
+@section partialScriptCss{
+    <script>
+        $(function () {
+            // 表格交替颜色
+            $(".class tr:odd").css('background-color', 'lightblue');
+            $("table tr:even").css('background-color', 'rgba(212, 219, 236, 0.909804)');
+            $(".th1").css('background-color', 'rgba(179, 185, 199, 0.91)');
+            /* 分页使用异步 */
+            laypage({
+                cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
+                pages: '@pageInfo.PageCount', //总页数
+                curr: '@pageInfo.PageIndex', // 当前页
+                groups: 3, //连续显示分页数
+                skin: '#0072C6',
+                jump: function (e, first) {
+                    // 第一次的事件必须要判断
+                    if (!first) {
+                        window.location.href = '/Fruits/List?&pindex=' + e.curr;
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+
+<div class="bg">
+    <div class="about_main">
+        <div class="aboutleft">
+            <div class="ab_t mt20">
+                <span class="ab_t01 pl10">科研成果</span><br />
+                <span class="ab_t02 pl10">Achievements</span>
+            </div>
+            <div class="ab_c mt20">
+                <ul>
+                    <li><a href="/Fruits/List">科研成果</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="aboutright">
+            <div class="weizi">
+                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Fruits/List">科研成果</a> &gt; <a href="/Fruits/List">科研成果</a>
+            </div>
+            <style>
+                table {
+                    border-collapse: collapse;
+                    border-spacing: 3px;
+                    border-left: 2px solid #fff;
+                    border-top: 2px solid #fff;
+                    background: rgb(240, 249, 254);
+                }
+
+                th, td{
+                    border-right: 2px solid #fff;
+                    border-bottom: 2px solid #fff;
+                    padding: 5px 5px;
+                }
+            </style>
+            <table width="90%" border="0" cellpadding="1" cellspacing="2" class="tableBasic1" style="margin: auto; border-width: 0px; border-spacing: 30px 20px; ">
+                @if (list != null && list.Count > 0)
+                {
+                    <tr class="th1" style="background-color: rgba(179, 185, 199, 0.91); font-family: 'Microsoft Yahei';color: #2D5696">
+                        <th align="center">科研成果名称</th>
+                        <th align="center">成果类别</th>
+                        <th align="center">研发企业</th>
+                        <th align="center">负责人</th>
+                    </tr>
+
+                    foreach (var model in list)
+                    {
+                        <tr>
+                            <td style="width: 280px;">
+                                <a href="/Fruits/Detail?id=@(model.Id)" target="_blank">@(model.Name)</a>
+                            </td>
+                            <td align="center" style="width: 150px;">
+                                @(model.Type)
+                            </td>
+                            <td align="center" style="width: 230px;">
+                                @(model.Company)
+                            </td>
+                            <td align="center" style="width: 80px;">
+                                @(model.Leader)
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <th width="22" align="center">
+                            <span style="text-align: center;">无数据！</span>
+                        </th>
+                    </tr>
+                }
+            </table>
+            <!--分页-->
+            <div class="pageDiv1" id="pageDiv1" style="margin:50px;"></div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+

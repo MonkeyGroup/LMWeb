@@ -31,6 +31,27 @@ namespace LM.WebUI.Controllers
                 models = rs.Status ? rs.Data as List<FruitsModel> : models;
             }
 
+            var slideArticles = new List<ArticleModel>(); // 幻灯片数据
+            var dynamicArticles = new List<ArticleModel>(); // 联盟动态
+
+            using (var articleService = ResolveService<ArticleService>())
+            {
+                // 幻灯片数据
+                var rs1 = articleService.GetList("select top 4 Id,Type,Title,ImgSrc from [Article] where IsShow = 1 and ImgSrc is not null order by SaveAt desc, Id desc");
+                if (rs1.Status && rs1.Data != null)
+                {
+                    slideArticles = rs1.Data as List<ArticleModel>;
+                }
+                // 联盟动态 
+                var rs2 = articleService.GetList("select top 10 Id,Title,SaveAt from [Article] where Type = '联盟动态' order by  SaveAt desc,Id desc");
+                if (rs2.Status && rs2.Data != null)
+                {
+                    dynamicArticles = rs2.Data as List<ArticleModel>;
+                }
+            }
+
+            ViewBag.SlideArticles = slideArticles;
+            ViewBag.DynamicArticles = dynamicArticles;
             ViewBag.Models = models;
             ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
 

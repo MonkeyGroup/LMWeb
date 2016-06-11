@@ -9,7 +9,7 @@
 <script>
     function seaSubmit() {
         var key = $('#searchKey').val();
-        if (key === '') {
+        if (key === '' || key == undefined) {
             alert('请输入关键字');
             return;
         }

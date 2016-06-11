@@ -22,6 +22,7 @@ namespace LM.WebUI.Controllers
             var slideArticles = new List<ArticleModel>(); // 幻灯片数据
             var briefs = new List<BriefModel>(); // 3条简报
             var logos = new List<CompanyModel>(); // 10个logo数据
+            var ads = new List<AdModel>(); // 10个广告数据
             var supCompanies = new List<CompanyModel>(); // 上游企业
             var subCompanies = new List<CompanyModel>(); // 下游企业
             var otherCompanies = new List<CompanyModel>(); // 科研机构
@@ -162,11 +163,24 @@ namespace LM.WebUI.Controllers
             #endregion
 
 
+            #region 广告数据，取最新10条
+            using (var adService = ResolveService<AdService>())
+            {
+                var rs = adService.GetList("select top 10 Id,Name,ImgSrc,LinkUrl from [Ad] order by [Index] desc,Id desc");
+                if (rs.Status && rs.Data != null)
+                {
+                    ads = rs.Data as List<AdModel>;
+                }
+            }
+            #endregion
+            
+
             ViewBag.OneNews = oneNews;
             ViewBag.OneFocus = oneFocus;
             ViewBag.SlideArticles = slideArticles;
             ViewBag.Briefs = briefs;
             ViewBag.Logos = logos;
+            ViewBag.Ads = ads;
             ViewBag.SupCompanies = supCompanies;
             ViewBag.SubCompanies = subCompanies;
             ViewBag.OtherCompanies = otherCompanies;
@@ -244,32 +258,80 @@ namespace LM.WebUI.Controllers
 
         public ActionResult About()
         {
+            var slideArticles = new List<ArticleModel>(); // 幻灯片数据
+            var dynamicArticles = new List<ArticleModel>(); // 联盟动态
+
+            using (var articleService = ResolveService<ArticleService>())
+            {
+                // 幻灯片数据
+                var rs1 = articleService.GetList("select top 4 Id,Type,Title,ImgSrc from [Article] where IsShow = 1 and ImgSrc is not null order by SaveAt desc, Id desc");
+                if (rs1.Status && rs1.Data != null)
+                {
+                    slideArticles = rs1.Data as List<ArticleModel>;
+                }
+                // 联盟动态 
+                var rs2 = articleService.GetList("select top 10 Id,Title,SaveAt from [Article] where Type = '联盟动态' order by  SaveAt desc,Id desc");
+                if (rs2.Status && rs2.Data != null)
+                {
+                    dynamicArticles = rs2.Data as List<ArticleModel>;
+                }
+            }
+
             using (var baseInfoService = ResolveService<BaseInfoService>())
             {
                 var baseInfo = baseInfoService.GetLast().Data as BaseInfoModel;
                 ViewBag.Introduce = baseInfo.Introduce;
-                return View();
             }
+
+            ViewBag.SlideArticles = slideArticles;
+            ViewBag.DynamicArticles = dynamicArticles;
+            return View();
         }
 
         public ActionResult Chapter()
         {
+            var briefs = new List<BriefModel>(); // 3条简报
+
+            using (var briefService = ResolveService<BriefService>())
+            {
+                var rs = briefService.GetList("select top 3 Id,Name,FilePath from [Brief] order by SaveAt desc");
+                if (rs.Status && rs.Data != null)
+                {
+                    briefs = rs.Data as List<BriefModel>;
+                }
+            }
+
             using (var baseInfoService = ResolveService<BaseInfoService>())
             {
                 var baseInfo = baseInfoService.GetLast().Data as BaseInfoModel;
                 ViewBag.Chapter = baseInfo.Chapter;
-                return View();
             }
+
+            ViewBag.Briefs = briefs;
+            return View();
         }
 
         public ActionResult Organization()
         {
+            var briefs = new List<BriefModel>(); // 3条简报
+
+            using (var briefService = ResolveService<BriefService>())
+            {
+                var rs = briefService.GetList("select top 3 Id,Name,FilePath from [Brief] order by SaveAt desc");
+                if (rs.Status && rs.Data != null)
+                {
+                    briefs = rs.Data as List<BriefModel>;
+                }
+            }
+
             using (var baseInfoService = ResolveService<BaseInfoService>())
             {
                 var baseInfo = baseInfoService.GetLast().Data as BaseInfoModel;
                 ViewBag.Organize = baseInfo.Organize;
-                return View();
             }
+
+            ViewBag.Briefs = briefs;
+            return View();
         }
 
         public ActionResult Notice()
@@ -285,13 +347,45 @@ namespace LM.WebUI.Controllers
 
         public ActionResult Process()
         {
+            var slideArticles = new List<ArticleModel>(); // 幻灯片数据
+            var briefs = new List<BriefModel>(); // 3条简报
+            var dynamicArticles = new List<ArticleModel>(); // 联盟动态
+
+            using (var articleService = ResolveService<ArticleService>())
+            {
+                // 幻灯片数据
+                var rs1 = articleService.GetList("select top 4 Id,Type,Title,ImgSrc from [Article] where IsShow = 1 and ImgSrc is not null order by SaveAt desc, Id desc");
+                if (rs1.Status && rs1.Data != null)
+                {
+                    slideArticles = rs1.Data as List<ArticleModel>;
+                }
+                // 联盟动态 
+                var rs2 = articleService.GetList("select top 10 Id,Title,SaveAt from [Article] where Type = '联盟动态' order by  SaveAt desc,Id desc");
+                if (rs2.Status && rs2.Data != null)
+                {
+                    dynamicArticles = rs2.Data as List<ArticleModel>;
+                }
+            }
+
+            using (var briefService = ResolveService<BriefService>())
+            {
+                var rs = briefService.GetList("select top 3 Id,Name,FilePath from [Brief] order by SaveAt desc");
+                if (rs.Status && rs.Data != null)
+                {
+                    briefs = rs.Data as List<BriefModel>;
+                }
+            }
+
             using (var baseInfoService = ResolveService<BaseInfoService>())
             {
                 var baseInfo = baseInfoService.GetLast().Data as BaseInfoModel;
                 ViewBag.Process = baseInfo.Process;
-                ViewBag.ApplyFilePath = baseInfo.ApplyFilePath;
-                return View();
             }
+
+            ViewBag.SlideArticles = slideArticles;
+            ViewBag.Briefs = briefs;
+            ViewBag.DynamicArticles = dynamicArticles;
+            return View();
         }
 
         #endregion
@@ -301,13 +395,35 @@ namespace LM.WebUI.Controllers
 
         public ActionResult Contact()
         {
+            var slideArticles = new List<ArticleModel>(); // 幻灯片数据
+            var dynamicArticles = new List<ArticleModel>(); // 联盟动态
+
+            using (var articleService = ResolveService<ArticleService>())
+            {
+                // 幻灯片数据
+                var rs1 = articleService.GetList("select top 4 Id,Type,Title,ImgSrc from [Article] where IsShow = 1 and ImgSrc is not null order by SaveAt desc, Id desc");
+                if (rs1.Status && rs1.Data != null)
+                {
+                    slideArticles = rs1.Data as List<ArticleModel>;
+                }
+                // 联盟动态 
+                var rs2 = articleService.GetList("select top 10 Id,Title,SaveAt from [Article] where Type = '联盟动态' order by  SaveAt desc,Id desc");
+                if (rs2.Status && rs2.Data != null)
+                {
+                    dynamicArticles = rs2.Data as List<ArticleModel>;
+                }
+            }
+
             using (var baseInfoService = ResolveService<BaseInfoService>())
             {
                 var info = baseInfoService.GetLast().Data as BaseInfoModel;
                 info = info ?? new BaseInfoModel();
                 ViewBag.Model = new BaseInfoModel { Address = info.Address, Telphone = info.Telphone, Fax = info.Fax, Site = info.Site, Email = info.Email, Map = info.Map };
-                return View();
             }
+
+            ViewBag.SlideArticles = slideArticles;
+            ViewBag.DynamicArticles = dynamicArticles;
+            return View();
         }
 
         #endregion

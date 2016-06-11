@@ -1,0 +1,91 @@
+
+.imgSlide a {
+    color: #213f71;
+    font-size: 9pt;
+    text-decoration: none;
+}
+
+    .imgSlide a:hover {
+        color: #0066cc;
+    }
+
+.imgSlide {
+    overflow: hidden;
+    zoom: 1;
+    font-size: 9pt;
+    /*border: 1px solid #ffffff;*/
+    background: #ffffff;
+    width: 1000px;
+    margin-top: 8px;
+}
+
+    .imgSlide .pcont {
+        width: 910px;
+        float: left;
+        overflow: hidden;
+        /*padding-left: 5px;*/
+    }
+
+    .imgSlide .ScrCont {
+        width: 3276600px;
+        zoom: 1;
+        margin-left: -3px;
+    }
+
+    .imgSlide #List1_1, .imgSlide #List2_1 {
+        float: left;
+    }
+
+    .imgSlide .LeftBotton, .imgSlide .RightBotton {
+        width: 40px;
+        height: 140px;
+        float: left;
+    }
+
+    .imgSlide .LeftBotton {
+        background-position: 0 0;
+        margin: 8px 5px 0px 0px;
+        background: url(home_×ó°´Å¥.png) no-repeat;
+    }
+
+    .imgSlide .RightBotton {
+        /*background-position: 0 -100px;*/
+        margin: 8px 0px 10px 5px;
+        background: url(home_ÓÒ°´Å¥.png) no-repeat;
+        float: right;
+    }
+
+    .imgSlide .LeftBotton:hover {
+        /*background-position: -20px 0;*/
+    }
+
+    .imgSlide .RightBotton:hover {
+        /*background-position: -20px -100px;*/
+    }
+
+    .imgSlide .pl img {
+        display: block;
+        cursor: pointer;
+        border: none;
+        margin: 6px auto 1px auto;
+    }
+
+    .imgSlide .pl {
+        width: 179px;
+        border: 2px solid #ffffff;
+        float: left;
+        float: left;
+        text-align: center;
+        line-height: 24px;
+    }
+
+    .imgSlide a.pl:hover {
+        /*border: 1px solid #5dacec;*/
+        color: #5dacec;
+        background: #fff;
+    }
+
+.imgpane img {
+    width: 179px;
+    height: 140px;
+}

@@ -1,0 +1,46 @@
+﻿@using LM.Utility
+@{
+    ViewBag.Title = "联盟章程";
+    var content = ViewBag.Chapter;
+}
+
+@Html.RenderCss("/Content/css/about1.css")
+
+@section partialScriptCss{
+
+}
+<!--页面主体内容begin-->
+<div class="bg">
+    <div class="about_main">
+        <div class="aboutleft">
+            <!-- left -->
+            <div class="ab_t mt20">
+                <span class="ab_t01 pl10">关于联盟</span>
+                <br />
+                <span class="ab_t02 pl10">About Alliance</span>
+            </div>
+            <div class="ab_c mt20">
+                <ul>
+                    <li><a href="/Home/About">联盟介绍</a></li>
+                    <li><a href="/Home/Chapter">联盟章程</a></li>
+                    <li><a href="/Home/Organization">联盟组织</a></li>
+                    <li><a href="/Home/Process">入盟申请</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- right  -->
+
+        <div class="aboutright">
+            <div class="weizi">
+                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Home/About">关于联盟</a> &gt; <a href="/Home/Chapter">联盟章程</a>
+            </div>
+            <p class="p0">@ViewBag.Title</p>
+
+            <div class="mycontent">
+                @Html.Raw(content)
+            </div>
+        </div>
+
+    </div>
+</div>
