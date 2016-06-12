@@ -4,8 +4,8 @@
     ViewBag.Title = "申请流程";
     var content = ViewBag.Process;
 
+    var index = 0;
     var slideArticles = ViewBag.SlideArticles as List<ArticleModel>;
-    var briefs = ViewBag.Briefs as List<BriefModel>;
     var dynamicArticles = ViewBag.DynamicArticles as List<ArticleModel>;
 }
 
@@ -84,9 +84,15 @@
                 }
             </style>
 
-            <div id="aa" class="pic_list" style="width: 100%;float: left; border: 1px solid #ccc;">
+            <div id="aa" class="pic_list" style="width: 100%; float: left; border: 1px solid #ccc;">
+                @foreach (var e in slideArticles)
+                {
+                    <input type="hidden" id="slideSrc@(index)" value="@e.ImgSrc" />
+                    <input type="hidden" id="slideId@(index)" value="@e.Id" />
+                    index++;
+                }
                 <a href="@(slideArticles.Count > 0 ? "/Article/Detail?id=" + slideArticles[0].Id : "")" target="_blank">
-                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc:"")" style="width: 100%; height:auto;" onclick="" />
+                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc : "")" style="width: 100%; height: auto;" onclick=""/>
                 </a>
                 <ul id="aa_index">
                     @for (var i = 0; i < slideArticles.Count; i++)

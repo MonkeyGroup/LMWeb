@@ -6,7 +6,8 @@
 
     var list = ViewBag.Models as List<FruitsModel>;
     var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
-    
+
+    var index = 0;
     var slideArticles = ViewBag.SlideArticles as List<ArticleModel>;
     var dynamicArticles = ViewBag.DynamicArticles as List<ArticleModel>;
 }
@@ -51,10 +52,6 @@
             }
             slide(imglist, idlist);
 
-            // Logo 自动滚动
-            //MoveDiv(window.event);
-            slide_init(); // 运行图片滚动函数
-            $("#tabs").tabs();
         });
     </script>
 }
@@ -74,15 +71,8 @@
         </div>
 
         <div class="slide">
-            @*<img src="/Content/images2/home_新闻图片.jpg" width="100%" style="margin-top: 0px;"/>*@
             <!--幻灯片-->
             <style>
-                .pic_list {
-                    width: 286px;
-                    height: 100%;
-                    border: #FFF solid 1px;
-                }
-
                 #aa ul {
                     width: 100%;
                     margin: 0;
@@ -115,14 +105,20 @@
                 }
             </style>
 
-            <div id="aa" class="pic_list" style="width: 100%;float: left; border: 1px solid #ccc;">
+            <div id="aa" class="pic_list" style="width: 100%;height: 100%;float: left; border: 1px solid #ccc;">
+                @foreach (var e in slideArticles)
+                {
+                    <input type="hidden" id="slideSrc@(index)" value="@e.ImgSrc" />
+                    <input type="hidden" id="slideId@(index)" value="@e.Id" />
+                    index++;
+                }
                 <a href="@(slideArticles.Count > 0 ? "/Article/Detail?id=" + slideArticles[0].Id : "")" target="_blank">
-                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc:"")" style="width: 100%; height:auto;" onclick="" />
+                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc : "")" style="width: 100%; height: 100%;">
                 </a>
                 <ul id="aa_index">
                     @for (var i = 0; i < slideArticles.Count; i++)
                     {
-                    <li class="li">@(i + 1)</li>
+                        <li class="li">@(i + 1)</li>
                     }
                 </ul>
             </div>
@@ -167,38 +163,38 @@
         <table width="98%" border="0" cellpadding="1" cellspacing="2" class="tableBasic1" style="margin: auto;margin-top: 30px ;border-width: 0px; border-spacing: 30px 20px; ">
             @if (list != null && list.Count > 0)
             {
-                <tr class="th1" style="background-color: #559BD6; font-family: 'Microsoft Yahei'; color: #ffffff; ">
-                    <th align="center">科研成果名称</th>
-                    <th align="center">成果类别</th>
-                    <th align="center">研发企业</th>
-                    <th align="center">负责人</th>
-                </tr>
+            <tr class="th1" style="background-color: #559BD6; font-family: 'Microsoft Yahei'; color: #ffffff; ">
+                <th align="center">科研成果名称</th>
+                <th align="center">成果类别</th>
+                <th align="center">研发企业</th>
+                <th align="center">负责人</th>
+            </tr>
 
                 foreach (var model in list)
                 {
-                    <tr>
-                        <td style="width: 280px;">
-                            <a href="/Fruits/Detail?id=@(model.Id)" target="_blank">@(model.Name)</a>
-                        </td>
-                        <td align="center" style="width: 150px;">
-                            @(model.Type)
-                        </td>
-                        <td align="center" style="width: 230px;">
-                            @(model.Company)
-                        </td>
-                        <td align="center" style="width: 80px;">
-                            @(model.Leader)
-                        </td>
-                    </tr>
+            <tr>
+                <td style="width: 280px;">
+                    <a class="fruit_name" href="/Fruits/Detail?id=@(model.Id)" target="_blank">@(model.Name)</a>
+                </td>
+                <td align="center" style="width: 150px;">
+                    @(model.Type)
+                </td>
+                <td align="center" style="width: 230px;">
+                    @(model.Company)
+                </td>
+                <td align="center" style="width: 80px;">
+                    @(model.Leader)
+                </td>
+            </tr>
                 }
             }
             else
             {
-                <tr>
-                    <th width="22" align="center">
-                        <span style="text-align: center;">无数据！</span>
-                    </th>
-                </tr>
+            <tr>
+                <th width="22" align="center">
+                    <span style="text-align: center;">无数据！</span>
+                </th>
+            </tr>
             }
         </table>
         <!--分页-->

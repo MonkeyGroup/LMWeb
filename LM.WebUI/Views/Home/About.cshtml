@@ -4,6 +4,7 @@
     ViewBag.Title = "联盟简介";
     var content = ViewBag.Introduce;
 
+    var index = 0;
     var slideArticles = ViewBag.SlideArticles as List<ArticleModel>;
     var dynamicArticles = ViewBag.DynamicArticles as List<ArticleModel>;
 }
@@ -42,15 +43,8 @@
         <a href="/Home/Process"><div class="title_left">入盟申请&nbsp;<samp>>></samp></div></a>
 
         <div class="slide">
-            @*<img src="/Content/images2/home_新闻图片.jpg" width="100%" style="margin-top: 0px;"/>*@
             <!--幻灯片-->
             <style>
-                .pic_list {
-                    width: 286px;
-                    height: 100%;
-                    border: #FFF solid 1px;
-                }
-
                 #aa ul {
                     width: 100%;
                     margin: 0;
@@ -83,9 +77,15 @@
                 }
             </style>
 
-            <div id="aa" class="pic_list" style="width: 100%;float: left; border: 1px solid #ccc;">
+            <div id="aa" class="pic_list" style="width: 100%;height: 100%;float: left; border: 1px solid #ccc;">
+                @foreach (var e in slideArticles)
+                {
+                    <input type="hidden" id="slideSrc@(index)" value="@e.ImgSrc" />
+                    <input type="hidden" id="slideId@(index)" value="@e.Id" />
+                    index++;
+                }
                 <a href="@(slideArticles.Count > 0 ? "/Article/Detail?id=" + slideArticles[0].Id : "")" target="_blank">
-                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc:"")" style="width: 100%; height:auto;" onclick="" />
+                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc : "")" style="width: 100%; height: 100%;">
                 </a>
                 <ul id="aa_index">
                     @for (var i = 0; i < slideArticles.Count; i++)

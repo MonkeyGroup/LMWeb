@@ -1,0 +1,129 @@
+﻿@using System.Text.RegularExpressions
+@using LM.Model.Common
+@using LM.Model.Model
+@using LM.Utility
+@using LM.WebUI.Areas.Admin.Models
+@{
+    ViewBag.Title = "专家委员会";
+
+    var currExpert = ViewBag.DefExpert as ExpertModel ?? new ExpertModel();
+    var list = ViewBag.Experts as List<ExpertModel>;
+    var list1 = new List<ExpertModel>();
+    var list2 = new List<ExpertModel>();
+    var list3 = new List<ExpertModel>();
+    if (list != null && list.Count > 0)
+    {
+        list1 = list.Where(e => e.Range == ExpertRange.专家组组长).ToList();
+        list2 = list.Where(e => e.Range == ExpertRange.专家组副组长).ToList();
+        list3 = list.Where(e => e.Range == ExpertRange.专家组成员).ToList();
+    }
+    var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
+}
+
+@Html.RenderCss("/Content/css/experts.css")
+@Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
+
+@section partialScriptCss{
+    <script>
+        $(function () {
+            /* 分页使用异步 */
+            laypage({
+                cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
+                pages: '@pageInfo.PageCount', //总页数
+                curr: '@pageInfo.PageIndex', // 当前页
+                groups: 3, //连续显示分页数
+                skin: '#0072C6',
+                jump: function (e, first) {
+                    // 第一次的事件必须要判断
+                    if (!first) {
+                        var id = '@currExpert.Id';
+                        window.location.href = '/Expert/List?&pindex=' + e.curr+'&id='+id;
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+
+<div class="bg">
+    <div class="about_main">
+        <div class="aboutleft">
+            <!--专家信息-->
+            <div class="exportinfo">
+                <div class="headimg">
+                    <a href="#" title="@currExpert.Name">
+                        <img src="@currExpert.ImgSrc" />
+                    </a>
+                    <p>@currExpert.Name</p>
+                </div>
+                <div class="intro">
+                    <span>介绍：</span>
+                    <p>@currExpert.Description</p>
+                </div>
+                <div class="books">
+                    <span>成果：</span>
+                    <div>
+                        <p>@currExpert.Books</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- right -->
+        <div class="experts_right">
+            <div class="weizi" style="width: 485px; ">
+                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Expert/List">专家委员会</a>
+            </div>
+            <div style="margin-bottom: 30px;">
+                <div class="experts_tit">
+                    <p style="margin-left: 0px;">联盟专家组</p>
+                </div>
+
+                @for (var i = 0; i < list1.Count; i++)
+                {
+                    <dl class="zuzhang">
+                        <dt>
+                            @if (i == 0)
+                            {
+                                <p>专家组组长:</p>
+                            }
+                        </dt>
+                        <dd><a href="/Expert/List?id=@list1[i].Id&pindex=@pageInfo.PageIndex">@list1[i].Name</a></dd>
+                    </dl>
+                }
+                @for (var i = 0; i < list2.Count; i++)
+                {
+                    <dl class="zuzhang">
+                        <dt>
+                            @if (i == 0)
+                            {
+                                <p>专家组副组长:</p>
+                            }
+                        </dt>
+                        <dd><a href="/Expert/List?id=@list2[i].Id&pindex=@pageInfo.PageIndex">@list2[i].Name</a></dd>
+                    </dl>
+                }
+                @for (var i = 0; i < list3.Count; i++)
+                {
+                    <dl class="zuzhang">
+                        <dt>
+                            @if (i == 0)
+                            {
+                                <p>专家组成员:</p>
+                            }
+                        </dt>
+                        <dd><a href="/Expert/List?id=@list3[i].Id&pindex=@pageInfo.PageIndex">@list3[i].Name</a></dd>
+                    </dl>
+                }
+            </div>
+            <!--分页块-->
+            <div class="pageDiv1" id="pageDiv1"></div>
+        </div>
+
+    </div>
+</div>
+
+<input id="currExpert" type="hidden" value="@currExpert" />
+

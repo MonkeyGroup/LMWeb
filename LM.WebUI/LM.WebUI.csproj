@@ -320,7 +320,17 @@
     <Content Include="Content\images2\home_行业信息_灰色.png" />
     <Content Include="Content\images2\home_轮播圆点.png" />
     <Content Include="Content\images2\home_轮播圆点蓝色.png" />
+    <Content Include="Content\images2\上_1.png" />
+    <Content Include="Content\images2\上.png" />
+    <Content Include="Content\images2\下_1.png" />
+    <Content Include="Content\images2\下.png" />
+    <Content Include="Content\images2\下_2.png" />
     <Content Include="Content\images2\关于联盟_联盟组织.png" />
+    <Content Include="Content\images2\右_1.png" />
+    <Content Include="Content\images2\右.png" />
+    <Content Include="Content\images2\左_1.png" />
+    <Content Include="Content\images2\左.png" />
+    <Content Include="Content\images2\左_2.png" />
     <Content Include="Content\images2\首页_产品推荐分割线.png" />
     <Content Include="Content\images2\首页_分割线.png" />
     <Content Include="Content\images\download.gif" />
@@ -351,18 +361,18 @@
     <Content Include="Views\Home\Process1.cshtml" />
     <Content Include="Views\Article\InfoList1.cshtml" />
     <Content Include="Views\Article\Detail1.cshtml" />
-    <Content Include="Views\Company\List.cshtml" />
-    <Content Include="Views\Company\Detail.cshtml" />
+    <Content Include="Views\Company\List1.cshtml" />
+    <Content Include="Views\Company\Detail1.cshtml" />
     <Content Include="Views\Product\List.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
-    <Content Include="Views\Expert\List.cshtml" />
+    <Content Include="Views\Expert\List1.cshtml" />
     <Content Include="Views\Article\BriefList1.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <None Include="Properties\PublishProfiles\LMWeb.pubxml" />
     <Content Include="Views\Fruits\List1.cshtml" />
     <Content Include="Views\Fruits\Detail1.cshtml" />
-    <Content Include="Views\Product\List2.cshtml" />
-    <Content Include="Views\Product\Detail2.cshtml" />
+    <Content Include="Views\Product\List21.cshtml" />
+    <Content Include="Views\Product\Detail21.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
@@ -378,6 +388,9 @@
     <Content Include="Views\Fruits\List.cshtml" />
     <Content Include="Views\Article\Detail.cshtml" />
     <Content Include="Views\Fruits\Detail.cshtml" />
+    <Content Include="Views\Company\List.cshtml" />
+    <Content Include="Views\Company\Detail.cshtml" />
+    <Content Include="Views\Expert\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Content\css\base.css" />

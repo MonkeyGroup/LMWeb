@@ -134,8 +134,8 @@ body ul li {
 
 
 .banner {
-    max-height: 150px;
-    /*min-height: 150px;*/
+    /*max-height: 150px;*/
+    height: 150px;
     margin-top: 2px;
 }
 
@@ -632,7 +632,7 @@ body ul li {
 .mycontent {
     font-family: '微软雅黑','宋体';
     font-size: 15px;
-    color: #303030;
+    color: #6f6a6a;
     line-height: 1.8em;
     padding-top: 1em;
     padding-left: 3em;
@@ -641,7 +641,7 @@ body ul li {
 
     .mycontent .title {
         font-size: 18px;
-        height: 35px;
+        min-height: 35px;
         line-height: 36px;
     }
 
@@ -668,7 +668,7 @@ body ul li {
     .pane_goods img {
         width: 150px;
         height: 75px;
-        border: 1px solid #ccc;
+        /*border: 1px solid #ccc;*/
     }
 
 
@@ -696,7 +696,7 @@ body ul li {
     max-width: 90%;
     height: auto;
     margin: auto auto;
-    margin-top: 15px;
+    margin-top: 5px;
 }
 /*表格table（word表格、excel等）*/
 .mycontent table {
@@ -705,14 +705,17 @@ body ul li {
     margin: auto auto;
     margin-top: 15px;
 }
+
 .mycontent a {
     color: #6f6a6a;
     text-decoration: none;
 }
-.mycontent a:hover {
-    color: #6f6a6a;
-    text-decoration: underline;
-}
+
+    .mycontent a:hover {
+        color: #0872CA;
+        text-decoration: underline;
+    }
+
 .mycontent .time {
     color: #6f6a6a;
 }
@@ -761,8 +764,28 @@ body ul li {
         float: right;
     }
 
-a:hover .title_left {
+a:hover .title_left:hover {
     color: #FFFFFF;
     background: #83B8E4;
     text-decoration: none;
 }
+
+.expert {
+    width:100%;
+}
+
+.expert .content_img {
+    margin: 40px 0 10px 0;;
+    height:100px;
+    width: 100px;
+    line-height:100px;
+    text-align:center;
+    border-radius: 50%;
+    overflow:hidden;
+}
+
+.expert p{
+    width:100%;
+    /*padding:1% 20px;*/        
+}
+

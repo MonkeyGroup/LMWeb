@@ -5,78 +5,34 @@
     var info = ViewBag.Company as CompanyModel;
 }
 
-@Html.RenderCss("/Content/css/联盟成员.css")
+@Html.RenderCss("/Content/css/信息阅览.css")
+@Html.RenderCss("/Content/css2/文章详细.css")
 
-@section partialScriptCss{
-}
 
-<!--页面主体内容begin-->
-<div class="bg">
-    <div class="about_main">
-        <div class="aboutleft">
-            <!-- left -->
-            <div class="ab_t mt20">
-                <span class="ab_t01 pl10">联盟成员</span>
-                <br />
-                <span class="ab_t02 pl10">Alliance Members</span>
-            </div>
-            <div class="ab_c mt20">
-                <ul>
-                    <li><a href="/Company/Detail?id=@info.Id">单位信息</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="about_right">
-            <div class="weizi">
-                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Company/List">联盟成员</a> &gt; <a href="/Company/Detail?id=@info.Id">单位信息</a>
-            </div>
-
-            <div>
-                <style>
-                    /*关于联盟页的 内容详情页*/
-                    .about_right {
-                        width: 630px;
-                        min-height: 800px;
-                        border: 1px solid #CCC;
-                        float: right;
-                        padding-bottom: 20px;
-                    }
-
-                    .about_right p {
-                        width: 560px;
-                        margin: 0 auto;
-                        font-size: 14px;
-                        font-family: Arial, 'Microsoft YaHei';
-                        line-height: 24px;
-                        text-align: left;
-                        text-indent: 2em;
-                        margin-top: 15px;
-                    }
-
-                    .about_right img {
-                        width: 400px;
-                        height: auto;
-                        margin: auto auto;
-                        margin-top: 15px;
-                    }
-
-                    .about_right table {
-                        width: 95%;
-                    }
-                    .about_right table tr td{
-                        text-align: left;
-                    }
-                </style>
-
-                <div class="mycontent">
-                    @Html.Raw(info.Description)
-                </div>
-            </div>
-
-            <span id="jrwz">
-                <a href="@info.Site" target="_blank">进入官网</a>
-            </span>
-        </div>
+<div class="section mycontent">
+    <div class="nav">
+        当前位置：首页 > 单位详情
     </div>
+    <div class="mycontent" style="width: 75%; margin: auto; margin-bottom: 40px;">
+        <div class="title">
+            <div class="company_logo">
+                <img src="@info.LogoSrc" width="100" height="40" />
+            </div>
+            <div class="company_name">
+                 @info.Name
+            </div>
+        </div>
 
+        @Html.Raw(info.Description)
+
+    </div>
 </div>
+
+
+
+
+
+
+
+
+

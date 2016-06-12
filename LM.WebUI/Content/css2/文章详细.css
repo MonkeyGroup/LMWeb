@@ -1,26 +1,41 @@
-.titlediv{
-	width:85%;
-	margin: 0 auto;
+.titlediv {
+    width: 85%;
+    margin: 0 auto;
 }
 
-.titlediv .titledivp{
-    font-style: normal;
-	text-align: center;
-	font-size: 13px;
-	height: 50px;
-	line-height: 50px;
-	padding-left: 50px;
-	margin: 0 auto;
+    .titlediv .titledivp {
+        font-style: normal;
+        text-align: center;
+        font-size: 13px;
+        height: 50px;
+        line-height: 50px;
+        padding-left: 50px;
+        margin: 0 auto;
+    }
+
+    .titlediv .titleback {
+        background: #EBEBEB;
+        font-size: 15px;
+        min-height: 30px;
+        line-height: 30px;
+        padding: 10px;
+    }
+
+.nav_detailed {
+    width: 70%;
+    margin: 0 auto;
+    font-size: 16px;
 }
-.titlediv .titleback{
-    background: #EBEBEB;
-    font-size: 15px;
-    min-height: 30px;
-    line-height: 30px;
-    padding: 10px;
+
+.company_logo img {
+    width: 120px;
+    height: 60px;
 }
-.nav_detailed{
-	width: 70%;
-	margin: 0 auto;
-	font-size: 16px;
+
+.company_logo {
+    margin-bottom: 20px;
+}
+
+.company_name {
+    font-weight: normal;
 }

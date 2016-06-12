@@ -1,129 +1,204 @@
-﻿@using System.Text.RegularExpressions
-@using LM.Model.Common
+﻿@using LM.Model.Common
 @using LM.Model.Model
 @using LM.Utility
-@using LM.WebUI.Areas.Admin.Models
 @{
-    ViewBag.Title = "专家委员会";
+    ViewBag.Title = "List";
 
-    var currExpert = ViewBag.DefExpert as ExpertModel ?? new ExpertModel();
     var list = ViewBag.Experts as List<ExpertModel>;
-    var list1 = new List<ExpertModel>();
-    var list2 = new List<ExpertModel>();
-    var list3 = new List<ExpertModel>();
-    if (list != null && list.Count > 0)
-    {
-        list1 = list.Where(e => e.Range == ExpertRange.专家组组长).ToList();
-        list2 = list.Where(e => e.Range == ExpertRange.专家组副组长).ToList();
-        list3 = list.Where(e => e.Range == ExpertRange.专家组成员).ToList();
+
+    var index = 0;
+    var slideArticles = ViewBag.SlideArticles as List<ArticleModel>;
+    var dynamicArticles = ViewBag.DynamicArticles as List<ArticleModel>;
+}
+
+@Html.RenderCss("/Content/css2/关于联盟.css")
+
+<script>
+    // 异步刷新页面
+    function showIt(id) {
+        
     }
-    var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
-}
+</script>
 
-@Html.RenderCss("/Content/css/experts.css")
-@Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
+<div class="section" style="margin-bottom:20px;">
+    <div class="section_left">
+        <div class="top">
+            <h3>专家委员会</h3>
+            <h5 accesskey="">Expert Committee</h5>
+        </div>
 
-@section partialScriptCss{
-    <script>
-        $(function () {
-            /* 分页使用异步 */
-            laypage({
-                cont: document.getElementById('pageDiv1'), //容器。值支持id名、原生dom对象，jquery对象,
-                pages: '@pageInfo.PageCount', //总页数
-                curr: '@pageInfo.PageIndex', // 当前页
-                groups: 3, //连续显示分页数
-                skin: '#0072C6',
-                jump: function (e, first) {
-                    // 第一次的事件必须要判断
-                    if (!first) {
-                        var id = '@currExpert.Id';
-                        window.location.href = '/Expert/List?&pindex=' + e.curr+'&id='+id;
+        <div class="expert_menu">
+            <div id="firstpane" class="menu_list">
+
+                <h3 class="menu_head current" style="font-size: 16px;">@ExpertRange.专家组组长</h3>
+                <div style="display: block" class="menu_body">
+                    @foreach (var ex in list.Where(e => e.Range == ExpertRange.专家组组长))
+                    {
+                        <a href="#" onclick="showIt(@ex.Id)">@ex.Name</a>
                     }
-                }
-            });
-        });
-    </script>
-}
+                </div>
 
+                <h3 class="menu_head" style="font-size: 16px;">@ExpertRange.专家组副组长</h3>
+                <div style="display: none;" class="menu_body">
+                    @foreach (var ex in list.Where(e => e.Range == ExpertRange.专家组副组长))
+                    {
+                        <a href="#" onclick="showIt(@ex.Id)">@ex.Name</a>
+                    }
+                </div>
 
-<div class="bg">
-    <div class="about_main">
-        <div class="aboutleft">
-            <!--专家信息-->
-            <div class="exportinfo">
-                <div class="headimg">
-                    <a href="#" title="@currExpert.Name">
-                        <img src="@currExpert.ImgSrc" />
-                    </a>
-                    <p>@currExpert.Name</p>
+                <h3 class="menu_head" style="font-size: 16px;">@ExpertRange.专家组成员</h3>
+                <div style="display: none;" class="menu_body">
+                    @foreach (var ex in list.Where(e => e.Range == ExpertRange.专家组成员))
+                    {
+                        <a href="#" onclick="showIt(@ex.Id)">@ex.Name</a>
+                    }
                 </div>
-                <div class="intro">
-                    <span>介绍：</span>
-                    <p>@currExpert.Description</p>
-                </div>
-                <div class="books">
-                    <span>成果：</span>
-                    <div>
-                        <p>@currExpert.Books</p>
-                    </div>
-                </div>
+
             </div>
-
         </div>
 
-        <!-- right -->
-        <div class="experts_right">
-            <div class="weizi" style="width: 485px; ">
-                <span>当前位置：</span><a href="/Home/Index">首页</a> &gt; <a href="/Expert/List">专家委员会</a>
-            </div>
-            <div style="margin-bottom: 30px;">
-                <div class="experts_tit">
-                    <p style="margin-left: 0px;">联盟专家组</p>
-                </div>
+        <div class="slide">
+            <!--幻灯片-->
+            <style>
+                #aa ul {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    position: relative;
+                    left: 50px;
+                    top: -28px;
+                }
 
-                @for (var i = 0; i < list1.Count; i++)
-                {
-                    <dl class="zuzhang">
-                        <dt>
-                            @if (i == 0)
-                            {
-                                <p>专家组组长:</p>
-                            }
-                        </dt>
-                        <dd><a href="/Expert/List?id=@list1[i].Id&pindex=@pageInfo.PageIndex">@list1[i].Name</a></dd>
-                    </dl>
+                .li {
+                    color: #ffffff;
+                    background: #0872CA;
+                    padding: 1px 6px;
+                    float: left;
+                    margin: 3px;
+                    border-radius: 10px;
+                    list-style: none;
+                    cursor: pointer;
                 }
-                @for (var i = 0; i < list2.Count; i++)
-                {
-                    <dl class="zuzhang">
-                        <dt>
-                            @if (i == 0)
-                            {
-                                <p>专家组副组长:</p>
-                            }
-                        </dt>
-                        <dd><a href="/Expert/List?id=@list2[i].Id&pindex=@pageInfo.PageIndex">@list2[i].Name</a></dd>
-                    </dl>
+
+                    .li:hover {
+                        background: #9fd5fc;
+                        color: #000000;
+                    }
+
+                .active {
+                    background: #FF6911;
+                    color: #000000;
+                    font-weight: bold;
                 }
-                @for (var i = 0; i < list3.Count; i++)
+            </style>
+
+            <div id="aa" class="pic_list" style="width: 100%; height: 100%; float: left; border: 1px solid #ccc;">
+                @foreach (var e in slideArticles)
                 {
-                    <dl class="zuzhang">
-                        <dt>
-                            @if (i == 0)
-                            {
-                                <p>专家组成员:</p>
-                            }
-                        </dt>
-                        <dd><a href="/Expert/List?id=@list3[i].Id&pindex=@pageInfo.PageIndex">@list3[i].Name</a></dd>
-                    </dl>
+                <input type="hidden" id="slideSrc@(index)" value="@e.ImgSrc" />
+                <input type="hidden" id="slideId@(index)" value="@e.Id" />
+                    index++;
                 }
+                <a href="@(slideArticles.Count > 0 ? "/Article/Detail?id=" + slideArticles[0].Id : "")" target="_blank">
+                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc : "")" style="width: 100%; height: 100%;">
+                </a>
+                <ul id="aa_index">
+                    @for (var i = 0; i < slideArticles.Count; i++)
+                    {
+                    <li class="li">@(i + 1)</li>
+                    }
+                </ul>
             </div>
-            <!--分页块-->
-            <div class="pageDiv1" id="pageDiv1"></div>
         </div>
+        <div class="top">
+            <h3>联盟动态</h3>
+        </div>
+        <ul class="news_left">
+            @foreach (var a in dynamicArticles)
+            {
+            <li>
+                <a href="/Article/Detail?id=@a.Id" target="_blank">@(a.Title)</a>
+            </li>
+            }
+        </ul>
+    </div>
 
+    <div class="section_right">
+        <div class="nav">
+            当前位置：首页 > 专家委员会
+        </div>
+        <div class="nav_right">
+            <span><img src="/Content/images2/home_轮播圆点蓝色.png" style="padding-right: 15px;">专家委员会</span>
+        </div>
+        <div class="expert" style="text-align:center;">
+            <img class="content_img" src="/Content/images2/home_新闻图片.jpg" />
+            <p>专家组组长：段雪</p>
+        </div>
+        <div class="mycontent">
+            <p>介绍：</p>
+            <p>内容测sd水电费水电费水电费水电费水电费sdffsd试</p>
+        </div>
     </div>
 </div>
 
-<input id="currExpert" type="hidden" value="@currExpert" />
 
+<!--菜单的js和css-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#firstpane .menu_body:eq(0)").show();
+        $("#firstpane h3.menu_head").click(function () {
+            $(this).addClass("current").next("div.menu_body").slideToggle(100).siblings("div.menu_body").slideUp("slow");
+            $(this).siblings().removeClass("current");
+        });
+    });
+</script>
+
+<style type="text/css">
+    .menu_list {
+        width: 100%;
+    }
+
+    .menu_head {
+        height: 40px;
+        line-height: 40px;
+        padding-left: 20px;
+        font-size: 14px;
+        color: #ffffff;
+        cursor: pointer;
+        border-left: 1px solid #e1e1e1;
+        border-right: 1px solid #e1e1e1;
+        border-bottom: 1px solid #e1e1e1;
+        border-top: 1px solid #F1F1F1;
+        position: relative;
+        margin: 0;
+        font-weight: bold;
+        background: #64B4F7 url(/Content/images2/左_2.png) 160px center no-repeat;
+    }
+
+    .menu_list .current {
+        background: #64B4F7 url(/Content/images2/下_2.png) 160px center no-repeat;
+    }
+
+    .menu_body {
+        line-height: 38px;
+        border-left: 1px solid #e1e1e1;
+        background: #ffffff;
+        border-right: 1px solid #e1e1e1;
+    }
+
+        .menu_body a {
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 30px;
+            color: #6f6a6a;
+            background: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+            .menu_body a:hover {
+                text-decoration: none;
+            }
+</style>
+<!--// 菜单的js和css-->

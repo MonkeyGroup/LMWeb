@@ -16,10 +16,10 @@
     </div>
     <div class="titlediv">
         <em class="titledivp"></em>
-        <em class="titledivp">时间：2014-12-12</em>
-        <em class="titledivp">信息来源：电子行业</em>
-        <em class="titledivp">作者：李东</em>
-        <em class="titledivp"> 浏览次数：128</em>
+        <em class="titledivp">时间：@(info.SaveAt.ToString("yyyy-MM-dd"))</em>
+        <em class="titledivp">信息来源：@(info.Origin)</em>
+        <em class="titledivp">作者：@(info.Author)</em>
+        <em class="titledivp"> 浏览次数：@(info.Hits)</em>
         <em class="titledivp"></em>
         <div class="title">@info.Title</div>
         <div class="titleback">

@@ -15,7 +15,13 @@ namespace LM.WebUI.Controllers
 
         #region 专家委员会
 
-        public ActionResult List(int id = 0, int pindex = 1)
+        /// <summary>
+        ///  已废弃！
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pindex"></param>
+        /// <returns></returns>
+        public ActionResult List1(int id = 0, int pindex = 1)
         {
             var currExpert = new ExpertModel();
             var models = new List<ExpertModel>();
@@ -63,6 +69,45 @@ namespace LM.WebUI.Controllers
             ViewBag.DefExpert = currExpert;
             ViewBag.Experts = models;
             ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
+            return View();
+        }
+
+        public ActionResult List()
+        {
+            var models = new List<ExpertModel>();
+
+            // 获取列表数据
+            using (var expertService = ResolveService<ExpertService>())
+            {
+                var rs = expertService.GetList("select * from [Expert] order by Range asc,Id asc");
+                if (rs.Status && rs.Data != null)
+                {
+                    models = rs.Data as List<ExpertModel>;
+                }
+            }
+
+            var slideArticles = new List<ArticleModel>(); // 幻灯片数据
+            var dynamicArticles = new List<ArticleModel>(); // 联盟动态
+
+            using (var articleService = ResolveService<ArticleService>())
+            {
+                // 幻灯片数据
+                var rs1 = articleService.GetList("select top 4 Id,Type,Title,ImgSrc from [Article] where IsShow = 1 and ImgSrc is not null order by SaveAt desc, Id desc");
+                if (rs1.Status && rs1.Data != null)
+                {
+                    slideArticles = rs1.Data as List<ArticleModel>;
+                }
+                // 联盟动态 
+                var rs2 = articleService.GetList("select top 10 Id,Title,SaveAt from [Article] where Type = '联盟动态' order by  SaveAt desc,Id desc");
+                if (rs2.Status && rs2.Data != null)
+                {
+                    dynamicArticles = rs2.Data as List<ArticleModel>;
+                }
+            }
+
+            ViewBag.SlideArticles = slideArticles;
+            ViewBag.DynamicArticles = dynamicArticles;
+            ViewBag.Experts = models;
             return View();
         }
 
