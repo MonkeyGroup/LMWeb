@@ -1,11 +1,10 @@
 ﻿@using LM.Model.Model
 @using LM.Utility
 @{
-    ViewBag.Title = "文章详情";
+    ViewBag.Title = "科研成果";
     var info = ViewBag.Fruits as FruitsModel ?? new FruitsModel();
 }
 
-@Html.RenderCss("/Content/css/信息阅览.css")
 @Html.RenderCss("/Content/css2/科研成果内页.css")
 
 
@@ -31,15 +30,15 @@
                 padding: 5px 5px;
             }
         </style>
-        <table style="margin: auto; margin-top: 50px; width: 900px; border-spacing: 20px 10px; font-size: 14px;">
+        <table class="fruit" style="margin: auto; margin-top: 50px; margin-bottom: 30px;width: 900px; border-spacing: 20px 10px; font-size: 14px;">
             <tr>
-                <td colspan="2" style="background-color: #559BD6; border-color: #559BD6; ">
-                    <h4 style="text-align: center; font-family: 宋体; margin-bottom: 0px; font-size: 18px; padding: 20px; ">@info.Name</h4>
+                <td colspan="2" style="background-color: #559BD6;">
+                    <h4 style="text-align: center; font-family: 宋体; margin-bottom: 0px; font-size: 18px; padding: 20px;color: #ffffff; ">@info.Name</h4>
                 </td>
             </tr>
             <tr>
                 <td style="width: 50%;">成果类别：@info.Type</td>
-                <td>项目负责人：@info.Leader</td>
+                <td class="fruit_td">项目负责人：@info.Leader</td>
             </tr>
             <tr>
                 <td>专利情况：@info.Patent</td>
@@ -47,7 +46,7 @@
             </tr>
             <tr>
                 <td>获奖信息：@info.Awards</td>
-                <td>应用情况：@info.Application</td>
+                <td>研发状态：@info.Application</td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -56,7 +55,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <div class="mycontent">
+                    <div class="mycontent" style="padding: 10px;">
                         <style>
                             p {
                                 padding: 0 0;

@@ -97,6 +97,7 @@
             Site: $('#site').val(),
             LogoSrc: $('#logoSrc').val(),
             Range: $('#range').val(),
+            Index: $('#index').val(),
             RangeName: $('#range').find("option:selected").text(),
             Description: editor.html()
         }
@@ -207,6 +208,12 @@
                             <option value="@cat.Id" @(model.Range == cat.Id ? "selected" : "")>@cat.Name</option>
                         }
                     </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">显示优先级</td>
+                <td>
+                    <input type="text" id="index" value="@(model.Index)" size="17" class="inpMain" />（优先级越高越先显示）
                 </td>
             </tr>
             <tr>

@@ -13,6 +13,8 @@ namespace LM.Model.Model
 
         public ExpertRange Range { get; set; }
 
+        public string RangeName { get; set; }
+
         public string Description { get; set; }
 
         /// <summary>

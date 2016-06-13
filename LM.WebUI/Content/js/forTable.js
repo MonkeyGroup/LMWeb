@@ -2,7 +2,7 @@
 $(function() {
     $('.mycontent').find('table').text() &&
     // 处理复制的表格的自带宽高
-    $('.mycontent').find('table').each(function () {
+    $('.mycontent').find('p>table').each(function () {
         $(this).removeAttr('style');
         $(this).attr('border', '0');
         $(this).attr('cellspacing', '0');

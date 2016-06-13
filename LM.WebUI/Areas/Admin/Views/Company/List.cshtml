@@ -123,6 +123,7 @@
                             <th align="center">Logo 路径</th>
                             <th width="10%" align="center">成员分类</th>
                             <th width="12%" align="center">成员头衔</th>
+                            <th width="12%" align="center">优先级</th>
                             <th width="14%" align="center">保存时间</th>
                             <th width="10%" align="center">操作</th>
                         </tr>
@@ -156,7 +157,10 @@
                                     @(model.RangeName)
                                 </td>
                                 <td align="center">
-                                    @(model.SaveAt.ToString("yyyy-MM-dd HH:mm:ss"))
+                                    @(model.Index > 0 ? model.Index + "" : "-")
+                                </td>
+                                <td align="center">
+                                    @(model.SaveAt.ToString("yyyy-MM-dd"))
                                 </td>
                                 <td align="center">
                                     <a href="/Admin/Company/Company?id=@(model.Id)">编辑</a> | <a href="#" onclick="return delArticle('@(model.Id)') && false;">删除</a>

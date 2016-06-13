@@ -1,11 +1,6 @@
-﻿@using LM.Model.Model
-@using LM.Service.Security
-@{
+﻿@{
     Layout = null; /* 此句必须加，不然默认布局页为_Layout页，会造成死循环 */
     ViewBag.Title = "Footer";
-
-    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
-    var footerModel = CurrentContext.Get("FooterModel") as FooterModel ?? new FooterModel();
 }
 
 
@@ -15,11 +10,11 @@
     <span class="text_padding-left"></span>
     地址：北京朝阳区2号院5号楼金基业大厦716室
     <span class="text_padding-left"></span>
-    E-mail：cemia@@c-e-m.com
+    E-mail：cem@c-e-m.com
     <span class="text_padding-left"></span>
     电话：010-64498802 64476901
     <span class="text_padding-left"></span>
-    邮编：430074
+    邮编：100029
     <br/><br/>
     Copyright@@2016 中国电子化工新材料产业联盟
     <span class="text_padding-left"></span>

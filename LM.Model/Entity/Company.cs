@@ -30,5 +30,9 @@ namespace LM.Model.Entity
 
         public DateTime SaveAt { get; set; }
 
+        /// <summary>
+        ///  排序优先级
+        /// </summary>
+        public int Index { get; set; }
     }
 }

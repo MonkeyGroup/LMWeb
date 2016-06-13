@@ -302,6 +302,7 @@
     <Content Include="Content\images2\home_gg_02.jpg" />
     <Content Include="Content\images2\home_gg_03.jpg" />
     <Content Include="Content\images2\home_logo.png" />
+    <Content Include="Content\images2\home_qr.jpg" />
     <Content Include="Content\images2\home_search.png" />
     <Content Include="Content\images2\home_产品推荐.png" />
     <Content Include="Content\images2\home_右按钮.png" />
@@ -320,6 +321,7 @@
     <Content Include="Content\images2\home_行业信息_灰色.png" />
     <Content Include="Content\images2\home_轮播圆点.png" />
     <Content Include="Content\images2\home_轮播圆点蓝色.png" />
+    <Content Include="Content\images2\logo.ico" />
     <Content Include="Content\images2\上_1.png" />
     <Content Include="Content\images2\上.png" />
     <Content Include="Content\images2\下_1.png" />
@@ -331,6 +333,7 @@
     <Content Include="Content\images2\左_1.png" />
     <Content Include="Content\images2\左.png" />
     <Content Include="Content\images2\左_2.png" />
+    <Content Include="Content\images2\首页_flash.jpg" />
     <Content Include="Content\images2\首页_产品推荐分割线.png" />
     <Content Include="Content\images2\首页_分割线.png" />
     <Content Include="Content\images\download.gif" />
@@ -371,8 +374,8 @@
     <None Include="Properties\PublishProfiles\LMWeb.pubxml" />
     <Content Include="Views\Fruits\List1.cshtml" />
     <Content Include="Views\Fruits\Detail1.cshtml" />
-    <Content Include="Views\Product\List21.cshtml" />
-    <Content Include="Views\Product\Detail21.cshtml" />
+    <Content Include="Views\Product\List1.cshtml" />
+    <Content Include="Views\Product\Detail1.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />

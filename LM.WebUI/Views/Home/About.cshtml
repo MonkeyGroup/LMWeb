@@ -45,39 +45,38 @@
         <div class="slide">
             <!--幻灯片-->
             <style>
-                #aa ul {
+                .pic_list ul {
                     width: 100%;
-                    margin: 0;
-                    padding: 0;
+                    margin-left: 24px;
+                    margin-top: -15px;
                     position: relative;
-                    left: 50px;
-                    top: -28px;
                 }
 
-                .li {
+                .pic_list .li {
+                    width: 20px;
+                    height: 5px;
                     color: #ffffff;
                     background: #0872CA;
                     padding: 1px 6px;
                     float: left;
                     margin: 3px;
-                    border-radius: 10px;
                     list-style: none;
                     cursor: pointer;
                 }
 
-                    .li:hover {
+                    .pic_list .li:hover {
                         background: #9fd5fc;
-                        color: #000000;
+                        color: #0872ca;
                     }
 
-                .active {
-                    background: #FF6911;
-                    color: #000000;
-                    font-weight: bold;
+                .pic_list .active {
+                    background: #9fd5fc;
+                    color: #0872ca;
+                    /*font-weight: bold;*/
                 }
             </style>
 
-            <div id="aa" class="pic_list" style="width: 100%;height: 100%;float: left; border: 1px solid #ccc;">
+            <div id="aa" class="pic_list" style="width: 100%; height: 100%; float: left; border: 1px solid #ccc;">
                 @foreach (var e in slideArticles)
                 {
                     <input type="hidden" id="slideSrc@(index)" value="@e.ImgSrc" />
@@ -90,7 +89,7 @@
                 <ul id="aa_index">
                     @for (var i = 0; i < slideArticles.Count; i++)
                     {
-                        <li class="li">@(i + 1)</li>
+                        <li class="li" cid="@(i+1)"></li>
                     }
                 </ul>
             </div>

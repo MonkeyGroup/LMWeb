@@ -54,7 +54,8 @@ namespace LM.WebUI.Controllers
             var models = new List<CompanyModel>();
             using (var companyService = ResolveService<CompanyService>())
             {
-                var query = @"select * from [Company]";
+                //var query = @"select * from [Company]";
+                var query = @"select a.*,b.[Index] ShowIndex  from [Company] a inner join [Category] b on a.Range = b.Id order by ShowIndex desc,Range desc ";
                 var rs = companyService.GetList(query);
                 if (rs.Status && rs.Data != null)
                 {

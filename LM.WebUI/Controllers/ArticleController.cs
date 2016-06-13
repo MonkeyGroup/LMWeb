@@ -72,7 +72,7 @@ namespace LM.WebUI.Controllers
             ViewBag.Models = models;
             ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
 
-            //if (type == "科技成果" || type == "寻求合作")
+            //if (type == "科研成果" || type == "寻求合作")
             //{
             //    return View("PerfomList");
             //}

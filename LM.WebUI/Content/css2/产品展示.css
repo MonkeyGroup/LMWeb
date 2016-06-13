@@ -1,24 +1,4 @@
-﻿.section_left {
-    width: 20%;
-    min-height: 600px;
-    float: left;
-    border: 1px solid #E4E4E4;
-}
-
-    .section_left .top {
-        padding: 20px 20px;
-        text-align: right;
-        background: #454545;
-        color: #ffffff;
-    }
-
-.section_right {
-    width: 75%;
-    padding: 10px;
-    min-height: 600px;
-    float: left;
-}
-
+﻿
 .news_left {
 }
 
@@ -41,29 +21,30 @@
             }
 
 .pane_link {
-    width: 45%;
-    height: 155px;
+    width: 50%;
+    height: 150px;
     float: left;
-    margin: 17px;
-    padding-top: 30px;
 }
 
     .pane_link img {
-        width: 55%;
-        height: 190px;
+        width: 120px;
+        height: 120px;
         float: left;
     }
 
     .pane_link .detailed {
+        margin-left: -15px;
+        padding-top: 3px;
+        height: 100%;
         float: left;
-        padding-left: 10px;
-        width: 40%;
-        padding: 10% 2%;
         overflow: hidden;
     }
 
         .pane_link .detailed p {
-            height: 30px;
-            line-height: 30px;
+            width: 210px;
+            height: 1.5em;
             text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }

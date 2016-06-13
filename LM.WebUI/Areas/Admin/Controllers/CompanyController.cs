@@ -41,7 +41,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                             Description = entity.Description,
                             SaveAt = DateTime.Now,
                             Range = entity.Range,
-                            RangeName = entity.RangeName
+                            RangeName = entity.RangeName,
+                            Index = entity.Index
                         };
                     }
                 }
@@ -84,7 +85,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         Description = model.Description,
                         SaveAt = DateTime.Now,
                         Range = model.Range,
-                        RangeName = model.RangeName
+                        RangeName = model.RangeName,
+                        Index = model.Index
                     });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "修改成功！" : "修改失败！" };
                     companyService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "修改成功！" : "修改失败！", "成员修改页") });
@@ -101,7 +103,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         Description = model.Description,
                         SaveAt = DateTime.Now,
                         Range = model.Range,
-                        RangeName = model.RangeName
+                        RangeName = model.RangeName,
+                        Index = model.Index
                     });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "新建成功！" : "新建失败！" };
                     companyService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "新建成功！" : "新建失败！", "成员新建页") });
@@ -147,13 +150,13 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 {
                     var keyArr = keys.Split(',', '，', ' ');
                     where += " and ( 1=2 ";
-                    where = keyArr.Aggregate(where, (current, key) => current + string.Format(" or CHARINDEX('{0}',a.Name)>0 ", key));
+                    where = keyArr.Aggregate(where, (current, key) => current + string.Format(" or CHARINDEX('{0}',a.Name)>0 ", key.Trim()));
                     where += ")";
                 }
 
                 psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : psize;
-                var query = string.Format(@"(select a.* from [Company] a {0})", where);
-                var rs = companyService.GetByPage(query, "SaveAt desc", pindex, psize, out itemCount);
+                var query = string.Format(@"(select a.*,b.[Index] ShowIndex  from [Company] a inner join [Category] b on a.Range = b.Id {0})", where);
+                var rs = companyService.GetByPage(query, "ShowIndex desc, [Index] desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<CompanyModel> : new List<CompanyModel>();
                 companyService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Status ? "查询成功！" : "查询失败！", "成员列表页") });
             }

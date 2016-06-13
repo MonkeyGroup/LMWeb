@@ -1,15 +1,11 @@
-﻿@using LM.Model.Model
-@using LM.Service.Security
-@using LM.Utility
-@{
-    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
-}
+﻿@using LM.Utility
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - @(string.IsNullOrEmpty(config.SiteName) ? "中国电子化工新材料产业联盟" : config.SiteName)</title>
-    <link href="@(string.IsNullOrEmpty(config.LogoSrc)?"/favicon.ico":config.LogoSrc)" rel="shortcut icon" type="image/x-icon" />
+    <title>@ViewBag.Title - 中国电子化工新材料产业联盟</title>
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width"/>
     
     @Html.RenderCss("/Content/css/index.css")

@@ -184,6 +184,9 @@ body ul li {
 .jianbao {
     padding: 5px;
     font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
     .jianbao img {
@@ -231,11 +234,18 @@ body ul li {
 }
 
 .newTitle {
-    text-align: center;
+    /*text-align: center;
     color: #0872ca;
     font-size: 20px;
     padding-top: 15px;
+    margin-bottom: 10px;*/
+    margin-top: 10px;
     margin-bottom: 10px;
+    font-size: 20px;
+    line-height: 1.5em;
+    font-weight: bold;
+    color: #0872CA;
+    text-align: center;
 }
 
     .newTitle a {
@@ -482,10 +492,26 @@ body ul li {
 
 
 .center_hz {
-    margin-top: 5px;
-    min-height: 100px;
+    margin-top: 10px;
     /*border: 1px solid #000;*/
 }
+
+    .center_hz .top {
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        overflow: hidden;
+        text-align: center;
+        border-bottom: 1px solid #7bc0f9;
+        margin-bottom: 15px;
+    }
+
+        .center_hz .top .productleft {
+            width: 15%;
+            background: #0872CA;
+            font-size: 20px;
+            color: #fff;
+        }
 
 .center_link {
     min-height: 60px;
@@ -628,11 +654,11 @@ body ul li {
 .detail {
 }
 
-/***************文章布局*****************/
+/******************************* 文章布局 ****************************/
 .mycontent {
     font-family: '微软雅黑','宋体';
     font-size: 15px;
-    color: #6f6a6a;
+    color: #6F6A6A;
     line-height: 1.8em;
     padding-top: 1em;
     padding-left: 3em;
@@ -640,15 +666,79 @@ body ul li {
 }
 
     .mycontent .title {
-        font-size: 18px;
         min-height: 35px;
-        line-height: 36px;
+        line-height: 35px;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        color: #303030;
+        font-size: 19px;
+        font-weight: bold;
     }
 
     .mycontent p {
+        margin: 0 auto;
+        line-height: 1.8em;
+        margin-top: 5px;
         text-align: left;
+        font-size: 15px;
+        font-family: '微软雅黑','宋体';
+        text-indent: 2em;
+        color: #6F6A6A;
+        /*background-color: #FFFFFF;*/
     }
 
+    /****所有详情页面，需要对：图片img、表格table（word表格、excel等）***/
+
+    /*图片*/
+    .mycontent img {
+        max-width: 90%;
+        height: auto;
+        margin: auto auto;
+        margin-top: 5px;
+    }
+    /*表格table（word表格、excel等）*/
+    .mycontent table {
+        max-width: 600px;
+        height: auto;
+        margin: auto auto;
+        margin-top: 15px;
+    }
+
+    .mycontent a {
+        color: #6F6A6A;
+        text-decoration: none;
+    }
+
+        .mycontent a:hover {
+            color: #0872CA;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+    .mycontent .time {
+        color: #6F6A6A;
+    }
+
+    .mycontent .fruit {
+        font-size: 15px;
+        width: 80%;
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+
+        .mycontent .fruit td {
+            padding-left: 20px;
+        }
+
+
+/****产品页面，需要对：图片img、表格table（word表格、excel等）***/
+.ptable {
+    max-width: 400px;
+    height: auto;
+    margin: auto auto;
+    margin-top: 15px;
+}
 
 .panes {
     /*border: 1px solid #ccc;*/
@@ -670,64 +760,6 @@ body ul li {
         height: 75px;
         /*border: 1px solid #ccc;*/
     }
-
-
-/****所有详情页面，需要对：图片img、表格table（word表格、excel等）***/
-.mycontent .title {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    font-size: 19px;
-    font-weight: bold;
-}
-
-.mycontent p {
-    /*width: 560px;*/
-    margin: 0 auto;
-    font-size: 15px;
-    font-family: Arial,'Microsoft YaHei';
-    line-height: 1.8em;
-    text-align: left;
-    text-indent: 2em;
-    margin-top: 5px;
-}
-/*图片*/
-.mycontent img {
-    max-width: 90%;
-    height: auto;
-    margin: auto auto;
-    margin-top: 5px;
-}
-/*表格table（word表格、excel等）*/
-.mycontent table {
-    max-width: 600px;
-    height: auto;
-    margin: auto auto;
-    margin-top: 15px;
-}
-
-.mycontent a {
-    color: #6f6a6a;
-    text-decoration: none;
-}
-
-    .mycontent a:hover {
-        color: #0872CA;
-        text-decoration: underline;
-    }
-
-.mycontent .time {
-    color: #6f6a6a;
-}
-
-
-/****产品页面，需要对：图片img、表格table（word表格、excel等）***/
-.ptable {
-    max-width: 400px;
-    height: auto;
-    margin: auto auto;
-    margin-top: 15px;
-}
 
 
 
@@ -771,21 +803,51 @@ a:hover .title_left:hover {
 }
 
 .expert {
-    width:100%;
+    width: 100%;
 }
 
-.expert .content_img {
-    margin: 40px 0 10px 0;;
-    height:100px;
-    width: 100px;
-    line-height:100px;
-    text-align:center;
-    border-radius: 50%;
-    overflow:hidden;
+    .expert .content_img {
+        margin: 40px 0 10px 0;
+        ;
+        height: 100px;
+        width: 100px;
+        line-height: 100px;
+        text-align: center;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .expert p {
+        width: 100%;
+        /*padding:1% 20px;*/
+    }
+
+
+.about_mishu tr {
+    font-family: '微软雅黑','宋体';
+    font-size: 15px;
+    color: #6F6A6A;
+    line-height: 1.8em;
 }
 
-.expert p{
-    width:100%;
-    /*padding:1% 20px;*/        
+.pageDiv, .pageDiv1 {
+    text-align: center;
 }
 
+
+.fruitdownload {
+    margin-top: 16px;
+}
+
+    .fruitdownload button {
+        width: 100%;
+        height: 30px;
+        background-color: #92CFEF;
+        border-radius: 5px;
+    }
+
+    .fruitdownload button a {
+        color: #303030;
+        font-size: 12px;
+        text-decoration: underline;
+    }

@@ -1,11 +1,9 @@
 ﻿@using LM.Model.Model
-@using LM.Service.Security
 @using LM.Utility
 @{
     ViewBag.Title = "首页";
     var index = 0;
 
-    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
     var oneNews = ViewBag.OneNews as ArticleModel;
     var oneFocus = ViewBag.OneFocus as ArticleModel;
     var slideArticles = ViewBag.SlideArticles as List<ArticleModel>;
@@ -83,12 +81,12 @@
 
                     .li:hover {
                         background: #9fd5fc;
-                        color: #000000;
+                        color: #0872ca;
                     }
 
                 .active {
-                    background: #FF6911;
-                    color: #000000;
+                    background: #9fd5fc;
+                    color: #0872ca;
                     font-weight: bold;
                 }
             </style>
@@ -101,7 +99,7 @@
                     index++;
                 }
                 <a href="@(slideArticles.Count > 0 ? "/Article/Detail?id=" + slideArticles[0].Id : "")" target="_blank">
-                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc : "")" style="width: 100%; height: 100%;" onclick=""/>
+                    <img src="@(slideArticles.Count > 0 ? slideArticles[0].ImgSrc : "")" style="width: 100%; height: 100%;" onclick="" />
                 </a>
                 <ul id="aa_index">
                     @for (var i = 0; i < slideArticles.Count; i++)
@@ -120,35 +118,35 @@
             <div id="tabs_1_content" class="tabs show">
                 @if (oneNews != null && !string.IsNullOrEmpty(oneNews.Title))
                 {
-                <p class="p_title" title="@oneNews.Title">
-                    @(oneNews.Title.Length > 22 ? oneNews.Title.Substring(0, 19) + "..." : oneNews.Title)
-                </p>
-                <p class="p_brief">
-                    @(!string.IsNullOrEmpty(oneNews.Brief) && oneNews.Brief.Length > 100 ? oneNews.Brief.Substring(0, 97) + "..." : oneNews.Brief)
-                    <span style="color: #505050; cursor: pointer;">
-                        <a href="/Article/Detail?id=@oneNews.Id" target="_blank">[详情]</a>
-                    </span>
-                </p>
+                    <p class="p_title" title="@oneNews.Title">
+                        @(oneNews.Title.Length > 22 ? oneNews.Title.Substring(0, 19) + "..." : oneNews.Title)
+                    </p>
+                    <p class="p_brief">
+                        @(!string.IsNullOrEmpty(oneNews.Brief) && oneNews.Brief.Length > 100 ? oneNews.Brief.Substring(0, 97) + "..." : oneNews.Brief)
+                        <span style="color: #505050; cursor: pointer;">
+                            <a href="/Article/Detail?id=@oneNews.Id" target="_blank">[详情]</a>
+                        </span>
+                    </p>
                 }
             </div>
             <div id="tabs_2_content" class="tabs">
                 @if (oneFocus != null && !string.IsNullOrEmpty(oneFocus.Title))
                 {
-                <p class="p_title" title="@oneFocus.Title">
-                    @(oneFocus.Title.Length > 22 ? oneFocus.Title.Substring(0, 19) + "..." : oneFocus.Title)
-                </p>
-                <p class="p_brief">
-                    @(!string.IsNullOrEmpty(oneFocus.Brief) && oneFocus.Brief.Length > 100 ? oneFocus.Brief.Substring(0, 97) + "..." : oneFocus.Brief)
-                    <span style="color: #505050; cursor: pointer;">
-                        <a href="/Article/Detail?id=@oneFocus.Id" target="_blank">[详情]</a>
-                    </span>
-                </p>
+                    <p class="p_title" title="@oneFocus.Title">
+                        @(oneFocus.Title.Length > 22 ? oneFocus.Title.Substring(0, 19) + "..." : oneFocus.Title)
+                    </p>
+                    <p class="p_brief">
+                        @(!string.IsNullOrEmpty(oneFocus.Brief) && oneFocus.Brief.Length > 100 ? oneFocus.Brief.Substring(0, 97) + "..." : oneFocus.Brief)
+                        <span style="color: #505050; cursor: pointer;">
+                            <a href="/Article/Detail?id=@oneFocus.Id" target="_blank">[详情]</a>
+                        </span>
+                    </p>
                 }
             </div>
         </div>
         <div class="item3">
             <div style="height: 120px; width: 120px; margin: 0 auto;margin-top: -5px;">
-                <img src="@(string.IsNullOrEmpty(config.QrSrc)?"/Content/images/2118b59.jpg":config.QrSrc)" width="100%" height="100%" />
+                <img src="/Content/images2/home_qr.jpg" width="100%" height="100%" />
             </div>
             <ul class="tab_ul">
                 <li class="tab_ul_li hit">联盟简报</li>
@@ -157,10 +155,10 @@
             {
                 foreach (var item in briefs)
                 {
-            <p class="jianbao" title="@(item.Name)">
-                <img src="/Content/images2/home_圆点.png" />
-                <a href="@item.FilePath">@(item.Name.Length > 10 ? item.Name.Substring(0, 7) + "..." : item.Name)</a>
-            </p>
+                    <p class="jianbao" title="@(item.Name)">
+                        <img src="/Content/images2/home_圆点.png" />
+                        <a href="@item.FilePath">@(item.Name)</a>
+                    </p>
                 }
             }
 
@@ -338,21 +336,19 @@
     </div>
     <div class="clear"></div>
     <div class="center_hz">
-        <div class="center_product">
-            <div class="top">
-                <div class="productleft">合作企业</div>
-            </div>
-            <div class="panes">
-                @foreach (var e in logos)
-                {
+        <div class="top">
+            <div class="productleft">联盟理事单位</div>
+        </div>
+        <div class="panes">
+            @foreach (var e in logos)
+            {
 
-                    <div class="pane_goods">
-                        <a href="@e.Site" target="_blank" title="@e.Name">
-                            <img src="@e.LogoSrc">
-                        </a>
-                    </div>
-                }
-            </div>
+                <div class="pane_goods">
+                    <a href="@e.Site" target="_blank" title="@e.Name">
+                        <img src="@e.LogoSrc">
+                    </a>
+                </div>
+            }
         </div>
     </div>
     <div class="clear"></div>

@@ -1,154 +1,78 @@
 ﻿@using LM.Model.Model
 @using LM.Utility
 @{
-    ViewBag.Title = "产品详情";
+    ViewBag.Title = "产品展示";
+    var type = ViewBag.Type;
+
+    var typeList = ViewBag.TypeList as List<CategoryModel>;
     var info = ViewBag.Product as ProductModel;
+    var comps = ViewBag.Companies as List<CompanyModel> ?? new List<CompanyModel>();
+
+    var briefs = ViewBag.Briefs as List<BriefModel>;
 }
+@*@Html.RenderCss("/Content/css2/产品展示.css")*@
+@Html.RenderCss("/Content/css2/产品介绍.css")
+@Html.RenderCss("/Content/css2/关于联盟.css")
 
-@Html.RenderCss("/Content/css/product_show2.css")
+<div class="section" style="margin-bottom:20px;">
+    <div class="section_left">
+        <div class="top">
+            <h3>产品展示</h3>
+            <h5 accesskey="">Alliance Products</h5>
+        </div>
 
-@section partialScriptCss{
-    <script>
-        $(function () {
-            $('.about_leftb table').css('width', '100%');
-
-            $(".open").click(function () {
-                $(this).parent().next().slideToggle(50);
-
-                var html1 = '<font color="#60C6F1">▶</font> 更多产品信息';
-                var html2 = '<font color="#60C6F1">▼</font> 收起';
-                $(this).html($(this).text() === '▼ 收起' ? html1 : html2);
-            });
-
-            // 处理复制的表格的自带宽高
-            $('table').each(function () {
-                $(this).removeAttr('style');
-                $(this).find('tr').each(function () {
-                    $(this).removeAttr('width').removeAttr('height');
-                });
-                $(this).find('td').each(function () {
-                    $(this).removeAttr('width').removeAttr('height');
-                });
-                $(this).find('p').each(function () {
-                    $(this).css('width', 'auto');
-                    //$(this).css('max-width', '50px');
-                });
-            });
-        });
-    </script>
-}
-
-
-<div class="bg">
-    <div class="about_main" style="height: 550px;">
-        <div class="about_left">
-            <div class="about_left1">
-                <img src="@info.ImgSrc" width="80%" height="140px" style="margin: 10px auto;" />
-                <p>@info.Name</p>
+        @foreach (var item in typeList)
+        {
+        <a href="/Product/List?type=@item.Id">
+            <div class="title_left">
+                @(item.Name)&nbsp;<samp>>></samp>
             </div>
+        </a>
+        }
 
-            <div class="about_left2">
-                <style>
-                    /*关于联盟页的 内容详情页*/
-                    .about_right {
-                        width: 630px;
-                        min-height: 800px;
-                        border: 1px solid #CCC;
-                        float: right;
-                        padding-bottom: 20px;
-                    }
+        <div class="slide1">
+            <br />
+            <span class="slide_title">关注联盟微信</span>
+            <div class="slide_qr">
+                <img src="/Content/images2/home_qr.jpg" width="80%" style="margin: auto auto;" />
+            </div>
+        </div>
+        <div class="top">
+            <h3>联盟简报</h3>
+        </div>
+        <ul class="news_left">
+            @foreach (var b in briefs)
+            {
+            <li>
+                <a href="@(b.FilePath)">@(b.Name)</a>
+            </li>
+            }
+        </ul>
+    </div>
 
-                    .about_leftb p {
-                        width: 560px;
-                        margin: 0 auto;
-                        font-size: 13px;
-                        font-family: Arial, 'Microsoft YaHei';
-                        line-height: 24px;
-                        text-align: left;
-                        text-indent: 2em;
-                        margin-top: 15px;
-                    }
+    <div class="section_right">
+        <div class="nav">
+            当前位置：首页 > 产品展示 > @typeList.FirstOrDefault(t => t.Id == type).Name
+        </div>
 
-                    .about_leftb img {
-                        width: 400px;
-                        height: auto;
-                        margin: auto auto;
-                        margin-top: 15px;
-                    }
-
-                    .about_leftb table {
-                        width: 95%;
-                    }
-                </style>
-
-                <div class="about_leftt">
-                    <div style="height: 130px;">
-                        <ul>
-                            <li>生产单位：@info.Company1Name</li>
-                            <li>联系电话：@info.Company1Phone</li>
-                            <li>传真号码：@info.Company1Fax</li>
-                            <li>企业邮箱：@info.Company1Email</li>
-                            <li>联系人：@info.Company1Linkman</li>
-                        </ul>
-                    </div>
-
-                    <div class="about_leftb">
-                        <div style="height: 30px; line-height: 30px; text-align: right; padding-right: 10px;">
-                            <a href="javascript:;" class="open"> <font color="#60C6F1">▶</font> 更多产品信息</a>
-                        </div>
-                        <div style="text-align: left; padding: 10px; border-top: 1px solid #e1dbdb; line-height: 25px; display: none;">
-                            <div class="mycontent">
-                                @Html.Raw(info.Description1)
-                            </div>
-                        </div>
-                    </div>
-
+        <div class="contents mycontent">
+            <div class="pane_link">
+                <img src="@info.ImgSrc" />
+                <div class="detailed">
+                    <p>名称：@info.Name</p>
+                    <p>级别：@info.Level</p>
+                    <p>状体：@info.State</p>
+                    <p>应用：@info.Application</p>
                 </div>
-                <div class="about_leftt" @Html.Raw(string.IsNullOrEmpty(info.Company2Name) ? "style='display: none'" : "")>
-                    <div style="height: 130px;">
-                        <ul>
-                            <li>生产单位：@info.Company2Name</li>
-                            <li>联系电话：@info.Company2Phone</li>
-                            <li>传真号码：@info.Company2Fax</li>
-                            <li>企业邮箱：@info.Company2Email</li>
-                            <li>联系人：@info.Company2Linkman</li>
-                        </ul>
-                    </div>
-                    <div class="about_leftb">
-                        <div style="height: 30px; line-height: 30px; text-align: right; padding-right: 10px;">
-                            <a href="javascript:;" class="open"> <font color="#60C6F1">▶</font> 更多产品信息</a>
-                        </div>
-                        <div style="text-align: left; padding: 10px; border-top: 1px solid #e1dbdb; line-height: 25px; display: none;">
-                            <div class="mycontent">
-                                @Html.Raw(info.Description2)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about_leftt" @Html.Raw(string.IsNullOrEmpty(info.Company3Name) ? "style='display: none'" : "")>
-                    <div style="height: 130px;">
-                        <ul>
-                            <li>生产单位：@info.Company3Name</li>
-                            <li>联系电话：@info.Company3Phone</li>
-                            <li>传真号码：@info.Company3Fax</li>
-                            <li>企业邮箱：@info.Company3Email</li>
-                            <li>联系人：@info.Company3Linkman</li>
-                        </ul>
-                    </div>
-                    <div class="about_leftb">
-                        <div style="height: 30px; line-height: 30px; text-align: right; padding-right: 10px;">
-                            <a href="javascript:;" class="open"> <font color="#60C6F1">▶</font> 更多产品信息</a>
-                        </div>
-                        <div style="text-align: left; padding: 10px; border-top: 1px solid #e1dbdb; line-height: 25px; display: none;">
-                            <div class="mycontent">
-                                @Html.Raw(info.Description3)
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            <div class="contents_back">
+                产品介绍
+            </div>
+            <div class="contents_new">
+                @Html.Raw(info.Description)
             </div>
         </div>
     </div>
-    <div style="clear: both;"></div>
 </div>
+
 

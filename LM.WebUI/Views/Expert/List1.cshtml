@@ -13,9 +13,9 @@
     var list3 = new List<ExpertModel>();
     if (list != null && list.Count > 0)
     {
-        list1 = list.Where(e => e.Range == ExpertRange.专家组组长).ToList();
-        list2 = list.Where(e => e.Range == ExpertRange.专家组副组长).ToList();
-        list3 = list.Where(e => e.Range == ExpertRange.专家组成员).ToList();
+        list1 = list.Where(e => e.Range == ExpertRange.专家委员会组长).ToList();
+        list2 = list.Where(e => e.Range == ExpertRange.专家委员会副组长).ToList();
+        list3 = list.Where(e => e.Range == ExpertRange.专家委员会成员).ToList();
     }
     var pageInfo = (ViewBag.PageInfo as PageInfo) ?? new PageInfo();
 }
@@ -87,7 +87,7 @@
                         <dt>
                             @if (i == 0)
                             {
-                                <p>专家组组长:</p>
+                                <p>专家委员会组长:</p>
                             }
                         </dt>
                         <dd><a href="/Expert/List?id=@list1[i].Id&pindex=@pageInfo.PageIndex">@list1[i].Name</a></dd>
@@ -99,7 +99,7 @@
                         <dt>
                             @if (i == 0)
                             {
-                                <p>专家组副组长:</p>
+                                <p>专家委员会副组长:</p>
                             }
                         </dt>
                         <dd><a href="/Expert/List?id=@list2[i].Id&pindex=@pageInfo.PageIndex">@list2[i].Name</a></dd>
@@ -111,7 +111,7 @@
                         <dt>
                             @if (i == 0)
                             {
-                                <p>专家组成员:</p>
+                                <p>专家委员会成员:</p>
                             }
                         </dt>
                         <dd><a href="/Expert/List?id=@list3[i].Id&pindex=@pageInfo.PageIndex">@list3[i].Name</a></dd>

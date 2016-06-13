@@ -24,7 +24,7 @@ namespace LM.WebUI.Controllers
 
             using (var fruitsService = ResolveService<FruitsService>())
             {
-                psize = 10;
+                psize = 15;
                 var query = string.Format(@"(select Id,Name,Type,Company,Leader,Patent,Rights,Awards,Application from [Fruits])");
                 var orderby = "Id desc";
                 var rs = fruitsService.GetByPage(query, orderby, pindex, psize, out itemCount);

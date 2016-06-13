@@ -9,23 +9,24 @@ function slide(imgList, idList) {
     window.setInterval(function () {
         currInd = ++currInd % imgList.length;
         $("#aa img").attr("src", imgList[currInd]).fadeOut(100).fadeIn(1000);
-        $("#aa img").bind('click', function() {
+        $("#aa img").bind('click', function () {
             window.open('/Article/Detail?id=' + idList[currInd]);
         });
         $("#aa_index").find("li").removeClass("active");
         $("#aa #aa_index li:eq(" + currInd + ")").addClass("active");
     }, 3000);
-    
+
     // µã»÷ÊÂ¼þ
-	$("body").on("click", "#aa_index .li", function () {
-		var $this = $(this);
-		currInd = $this.text() - 1;
-		$("#aa img").attr("src", imgList[currInd]).fadeOut(100).fadeIn(1000);
-		$("#aa img").bind('click', function () {
-		    //window.location.href = '/Article/InfoList?type=' + typeList[currInd];
-		    window.open('/Article/Detail?id=' + idList[currInd]);
-		});
-		$("#aa_index").find("li").removeClass("active");
-		$this.addClass("active");
-	});
+    $("body").on("click", "#aa_index .li", function () {
+        var $this = $(this);
+        thisId = $this.text() == undefined || $this.text() == '' ? $this.attr('cid') : $this.text();
+        currInd = thisId - 1;
+        $("#aa img").attr("src", imgList[currInd]).fadeOut(100).fadeIn(1000);
+        $("#aa img").bind('click', function () {
+            //window.location.href = '/Article/InfoList?type=' + typeList[currInd];
+            window.open('/Article/Detail?id=' + idList[currInd]);
+        });
+        $("#aa_index").find("li").removeClass("active");
+        $this.addClass("active");
+    });
 }

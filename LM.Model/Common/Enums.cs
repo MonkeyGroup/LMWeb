@@ -31,9 +31,9 @@
 
     public enum ExpertRange
     {
-        专家组组长 = 1,
-        专家组副组长 = 2,
-        专家组成员 = 3
+        专家委员会组长 = 1,
+        专家委员会副组长 = 2,
+        专家委员会成员 = 3
     }
 
     public enum ProductType

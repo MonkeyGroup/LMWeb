@@ -30,63 +30,7 @@ namespace LM.WebUI.Controllers
             var industryArticles = new List<ArticleModel>(); // 行业信息
 
             #endregion
-
-
-            #region 首页配置数据
-            // 首先判断session中有无存储此配置信息
-            var conf = CurrentContext.Get("HomePageConfig");
-            if (conf == null)
-            {
-                // 若无，则取出后放入session
-                using (var homePageConfigService = ResolveService<HomePageConfigService>())
-                {
-                    var svs = homePageConfigService.GetLast();
-
-                    if (!svs.Status)
-                    {
-                        CurrentContext.Set("HomePageConfig", new HomePageConfigModel(), 120);
-                        ViewBag.Message = "未读取到任何首页配置信息！";
-                        return View("Error");
-                    }
-
-                    var config = svs.Data as HomePageConfigModel;
-                    CurrentContext.Set("HomePageConfig", config, 120);
-                }
-            }
-            #endregion
-
-
-            #region Footer 数据
-            var footerModel = CurrentContext.Get("FooterModel");
-            if (footerModel == null)
-            {
-                var model = new FooterModel();
-
-                using (var baseInfoService = ResolveService<BaseInfoService>())
-                {
-                    var rs = baseInfoService.GetLast();
-                    if (rs.Status && rs.Data != null)
-                    {
-                        var info = rs.Data as BaseInfoModel;
-                        model.Address = info.Address;
-                        model.Email = info.Email;
-                        model.Telphone = info.Telphone;
-                    }
-                }
-
-                using (var companyService = ResolveService<CompanyService>())
-                {
-                    var rs = companyService.GetList("select Id,Name,RangeName,Site from [Company] order by Range asc,Id asc");
-                    if (rs.Status && rs.Data != null)
-                    {
-                        model.companies = rs.Data as List<CompanyModel>;
-                    }
-                }
-
-                CurrentContext.Set("FooterModel", model, 720);
-            }
-            #endregion
-
+            
 
             #region 文章数据 Article
             using (var articleService = ResolveService<ArticleService>())

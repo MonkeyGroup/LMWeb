@@ -35,7 +35,7 @@ namespace LM.WebUI.Controllers
             // 获取列表数据
             using (var productService = ResolveService<ProductService>())
             {
-                psize = 6;
+                psize = 10;
                 type = type == 0 && typeList.Count > 0 ? typeList.First().Id : type;
                 var query = string.Format(@"(select a.Id, a.Name, a.ImgSrc,a.Level,a.State, a.Application, a.SaveAt from [Product] a Where a.Type = {0})", type);
                 var orderby = "SaveAt desc";
@@ -46,17 +46,40 @@ namespace LM.WebUI.Controllers
                 }
             }
 
+            var briefs = new List<BriefModel>(); // 3条简报
+
+            using (var briefService = ResolveService<BriefService>())
+            {
+                var rs = briefService.GetList("select top 3 Id,Name,FilePath from [Brief] order by SaveAt desc");
+                if (rs.Status && rs.Data != null)
+                {
+                    briefs = rs.Data as List<BriefModel>;
+                }
+            }
+
+            ViewBag.Briefs = briefs;
             ViewBag.Type = type;
             ViewBag.Products = models;
             ViewBag.TypeList = typeList;
             ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
-            return View("List2");
+            return View("List");
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int id, int type = 0)
         {
             ProductModel model;
             List<CompanyModel> comps;
+            var typeList = new List<CategoryModel>();
+
+            // 获取分类下拉框数据
+            using (var categoryService = ResolveService<CategoryService>())
+            {
+                var rs = categoryService.GetByTarget(target: CategoryTarget.产品分类.ToString());
+                if (rs.Status && rs.Data != null)
+                {
+                    typeList = rs.Data as List<CategoryModel>;
+                }
+            }
 
             using (var productService = ResolveService<ProductService>())
             {
@@ -77,27 +100,6 @@ namespace LM.WebUI.Controllers
                         Company = entity.Company,
                         Description = entity.Description,
 
-                        //Company1Name = entity.Company1Name,
-                        //Company1Phone = entity.Company1Phone,
-                        //Company1Fax = entity.Company1Fax,
-                        //Company1Email = entity.Company1Email,
-                        //Company1Linkman = entity.Company1Linkman,
-
-                        //Company2Name = entity.Company2Name,
-                        //Company2Phone = entity.Company2Phone,
-                        //Company2Fax = entity.Company2Fax,
-                        //Company2Email = entity.Company2Email,
-                        //Company2Linkman = entity.Company2Linkman,
-
-                        //Company3Name = entity.Company3Name,
-                        //Company3Phone = entity.Company3Phone,
-                        //Company3Fax = entity.Company3Fax,
-                        //Company3Email = entity.Company3Email,
-                        //Company3Linkman = entity.Company3Linkman,
-
-                        //Description1 = entity.Description1,
-                        //Description2 = entity.Description2,
-                        //Description3 = entity.Description3,
                         SaveAt = DateTime.Now,
                         ImgSrc = entity.ImgSrc
                     };
@@ -122,9 +124,23 @@ namespace LM.WebUI.Controllers
                 }
             }
 
+            var briefs = new List<BriefModel>(); // 3条简报
+
+            using (var briefService = ResolveService<BriefService>())
+            {
+                var rs = briefService.GetList("select top 3 Id,Name,FilePath from [Brief] order by SaveAt desc");
+                if (rs.Status && rs.Data != null)
+                {
+                    briefs = rs.Data as List<BriefModel>;
+                }
+            }
+
+            ViewBag.Briefs = briefs;
+            ViewBag.Type = type;
+            ViewBag.TypeList = typeList;
             ViewBag.Product = model;
             ViewBag.Companies = comps;
-            return View("Detail2");
+            return View("Detail");
         }
 
         #endregion

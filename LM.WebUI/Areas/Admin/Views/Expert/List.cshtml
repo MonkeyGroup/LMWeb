@@ -87,9 +87,9 @@
             <form method="post">
                 <select id="type" name="type">
                     <option value=""> 未分类</option>
-                    <option value="@((int) ExpertRange.专家组组长)" @((int)ExpertRange.专家组组长 + "" == type ? "selected" : "")> @ExpertRange.专家组组长</option>
-                    <option value="@((int) ExpertRange.专家组副组长)" @((int)ExpertRange.专家组副组长 + "" == type ? "selected" : "")> @ExpertRange.专家组副组长</option>
-                    <option value="@((int) ExpertRange.专家组成员)" @((int)ExpertRange.专家组成员 + "" == type ? "selected" : "")> @ExpertRange.专家组成员</option>
+                    <option value="@((int) ExpertRange.专家委员会组长)" @((int)ExpertRange.专家委员会组长 + "" == type ? "selected" : "")> @ExpertRange.专家委员会组长</option>
+                    <option value="@((int) ExpertRange.专家委员会副组长)" @((int)ExpertRange.专家委员会副组长 + "" == type ? "selected" : "")> @ExpertRange.专家委员会副组长</option>
+                    <option value="@((int) ExpertRange.专家委员会成员)" @((int)ExpertRange.专家委员会成员 + "" == type ? "selected" : "")> @ExpertRange.专家委员会成员</option>
                 </select>
                 <input id="keys" name="keys" type="text" class="inpMain" value="@keys" size="20" />
                 <input name="submit" class="btnGray" type="button" value="筛选" onclick="return search() && false;" />

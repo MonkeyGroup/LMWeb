@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using LM.Model.Common;
 using LM.Model.Entity;
 using LM.Model.Model;
 using LM.Service;
@@ -128,6 +129,7 @@ namespace LM.WebUI.Controllers
                         Name = entity.Name,
                         ImgSrc = entity.ImgSrc,
                         Range = entity.Range,
+                        RangeName = entity.Range.ToString(),
                         Description = entity.Description,
                         Books = entity.Books,
                         SaveAt = DateTime.Now

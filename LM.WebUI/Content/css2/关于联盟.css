@@ -7,13 +7,14 @@
 
     .section_left .top {
         padding: 15px 20px;
+        padding-left: 0;
         text-align: right;
         background: #454545;
         color: #ffffff;
     }
 
     .section_left .top1 {
-        padding: 25px 20px;
+        padding: 25px 0px;
         text-align: center;
         background: #454545;
         color: #ffffff;
@@ -24,6 +25,7 @@
     padding-left: 25px;
     /*min-height: 600px;*/
     float: left;
+    margin-bottom: 30px;
 }
 
 .news_left {
@@ -87,7 +89,7 @@
     border: 0px solid #E8E8E8;
 }
 
-.section_left h3{
+.section_left h3 {
     font-weight: normal;
     font-size: 18px;
 }
@@ -95,4 +97,27 @@
 .section_left h5 {
     font-size: 16px;
     font-family: Courier New;
+}
+
+
+
+.company_name {
+    float: left;
+    width: 45%;
+    margin-right: 5%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.last_name {
+    float: none;
+}
+
+.company_type {
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin: 30px 0 10px 0;
 }

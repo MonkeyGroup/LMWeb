@@ -12,7 +12,6 @@
 }
 
 @Html.RenderCss("/Content/css2/关于联盟.css")
-@*@Html.RenderCss("/Content/css/dynamic.css")*@
 @Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
 
 @section partialScriptCss{
@@ -43,17 +42,37 @@
             <h3>新闻资讯</h3>
             <h5 accesskey="">News Information</h5>
         </div>
-        <a href="/Article/InfoList"><div class="title_left">联盟动态&nbsp;<samp>>></samp></div></a>
-        <a href="/Article/InfoList?type=行业信息"><div class="title_left">行业信息&nbsp;<samp>>></samp></div></a>
-        <a href="/Article/InfoList?type=联盟要闻"><div class="title_left">联盟要闻&nbsp;<samp>>></samp></div></a>
-        <a href="/Article/InfoList?type=特别关注"><div class="title_left">特别关注&nbsp;<samp>>></samp></div></a>
-        <a href="/Article/BriefList"><div class="title_left">联盟简报&nbsp;<samp>>></samp></div></a>
+        <a href="/Article/InfoList">
+            <div class="title_left">
+                联盟动态&nbsp;<samp>>></samp>
+            </div>
+        </a>
+        <a href="/Article/InfoList?type=行业信息">
+            <div class="title_left">
+                行业信息&nbsp;<samp>>></samp>
+            </div>
+        </a>
+        <a href="/Article/InfoList?type=联盟要闻">
+            <div class="title_left">
+                联盟要闻&nbsp;<samp>>></samp>
+            </div>
+        </a>
+        <a href="/Article/InfoList?type=特别关注">
+            <div class="title_left">
+                特别关注&nbsp;<samp>>></samp>
+            </div>
+        </a>
+        <a href="/Article/BriefList">
+            <div class="title_left">
+                联盟简报&nbsp;<samp>>></samp>
+            </div>
+        </a>
 
         <div class="slide1">
             <br />
             <span class="slide_title">关注联盟微信</span>
             <div class="slide_qr">
-                <img src="/Content/images2/2118b59.jpg" width="80%" style="margin: auto auto;" />
+                <img src="/Content/images2/home_qr.jpg" width="80%" style="margin: auto auto;" />
             </div>
         </div>
 
@@ -69,6 +88,7 @@
             }
         </ul>
     </div>
+
     <div class="section_right">
         <div class="nav">
             当前位置：首页 > 新闻资讯 > @type
@@ -82,15 +102,15 @@
             {
                 foreach (var item in list)
                 {
-                    <p style="font-size: 15px; line-height: 30px; padding:0  25px; text-indent: 0;" title="@item.Title">
-                        <a href="/Article/Detail?id=@item.Id" target="_blank">@(item.Title.Length <= 30 ? item.Title : item.Title.Substring(0, 27) + "...")</a>
-                        <span class="time" style="float: right;">[@item.SaveAt.ToString("yyyy-MM-dd")]</span>
-                    </p>
+            <p style="font-size: 15px; line-height: 30px; padding:0  25px; text-indent: 0;" title="@item.Title">
+                <a href="/Article/Detail?id=@item.Id" target="_blank">@(item.Title.Length <= 30 ? item.Title : item.Title.Substring(0, 27) + "...")</a>
+                <span class="time" style="float: right;">[@item.SaveAt.ToString("yyyy-MM-dd")]</span>
+            </p>
                 }
             }
             else
             {
-                <div>无数据！</div>
+            <div>无数据！</div>
             }
         </div>
         <!--分页-->

@@ -1,9 +1,6 @@
-﻿@using LM.Model.Model
-@using LM.Service.Security
-@{
+﻿@{
     Layout = null; /* 此句必须加，不然默认布局页为_Layout页，会造成死循环 */
     ViewBag.Title = "Header";
-    var config = CurrentContext.Get("HomePageConfig") as HomePageConfigModel ?? new HomePageConfigModel();
 }
 
 <script>
@@ -39,7 +36,7 @@
             </div>
         </div>
         <div class="right" style="min-height:80px;line-height:80px;">
-            <input type="text" class="input_text" placeholder="请输入关键字" style="margin-top: 23px;" /><button type="button" class="button bg-blue" onclick='seaSubmit()'>搜索</button>
+            <input type="text" class="input_text" id="searchKey" placeholder="请输入关键字" style="margin-top: 23px;" /><button type="button" class="button bg-blue" onclick='seaSubmit()'>搜索</button>
         </div>
         <div class="clear"></div>
     </div>
@@ -69,6 +66,6 @@
                    type="application/x-shockwave-flash"
                    width="100%"/>
         </object>*@
-    <img src="@(string.IsNullOrEmpty(config.FlashSrc) ? "/Content/images2/flash.png" : config.FlashSrc)" width="100%" height="100%" />
+    <img src="/Content/images2/首页_flash.jpg" width="100%" height="100%" />
     <div class="clear"></div>
 </div>
