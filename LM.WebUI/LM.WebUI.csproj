@@ -259,6 +259,7 @@
     <Content Include="Areas\Admin\Views\Product\List2.cshtml" />
     <Content Include="Areas\Admin\Views\Ad\List.cshtml" />
     <Content Include="Areas\Admin\Views\Ad\Ad.cshtml" />
+    <Content Include="Content\doc\中国电子化工新材料产业联盟科研成果发布资料表.docx" />
     <None Include="log4net.config">
       <SubType>Designer</SubType>
     </None>

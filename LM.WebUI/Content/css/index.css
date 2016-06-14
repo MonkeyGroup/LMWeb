@@ -808,9 +808,8 @@ a:hover .title_left:hover {
 
     .expert .content_img {
         margin: 40px 0 10px 0;
-        ;
-        height: 100px;
-        width: 100px;
+        height: 140px;
+        width: 140px;
         line-height: 100px;
         text-align: center;
         border-radius: 50%;
@@ -851,3 +850,9 @@ a:hover .title_left:hover {
         font-size: 12px;
         text-decoration: underline;
     }
+
+
+.ke-insertfile {
+    text-decoration: underline;
+    color: #83b8e4;
+}

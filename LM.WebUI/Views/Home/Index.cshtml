@@ -157,7 +157,7 @@
                 {
                     <p class="jianbao" title="@(item.Name)">
                         <img src="/Content/images2/home_圆点.png" />
-                        <a href="@item.FilePath">@(item.Name)</a>
+                        <a href="@item.FilePath" target="_blank">@(item.Name)</a>
                     </p>
                 }
             }
@@ -280,7 +280,7 @@
                         foreach (var c in subCompanies.TakeWhile(c => i++ <= 8))
                         {
                             <li class="centerli" title="@c.Name">
-                                <a href="@c.Site" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
+                                <a href="/Company/Detail?id=@c.Id" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
                             </li>
                         }
                     }
@@ -303,7 +303,7 @@
                         foreach (var c in supCompanies.TakeWhile(c => i++ <= 8))
                         {
                             <li class="centerli" title="@c.Name">
-                                <a href="@c.Site" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
+                                <a href="/Company/Detail?id=@c.Id" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
                             </li>
                         }
                     }
@@ -326,7 +326,7 @@
                         foreach (var c in otherCompanies.TakeWhile(c => i++ <= 8))
                         {
                             <li class="centerli" title="@c.Name">
-                                <a href="@c.Site" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
+                                <a href="/Company/Detail?id=@c.Id" target="_blank">@(c.Name.Length > 20 ? c.Name.Substring(0, 17) + "..." : c.Name)</a>
                             </li>
                         }
                     }
