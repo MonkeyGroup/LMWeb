@@ -37,7 +37,7 @@ namespace LM.WebUI.Controllers
             {
                 psize = 10;
                 type = type == 0 && typeList.Count > 0 ? typeList.First().Id : type;
-                var query = string.Format(@"(select a.Id, a.Name, a.ImgSrc,a.Level,a.State, a.Application, a.SaveAt from [Product] a Where a.Type = {0})", type);
+                var query = string.Format(@"(select a.Id, a.Name, a.ImgSrc,a.Level,a.State, a.Application, a.Company,a.SaveAt from [Product] a Where a.Type = {0})", type);
                 var orderby = "SaveAt desc";
                 var rs = productService.GetByPage(query, orderby, pindex, psize, out itemCount);
                 if (rs.Status && rs.Data != null)

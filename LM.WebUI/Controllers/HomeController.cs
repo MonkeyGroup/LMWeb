@@ -73,14 +73,15 @@ namespace LM.WebUI.Controllers
             #region 企业数据 Company
             using (var companyService = ResolveService<CompanyService>())
             {
-                // logo
-                var rs1 = companyService.GetList("select top 20 Id,Name,LogoSrc,Site,SaveAt from [Company] order by Range asc,Name asc ");
+                // 需要显示的联盟成员单位（index > 0）
+                var rs1 = companyService.GetList("select a.*, b.[Index] ShowIndex  from [Company] a inner join [Category] b on a.Range = b.Id where a.[Index] > 0 order by ShowIndex desc,[Index] desc");
                 if (rs1.Status && rs1.Data != null)
                 {
                     logos = rs1.Data as List<CompanyModel>;
                 }
                 // 上下游企业
-                var rs2 = companyService.GetList("select Id,Name,Type,Site,SaveAt from [Company] order by Type asc");
+                //var rs2 = companyService.GetList("select Id,Name,Type,Site,SaveAt from [Company] order by Type asc");
+                var rs2 = companyService.GetList("select a.*, b.[Index] ShowIndex  from [Company] a inner join [Category] b on a.Range = b.Id order by [Index] desc,ShowIndex desc");
                 if (rs2.Status && rs2.Data != null)
                 {
                     var comps = rs2.Data as List<CompanyModel>;

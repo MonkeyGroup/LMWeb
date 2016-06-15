@@ -142,7 +142,7 @@
                 foreach (var item in list)
                 {
                     <p style="font-size: 15px; line-height: 30px; padding: 0 25px; text-indent: 0;" title="@item.Name">
-                        <a href="@item.FilePath">@(item.Name.Length <= 30 ? item.Name : item.Name.Substring(0, 27) + "...")</a>
+                        <a href="@item.FilePath" target="_blank">@(item.Name.Length <= 30 ? item.Name : item.Name.Substring(0, 27) + "...")</a>
                         <span class="time" style="float: right;">[@item.SaveAt.ToString("yyyy-MM-dd")]</span>
                     </p>
                 }

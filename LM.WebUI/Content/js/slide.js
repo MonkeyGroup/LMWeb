@@ -8,10 +8,10 @@ function slide(imgList, idList) {
     var currInd = 0; // 起始下标
     window.setInterval(function () {
         currInd = ++currInd % imgList.length;
-        $("#aa img").attr("src", imgList[currInd]).fadeOut(100).fadeIn(1000);
-        $("#aa img").bind('click', function () {
-            window.open('/Article/Detail?id=' + idList[currInd]);
-        });
+
+        $("#aa img").attr("src", imgList[currInd]).fadeOut(200).fadeIn(800); // 切换图片
+        $("#aa > a").attr("href", '/Article/Detail?id=' + idList[currInd]); // 切换链接
+
         $("#aa_index").find("li").removeClass("active");
         $("#aa #aa_index li:eq(" + currInd + ")").addClass("active");
     }, 3000);
@@ -21,11 +21,10 @@ function slide(imgList, idList) {
         var $this = $(this);
         thisId = $this.text() == undefined || $this.text() == '' ? $this.attr('cid') : $this.text();
         currInd = thisId - 1;
-        $("#aa img").attr("src", imgList[currInd]).fadeOut(100).fadeIn(1000);
-        $("#aa img").bind('click', function () {
-            //window.location.href = '/Article/InfoList?type=' + typeList[currInd];
-            window.open('/Article/Detail?id=' + idList[currInd]);
-        });
+
+        $("#aa img").attr("src", imgList[currInd]).fadeOut(200).fadeIn(800);
+        $("#aa > a").attr("href", '/Article/Detail?id=' + idList[currInd]);
+
         $("#aa_index").find("li").removeClass("active");
         $this.addClass("active");
     });

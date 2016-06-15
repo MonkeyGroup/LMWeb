@@ -2674,7 +2674,7 @@
       <publishTime>05/03/2016 10:02:57</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Company/Company.cshtml">
-      <publishTime>06/13/2016 21:16:54</publishTime>
+      <publishTime>06/13/2016 21:53:23</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Company/List.cshtml">
       <publishTime>06/13/2016 21:25:31</publishTime>
@@ -2743,10 +2743,10 @@
       <publishTime>04/26/2016 09:32:16</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>06/13/2016 21:46:12</publishTime>
+      <publishTime>06/15/2016 18:40:40</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>06/13/2016 21:46:12</publishTime>
+      <publishTime>06/15/2016 18:40:40</publishTime>
     </File>
     <File Include="bin/Dapper.dll">
       <publishTime>04/26/2016 09:32:15</publishTime>
@@ -2839,13 +2839,13 @@
       <publishTime>06/13/2016 21:45:55</publishTime>
     </File>
     <File Include="bin/LM.Service.dll">
-      <publishTime>06/13/2016 21:45:56</publishTime>
+      <publishTime>06/15/2016 15:28:09</publishTime>
     </File>
     <File Include="bin/LM.Utility.dll">
       <publishTime>05/11/2016 11:26:42</publishTime>
     </File>
     <File Include="bin/LM.WebUI.dll">
-      <publishTime>06/13/2016 21:45:58</publishTime>
+      <publishTime>06/15/2016 18:40:23</publishTime>
     </File>
     <File Include="bin/log4net.dll">
       <publishTime>04/26/2016 09:32:16</publishTime>
@@ -3022,7 +3022,7 @@
       <publishTime>06/06/2016 09:23:33</publishTime>
     </File>
     <File Include="Content/css/index.css">
-      <publishTime>06/13/2016 21:43:02</publishTime>
+      <publishTime>06/14/2016 15:45:46</publishTime>
     </File>
     <File Include="Content/css/members.css">
       <publishTime>04/05/2016 23:21:12</publishTime>
@@ -3070,25 +3070,28 @@
       <publishTime>06/12/2016 09:40:38</publishTime>
     </File>
     <File Include="Content/css2/index.css">
+      <publishTime>06/15/2016 18:06:34</publishTime>
+    </File>
+    <File Include="Content/css2/index1.css">
       <publishTime>06/12/2016 09:40:38</publishTime>
     </File>
     <File Include="Content/css2/专家委员会.css">
       <publishTime>06/12/2016 21:09:47</publishTime>
     </File>
     <File Include="Content/css2/产品介绍.css">
-      <publishTime>06/13/2016 19:47:22</publishTime>
+      <publishTime>06/13/2016 22:01:52</publishTime>
     </File>
     <File Include="Content/css2/产品展示.css">
-      <publishTime>06/13/2016 18:24:36</publishTime>
+      <publishTime>06/13/2016 22:02:03</publishTime>
     </File>
     <File Include="Content/css2/产品展示2.css">
       <publishTime>06/12/2016 09:40:38</publishTime>
     </File>
     <File Include="Content/css2/关于联盟.css">
-      <publishTime>06/13/2016 20:31:33</publishTime>
+      <publishTime>06/15/2016 14:38:55</publishTime>
     </File>
     <File Include="Content/css2/文章详细.css">
-      <publishTime>06/12/2016 17:31:14</publishTime>
+      <publishTime>06/13/2016 22:09:43</publishTime>
     </File>
     <File Include="Content/css2/科研成果.css">
       <publishTime>06/12/2016 09:40:38</publishTime>
@@ -3110,6 +3113,9 @@
     </File>
     <File Include="Content/css2/联系我们.css">
       <publishTime>06/12/2016 09:40:38</publishTime>
+    </File>
+    <File Include="Content/doc/中国电子化工新材料产业联盟科研成果发布资料表.docx">
+      <publishTime>06/14/2016 09:35:23</publishTime>
     </File>
     <File Include="Content/images/20160321143707.jpg">
       <publishTime>04/26/2016 09:32:15</publishTime>
@@ -3459,6 +3465,9 @@
     <File Include="Content/images2/下_2.png">
       <publishTime>06/12/2016 20:58:11</publishTime>
     </File>
+    <File Include="Content/images2/关于联盟_联盟组织.JPG">
+      <publishTime>06/15/2016 14:42:47</publishTime>
+    </File>
     <File Include="Content/images2/关于联盟_联盟组织.png">
       <publishTime>06/12/2016 09:40:38</publishTime>
     </File>
@@ -3508,7 +3517,7 @@
       <publishTime>05/19/2016 12:45:41</publishTime>
     </File>
     <File Include="Content/js/slide.js">
-      <publishTime>06/13/2016 11:27:01</publishTime>
+      <publishTime>06/15/2016 15:57:35</publishTime>
     </File>
     <File Include="Content/js/tab.js">
       <publishTime>04/26/2016 09:32:15</publishTime>
@@ -3694,10 +3703,10 @@
       <publishTime>04/26/2016 09:32:15</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>06/13/2016 21:46:05</publishTime>
+      <publishTime>06/15/2016 18:40:34</publishTime>
     </File>
     <File Include="Views/Article/BriefList.cshtml">
-      <publishTime>06/13/2016 11:29:35</publishTime>
+      <publishTime>06/15/2016 16:40:23</publishTime>
     </File>
     <File Include="Views/Article/BriefList1.cshtml">
       <publishTime>06/12/2016 09:40:38</publishTime>
@@ -3709,7 +3718,7 @@
       <publishTime>06/12/2016 09:40:38</publishTime>
     </File>
     <File Include="Views/Article/InfoList.cshtml">
-      <publishTime>06/13/2016 20:58:07</publishTime>
+      <publishTime>06/15/2016 14:55:45</publishTime>
     </File>
     <File Include="Views/Article/InfoList1.cshtml">
       <publishTime>06/12/2016 09:40:38</publishTime>
@@ -3730,13 +3739,13 @@
       <publishTime>05/18/2016 12:47:19</publishTime>
     </File>
     <File Include="Views/Company/List.cshtml">
-      <publishTime>06/13/2016 20:26:14</publishTime>
+      <publishTime>06/15/2016 14:52:47</publishTime>
     </File>
     <File Include="Views/Company/List1.cshtml">
       <publishTime>05/16/2016 09:16:37</publishTime>
     </File>
     <File Include="Views/Expert/List.cshtml">
-      <publishTime>06/13/2016 18:49:37</publishTime>
+      <publishTime>06/15/2016 14:39:53</publishTime>
     </File>
     <File Include="Views/Expert/List1.cshtml">
       <publishTime>06/13/2016 18:49:37</publishTime>
@@ -3748,7 +3757,7 @@
       <publishTime>06/12/2016 09:40:38</publishTime>
     </File>
     <File Include="Views/Fruits/List.cshtml">
-      <publishTime>06/13/2016 21:44:35</publishTime>
+      <publishTime>06/15/2016 17:12:58</publishTime>
     </File>
     <File Include="Views/Fruits/List1.cshtml">
       <publishTime>06/12/2016 09:40:38</publishTime>
@@ -3760,19 +3769,19 @@
       <publishTime>06/12/2016 09:40:38</publishTime>
     </File>
     <File Include="Views/Home/Chapter.cshtml">
-      <publishTime>06/13/2016 20:58:07</publishTime>
+      <publishTime>06/15/2016 14:56:16</publishTime>
     </File>
     <File Include="Views/Home/Chapter1.cshtml">
       <publishTime>06/12/2016 09:40:38</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
-      <publishTime>06/13/2016 11:31:18</publishTime>
+      <publishTime>06/15/2016 16:14:17</publishTime>
     </File>
     <File Include="Views/Home/Contact1.cshtml">
       <publishTime>06/12/2016 09:40:38</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>06/13/2016 20:59:11</publishTime>
+      <publishTime>06/15/2016 18:39:13</publishTime>
     </File>
     <File Include="Views/Home/Index1.cshtml">
       <publishTime>06/13/2016 20:58:07</publishTime>
@@ -3781,7 +3790,7 @@
       <publishTime>05/11/2016 14:43:23</publishTime>
     </File>
     <File Include="Views/Home/Organization.cshtml">
-      <publishTime>06/13/2016 20:58:07</publishTime>
+      <publishTime>06/15/2016 14:56:31</publishTime>
     </File>
     <File Include="Views/Home/Organization1.cshtml">
       <publishTime>06/12/2016 09:40:38</publishTime>
@@ -3796,7 +3805,7 @@
       <publishTime>05/18/2016 22:02:29</publishTime>
     </File>
     <File Include="Views/Product/Detail.cshtml">
-      <publishTime>06/13/2016 20:58:07</publishTime>
+      <publishTime>06/15/2016 16:45:51</publishTime>
     </File>
     <File Include="Views/Product/Detail1.cshtml">
       <publishTime>05/19/2016 09:52:35</publishTime>
@@ -3808,7 +3817,7 @@
       <publishTime>05/19/2016 09:52:35</publishTime>
     </File>
     <File Include="Views/Product/List.cshtml">
-      <publishTime>06/13/2016 20:58:07</publishTime>
+      <publishTime>06/15/2016 14:56:48</publishTime>
     </File>
     <File Include="Views/Product/List1.cshtml">
       <publishTime>05/19/2016 12:57:44</publishTime>
@@ -3835,7 +3844,7 @@
       <publishTime>05/17/2016 09:01:31</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>06/13/2016 20:59:05</publishTime>
+      <publishTime>06/15/2016 13:54:03</publishTime>
     </File>
     <File Include="Views/Shared/_Layout1.cshtml">
       <publishTime>05/19/2016 09:57:58</publishTime>

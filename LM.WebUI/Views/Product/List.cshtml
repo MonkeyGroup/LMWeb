@@ -64,12 +64,13 @@
         }
 
         <div class="slide1">
-            <br />
-            <span class="slide_title">关注联盟微信</span>
             <div class="slide_qr">
                 <img src="/Content/images2/home_qr.jpg" width="80%" style="margin: auto auto;" />
             </div>
+            <span class="slide_title">关注联盟微信</span>
+            <br />
         </div>
+
         <div class="top">
             <h3>联盟简报</h3>
         </div>
@@ -77,7 +78,7 @@
             @foreach (var b in briefs)
             {
             <li>
-                <a href="@(b.FilePath)">@(b.Name)</a>
+                <a href="@(b.FilePath)" target="_blank">@(b.Name)</a>
             </li>
             }
         </ul>
@@ -103,7 +104,7 @@
                         <div class="detailed">
                             <p>名称：@item.Name</p>
                             <p>级别：@item.Level</p>
-                            <p>状体：@item.State</p>
+                            <p>企业：@item.Company</p>
                             <p>应用：@item.Application</p>
                         </div>
                     </div>

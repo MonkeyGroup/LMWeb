@@ -26,15 +26,16 @@
             idlist.push(id);
         }
         slide(imglist, idlist);
-
-        // 加载默认的专家信息
-        showIt($('#defaultExpert').val());
     });
 </script>
 
 <script>
     // 异步刷新页面
     function showIt(id) {
+        // 隐藏默认页面
+        $('#defaultPage').hide();
+        $('#detail').show();
+        // 刷新专家详情
         var ajax = {
             url: '/Expert/Detail',
             data: JSON.stringify({ id: id }),
@@ -72,15 +73,15 @@
         <div class="expert_menu">
             <div id="firstpane" class="menu_list">
 
-                <h3 class="menu_head current" style="font-size: 16px;">@ExpertRange.专家委员会组长</h3>
-                <div style="display: block" class="menu_body">
+                <h3 class="menu_head @*current*@" style="font-size: 16px;">@ExpertRange.专家委员会组长</h3>
+                <div style="display: none;" class="menu_body">
                     @foreach (var ex in list.Where(e => e.Range == ExpertRange.专家委员会组长))
                     {
                         if (eindex++ == 0)
                         {
-                    <input id="defaultExpert" type="hidden" value="@ex.Id" />
+                            <input id="defaultExpert" type="hidden" value="@ex.Id" />
                         }
-                    <a href="javascript:void(0);" onclick="showIt(@ex.Id)">@ex.Name</a>
+                        <a href="javascript:void(0);" onclick="showIt(@ex.Id)">@ex.Name</a>
                     }
                 </div>
 
@@ -88,7 +89,7 @@
                 <div style="display: none;" class="menu_body">
                     @foreach (var ex in list.Where(e => e.Range == ExpertRange.专家委员会副组长))
                     {
-                    <a href="javascript:void(0);" onclick="showIt(@ex.Id)">@ex.Name</a>
+                        <a href="javascript:void(0);" onclick="showIt(@ex.Id)">@ex.Name</a>
                     }
                 </div>
 
@@ -96,7 +97,7 @@
                 <div style="display: none;" class="menu_body">
                     @foreach (var ex in list.Where(e => e.Range == ExpertRange.专家委员会成员))
                     {
-                    <a href="javascript:void(0);" onclick="showIt(@ex.Id)">@ex.Name</a>
+                        <a href="javascript:void(0);" onclick="showIt(@ex.Id)">@ex.Name</a>
                     }
                 </div>
 
@@ -161,9 +162,9 @@
         <ul class="news_left">
             @foreach (var a in dynamicArticles)
             {
-            <li>
-                <a href="/Article/Detail?id=@a.Id" target="_blank">@(a.Title)</a>
-            </li>
+                <li>
+                    <a href="/Article/Detail?id=@a.Id" target="_blank">@(a.Title)</a>
+                </li>
             }
         </ul>
     </div>
@@ -175,16 +176,113 @@
         <div class="nav_right">
             <span><img src="/Content/images2/home_轮播圆点蓝色.png" style="padding-right: 15px;">专家委员会</span>
         </div>
-        <div class="expert" style="text-align:center;">
-            <img id="expertImg" class="content_img" src="/Content/images2/home_新闻图片.jpg" />
-            <p id="expertName">专家委员会组长：段雪</p>
+
+        <div class="mycontent" id="defaultPage">
+            <div class="title">中国电子化工新材料产业联盟专家委员会专家名单</div>
+
+            <table style="max-width: 100%; width: 100%;">
+                <tr>
+                    <td class="expert_type" colspan="2">主&emsp;任：</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">段&emsp;雪</td>
+                    <td class="expert_desc">中国科学院院士&emsp;北京化工大学化工资源有效利用国家重点实验室主任</td>
+                </tr>
+
+                <tr>
+                    <td class="expert_type" colspan="2">副主任：</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">王治强</td>
+                    <td class="expert_desc">教授&emsp;&emsp;清华大学科研院副院长</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">李齐方</td>
+                    <td class="expert_desc">教授&emsp;&emsp;北京化工大学材料学院</td>
+                </tr>
+
+                <tr>
+                    <td class="expert_type" colspan="2">专家组成员：</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">杨国强</td>
+                    <td class="expert_desc">研究员/博导，中国科学院大学副校长，中科院化学所研究员</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">杨士勇</td>
+                    <td class="expert_desc">研究员/博导，中国科学院化学研究所高技术材料实验室主任</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">许振良</td>
+                    <td class="expert_desc">教授，华东理工大学化学工程研究所所长</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">于&emsp;洁</td>
+                    <td class="expert_desc">教授高工，华烁科技股份有限公司(原湖北省化学研究院)新型显示材料事业部总经理</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">赵海军</td>
+                    <td class="expert_desc">博士，IC领域专家，中芯国际执行副总裁兼首席运营官</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">薛建设</td>
+                    <td class="expert_desc">教授级高工，京东方科技集团股份有限公司显示技术研究院总监</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">徐&emsp;伟</td>
+                    <td class="expert_desc">集成电路专家，上海华虹宏力半导体制造有限公司副总裁</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">向传义</td>
+                    <td class="expert_desc">博士，平板显示专家，天马微电子集团有机发光总经理</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">张&emsp;玮</td>
+                    <td class="expert_desc">平板显示专家，深圳市华星光电技术有限公司技术总监</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">叶向荣</td>
+                    <td class="expert_desc">博士，国家千人计划特聘专家，巨化集团公司</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">孙福楠</td>
+                    <td class="expert_desc">教授级高工，电子气体专家，中昊光明化工研究设计院总工程师</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">周远建</td>
+                    <td class="expert_desc">副主任，中蓝晨光化工研究设计院有限公司，氟硅有机材料专家</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">张建君</td>
+                    <td class="expert_desc">教授级高工，浙江省化工研究院有限公司，氟硅材料专家</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">张景利</td>
+                    <td class="expert_desc">教授级高工，黎明化工研究设计院有限责任公司厂长 </td>
+                </tr>
+                <tr>
+                    <td class="expert_name">周晓猛</td>
+                    <td class="expert_desc">教授，南开大学环境科学研究院，环保专家</td>
+                </tr>
+                <tr>
+                    <td class="expert_name">周泽义</td>
+                    <td class="expert_desc">博士/研究员，中国计量科学研究院，计量分析专家</td>
+                </tr>
+            </table>
         </div>
-        <div class="mycontent">
-            介绍：
-            <p id="expertDesc">束带结发历史的开发了斯柯达加福禄寿凯迪拉克是大飞；石岛聚福林；可接受的老放假啦。四六级的弗兰克水电费。了束带结发历史的发，死定了空间发上来的咖啡机收代理费。</p>
-            <br />
-            成果：
-            <p id="expertBooks">束带结发历史的附件里看了看说剪短发了康师傅，石岛聚福林是开发及。大姐夫老数据的发链接，是来得及发了圣诞节饭。</p>
+
+        <div id="detail" style="display: none;">
+            <div class="expert" style="text-align:center;">
+                <img id="expertImg" class="content_img" src="" />
+                <p id="expertName"></p>
+            </div>
+            <div class="mycontent">
+                介绍：
+                <p id="expertDesc"></p>
+                <br />
+                成果：
+                <p id="expertBooks"></p>
+            </div>
         </div>
     </div>
 </div>
@@ -193,9 +291,9 @@
 <!--菜单的js和css-->
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#firstpane .menu_body:eq(0)").show();
+        //$("#firstpane .menu_body:eq(0)").show();
         $("#firstpane h3.menu_head").click(function () {
-            $(this).addClass("current").next("div.menu_body").slideToggle(100).siblings("div.menu_body").slideUp("slow");
+            $(this).addClass("current").next("div.menu_body").slideToggle(200).siblings("div.menu_body").slideUp("slow");
             $(this).siblings().removeClass("current");
         });
     });

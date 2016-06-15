@@ -265,7 +265,7 @@
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Content\css2\imgSlide.css" />
-    <Content Include="Content\css2\index.css" />
+    <Content Include="Content\css2\index1.css" />
     <Content Include="Content\css2\专家委员会.css" />
     <Content Include="Content\css2\产品介绍.css" />
     <Content Include="Content\css2\产品展示.css" />
@@ -292,8 +292,6 @@
     <Content Include="Content\css\联盟成果.css" />
     <Content Include="Content\css\联盟简报.css" />
     <Content Include="Content\css\联系我们.css" />
-    <Content Include="Content\images2\2118b59.jpg" />
-    <Content Include="Content\images2\flash.png" />
     <Content Include="Content\images2\home_cptj_01.jpg" />
     <Content Include="Content\images2\home_cptj_02.jpg" />
     <Content Include="Content\images2\home_cptj_03.jpg" />
@@ -328,6 +326,7 @@
     <Content Include="Content\images2\下_1.png" />
     <Content Include="Content\images2\下.png" />
     <Content Include="Content\images2\下_2.png" />
+    <Content Include="Content\images2\关于联盟_联盟组织.JPG" />
     <Content Include="Content\images2\关于联盟_联盟组织.png" />
     <Content Include="Content\images2\右_1.png" />
     <Content Include="Content\images2\右.png" />
@@ -1191,7 +1190,7 @@
     <Content Include="Content\css\about1.css" />
     <Content Include="Content\css\footer.css" />
     <Content Include="Content\css\header.css" />
-    <Content Include="Content\css\index.css" />
+    <Content Include="Content\css2\index.css" />
     <Content Include="Content\css\nav.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\tb.css" />
