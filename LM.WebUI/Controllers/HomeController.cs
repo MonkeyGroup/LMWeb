@@ -80,7 +80,7 @@ namespace LM.WebUI.Controllers
                     logos = rs1.Data as List<CompanyModel>;
                 }
                 // 上下游企业
-                var rs2 = companyService.GetList("select Id,Name,Type,Site,SaveAt from [Company] order by Id asc");
+                var rs2 = companyService.GetList("select * from [Company] order by CIndex desc, [Index] desc");
                 //var rs2 = companyService.GetList("select a.*, b.[Index] ShowIndex  from [Company] a inner join [Category] b on a.Range = b.Id order by [Index] desc,ShowIndex desc");
                 if (rs2.Status && rs2.Data != null)
                 {

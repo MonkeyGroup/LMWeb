@@ -31,10 +31,14 @@ namespace LM.Model.Model
         public DateTime SaveAt { get; set; }
 
         /// <summary>
-        ///  排序优先级
+        ///  Logo 排序优先级
         /// </summary>
         public int Index { get; set; }
 
+        /// <summary>
+        ///  分类排序优先级
+        /// </summary>
+        public int CIndex { get; set; }
     }
 
 

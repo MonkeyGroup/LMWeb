@@ -42,7 +42,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                             SaveAt = DateTime.Now,
                             Range = entity.Range,
                             RangeName = entity.RangeName,
-                            Index = entity.Index
+                            Index = entity.Index,
+                            CIndex = entity.CIndex,
                         };
                     }
                 }
@@ -86,7 +87,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         SaveAt = DateTime.Now,
                         Range = model.Range,
                         RangeName = model.RangeName,
-                        Index = model.Index
+                        Index = model.Index,
+                        CIndex = model.CIndex,
                     });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "修改成功！" : "修改失败！" };
                     companyService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "修改成功！" : "修改失败！", "成员修改页") });
@@ -104,7 +106,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         SaveAt = DateTime.Now,
                         Range = model.Range,
                         RangeName = model.RangeName,
-                        Index = model.Index
+                        Index = model.Index,
+                        CIndex = model.CIndex,
                     });
                     respModel = new JsonRespModel { status = svs.Status, message = svs.Status ? "新建成功！" : "新建失败！" };
                     companyService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", svs.Status ? "新建成功！" : "新建失败！", "成员新建页") });
@@ -155,8 +158,8 @@ namespace LM.WebUI.Areas.Admin.Controllers
                 }
 
                 psize = AppSettingHelper.GetInt("PageSize") != 0 ? AppSettingHelper.GetInt("PageSize") : psize;
-                var query = string.Format(@"(select a.*,b.[Index] ShowIndex  from [Company] a inner join [Category] b on a.Range = b.Id {0})", where);
-                var rs = companyService.GetByPage(query, "ShowIndex desc, [Index] desc", pindex, psize, out itemCount);
+                var query = string.Format(@"(select a.*,b.[Index] RangeIndex  from [Company] a inner join [Category] b on a.Range = b.Id {0})", where);
+                var rs = companyService.GetByPage(query, "RangeIndex desc, [CIndex] desc, [Index] desc", pindex, psize, out itemCount);
                 models = rs.Status ? rs.Data as List<CompanyModel> : new List<CompanyModel>();
                 companyService.WriteLog(new OperationLog { User = CurrentUser.UserName, Ip = HttpContext.Request.UserHostAddress, Operation = string.Format("{1}，{0}", rs.Status ? "查询成功！" : "查询失败！", "成员列表页") });
             }

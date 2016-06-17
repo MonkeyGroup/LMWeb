@@ -97,6 +97,7 @@
             Site: $('#site').val(),
             LogoSrc: $('#logoSrc').val(),
             Range: $('#range').val(),
+            CIndex: $('#cindex').val(),
             Index: $('#index').val(),
             RangeName: $('#range').find("option:selected").text(),
             Description: editor.html()
@@ -211,9 +212,15 @@
                 </td>
             </tr>
             <tr>
-                <td width="90" align="right">显示优先级</td>
+                <td width="90" align="right">分类显示优先级</td>
                 <td>
-                    <input type="text" id="index" value="@(model.Index)" size="17" class="inpMain" />（优先级越高越先显示，优先级为0的企业将不会显示在首页 logo 处）
+                    <input type="text" id="cindex" value="@(model.CIndex)" size="17" class="inpMain" />（相同领域下，优先级越高，越先显示）
+                </td>
+            </tr>
+            <tr>
+                <td width="90" align="right">Logo显示优先级</td>
+                <td>
+                    <input type="text" id="index" value="@(model.Index)" size="17" class="inpMain" />（相同头衔下，优先级越高，越先显示；优先级为0的企业将不会显示在首页 logo 区）
                 </td>
             </tr>
             <tr>
