@@ -49,6 +49,15 @@ namespace LM.Service.Filter
                 {
                     logPath = "D://";
                 }
+                else if (Directory.Exists("E://"))
+                {
+                    logPath = "E://";
+                }
+                else if (Directory.Exists("F://"))
+                {
+                    logPath = "F://";
+                }
+
                 LogHelper.WriteLogByIo(sb.ToString(), logPath);
 
                 filterContext.ExceptionHandled = true;
