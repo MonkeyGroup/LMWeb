@@ -11,8 +11,8 @@
 
     var briefs = ViewBag.Briefs as List<BriefModel>;
 }
-@Html.RenderCss("/Content/css2/产品展示.css")
-@Html.RenderCss("/Content/css2/关于联盟.css")
+@Html.RenderCss("/Content/css/productShow.css")
+@Html.RenderCss("/Content/css/about.css")
 @Html.RenderScript("/Areas/Admin/Content/js/laypage/laypage.js")
 @section partialScriptCss{
     <script>
@@ -89,7 +89,7 @@
             当前位置：首页 > 产品展示 > @typeList.FirstOrDefault(t => t.Id == type).Name
         </div>
         <div class="nav_right">
-            <span><img src="/Content/images2/home_轮播圆点蓝色.png" style="padding-right: 15px;">@typeList.FirstOrDefault(t => t.Id == type).Name</span>
+            <span><img src="/Content/images2/home_bluedot.png" style="padding-right: 15px;">@typeList.FirstOrDefault(t => t.Id == type).Name</span>
         </div>
 
         <div class="mycontent">

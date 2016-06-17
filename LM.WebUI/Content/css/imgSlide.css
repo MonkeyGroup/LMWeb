@@ -45,13 +45,13 @@
     .imgSlide .LeftBotton {
         background-position: 0 0;
         margin: 8px 5px 0px 0px;
-        background: url(home_×ó°´Å¥.png) no-repeat;
+        background: url(home_btnLeft.png) no-repeat;
     }
 
     .imgSlide .RightBotton {
         /*background-position: 0 -100px;*/
         margin: 8px 0px 10px 5px;
-        background: url(home_ÓÒ°´Å¥.png) no-repeat;
+        background: url(home_btnRight.png) no-repeat;
         float: right;
     }
 

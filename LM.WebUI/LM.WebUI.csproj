@@ -202,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -245,7 +246,6 @@
     <Content Include="Areas\Admin\Content\js\My97DatePicker\WdatePicker.js" />
     <Content Include="Areas\Admin\Views\Home\UserList.cshtml" />
     <Content Include="Areas\Admin\Views\Home\User.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\List.cshtml" />
     <Content Include="Areas\Admin\Views\Expert\Expert.cshtml" />
     <Content Include="Areas\Admin\Views\Expert\List.cshtml" />
     <Content Include="Areas\Admin\Views\Home\BriefList.cshtml" />
@@ -255,43 +255,22 @@
     <Content Include="Areas\Admin\Views\Shared\_Preview.cshtml" />
     <Content Include="Areas\Admin\Views\Fruits\List.cshtml" />
     <Content Include="Areas\Admin\Views\Fruits\Fruits.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Product2.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\List2.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Product.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\List.cshtml" />
     <Content Include="Areas\Admin\Views\Ad\List.cshtml" />
     <Content Include="Areas\Admin\Views\Ad\Ad.cshtml" />
+    <Content Include="Content\css\search.css" />
     <Content Include="Content\doc\中国电子化工新材料产业联盟科研成果发布资料表.docx" />
     <None Include="log4net.config">
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Content\css2\imgSlide.css" />
-    <Content Include="Content\css2\index1.css" />
-    <Content Include="Content\css2\专家委员会.css" />
-    <Content Include="Content\css2\产品介绍.css" />
-    <Content Include="Content\css2\产品展示.css" />
-    <Content Include="Content\css2\产品展示2.css" />
-    <Content Include="Content\css2\关于联盟.css" />
-    <Content Include="Content\css2\文章详细.css" />
-    <Content Include="Content\css2\科研成果.css" />
-    <Content Include="Content\css2\科研成果内页.css" />
-    <Content Include="Content\css2\联盟动态.css" />
-    <Content Include="Content\css2\联盟成员.css" />
-    <Content Include="Content\css2\联盟成员单位信息.css" />
-    <Content Include="Content\css2\联盟简介.css" />
-    <Content Include="Content\css2\联系我们.css" />
-    <Content Include="Content\css\dynamic.css" />
-    <Content Include="Content\css\experts.css" />
     <Content Include="Content\css\imgSlide.css" />
-    <Content Include="Content\css\members.css" />
-    <Content Include="Content\css\product_show1.css" />
-    <Content Include="Content\css\product_show2.css" />
-    <Content Include="Content\css\信息阅览.css" />
-    <Content Include="Content\css\入盟申请.css" />
-    <Content Include="Content\css\关于联盟.css" />
-    <Content Include="Content\css\联盟成员.css" />
-    <Content Include="Content\css\联盟成果.css" />
-    <Content Include="Content\css\联盟简报.css" />
-    <Content Include="Content\css\联系我们.css" />
+    <Content Include="Content\css\productDetail.css" />
+    <Content Include="Content\css\productShow.css" />
+    <Content Include="Content\css\about.css" />
+    <Content Include="Content\css\article.css" />
+    <Content Include="Content\css\fruitsDetail.css" />
     <Content Include="Content\images2\home_cptj_01.jpg" />
     <Content Include="Content\images2\home_cptj_02.jpg" />
     <Content Include="Content\images2\home_cptj_03.jpg" />
@@ -303,39 +282,16 @@
     <Content Include="Content\images2\home_logo.png" />
     <Content Include="Content\images2\home_qr.jpg" />
     <Content Include="Content\images2\home_search.png" />
-    <Content Include="Content\images2\home_产品推荐.png" />
-    <Content Include="Content\images2\home_右按钮.png" />
-    <Content Include="Content\images2\home_合作企业.png" />
-    <Content Include="Content\images2\home_圆点.png" />
-    <Content Include="Content\images2\home_左按钮.png" />
-    <Content Include="Content\images2\home_新闻图片.jpg" />
-    <Content Include="Content\images2\home_特别关注.png" />
-    <Content Include="Content\images2\home_联盟动态.png" />
-    <Content Include="Content\images2\home_联盟动态_灰色.png" />
-    <Content Include="Content\images2\home_联盟应用领域企业.png" />
-    <Content Include="Content\images2\home_联盟材料领域企业.png" />
-    <Content Include="Content\images2\home_联盟科研协会.png" />
-    <Content Include="Content\images2\home_联盟要闻.png" />
-    <Content Include="Content\images2\home_行业信息.png" />
-    <Content Include="Content\images2\home_行业信息_灰色.png" />
-    <Content Include="Content\images2\home_轮播圆点.png" />
-    <Content Include="Content\images2\home_轮播圆点蓝色.png" />
+    <Content Include="Content\images2\home_btnRight.png" />
+    <Content Include="Content\images2\home_dot.png" />
+    <Content Include="Content\images2\home_btnLeft.png" />
+    <Content Include="Content\images2\home_defaultnews.jpg" />
+    <Content Include="Content\images2\home_bluedot.png" />
     <Content Include="Content\images2\logo.ico" />
-    <Content Include="Content\images2\上_1.png" />
-    <Content Include="Content\images2\上.png" />
-    <Content Include="Content\images2\下_1.png" />
-    <Content Include="Content\images2\下.png" />
-    <Content Include="Content\images2\下_2.png" />
-    <Content Include="Content\images2\关于联盟_联盟组织.JPG" />
-    <Content Include="Content\images2\关于联盟_联盟组织.png" />
-    <Content Include="Content\images2\右_1.png" />
-    <Content Include="Content\images2\右.png" />
-    <Content Include="Content\images2\左_1.png" />
-    <Content Include="Content\images2\左.png" />
-    <Content Include="Content\images2\左_2.png" />
-    <Content Include="Content\images2\首页_flash.jpg" />
-    <Content Include="Content\images2\首页_产品推荐分割线.png" />
-    <Content Include="Content\images2\首页_分割线.png" />
+    <Content Include="Content\images2\arrowDown.png" />
+    <Content Include="Content\images2\about_organization.JPG" />
+    <Content Include="Content\images2\arrowLeft.png" />
+    <Content Include="Content\images2\home_flash.jpg" />
     <Content Include="Content\images\download.gif" />
     <Content Include="Content\images\foot2.png" />
     <Content Include="Content\images\foot3.png" />
@@ -358,24 +314,10 @@
     <Content Include="Content\js\imgSlide.js" />
     <Content Include="Content\js\jquery.kxbdmarquee.js" />
     <Content Include="Content\js\utility.js" />
-    <Content Include="Views\Home\Chapter1.cshtml" />
-    <Content Include="Views\Home\Organization1.cshtml" />
-    <Content Include="Views\Home\Notice.cshtml" />
-    <Content Include="Views\Home\Process1.cshtml" />
-    <Content Include="Views\Article\InfoList1.cshtml" />
-    <Content Include="Views\Article\Detail1.cshtml" />
-    <Content Include="Views\Company\List1.cshtml" />
-    <Content Include="Views\Company\Detail1.cshtml" />
     <Content Include="Views\Product\List.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
-    <Content Include="Views\Expert\List1.cshtml" />
-    <Content Include="Views\Article\BriefList1.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <None Include="Properties\PublishProfiles\LMWeb.pubxml" />
-    <Content Include="Views\Fruits\List1.cshtml" />
-    <Content Include="Views\Fruits\Detail1.cshtml" />
-    <Content Include="Views\Product\List1.cshtml" />
-    <Content Include="Views\Product\Detail1.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
@@ -387,7 +329,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Article\BriefList.cshtml" />
     <Content Include="Views\Article\InfoList.cshtml" />
-    <Content Include="Views\Article\PerfomList.cshtml" />
     <Content Include="Views\Fruits\List.cshtml" />
     <Content Include="Views\Article\Detail.cshtml" />
     <Content Include="Views\Fruits\Detail.cshtml" />
@@ -636,7 +577,6 @@
     <Content Include="Areas\Admin\Content\images\yulan-.jpg" />
     <Content Include="Areas\Admin\Content\images\yulan.jpg" />
     <Content Include="Areas\Admin\Content\images\zhuye1_1.jpg" />
-    <Content Include="Areas\Admin\Content\images\模版下载.jpg" />
     <Content Include="Areas\Admin\Content\js\cloud.js" />
     <Content Include="Areas\Admin\Content\js\global.js" />
     <Content Include="Areas\Admin\Content\js\jquery-1.9.1.js" />
@@ -1186,15 +1126,7 @@
     <Content Include="Areas\Admin\Content\js\UEditor\ueditor.config.js" />
     <Content Include="Areas\Admin\Content\js\UEditor\ueditor.parse.js" />
     <Content Include="Areas\Admin\Content\js\UEditor\ueditor.parse.min.js" />
-    <Content Include="Content\css\about.css" />
-    <Content Include="Content\css\about1.css" />
-    <Content Include="Content\css\footer.css" />
-    <Content Include="Content\css\header.css" />
-    <Content Include="Content\css2\index.css" />
-    <Content Include="Content\css\nav.css" />
-    <Content Include="Content\css\style.css" />
-    <Content Include="Content\css\tb.css" />
-    <Content Include="Content\css\tpqh.css" />
+    <Content Include="Content\css\index.css" />
     <Content Include="Content\images\20160321143707.jpg" />
     <Content Include="Content\images\2118b59.jpg" />
     <Content Include="Content\images\barbg01.png" />
@@ -1264,61 +1196,6 @@
     <Content Include="Content\js\slide.js" />
     <Content Include="Content\js\tab.js" />
     <Content Include="Content\js\xtqh_js.js" />
-    <Content Include="Content\swf\flash.swf" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
-    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
-    <Content Include="Content\themes\base\jquery.ui.all.css" />
-    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
-    <Content Include="Content\themes\base\jquery.ui.base.css" />
-    <Content Include="Content\themes\base\jquery.ui.button.css" />
-    <Content Include="Content\themes\base\jquery.ui.core.css" />
-    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
-    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
-    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
-    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
-    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
-    <Content Include="Content\themes\base\jquery.ui.slider.css" />
-    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
-    <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
@@ -1330,13 +1207,8 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\About1.cshtml" />
-    <Content Include="Views\Home\Contact1.cshtml" />
-    <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1375,12 +1247,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_Header1.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Footer1.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Admin\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1391,9 +1257,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Shared\_Main.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Article\PerfomList1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Home\HomeConfig.cshtml" />
@@ -1495,7 +1358,6 @@
     <Content Include="Areas\Admin\Content\js\kindeditor\php\upload_json.php" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Product\Product.cshtml" />
     <Content Include="Areas\Admin\Views\Company\List.cshtml" />
     <Content Include="Areas\Admin\Views\Company\Company.cshtml" />
     <Content Include="Areas\Admin\Views\Home\OpLogList.cshtml" />

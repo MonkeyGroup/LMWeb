@@ -44,27 +44,6 @@ namespace LM.WebUI.Areas.Admin.Controllers
                             Company = entity.Company,
                             Description = entity.Description,
 
-                            //Company1Name = entity.Company1Name,
-                            //Company1Phone = entity.Company1Phone,
-                            //Company1Fax = entity.Company1Fax,
-                            //Company1Email = entity.Company1Email,
-                            //Company1Linkman = entity.Company1Linkman,
-
-                            //Company2Name = entity.Company2Name,
-                            //Company2Phone = entity.Company2Phone,
-                            //Company2Fax = entity.Company2Fax,
-                            //Company2Email = entity.Company2Email,
-                            //Company2Linkman = entity.Company2Linkman,
-
-                            //Company3Name = entity.Company3Name,
-                            //Company3Phone = entity.Company3Phone,
-                            //Company3Fax = entity.Company3Fax,
-                            //Company3Email = entity.Company3Email,
-                            //Company3Linkman = entity.Company3Linkman,
-
-                            //Description1 = entity.Description1,
-                            //Description2 = entity.Description2,
-                            //Description3 = entity.Description3,
                             SaveAt = DateTime.Now,
                             ImgSrc = entity.ImgSrc
                         };
@@ -85,7 +64,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
             ViewBag.Product = model;
             ViewBag.CatList = catList;
             ViewBag.Nav = "ProductList";
-            return View("Product2");
+            return View();
         }
 
 
@@ -137,7 +116,7 @@ namespace LM.WebUI.Areas.Admin.Controllers
             ViewBag.CatList = catList;
             ViewBag.PageInfo = new PageInfo(pindex, psize, itemCount, (itemCount % psize == 0) ? (itemCount / psize) : (itemCount / psize + 1));
             ViewBag.Nav = "ProductList";
-            return View("List2");
+            return View();
         }
 
 
@@ -165,27 +144,6 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         Company = model.Company,
                         Description = model.Description.StartsWith("<") ? model.Description : string.Format("{0}{1}{2}", "<p>", model.Description, "</p>"),
 
-                        //Company1Name = model.Company1Name,
-                        //Company1Phone = model.Company1Phone,
-                        //Company1Fax = model.Company1Fax,
-                        //Company1Email = model.Company1Email,
-                        //Company1Linkman = model.Company1Linkman,
-
-                        //Company2Name = model.Company2Name,
-                        //Company2Phone = model.Company2Phone,
-                        //Company2Fax = model.Company2Fax,
-                        //Company2Email = model.Company2Email,
-                        //Company2Linkman = model.Company2Linkman,
-
-                        //Company3Name = model.Company3Name,
-                        //Company3Phone = model.Company3Phone,
-                        //Company3Fax = model.Company3Fax,
-                        //Company3Email = model.Company3Email,
-                        //Company3Linkman = model.Company3Linkman,
-
-                        //Description1 = model.Description1,
-                        //Description2 = model.Description2,
-                        //Description3 = model.Description3,
                         SaveAt = DateTime.Now,
                         ImgSrc = model.ImgSrc
                     });
@@ -207,27 +165,6 @@ namespace LM.WebUI.Areas.Admin.Controllers
                         Company = model.Company,
                         Description = model.Description.StartsWith("<") ? model.Description : string.Format("{0}{1}{2}", "<p>", model.Description, "</p>"),
 
-                        //Company1Name = model.Company1Name,
-                        //Company1Phone = model.Company1Phone,
-                        //Company1Fax = model.Company1Fax,
-                        //Company1Email = model.Company1Email,
-                        //Company1Linkman = model.Company1Linkman,
-
-                        //Company2Name = model.Company2Name,
-                        //Company2Phone = model.Company2Phone,
-                        //Company2Fax = model.Company2Fax,
-                        //Company2Email = model.Company2Email,
-                        //Company2Linkman = model.Company2Linkman,
-
-                        //Company3Name = model.Company3Name,
-                        //Company3Phone = model.Company3Phone,
-                        //Company3Fax = model.Company3Fax,
-                        //Company3Email = model.Company3Email,
-                        //Company3Linkman = model.Company3Linkman,
-
-                        //Description1 = model.Description1,
-                        //Description2 = model.Description2,
-                        //Description3 = model.Description3,
                         SaveAt = DateTime.Now,
                         ImgSrc = model.ImgSrc
                     });

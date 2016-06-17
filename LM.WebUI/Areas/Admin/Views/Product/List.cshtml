@@ -89,10 +89,10 @@
                 <select id="type" name="type">
                     <option value="0"> 未分类</option>
                     @*<option value="@((int) ProductType.特种气体)" @((int)ProductType.特种气体 + "" == type ? "selected" : "")> @ProductType.特种气体</option>
-                    <option value="@((int) ProductType.混电子化学品)" @((int)ProductType.混电子化学品 + "" == type ? "selected" : "")> @ProductType.混电子化学品</option>
-                    <option value="@((int) ProductType.封装材料)" @((int)ProductType.封装材料 + "" == type ? "selected" : "")> @ProductType.封装材料</option>
-                    <option value="@((int) ProductType.树脂)" @((int)ProductType.树脂 + "" == type ? "selected" : "")> @ProductType.树脂</option>
-                    <option value="@((int) ProductType.其他)" @((int)ProductType.其他 + "" == type ? "selected" : "")> @ProductType.其他</option>*@
+                        <option value="@((int) ProductType.混电子化学品)" @((int)ProductType.混电子化学品 + "" == type ? "selected" : "")> @ProductType.混电子化学品</option>
+                        <option value="@((int) ProductType.封装材料)" @((int)ProductType.封装材料 + "" == type ? "selected" : "")> @ProductType.封装材料</option>
+                        <option value="@((int) ProductType.树脂)" @((int)ProductType.树脂 + "" == type ? "selected" : "")> @ProductType.树脂</option>
+                        <option value="@((int) ProductType.其他)" @((int)ProductType.其他 + "" == type ? "selected" : "")> @ProductType.其他</option>*@
                     @foreach (var cat in catList)
                     {
                         <option value="@cat.Id" @(cat.Id == type ? "selected" : "")>@cat.Name</option>

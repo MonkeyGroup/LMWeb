@@ -50,7 +50,7 @@
 <div class="section">
     <div class="center_top">
         <div class="item1">
-            @*<img src="/Content/images2/home_新闻图片.jpg" width="100%" height="100%" />*@
+            @*<img src="/Content/images2/home_defaultnews.jpg" width="100%" height="100%" />*@
             <!--幻灯片-->
             <style>
                 .pic_list {
@@ -156,7 +156,7 @@
                 foreach (var item in briefs)
                 {
                     <p class="jianbao" title="@(item.Name)">
-                        <img src="/Content/images2/home_圆点.png" />
+                        <img src="/Content/images2/home_dot.png" />
                         <a href="@item.FilePath" target="_blank">@(item.Name)</a>
                     </p>
                 }
@@ -189,7 +189,7 @@
                             {
                                 <li>
                                     <div class="new2" title="@c.Title">
-                                        <img src="/Content/images2/home_圆点.png" />
+                                        <img src="/Content/images2/home_dot.png" />
                                         <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a>
                                     </div>
                                     <div class="news">[@c.SaveAt.ToString("yyyy-MM-dd")]</div>
@@ -222,7 +222,7 @@
                             {
                                 <li>
                                     <div class="new2" title="@c.Title">
-                                        <img src="/Content/images2/home_圆点.png" />
+                                        <img src="/Content/images2/home_dot.png" />
                                         <a href="/Article/Detail?id=@c.Id" target="_blank">@(c.Title.Length > 18 ? c.Title.Substring(0, 18) + "..." : c.Title)</a>
                                     </div>
                                     <div class="news">[@c.SaveAt.ToString("yyyy-MM-dd")]</div>
@@ -241,7 +241,7 @@
         </div>
         <div>
             <div class="imgSlide">
-                <a class="LeftBotton" style="background: url(/Content/images2/home_左按钮.png) no-repeat;" onmousedown="ISL_GoDown_1()" onmouseup="ISL_StopDown_1()" onmouseout="ISL_StopDown_1()"
+                <a class="LeftBotton" style="background: url(/Content/images2/home_btnLeft.png) no-repeat;" onmousedown="ISL_GoDown_1()" onmouseup="ISL_StopDown_1()" onmouseout="ISL_StopDown_1()"
                    href="javascript:void(0);" target="_self"></a>
                 <div class="pcont" id="ISL_Cont_1">
                     <div class="ScrCont">
@@ -258,7 +258,7 @@
                         <div id="List2_1" class="imgpane"></div>
                     </div>
                 </div>
-                <a class="RightBotton" style="background: url(/Content/images2/home_右按钮.png) no-repeat;" onmousedown="ISL_GoUp_1()" onmouseup="ISL_StopUp_1()" onmouseout="ISL_StopUp_1()"
+                <a class="RightBotton" style="background: url(/Content/images2/home_btnRight.png) no-repeat;" onmousedown="ISL_GoUp_1()" onmouseup="ISL_StopUp_1()" onmouseout="ISL_StopUp_1()"
                    href="javascript:void(0);" target="_self"></a>
             </div>
         </div>
