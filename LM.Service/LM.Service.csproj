@@ -62,7 +62,7 @@
     <Compile Include="Base\BaseService.cs" />
     <Compile Include="Base\ListReqModel.cs" />
     <Compile Include="Base\JsonRespModel.cs" />
-    <Compile Include="BootStrapIoC\UnityBootStrapper.cs" />
+    <Compile Include="IoC\UnityBootStrapper.cs" />
     <Compile Include="BriefService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="CompanyService.cs" />
